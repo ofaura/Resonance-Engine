@@ -4,7 +4,7 @@
 #include "ModuleRenderer3D.h"
 
 
-//#pragma comment (lib, "imgui-1.72b/examples/libs/glfw/lib-vc2010-32/glfw3.lib")
+#pragma comment (lib, "imgui-1.72b/examples/libs/glfw/lib-vc2010-32/glfw3.lib")
 
 
 ModuleGUI::ModuleGUI(Application * app, bool start_enabled) : Module(app, start_enabled)
@@ -40,9 +40,6 @@ bool ModuleGUI::Start()
 	return true;
 }
 
-update_status ModuleGUI::PreUpdate(float dt) {
-	return UPDATE_CONTINUE;
-}
 
 update_status ModuleGUI::Update(float dt)
 {
@@ -106,11 +103,11 @@ update_status ModuleGUI::Update(float dt)
 	// Rendering
 	ImGui::Render();
 	glViewport(0, 0, (int)test_io.DisplaySize.x, (int)test_io.DisplaySize.y);
-	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+	//glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 	glClear(GL_COLOR_BUFFER_BIT);
 	//glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-	SDL_GL_SwapWindow(App->window->window);
+	//SDL_GL_SwapWindow(App->window->window);
 
 	return UPDATE_CONTINUE;
 }
