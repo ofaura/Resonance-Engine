@@ -43,8 +43,6 @@ bool ModuleGUI::Start()
 
 update_status ModuleGUI::Update(float dt)
 {
-	bool show_demo_window = true;
-	bool show_another_window = false;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 	// Poll and handle events (inputs, window resize, etc.)
 		// You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
@@ -96,6 +94,15 @@ update_status ModuleGUI::Update(float dt)
 		ImGui::Text("Hello from another window!");
 		if (ImGui::Button("Close Me"))
 			show_another_window = false;
+		ImGui::End();
+	}
+
+	// Window to close the program
+	{
+		ImGui::Begin("Close Application", &show_close_app_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+		ImGui::Text("Hello from another window!");
+		if (ImGui::Button("Close App"))
+			return UPDATE_STOP;
 		ImGui::End();
 	}
 
