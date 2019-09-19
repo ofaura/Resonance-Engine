@@ -22,6 +22,9 @@
     <Filter Include="Sources\ImGui">
       <UniqueIdentifier>{ee88f8d1-350f-473c-bb33-cf5b261841bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\glew">
+      <UniqueIdentifier>{b193d212-d193-4da8-998d-92652f53db3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -108,6 +111,12 @@
     <ClInclude Include="ModuleGui.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="imgui-1.72b\examples\imgui_impl_opengl3.h">
+      <Filter>Sources\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\GL\glew.h">
+      <Filter>Sources\glew</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -178,6 +187,12 @@
     </ClCompile>
     <ClCompile Include="ModuleGui.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui-1.72b\examples\imgui_impl_opengl3.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="glew\src\glew.c">
+      <Filter>Sources\glew</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

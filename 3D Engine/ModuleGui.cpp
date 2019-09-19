@@ -3,8 +3,8 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 
-
 #pragma comment (lib, "imgui-1.72b/examples/libs/glfw/lib-vc2010-32/glfw3.lib")
+
 
 
 ModuleGUI::ModuleGUI(Application * app, bool start_enabled) : Module(app, start_enabled)
@@ -17,6 +17,7 @@ ModuleGUI::~ModuleGUI()
 
 bool ModuleGUI::Init()
 {
+
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	io = &ImGui::GetIO(); (void)io;
@@ -24,8 +25,7 @@ bool ModuleGUI::Init()
 	ImGui::StyleColorsDark();
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
-	ImGui_ImplOpenGL2_Init();
-
+	ImGui_ImplOpenGL3_Init();
 
 	bool show_another_window = false;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
@@ -36,6 +36,7 @@ bool ModuleGUI::Init()
 
 bool ModuleGUI::Start()
 {
+	glewInit();
 
 	return true;
 }
@@ -56,7 +57,7 @@ update_status ModuleGUI::Update(float dt)
 	}
 
 	// Start the Dear ImGui frame
-	ImGui_ImplOpenGL2_NewFrame();
+	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
@@ -99,8 +100,7 @@ update_status ModuleGUI::Update(float dt)
 
 	// Window to close the program
 	{
-		ImGui::Begin("Close Application", &show_close_app_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-		ImGui::Text("Hello from another window!");
+		ImGui::Begin(" ", &show_close_app_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
 		if (ImGui::Button("Close App"))
 			return UPDATE_STOP;
 		ImGui::End();
@@ -113,7 +113,8 @@ update_status ModuleGUI::Update(float dt)
 	//glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 	//glClear(GL_COLOR_BUFFER_BIT);
 	//glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
-	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 	//SDL_GL_SwapWindow(App->window->window);
 
 	return UPDATE_CONTINUE;

@@ -63,8 +63,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include "imgui.h"
-#include "imgui_impl_opengl3.h"
+#include "../imgui.h"
+#include "./imgui_impl_opengl3.h"
 #include <stdio.h>
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>     // intptr_t
@@ -98,13 +98,8 @@
 //  Helper libraries are often used for this purpose! Here we are supporting a few common ones (gl3w, glew, glad).
 //  You may use another loader/header of your choice (glext, glLoadGen, etc.), or chose to manually implement your own.
 #if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
-#include <GL/gl3w.h>    // Needs to be initialized with gl3wInit() in user's code
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLEW)
-#include <GL/glew.h>    // Needs to be initialized with glewInit() in user's code
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)
-#include <glad/glad.h>  // Needs to be initialized with gladLoadGL() in user's code
-#else
-#include IMGUI_IMPL_OPENGL_LOADER_CUSTOM
+#include "../../glew/include/GL/glew.h"
+
 #endif
 #endif
 
@@ -116,7 +111,7 @@
 #endif
 
 // OpenGL Data
-static char         g_GlslVersionString[32] = "";
+static char       g_GlslVersionString[32] = "";
 static GLuint       g_FontTexture = 0;
 static GLuint       g_ShaderHandle = 0, g_VertHandle = 0, g_FragHandle = 0;
 static int          g_AttribLocationTex = 0, g_AttribLocationProjMtx = 0;                                // Uniforms location
@@ -569,7 +564,6 @@ bool    ImGui_ImplOpenGL3_CreateDeviceObjects()
         vertex_shader = vertex_shader_glsl_130;
         fragment_shader = fragment_shader_glsl_130;
     }
-
     // Create shaders
     const GLchar* vertex_shader_with_version[2] = { g_GlslVersionString, vertex_shader };
     g_VertHandle = glCreateShader(GL_VERTEX_SHADER);
