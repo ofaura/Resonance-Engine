@@ -25,6 +25,12 @@
     <Filter Include="Sources\glew">
       <UniqueIdentifier>{b193d212-d193-4da8-998d-92652f53db3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\MathGeoLib">
+      <UniqueIdentifier>{68288c1f-d654-483b-86e5-e6fa78ddadb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\PCG">
+      <UniqueIdentifier>{d8e7dd81-f92c-4421-a840-48a3b2c64d81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -116,6 +122,24 @@
     </ClInclude>
     <ClInclude Include="glew\include\GL\glew.h">
       <Filter>Sources\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathBuildConfig.h">
+      <Filter>Sources\MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathGeoLib.h">
+      <Filter>Sources\MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
+      <Filter>Sources\MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="pcg-cpp-0.98\include\pcg_extras.hpp">
+      <Filter>Sources\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="pcg-cpp-0.98\include\pcg_random.hpp">
+      <Filter>Sources\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="pcg-cpp-0.98\include\pcg_uint128.hpp">
+      <Filter>Sources\PCG</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

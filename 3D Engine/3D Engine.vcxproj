@@ -89,6 +89,9 @@
     <ClInclude Include="imgui-1.72b\imstb_textedit.h" />
     <ClInclude Include="imgui-1.72b\imstb_truetype.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="MathGeoLib\include\MathBuildConfig.h" />
+    <ClInclude Include="MathGeoLib\include\MathGeoLib.h" />
+    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h" />
     <ClInclude Include="ModuleCamera3D.h" />
     <ClInclude Include="ModuleGui.h" />
     <ClInclude Include="ModulePhysics3D.h" />
@@ -101,6 +104,9 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="p2Point.h" />
+    <ClInclude Include="pcg-cpp-0.98\include\pcg_extras.hpp" />
+    <ClInclude Include="pcg-cpp-0.98\include\pcg_random.hpp" />
+    <ClInclude Include="pcg-cpp-0.98\include\pcg_uint128.hpp" />
     <ClInclude Include="PhysBody3D.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Timer.h" />
