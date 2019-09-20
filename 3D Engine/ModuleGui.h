@@ -1,7 +1,6 @@
 #ifndef __MODULEGUI_H__
 #define __MODULEGUI_H__
 
-
 #include "Globals.h"
 #include "Module.h"
 
@@ -11,8 +10,6 @@
 #include "imgui-1.72b/examples/imgui_impl_opengl3.h"
 
 #include "glew/include/GL/glew.h"
-
-#include "glut/glut.h"
 
 //#include "imgui-1.72b/examples/libs/glfw/include/GLFW/glfw3.h"
 //#include "imgui-1.72b/examples/libs/glfw/include/GLFW/glfw3native.h"
@@ -29,8 +26,9 @@ public:
 public:
 	bool Init();
 	bool Start();
+	void Draw();
+	
 	update_status Update(float dt);
-
 
 private:
 	ImGuiIO* io = nullptr;

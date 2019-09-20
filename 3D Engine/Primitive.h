@@ -1,5 +1,5 @@
-
 #pragma once
+
 #include "glmath.h"
 #include "Color.h"
 
@@ -53,7 +53,6 @@ class Sphere : public Primitive
 public:
 	Sphere();
 	Sphere(float radius);
-	void InnerRender() const;
 public:
 	float radius;
 };

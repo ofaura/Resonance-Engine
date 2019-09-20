@@ -5,8 +5,6 @@
 
 #pragma comment (lib, "imgui-1.72b/examples/libs/glfw/lib-vc2010-32/glfw3.lib")
 
-
-
 ModuleGUI::ModuleGUI(Application * app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -40,9 +38,17 @@ bool ModuleGUI::Start()
 	return true;
 }
 
+void ModuleGUI::Draw()
+{
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
 
 update_status ModuleGUI::Update(float dt)
 {
+	update_status ret = UPDATE_CONTINUE;
+
 	ImVec4 clear_color = ImVec4(0.15f, 0.15f, 0.15f, 0.50f);
 	// Poll and handle events (inputs, window resize, etc.)
 		// You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
@@ -103,21 +109,24 @@ update_status ModuleGUI::Update(float dt)
 		ImGui::SetNextWindowSize(ImVec2(100, 55));
 		ImGui::Begin(" ", &show_close_app_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
 		
-		if (ImGui::Button("Close App"))
-			return UPDATE_STOP;
+		if (ImGui::Button("Close App")) 
+		{
+			ret = UPDATE_STOP;
+		}
+
 		ImGui::End();
 	}
 
 	ImGuiIO& test_io = *io;
 	// Rendering
-	ImGui::Render();
+	Draw();
 	glViewport(0, 0, (int)test_io.DisplaySize.x, (int)test_io.DisplaySize.y);
 	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+	
 	//glClear(GL_COLOR_BUFFER_BIT);
 	//glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	//SDL_GL_SwapWindow(App->window->window);
 
-	return UPDATE_CONTINUE;
+	return ret;
 }
