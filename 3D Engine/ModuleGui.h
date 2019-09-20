@@ -11,9 +11,6 @@
 
 #include "glew/include/GL/glew.h"
 
-//#include "imgui-1.72b/examples/libs/glfw/include/GLFW/glfw3.h"
-//#include "imgui-1.72b/examples/libs/glfw/include/GLFW/glfw3native.h"
-
 
 class ModuleGUI : public Module
 {

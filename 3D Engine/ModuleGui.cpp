@@ -44,7 +44,6 @@ void ModuleGUI::Draw()
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-
 update_status ModuleGUI::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
@@ -65,6 +64,20 @@ update_status ModuleGUI::Update(float dt)
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
+
+	// Main Menu
+	if (ImGui::BeginMainMenuBar()) 
+	{
+		if (ImGui::BeginMenu("File")) 
+		{
+			if (ImGui::MenuItem("Quit", "Alt+F4"))
+				ret = UPDATE_STOP;
+			
+			ImGui::EndMenu();
+		}
+		ImGui::EndMainMenuBar();
+	}
+
 
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	if (show_demo_window)
@@ -103,19 +116,6 @@ update_status ModuleGUI::Update(float dt)
 		ImGui::End();
 	}
 
-	// Window to close the program
-	{
-		ImGui::SetNextWindowPos(ImVec2(10, 10));
-		ImGui::SetNextWindowSize(ImVec2(100, 55));
-		ImGui::Begin(" ", &show_close_app_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-		
-		if (ImGui::Button("Close App")) 
-		{
-			ret = UPDATE_STOP;
-		}
-
-		ImGui::End();
-	}
 
 	ImGuiIO& test_io = *io;
 	// Rendering
