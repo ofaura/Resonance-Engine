@@ -1,8 +1,7 @@
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
-
-ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
+#include "ModuleInput.h"
+ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module("Camera", start_enabled)
 {
 	CalculateViewMatrix();
 
@@ -30,7 +29,7 @@ bool ModuleCamera3D::Start()
 bool ModuleCamera3D::CleanUp()
 {
 	LOG("Cleaning camera");
-
+	
 	return true;
 }
 

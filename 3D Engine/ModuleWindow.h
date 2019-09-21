@@ -10,7 +10,7 @@ class ModuleWindow : public Module
 {
 public:
 
-	ModuleWindow(Application* app, bool start_enabled = true);
+	ModuleWindow(bool start_enabled = true);
 
 	// Destructor
 	virtual ~ModuleWindow();
@@ -19,6 +19,8 @@ public:
 	bool CleanUp();
 
 	void SetTitle(const char* title);
+
+	void GetWindowSize(int &width, int &height);
 
 public:
 	//The window we'll be rendering to

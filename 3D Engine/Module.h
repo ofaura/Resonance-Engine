@@ -1,6 +1,11 @@
 #ifndef __ModuleH__
 #define __ModuleH__
 
+#include "Globals.h"
+#include <string>
+
+using namespace std;
+
 class Application;
 
 class Module
@@ -9,10 +14,12 @@ private :
 	bool enabled;
 
 public:
-	Application* App;
+	string name;
 
-	Module(Application* parent, bool start_enabled = true) : App(parent)
-	{}
+	Module(const char* name, bool start_enabled = true) : name(name)
+	{
+		enabled = start_enabled;
+	}
 
 	virtual ~Module()
 	{}

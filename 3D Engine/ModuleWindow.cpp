@@ -1,8 +1,7 @@
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
 
-ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleWindow::ModuleWindow(bool start_enabled) : Module("Window", start_enabled)
 {
 	window = NULL;
 	screen_surface = NULL;
@@ -91,4 +90,9 @@ bool ModuleWindow::CleanUp()
 void ModuleWindow::SetTitle(const char* title)
 {
 	SDL_SetWindowTitle(window, title);
+}
+
+void ModuleWindow::GetWindowSize(int & width, int & height)
+{
+	SDL_GetWindowSize(window, &width, &height);
 }

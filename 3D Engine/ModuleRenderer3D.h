@@ -2,16 +2,16 @@
 #define __ModuleRenderer3D__
 
 #include "Module.h"
-#include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
+#include "glew/include/GL/glew.h"
 
 #define MAX_LIGHTS 8
 
 class ModuleRenderer3D : public Module
 {
 public:
-	ModuleRenderer3D(Application* app, bool start_enabled = true);
+	ModuleRenderer3D(bool start_enabled = true);
 	~ModuleRenderer3D();
 
 	bool Init();

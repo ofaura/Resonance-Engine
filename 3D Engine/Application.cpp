@@ -1,5 +1,12 @@
 #include "Application.h"
 
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleSceneIntro.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "EditorManager.h"
+
 Application::Application()
 {
 	window = new ModuleWindow(this);
@@ -7,7 +14,7 @@ Application::Application()
 	scene_intro = new ModuleSceneIntro(this);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
-	gui = new ModuleGUI(this);
+	editor = new EditorManager(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -20,14 +27,14 @@ Application::Application()
 	
 	// Scenes
 	AddModule(scene_intro);
-	AddModule(gui);
+	AddModule(editor);
 	// Renderer last!
 	AddModule(renderer3D);
 }
 
 Application::~Application()
 {
-	std::list<Module*>::iterator item = list_modules.begin();
+	list<Module*>::iterator item = list_modules.begin();
 
 	for (; item != list_modules.end(); item = next(item))
 	{
@@ -42,14 +49,14 @@ bool Application::Init()
 	bool ret = true;
 
 	// Call Init() in all modules
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; ++item)
+	for (list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; ++item)
 	{
 		ret = (*item)->Init();
 	}
 
 	// After all Init calls we call Start() in all modules
 	LOG("Application Start --------------");
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; ++item)
+	for (list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; ++item)
 	{
 		ret = (*item)->Start();
 	}
@@ -76,17 +83,17 @@ update_status Application::Update()
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 	
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; ++item) 
+	for (list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; ++item) 
 	{
 		ret = (*item)->PreUpdate(dt);
 	}
 
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; ++item)
+	for (list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; ++item)
 	{
 		ret = (*item)->Update(dt);
 	}
 	
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; ++item)
+	for (list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; ++item)
 	{
 		ret = (*item)->PostUpdate(dt);
 	}
@@ -100,7 +107,7 @@ bool Application::CleanUp()
 {
 	bool ret = true;
 
-	for (std::list<Module*>::reverse_iterator item = list_modules.rbegin(); item != list_modules.rend() && ret; ++item)
+	for (list<Module*>::reverse_iterator item = list_modules.rbegin(); item != list_modules.rend() && ret; ++item)
 	{
 		ret = (*item)->CleanUp();
 	}
