@@ -3122,7 +3122,7 @@ void ImGui::ShowStyleEditor(ImGuiStyle* ref)
 
     ImGui::PushItemWidth(ImGui::GetWindowWidth() * 0.50f);
 
-    if (ImGui::ShowStyleSelector("Colors##Selector"))
+   if (ImGui::ShowStyleSelector("Colors##Selector"))
         ref_saved_style = style;
     ImGui::ShowFontSelector("Fonts##Selector");
 

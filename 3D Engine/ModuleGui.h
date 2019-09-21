@@ -28,12 +28,16 @@ public:
 	update_status Update(float dt);
 
 private:
+	
 	ImGuiIO* io = nullptr;
 
 	bool show_demo_window = true;
 	bool show_another_window = false;
 	bool show_close_app_window = true;
+	bool show_style_editor = false;
 
+	void StyleEditor(ImGuiStyle* ref = NULL);
+	void HelpMarker(const char* desc);
 };
 
 #endif // !__MODULEGUI_H__
