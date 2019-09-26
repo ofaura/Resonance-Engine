@@ -7,7 +7,7 @@ class Hierarchy : public EditorElement
 {
 public:
 
-	Hierarchy();
+	Hierarchy(bool is_visible = true);
 	virtual ~Hierarchy();
 
 public:

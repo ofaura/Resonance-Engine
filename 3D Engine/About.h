@@ -7,7 +7,7 @@ class About : public EditorElement
 {
 public:
 
-	About();
+	About(bool is_visible = true);
 	virtual ~About();
 
 public:

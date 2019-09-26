@@ -7,7 +7,7 @@ class Configuration : public EditorElement
 {
 public:
 
-	Configuration();
+	Configuration(bool is_visible = true);
 	virtual ~Configuration();
 
 public:

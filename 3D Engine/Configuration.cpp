@@ -3,7 +3,7 @@
 #include "ModuleWindow.h"
 #include "glew/include/GL/glew.h"
 
-Configuration::Configuration() {}
+Configuration::Configuration(bool is_visible) : EditorElement(is_visible) {}
 
 Configuration::~Configuration() {}
 
@@ -37,10 +37,12 @@ void Configuration::Start()
 void Configuration::Draw()
 {
 	App->window->GetWindowSize(window_width, window_height);
-	ImGui::SetNextWindowPos(ImVec2(100, 18), ImGuiCond_Once);
+	ImGui::SetNextWindowPos(ImVec2(200, 18), ImGuiCond_Once);
 	ImGui::SetNextWindowSize(ImVec2((float)window_width / 5, (float)window_height - 18), ImGuiCond_Once);
 
-	if (ImGui::Begin("Configuration"))
+	if (!active) return;
+
+	if (ImGui::Begin("Configuration", &active, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		ImGui::SliderInt("Width", &width, 1, 1920);	
 		ImGui::SliderInt("Height", &height, 1, 1080);

@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 
-About::About() {}
+About::About(bool is_visible) : EditorElement(is_visible) {}
 
 About::~About() {}
 
@@ -12,7 +12,9 @@ void About::Start()
 
 void About::Draw()
 {
-	if (ImGui::Begin("About"), NULL, ImGuiWindowFlags_AlwaysAutoResize)
+	if (!active) return;
+
+	if (ImGui::Begin("About", &active, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse))
 	{
 		ImGui::Text("%s ", SDL_GetWindowTitle(App->window->window));
 		ImGui::Separator();

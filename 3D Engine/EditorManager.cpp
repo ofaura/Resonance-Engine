@@ -17,9 +17,9 @@ EditorManager::~EditorManager() {}
 
 bool EditorManager::Init()
 {
-	hierarchy = new Hierarchy();
-	configuration = new Configuration();
-	about = new About();
+	hierarchy = new Hierarchy(true);
+	configuration = new Configuration(true);
+	about = new About(false);
 
 	AddEditorElement(hierarchy);
 	AddEditorElement(configuration);
@@ -124,9 +124,8 @@ update_status EditorManager::Update(float dt)
 			if (ImGui::MenuItem("Report a bug"))
 				ShellExecuteA(NULL, "open", "https://github.com/ofaura/3D-Engine/issues", NULL, NULL, SW_SHOWNORMAL);
 
-			if (ImGui::MenuItem("About")) {}
-
-
+			ImGui::MenuItem("About", NULL, &about->active);
+			
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();

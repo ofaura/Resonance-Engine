@@ -13,13 +13,14 @@ class About;
 class EditorElement
 {
 public:
-	EditorElement() {};
+	EditorElement(bool is_visible = true) { active = is_visible; };
 	virtual ~EditorElement() {};
 
 	virtual void Start() {};
 	virtual void Draw() {};
 	virtual void CleanUp() {};
-	
+
+	bool active = false;
 };
 
 class EditorManager : public Module
