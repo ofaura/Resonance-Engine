@@ -1,7 +1,7 @@
 #include "Configuration.h"
 #include "Application.h"
 #include "ModuleWindow.h"
-#include "imgui-1.72b/imgui.h"
+#include "glew/include/GL/glew.h"
 
 Configuration::Configuration() {}
 
@@ -9,6 +9,29 @@ Configuration::~Configuration() {}
 
 void Configuration::Start()
 {
+	if (SDL_Has3DNow())
+		caps += "3DNow, ";
+	if (SDL_HasAltiVec())
+		caps += "AltiVec, ";
+	if (SDL_HasAVX())
+		caps += "AVX, ";
+	if (SDL_HasAVX2())
+		caps += "AVX2, ";
+	if (SDL_HasMMX())
+		caps += "MMX, ";
+	if (SDL_HasRDTSC())
+		caps += "RDTSC, ";
+	if (SDL_HasSSE())
+		caps += "SSE, ";
+	if (SDL_HasSSE2())
+		caps += "SSE2, ";
+	if (SDL_HasSSE3())
+		caps += "SSE3, ";
+	if (SDL_HasSSE41())
+		caps += "SSE41, ";
+	if (SDL_HasSSE42())
+		caps += "SSE42";
+
 }
 
 void Configuration::Draw()
@@ -17,7 +40,7 @@ void Configuration::Draw()
 	ImGui::SetNextWindowPos(ImVec2(100, 18), ImGuiCond_Once);
 	ImGui::SetNextWindowSize(ImVec2((float)window_width / 5, (float)window_height - 18), ImGuiCond_Once);
 
-	if (ImGui::Begin("Configuration", NULL, ImGuiWindowFlags_NoCollapse))
+	if (ImGui::Begin("Configuration"))
 	{
 		ImGui::SliderInt("Width", &width, 1, 1920);	
 		ImGui::SliderInt("Height", &height, 1, 1080);
@@ -28,20 +51,50 @@ void Configuration::Draw()
 
 
 		if (ImGui::Checkbox("Full Screen", &fullscreen))
-			SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+			App->window->SetFullScreen(fullscreen);
+
 		ImGui::SameLine();
 
 		if (ImGui::Checkbox("Resizable", &resizable))
-			SDL_SetWindowResizable(App->window->window, SDL_TRUE);
-
+			App->window->SetResizable(resizable);
 		
+		if (ImGui::Checkbox("Borderless", &borderless))
+			App->window->SetBorderless(borderless);
 
-		
-
-		
-		ImGui::End();
 	}
 
+	if (ImGui::CollapsingHeader("Hardware"))
+	{
+		ImGui::Text("CPUs: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%d", SDL_GetCPUCount());
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "(Cache: %d kb)", SDL_GetCPUCacheLineSize());
+
+		ImGui::Text("System RAM: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%f Gb", SDL_GetSystemRAM() / 1024.0f);
+
+		ImGui::Text("Caps: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), caps.c_str());
+
+		ImGui::Separator();
+
+		ImGui::Text("GPU: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", glGetString(GL_RENDERER));
+
+		ImGui::Text("Brand: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", glGetString(GL_VENDOR));
+
+		ImGui::Text("Version: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", glGetString(GL_VERSION));
+	}
+
+	ImGui::End();
 
 }
 

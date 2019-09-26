@@ -4,6 +4,7 @@
 #include "Configuration.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "About.h"
 
 #include "imgui-1.72b/examples/imgui_impl_sdl.h"
 #include "imgui-1.72b/examples/imgui_impl_opengl3.h"
@@ -18,9 +19,11 @@ bool EditorManager::Init()
 {
 	hierarchy = new Hierarchy();
 	configuration = new Configuration();
+	about = new About();
 
 	AddEditorElement(hierarchy);
 	AddEditorElement(configuration);
+	AddEditorElement(about);
 
 	return true;
 }

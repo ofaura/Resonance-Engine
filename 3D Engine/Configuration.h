@@ -23,9 +23,14 @@ private:
 	float	brightness = 1.0f;
 
 	bool	fullscreen = false;
-	bool	resizable = false;
+	bool	resizable = true;
 	bool	borderless = false;
 	bool	fulldesktop = false;
+
+	string	caps;
+	string	cpus;
+	string	ram;
+	string	gpu;
 };
 
 #endif __Configuration__H__

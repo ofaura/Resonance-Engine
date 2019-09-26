@@ -22,6 +22,13 @@ public:
 
 	void GetWindowSize(int &width, int &height);
 
+public:
+
+	void SetFullScreen(bool active);
+
+	void SetBorderless(bool active);
+
+	void SetResizable(bool active);
 
 public:
 	//The window we'll be rendering to

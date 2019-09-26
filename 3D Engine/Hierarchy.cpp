@@ -1,7 +1,6 @@
 #include "Hierarchy.h"
 #include "Application.h"
 #include "ModuleWindow.h"
-#include "imgui-1.72b/imgui.h"
 
 Hierarchy::Hierarchy() {}
 
