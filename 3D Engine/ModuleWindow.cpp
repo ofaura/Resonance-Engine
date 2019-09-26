@@ -96,3 +96,4 @@ void ModuleWindow::GetWindowSize(int & width, int & height)
 {
 	SDL_GetWindowSize(window, &width, &height);
 }
+

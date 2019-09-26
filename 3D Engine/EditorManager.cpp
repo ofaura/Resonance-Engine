@@ -1,9 +1,9 @@
 #include "EditorManager.h"
 #include "Application.h"
 #include "Hierarchy.h"
+#include "Configuration.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
-
 
 #include "imgui-1.72b/examples/imgui_impl_sdl.h"
 #include "imgui-1.72b/examples/imgui_impl_opengl3.h"
@@ -17,8 +17,10 @@ EditorManager::~EditorManager() {}
 bool EditorManager::Init()
 {
 	hierarchy = new Hierarchy();
+	configuration = new Configuration();
 
 	AddEditorElement(hierarchy);
+	AddEditorElement(configuration);
 
 	return true;
 }
@@ -105,14 +107,25 @@ update_status EditorManager::Update(float dt)
 			ImGui::EndMenu();
 		}
 
-		if (ImGui::BeginMenu("Demo"))
+		if (ImGui::BeginMenu("Help"))
 		{
-			if (ImGui::MenuItem("Show Demo")) 
+			if (ImGui::MenuItem("Show Demo"))
 				show_demo_window = true;
-			
+
+			if (ImGui::MenuItem("Documentation"))
+				ShellExecuteA(NULL, "open", "https://github.com/ofaura/3D-Engine/wiki", NULL, NULL, SW_SHOWNORMAL);
+
+			if (ImGui::MenuItem("Download latest"))
+				ShellExecuteA(NULL, "open", "https://github.com/ofaura/3D-Engine/releases", NULL, NULL, SW_SHOWNORMAL);
+
+			if (ImGui::MenuItem("Report a bug"))
+				ShellExecuteA(NULL, "open", "https://github.com/ofaura/3D-Engine/issues", NULL, NULL, SW_SHOWNORMAL);
+
+			if (ImGui::MenuItem("About")) {}
+
+
 			ImGui::EndMenu();
 		}
-
 		ImGui::EndMainMenuBar();
 	}
 	

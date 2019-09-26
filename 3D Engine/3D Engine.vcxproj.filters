@@ -129,6 +129,9 @@
     <ClInclude Include="Hierarchy.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -198,6 +201,9 @@
       <Filter>Sources\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Hierarchy.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
   </ItemGroup>

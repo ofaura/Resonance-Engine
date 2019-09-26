@@ -7,6 +7,7 @@
 #include <list>
 
 class Hierarchy;
+class Configuration;
 
 class EditorElement
 {
@@ -51,6 +52,7 @@ private:
 	list<EditorElement*> editor_elements;
 
 	Hierarchy*		hierarchy = nullptr;
+	Configuration*	configuration = nullptr;
 };
 
 #endif __EditorManager__H__
