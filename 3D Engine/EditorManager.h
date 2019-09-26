@@ -39,6 +39,9 @@ public:
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 
+	void ShowFPS(float fps);
+	void ShowMS(float ms);
+
 private:
 
 	void AddEditorElement(EditorElement* element);

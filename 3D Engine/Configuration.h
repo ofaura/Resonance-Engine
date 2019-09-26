@@ -2,6 +2,9 @@
 #define __Configuration__H__
 
 #include "EditorManager.h"
+#include <vector>
+
+#define HISTOGRAM_BARS 50
 
 class Configuration : public EditorElement
 {
@@ -15,6 +18,9 @@ public:
 	void Draw();
 	void CleanUp();
 
+	void CalculateFPS(float fps);
+	void CalculateMS(float ms);
+
 private:
 	int		window_width = 0;
 	int		window_height = 0;
@@ -26,6 +32,9 @@ private:
 	bool	resizable = true;
 	bool	borderless = false;
 	bool	fulldesktop = false;
+
+	vector<float> fps_vec;
+	vector<float> ms_vec;
 
 	string	caps;
 	string	cpus;

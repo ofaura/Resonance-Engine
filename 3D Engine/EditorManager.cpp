@@ -147,6 +147,18 @@ update_status EditorManager::Update(float dt)
 	return ret;
 }
 
+void EditorManager::ShowFPS(float fps)
+{
+	if (configuration != nullptr)
+		configuration->CalculateFPS(fps);
+}
+
+void EditorManager::ShowMS(float ms)
+{
+	if (configuration != nullptr)
+		configuration->CalculateMS(ms);
+}
+
 void EditorManager::AddEditorElement(EditorElement* element)
 {
 	editor_elements.push_back(element);
