@@ -38,6 +38,7 @@ public:
 
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
+	update_status PostUpdate(float dt);
 
 	void ShowFPS(float fps);
 	void ShowMS(float ms);
@@ -49,10 +50,15 @@ private:
 	void HelpMarker(const char* desc);
 
 private:
+
 	ImGuiIO* io;
-	
+	ImGuiIO* test_io;
+
+	ImVec4 clear_color = ImVec4(0.15f, 0.15f, 0.15f, 0.50f);
+
 	bool show_demo_window = false;
 	bool show_style_editor = false;
+	bool p_open = true;
 
 	list<EditorElement*> editor_elements;
 

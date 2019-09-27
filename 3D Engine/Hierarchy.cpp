@@ -12,15 +12,16 @@ void Hierarchy::Start()
 
 void Hierarchy::Draw()
 {
-	App->window->GetWindowSize(window_width, window_height);
+	/*App->window->GetWindowSize(window_width, window_height);
 	ImGui::SetNextWindowPos(ImVec2(0, 18), ImGuiCond_Once);
-	ImGui::SetNextWindowSize(ImVec2((float)window_width / 7, (float)window_height - 18), ImGuiCond_Once);
+	ImGui::SetNextWindowSize(ImVec2((float)window_width / 7, (float)window_height - 18), ImGuiCond_Once);*/
 
-	if (ImGui::Begin("Hierarchy", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse))
+	if (ImGui::Begin("Hierarchy", &active, ImGuiWindowFlags_AlwaysAutoResize))
 	{			
-
-		ImGui::End();
+		ImGui::Text("GameObject");
 	}
+
+	ImGui::End();
 }
 
 void Hierarchy::CleanUp()

@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "glew/include/GL/glew.h"
 
 ModuleWindow::ModuleWindow(bool start_enabled) : Module("Window", start_enabled)
 {
