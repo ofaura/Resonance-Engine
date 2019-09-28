@@ -63,7 +63,6 @@ void Configuration::Draw()
 		
 		if (ImGui::Checkbox("Borderless", &borderless))
 			App->window->SetBorderless(borderless);
-
 	}
 
 	if (ImGui::CollapsingHeader("Application"))
@@ -114,8 +113,20 @@ void Configuration::Draw()
 		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", glGetString(GL_VERSION));
 	}
 
-	ImGui::End();
+	if (ImGui::CollapsingHeader("Input"))
+	{
+		if (ImGui::IsMousePosValid())
+			ImGui::Text("Mouse pos: (%g, %g)", App->editor->test_io->MousePos.x, App->editor->test_io->MousePos.y);
+		else
+			ImGui::Text("Mouse pos: <INVALID>");
+		ImGui::Text("Mouse delta: (%g, %g)", App->editor->test_io->MouseDelta.x, App->editor->test_io->MouseDelta.y);
+		ImGui::Text("Mouse down:");     for (int i = 0; i < IM_ARRAYSIZE(App->editor->test_io->MouseDown); i++) if (App->editor->test_io->MouseDownDuration[i] >= 0.0f) { ImGui::SameLine(); ImGui::Text("b%d (%.02f secs)", i, App->editor->test_io->MouseDownDuration[i]); }
+		ImGui::Text("Mouse clicked:");  for (int i = 0; i < IM_ARRAYSIZE(App->editor->test_io->MouseDown); i++) if (ImGui::IsMouseClicked(i)) { ImGui::SameLine(); ImGui::Text("b%d", i); }
+		ImGui::Text("Mouse dbl-clicked:"); for (int i = 0; i < IM_ARRAYSIZE(App->editor->test_io->MouseDown); i++) if (ImGui::IsMouseDoubleClicked(i)) { ImGui::SameLine(); ImGui::Text("b%d", i); }
+		ImGui::Text("Mouse released:"); for (int i = 0; i < IM_ARRAYSIZE(App->editor->test_io->MouseDown); i++) if (ImGui::IsMouseReleased(i)) { ImGui::SameLine(); ImGui::Text("b%d", i); }
+	}
 
+	ImGui::End();
 }
 
 void Configuration::CleanUp()
