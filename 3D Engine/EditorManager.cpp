@@ -156,6 +156,10 @@ update_status EditorManager::Update(float dt)
 
 		if (ImGui::BeginMenu("Window"))
 		{
+			ImGui::MenuItem("Configuration", NULL, &configuration->active);
+
+			ImGui::MenuItem("Hierarchy", NULL, &hierarchy->active);
+
 			ImGui::EndMenu();
 		}
 

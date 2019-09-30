@@ -16,6 +16,7 @@ void Hierarchy::Draw()
 	ImGui::SetNextWindowPos(ImVec2(0, 18), ImGuiCond_Once);
 	ImGui::SetNextWindowSize(ImVec2((float)window_width / 7, (float)window_height - 18), ImGuiCond_Once);*/
 
+	if (!active) return;
 	if (ImGui::Begin("Hierarchy", &active, ImGuiWindowFlags_AlwaysAutoResize))
 	{			
 		ImGui::Text("GameObject");
