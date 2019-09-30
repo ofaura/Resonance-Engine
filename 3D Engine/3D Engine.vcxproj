@@ -92,6 +92,7 @@
     <ClInclude Include="imgui-1.72b\imstb_rectpack.h" />
     <ClInclude Include="imgui-1.72b\imstb_textedit.h" />
     <ClInclude Include="imgui-1.72b\imstb_truetype.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MathGeoLib\include\MathBuildConfig.h" />
     <ClInclude Include="MathGeoLib\include\MathGeoLib.h" />

@@ -135,6 +135,9 @@
     <ClInclude Include="About.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
