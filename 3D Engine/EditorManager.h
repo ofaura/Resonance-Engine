@@ -40,9 +40,6 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
-	void ShowFPS(float fps);
-	void ShowMS(float ms);
-
 private:
 
 	void AddEditorElement(EditorElement* element);

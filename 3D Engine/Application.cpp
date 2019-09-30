@@ -62,7 +62,7 @@ bool Application::Init()
 		ret = (*item)->Start();
 	}
 
-	framerate_cap = 1000 / maxFPS;
+	frame_time.Start();
 
 	return ret;
 }
@@ -73,8 +73,7 @@ void Application::PrepareUpdate()
 	frame_count++;
 	last_sec_frame_count++;
 
-	dt = frame_time.ReadSec();
-
+	dt = (float)frame_time.ReadSec();
 	frame_time.Start();
 }
 
@@ -92,11 +91,23 @@ void Application::FinishUpdate()
 	uint last_frame_ms = frame_time.Read();
 	uint frames_on_last_update = prev_last_sec_frame_count;
 
-	if (last_frame_ms > 0 && last_frame_ms < framerate_cap) 
-		SDL_Delay(framerate_cap - last_frame_ms);
+	// Update the fps vector
+	fps_vec.push_back(prev_last_sec_frame_count);
+	if (fps_vec.size() > HISTOGRAM_BARS)
+		fps_vec.erase(fps_vec.begin());
 	
-	editor->ShowFPS((float)frames_on_last_update);
-	editor->ShowMS((float)last_frame_ms);
+	// Update the ms vector
+	ms_vec.push_back(last_frame_ms);
+	if (ms_vec.size() > HISTOGRAM_BARS)
+		ms_vec.erase(ms_vec.begin());
+	
+	if (maxFPS > 0)
+		capped_ms = 1000 / maxFPS;
+	else
+		capped_ms = 0;
+
+	if (capped_ms > 0 && last_frame_ms < capped_ms)
+		SDL_Delay(capped_ms - last_frame_ms);
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -140,20 +151,4 @@ bool Application::CleanUp()
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
-}
-
-uint Application::GetFramerateLimit() const
-{
-	if (framerate_cap > 0)
-		return (uint)((1.0f / (float)framerate_cap) * 1000.0f);
-	else
-		return 0;
-}
-
-void Application::SetFramerateLimit(uint max_framerate)
-{
-	if (max_framerate > 0)
-		framerate_cap = 1000 / max_framerate;
-	else
-		framerate_cap = 0;
 }

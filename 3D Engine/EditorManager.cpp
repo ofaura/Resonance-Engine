@@ -212,17 +212,6 @@ update_status EditorManager::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void EditorManager::ShowFPS(float fps)
-{
-	if (configuration != nullptr)
-		configuration->CalculateFPS(fps);
-}
-
-void EditorManager::ShowMS(float ms)
-{
-	if (configuration != nullptr)
-		configuration->CalculateMS(ms);
-}
 
 void EditorManager::AddEditorElement(EditorElement* element)
 {

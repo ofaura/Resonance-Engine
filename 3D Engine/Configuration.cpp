@@ -1,9 +1,8 @@
 #include "Configuration.h"
 #include "Application.h"
 #include "ModuleWindow.h"
-#include "glew/include/GL/glew.h"
 
-Configuration::Configuration(bool is_visible) : EditorElement(is_visible), fps_vec(HISTOGRAM_BARS), ms_vec(HISTOGRAM_BARS) {}
+Configuration::Configuration(bool is_visible) : EditorElement(is_visible) {}
 
 Configuration::~Configuration() {}
 
@@ -32,6 +31,7 @@ void Configuration::Start()
 	if (SDL_HasSSE42())
 		caps += "SSE42";
 
+	SDL_GetVersion(&sdl_version);
 }
 
 void Configuration::Draw()
@@ -67,23 +67,25 @@ void Configuration::Draw()
 
 	if (ImGui::CollapsingHeader("Application"))
 	{
-		int max_fps = App->GetFramerateLimit();
-		if (ImGui::SliderInt("Max FPS", &max_fps, 0, 200))
-			App->SetFramerateLimit(max_fps);
+		ImGui::SliderInt("Max FPS", &App->maxFPS, 1, 200);
 
 		ImGui::Text("Limit Framerate:");
 		ImGui::SameLine();
-		ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "%d", App->GetFramerateLimit());
+		ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "%d", App->maxFPS);
 
 		char title[25];
-		sprintf_s(title, 25, "Framerate %.1f", fps_vec[fps_vec.size() - 1]);
-		ImGui::PlotHistogram("##framerate", &fps_vec[0], fps_vec.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
-		sprintf_s(title, 25, "Milliseconds %0.1f", ms_vec[ms_vec.size() - 1]);
-		ImGui::PlotHistogram("##milliseconds", &ms_vec[0], ms_vec.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
+		sprintf_s(title, 25, "Framerate %.1f", App->fps_vec[App->fps_vec.size() - 1]);
+		ImGui::PlotHistogram("##framerate", &App->fps_vec[0], App->fps_vec.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		sprintf_s(title, 25, "Milliseconds %0.1f", App->ms_vec[App->ms_vec.size() - 1]);
+		ImGui::PlotHistogram("##milliseconds", &App->ms_vec[0], App->ms_vec.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
 	}
 
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
+		ImGui::Text("SDL Version: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255.0f, 0.0f, 255.0f, 255.00f), "%d.%d.%d", (int)sdl_version.major, (int)sdl_version.minor, (int)sdl_version.patch);
+
 		ImGui::Text("CPUs: ");
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%d", SDL_GetCPUCount());
@@ -111,6 +113,21 @@ void Configuration::Draw()
 		ImGui::Text("Version: ");
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%s", glGetString(GL_VERSION));
+
+		glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &video_mem_budget);
+		ImGui::Text("VRAM Budget");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%f", float(video_mem_budget) / (1024.0f));
+
+		glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &video_mem_available);
+		ImGui::Text("VRAM Available");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%f", float(video_mem_usage) / (1024.f));
+
+		video_mem_usage = video_mem_budget - video_mem_available;
+		ImGui::Text("VRAM Usage");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%f", float(video_mem_available) / (1024.f));
 	}
 
 	if (ImGui::CollapsingHeader("Input"))
@@ -133,32 +150,3 @@ void Configuration::CleanUp()
 {
 }
 
-void Configuration::CalculateFPS(float fps)
-{
-	static uint count = 0;
-
-	if (count == HISTOGRAM_BARS)
-	{
-		for (uint i = 0; i < HISTOGRAM_BARS - 1; ++i)
-			fps_vec[i] = fps_vec[i + 1];
-	}
-	else
-		++count;
-
-	fps_vec[count - 1] = fps;
-}
-
-void Configuration::CalculateMS(float ms)
-{
-	static uint count = 0;
-
-	if (count == HISTOGRAM_BARS)
-	{
-		for (uint i = 0; i < HISTOGRAM_BARS - 1; ++i)
-			ms_vec[i] = ms_vec[i + 1];
-	}
-	else
-		++count;
-
-	ms_vec[count - 1] = ms;
-}
