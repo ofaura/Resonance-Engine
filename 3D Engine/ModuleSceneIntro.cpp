@@ -10,6 +10,27 @@ ModuleSceneIntro::~ModuleSceneIntro() {}
 // Load assets
 bool ModuleSceneIntro::Start()
 {
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
+	App->log_list.push_back("Loading Intro assets");
 	LOG("Loading Intro assets");
 	bool ret = true;
 

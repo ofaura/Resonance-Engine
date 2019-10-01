@@ -18,8 +18,6 @@ public:
 	void CleanUp();
 
 private:
-	int		window_width = 0;
-	int		window_height = 0;
 	int		width = SCREEN_WIDTH;
 	int		height = SCREEN_HEIGHT;
 	float	brightness = 1.0f;

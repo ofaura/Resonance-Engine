@@ -19,6 +19,7 @@ ModuleCamera3D::~ModuleCamera3D()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
 {
+	App->log_list.push_back("Setting up the camera");
 	LOG("Setting up the camera");
 	bool ret = true;
 

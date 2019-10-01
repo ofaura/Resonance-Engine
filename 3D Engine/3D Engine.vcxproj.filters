@@ -138,6 +138,9 @@
     <ClInclude Include="json.hpp">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -213,6 +216,9 @@
       <Filter>Sources\Editor</Filter>
     </ClCompile>
     <ClCompile Include="About.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
   </ItemGroup>

@@ -36,10 +36,6 @@ void Configuration::Start()
 
 void Configuration::Draw()
 {
-	/*App->window->GetWindowSize(window_width, window_height);
-	ImGui::SetNextWindowPos(ImVec2(200, 18), ImGuiCond_Once);
-	ImGui::SetNextWindowSize(ImVec2((float)window_width / 5, (float)window_height - 18), ImGuiCond_Once);*/
-
 	if (!active) return;
 
 	if (ImGui::Begin("Configuration", &active, ImGuiWindowFlags_AlwaysAutoResize))

@@ -49,6 +49,7 @@ public:
 	int maxFPS = 60;
 	vector<float> fps_vec;
 	vector<float> ms_vec;
+	list<string> log_list;
 
 public:
 

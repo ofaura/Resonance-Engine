@@ -9,6 +9,7 @@
 class Hierarchy;
 class Configuration;
 class About;
+class Console;
 
 class EditorElement
 {
@@ -65,6 +66,7 @@ private:
 	Hierarchy*		hierarchy = nullptr;
 	Configuration*	configuration = nullptr;
 	About*			about = nullptr;
+	Console*		console = nullptr;
 };
 
 #endif __EditorManager__H__

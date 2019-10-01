@@ -5,6 +5,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "About.h"
+#include "Console.h"
 
 #include "imgui-1.72b/examples/imgui_impl_sdl.h"
 #include "imgui-1.72b/examples/imgui_impl_opengl3.h"
@@ -20,10 +21,12 @@ bool EditorManager::Init()
 	hierarchy = new Hierarchy(true);
 	configuration = new Configuration(true);
 	about = new About(false);
+	console = new Console(true);
 
 	AddEditorElement(hierarchy);
 	AddEditorElement(configuration);
 	AddEditorElement(about);
+	AddEditorElement(console);
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -96,8 +99,8 @@ update_status EditorManager::Update(float dt)
 
 	// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
 	// because it would be confusing to have two docking targets within each others.
-	ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-	if (true)
+	ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
+	if (opt_fullscreen)
 	{
 		ImGuiViewport* viewport = ImGui::GetMainViewport();
 		ImGui::SetNextWindowPos(viewport->Pos);
