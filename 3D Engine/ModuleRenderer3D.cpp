@@ -3,8 +3,10 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
 #include "SDL\include\SDL_opengl.h"
-#include "Brofiler/Brofiler.h"
+#include "FBO.h"
+#include "EditorManager.h"
 
+#include "Brofiler/Brofiler.h"
 
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -45,6 +47,9 @@ bool ModuleRenderer3D::Init()
 		//Use Vsync
 		if(VSYNC && SDL_GL_SetSwapInterval(1) < 0)
 			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
+
+		fbo_tex = new FBO();
+		fbo_tex->CreateFBO(App->window->GetWindowSize().x, App->window->GetWindowSize().y);
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
@@ -104,7 +109,9 @@ bool ModuleRenderer3D::Init()
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
+
 	}
+	glEnable(GL_TEXTURE_2D);
 
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -116,6 +123,8 @@ bool ModuleRenderer3D::Init()
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
 	BROFILER_CATEGORY("Render Preupdate", Profiler::Color::Azure)
+
+	fbo_tex->BindFBO();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
@@ -136,6 +145,11 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Render Postupdate", Profiler::Color::Azure)
+	
+	fbo_tex->UnbindFBO();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	App->editor->Draw();
 
 	SDL_GL_SwapWindow(App->window->window);
 
@@ -146,6 +160,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
+
+	fbo_tex->UnbindFBO();
+	RELEASE(fbo_tex);
 
 	SDL_GL_DeleteContext(context);
 

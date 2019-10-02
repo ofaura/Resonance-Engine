@@ -6,6 +6,7 @@
 #include "ModuleRenderer3D.h"
 #include "About.h"
 #include "Console.h"
+#include "Game.h"
 
 #include "imgui-1.72b/examples/imgui_impl_sdl.h"
 #include "imgui-1.72b/examples/imgui_impl_opengl3.h"
@@ -24,11 +25,13 @@ bool EditorManager::Init()
 	configuration = new Configuration(true);
 	about = new About(false);
 	console = new Console(true);
+	game = new Game(true);
 
 	AddEditorElement(hierarchy);
 	AddEditorElement(configuration);
 	AddEditorElement(about);
 	AddEditorElement(console);
+	AddEditorElement(game);
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -213,19 +216,22 @@ update_status EditorManager::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("EditorManager PostUpdate", Profiler::Color::MediumVioletRed)
 
-	// Rendering
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-	glViewport(0, 0, (int)test_io->DisplaySize.x, (int)test_io->DisplaySize.y);
-	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
 	return UPDATE_CONTINUE;
 }
 
 void EditorManager::HandleInput(SDL_Event * event)
 {
 	ImGui_ImplSDL2_ProcessEvent(event);
+}
+
+void EditorManager::Draw()
+{
+	ImGui::Render();
+	// Rendering
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	glViewport(0, 0, (int)test_io->DisplaySize.x, (int)test_io->DisplaySize.y);
+	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 

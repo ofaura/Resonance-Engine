@@ -20,7 +20,6 @@ public:
 	void CleanUp();
 
 private:
-	
 	list<string> console_logs;
 
 private:

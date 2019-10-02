@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "SDL/include/SDL.h"
 
+#include "glmath.h"
+
 class Application;
 
 class ModuleWindow : public Module
@@ -21,6 +23,7 @@ public:
 	void SetTitle(const char* title);
 
 	void GetWindowSize(int &width, int &height);
+	vec2 GetWindowSize();
 
 public:
 

@@ -11,6 +11,7 @@ class Hierarchy;
 class Configuration;
 class About;
 class Console;
+class Game;
 
 class EditorElement
 {
@@ -44,6 +45,8 @@ public:
 
 	void HandleInput(SDL_Event* event);
 
+	void Draw();
+
 private:
 
 	void AddEditorElement(EditorElement* element);
@@ -71,6 +74,7 @@ private:
 	Configuration*	configuration = nullptr;
 	About*			about = nullptr;
 	Console*		console = nullptr;
+	Game*			game = nullptr;
 };
 
 #endif __EditorManager__H__
