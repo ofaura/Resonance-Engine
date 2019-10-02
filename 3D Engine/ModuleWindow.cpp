@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "glew/include/GL/glew.h"
+#include "Brofiler/Brofiler.h"
 
 ModuleWindow::ModuleWindow(bool start_enabled) : Module("Window", start_enabled)
 {

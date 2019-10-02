@@ -19,20 +19,23 @@
     <Filter Include="Sources\Modules\Game">
       <UniqueIdentifier>{83f46af7-e02f-40c0-9e56-41d76082527b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\ImGui">
-      <UniqueIdentifier>{ee88f8d1-350f-473c-bb33-cf5b261841bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\glew">
-      <UniqueIdentifier>{b193d212-d193-4da8-998d-92652f53db3f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\MathGeoLib">
-      <UniqueIdentifier>{68288c1f-d654-483b-86e5-e6fa78ddadb5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\PCG">
-      <UniqueIdentifier>{d8e7dd81-f92c-4421-a840-48a3b2c64d81}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\Editor">
       <UniqueIdentifier>{d1953bb1-8069-462a-bde0-d70f4aa9d9ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External Libraries">
+      <UniqueIdentifier>{0149d911-4f8d-4472-9474-e5f7498917a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External Libraries\PCG">
+      <UniqueIdentifier>{d8e7dd81-f92c-4421-a840-48a3b2c64d81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External Libraries\MathGeoLib">
+      <UniqueIdentifier>{68288c1f-d654-483b-86e5-e6fa78ddadb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External Libraries\ImGui">
+      <UniqueIdentifier>{ee88f8d1-350f-473c-bb33-cf5b261841bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External Libraries\glew">
+      <UniqueIdentifier>{b193d212-d193-4da8-998d-92652f53db3f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -76,52 +79,52 @@
       <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="imgui-1.72b\imgui_impl_opengl2.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui-1.72b\imgui_impl_sdl.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui-1.72b\imgui_internal.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui-1.72b\imstb_rectpack.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui-1.72b\imstb_textedit.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui-1.72b\imstb_truetype.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui-1.72b\imconfig.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui-1.72b\imgui.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui-1.72b\examples\imgui_impl_opengl3.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="glew\include\GL\glew.h">
-      <Filter>Sources\glew</Filter>
+      <Filter>Sources\External Libraries\glew</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\MathBuildConfig.h">
-      <Filter>Sources\MathGeoLib</Filter>
+      <Filter>Sources\External Libraries\MathGeoLib</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\MathGeoLib.h">
-      <Filter>Sources\MathGeoLib</Filter>
+      <Filter>Sources\External Libraries\MathGeoLib</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
-      <Filter>Sources\MathGeoLib</Filter>
+      <Filter>Sources\External Libraries\MathGeoLib</Filter>
     </ClInclude>
     <ClInclude Include="pcg-cpp-0.98\include\pcg_extras.hpp">
-      <Filter>Sources\PCG</Filter>
+      <Filter>Sources\External Libraries\PCG</Filter>
     </ClInclude>
     <ClInclude Include="pcg-cpp-0.98\include\pcg_random.hpp">
-      <Filter>Sources\PCG</Filter>
+      <Filter>Sources\External Libraries\PCG</Filter>
     </ClInclude>
     <ClInclude Include="pcg-cpp-0.98\include\pcg_uint128.hpp">
-      <Filter>Sources\PCG</Filter>
+      <Filter>Sources\External Libraries\PCG</Filter>
     </ClInclude>
     <ClInclude Include="EditorManager.h">
       <Filter>Sources\Editor</Filter>
@@ -183,28 +186,28 @@
       <Filter>Sources\Modules\Game</Filter>
     </ClCompile>
     <ClCompile Include="imgui-1.72b\imgui_draw.cpp">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui-1.72b\imgui_impl_opengl2.cpp">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui-1.72b\imgui_impl_sdl.cpp">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui-1.72b\imgui_widgets.cpp">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui-1.72b\imgui.cpp">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui-1.72b\imgui_demo.cpp">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui-1.72b\examples\imgui_impl_opengl3.cpp">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="glew\src\glew.c">
-      <Filter>Sources\glew</Filter>
+      <Filter>Sources\External Libraries\glew</Filter>
     </ClCompile>
     <ClCompile Include="EditorManager.cpp">
       <Filter>Sources\Editor</Filter>

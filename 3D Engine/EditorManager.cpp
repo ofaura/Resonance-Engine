@@ -12,6 +12,8 @@
 
 #include "glew/include/GL/glew.h"
 
+#include "Brofiler/Brofiler.h"
+
 EditorManager::EditorManager(bool start_enabled) : Module("Editor", start_enabled) {}
 
 EditorManager::~EditorManager() {}
@@ -76,6 +78,8 @@ bool EditorManager::CleanUp()
 
 update_status EditorManager::PreUpdate(float dt)
 {
+	BROFILER_CATEGORY("EditorManager PreUpdate", Profiler::Color::MediumVioletRed)
+
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
@@ -92,6 +96,8 @@ update_status EditorManager::PreUpdate(float dt)
 
 update_status EditorManager::Update(float dt)
 {
+	BROFILER_CATEGORY("EditorManager Update", Profiler::Color::MediumVioletRed)
+
 	update_status ret = UPDATE_CONTINUE;
 	
 	bool opt_fullscreen = true;
@@ -205,6 +211,9 @@ update_status EditorManager::Update(float dt)
 
 update_status EditorManager::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("EditorManager PostUpdate", Profiler::Color::MediumVioletRed)
+
+
 	// Rendering
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
