@@ -39,6 +39,7 @@ bool ModuleRenderer3D::Init()
 	if(ret == true)
 	{
 		glewInit();
+		LOG("Using Glew %s", glewGetString(GLEW_VERSION));
 
 		//Use Vsync
 		if(VSYNC && SDL_GL_SetSwapInterval(1) < 0)
@@ -158,4 +159,44 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void ModuleRenderer3D::EnableDepthTest(bool active)
+{
+	if (active)
+		glEnable(GL_DEPTH_TEST);
+	else
+		glDisable(GL_DEPTH_TEST);
+}
+
+void ModuleRenderer3D::EnableCullFace(bool active)
+{
+	if (active)
+		glEnable(GL_CULL_FACE);
+	else
+		glDisable(GL_CULL_FACE);
+}
+
+void ModuleRenderer3D::EnableLighting(bool active)
+{
+	if (active)
+		glEnable(GL_LIGHTING);
+	else
+		glDisable(GL_LIGHTING);
+}
+
+void ModuleRenderer3D::EnableColorMaterial(bool active)
+{
+	if (active)
+		glEnable(GL_COLOR_MATERIAL);
+	else
+		glDisable(GL_COLOR_MATERIAL);
+}
+
+void ModuleRenderer3D::EnableTexture2D(bool active)
+{
+	if (active)
+		glEnable(GL_TEXTURE_2D);
+	else
+		glDisable(GL_TEXTURE_2D);
 }

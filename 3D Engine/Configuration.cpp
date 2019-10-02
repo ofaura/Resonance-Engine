@@ -1,6 +1,7 @@
 #include "Configuration.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "ModuleRenderer3D.h"
 
 Configuration::Configuration(bool is_visible) : EditorElement(is_visible) {}
 
@@ -137,6 +138,25 @@ void Configuration::Draw()
 		ImGui::Text("Mouse clicked:");  for (int i = 0; i < IM_ARRAYSIZE(App->editor->test_io->MouseDown); i++) if (ImGui::IsMouseClicked(i)) { ImGui::SameLine(); ImGui::Text("b%d", i); }
 		ImGui::Text("Mouse dbl-clicked:"); for (int i = 0; i < IM_ARRAYSIZE(App->editor->test_io->MouseDown); i++) if (ImGui::IsMouseDoubleClicked(i)) { ImGui::SameLine(); ImGui::Text("b%d", i); }
 		ImGui::Text("Mouse released:"); for (int i = 0; i < IM_ARRAYSIZE(App->editor->test_io->MouseDown); i++) if (ImGui::IsMouseReleased(i)) { ImGui::SameLine(); ImGui::Text("b%d", i); }
+	}
+
+	if (ImGui::CollapsingHeader("Renderer"))
+	{
+		if (ImGui::Checkbox("Depth Test", &depth_test))
+			App->renderer3D->EnableDepthTest(depth_test);
+		
+		if (ImGui::Checkbox("Cull Face", &cull_face))
+			App->renderer3D->EnableCullFace(cull_face);
+	
+		if (ImGui::Checkbox("Lighting", &lighting))
+			App->renderer3D->EnableLighting(lighting);
+
+		if (ImGui::Checkbox("Color Material", &color_material))
+			App->renderer3D->EnableColorMaterial(color_material);
+	
+		if (ImGui::Checkbox("Texture 2D", &texture2D))
+			App->renderer3D->EnableTexture2D(texture2D);
+
 	}
 
 	ImGui::End();
