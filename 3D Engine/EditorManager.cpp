@@ -215,6 +215,11 @@ update_status EditorManager::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+void EditorManager::HandleInput(SDL_Event * event)
+{
+	ImGui_ImplSDL2_ProcessEvent(event);
+}
+
 
 void EditorManager::AddEditorElement(EditorElement* element)
 {

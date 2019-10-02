@@ -22,7 +22,6 @@ public:
 private:
 	
 	list<string> console_logs;
-	bool scrollToBottom = false;
 
 private:
 

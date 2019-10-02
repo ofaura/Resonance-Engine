@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "imgui-1.72b/imgui.h"
+#include "SDL/include/SDL_events.h"
 
 #include <list>
 
@@ -40,6 +41,8 @@ public:
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
+
+	void HandleInput(SDL_Event* event);
 
 private:
 

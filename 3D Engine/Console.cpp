@@ -29,12 +29,6 @@ void Console::Draw()
 			ImGui::TextUnformatted((*item).c_str());
 			ImGui::PopStyleColor();
 		}
-		
-		if (scrollToBottom)
-		{
-			ImGui::SetScrollHere();
-			scrollToBottom = false;
-		}
 
 		ImGui::PopStyleVar();
 		ImGui::EndChild();
@@ -54,8 +48,6 @@ void Console::AddNewLog(string text)
 	{
 		console_logs.pop_front();
 	}
-
-	scrollToBottom = true;
 }
 
 void Console::DrawLogs()
