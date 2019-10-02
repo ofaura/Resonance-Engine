@@ -2,6 +2,7 @@
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
 #include "ModuleCamera3D.h"
+#include "Brofiler/Brofiler.h"
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module("SceneIntro", start_enabled) {}
 
@@ -51,6 +52,8 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
+	BROFILER_CATEGORY("Scene Update", Profiler::Color::Beige)
+
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
