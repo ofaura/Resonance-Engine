@@ -213,7 +213,6 @@ update_status EditorManager::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("EditorManager PostUpdate", Profiler::Color::MediumVioletRed)
 
-
 	// Rendering
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -982,6 +982,7 @@ CODE
 #define IMGUI_DEFINE_MATH_OPERATORS
 #endif
 #include "imgui_internal.h"
+#include "../Brofiler/Brofiler.h"
 
 #include <ctype.h>      // toupper
 #include <stdio.h>      // vsnprintf, sscanf, printf
@@ -4565,6 +4566,8 @@ void ImGui::EndFrame()
 
 void ImGui::Render()
 {
+    BROFILER_CATEGORY("Render() EditorManager PostUpdate", Profiler::Color::MediumVioletRed)
+
     ImGuiContext& g = *GImGui;
     IM_ASSERT(g.Initialized);
 

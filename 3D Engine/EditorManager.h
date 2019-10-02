@@ -57,8 +57,9 @@ public:
 private:
 	
 	ImGuiIO* io;
-
-	ImVec4 clear_color = ImVec4(0.15f, 0.15f, 0.15f, 0.50f);
+	
+	ImVec4 clear_color = ImColor(25, 25, 25, 128);
+	//ImVec4 clear_color = ImVec4(0.15f, 0.15f, 0.15f, 0.50f);
 
 	bool show_demo_window = false;
 	bool show_style_editor = false;

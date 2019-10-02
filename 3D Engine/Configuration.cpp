@@ -3,6 +3,9 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 
+#include "Brofiler/Brofiler.h"
+
+
 Configuration::Configuration(bool is_visible) : EditorElement(is_visible) {}
 
 Configuration::~Configuration() {}
@@ -42,13 +45,14 @@ void Configuration::Draw()
 	if (ImGui::Begin("Configuration", &active, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		App->window->GetWindowSize(width, height);
-		ImGui::SliderInt("Width", &width, 1, 1920);	
-		ImGui::SliderInt("Height", &height, 1, 1080);
-		ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f);
+		if (ImGui::SliderInt("Width", &width, 1, 1920))
+			SDL_SetWindowSize(App->window->window, width, height);
 
-		SDL_SetWindowBrightness(App->window->window, brightness);
-		SDL_SetWindowSize(App->window->window, width, height);
+		if (ImGui::SliderInt("Height", &height, 1, 1080))
+			SDL_SetWindowSize(App->window->window, width, height);
 
+		if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
+			SDL_SetWindowBrightness(App->window->window, brightness);
 
 		if (ImGui::Checkbox("Full Screen", &fullscreen))
 			App->window->SetFullScreen(fullscreen);
