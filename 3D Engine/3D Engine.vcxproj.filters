@@ -151,6 +151,9 @@
     <ClInclude Include="Game.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="JSONLoader.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -236,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="JSONLoader.cpp">
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

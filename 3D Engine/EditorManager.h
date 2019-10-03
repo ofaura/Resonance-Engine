@@ -35,7 +35,7 @@ public:
 
 public:
 
-	bool Init();
+	bool Init(json file);
 	bool Start();
 	bool CleanUp();
 

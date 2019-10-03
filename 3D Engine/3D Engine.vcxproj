@@ -96,6 +96,7 @@
     <ClInclude Include="imgui-1.72b\imstb_textedit.h" />
     <ClInclude Include="imgui-1.72b\imstb_truetype.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="JSONLoader.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MathGeoLib\include\MathBuildConfig.h" />
     <ClInclude Include="MathGeoLib\include\MathGeoLib.h" />
@@ -132,6 +133,7 @@
     <ClCompile Include="imgui-1.72b\imgui_impl_opengl2.cpp" />
     <ClCompile Include="imgui-1.72b\imgui_impl_sdl.cpp" />
     <ClCompile Include="imgui-1.72b\imgui_widgets.cpp" />
+    <ClCompile Include="JSONLoader.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />

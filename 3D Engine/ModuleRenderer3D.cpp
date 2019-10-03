@@ -24,7 +24,7 @@ ModuleRenderer3D::~ModuleRenderer3D()
 {}
 
 // Called before render is available
-bool ModuleRenderer3D::Init()
+bool ModuleRenderer3D::Init(json file)
 {
 	App->log_list.push_back("Creating 3D Renderer context");
 	LOG("Creating 3D Renderer context");
@@ -109,7 +109,6 @@ bool ModuleRenderer3D::Init()
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
-
 	}
 	glEnable(GL_TEXTURE_2D);
 

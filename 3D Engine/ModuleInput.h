@@ -20,7 +20,7 @@ public:
 	ModuleInput(bool start_enabled = true);
 	~ModuleInput();
 
-	bool Init();
+	bool Init(json file);
 	update_status PreUpdate(float dt);
 	bool CleanUp();
 

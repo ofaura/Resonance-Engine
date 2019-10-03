@@ -30,6 +30,8 @@ public:
 
 private:
 
+	JSONLoader				jsonLoader;
+
 	uint					frame_count = 0;
 	Timer					startup_time;
 	Timer					frame_time;
@@ -65,6 +67,8 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
+	void LoadAllConfig(json &file);
+	void SaveAllConfig();
 };
 
 extern Application* App;

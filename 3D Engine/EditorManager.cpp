@@ -19,7 +19,7 @@ EditorManager::EditorManager(bool start_enabled) : Module("Editor", start_enable
 
 EditorManager::~EditorManager() {}
 
-bool EditorManager::Init()
+bool EditorManager::Init(json file)
 {
 	hierarchy = new Hierarchy(true);
 	configuration = new Configuration(true);

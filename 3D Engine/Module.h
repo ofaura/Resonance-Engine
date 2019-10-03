@@ -2,11 +2,11 @@
 #define __ModuleH__
 
 #include "Globals.h"
+#include "JSONLoader.h"
+
 #include <string>
-#include "json.hpp"
 
 using namespace std;
-using json = nlohmann::json;
 
 class Application;
 
@@ -26,7 +26,7 @@ public:
 	virtual ~Module()
 	{}
 
-	virtual bool Init() 
+	virtual bool Init(json file) 
 	{
 		return true; 
 	}
@@ -56,8 +56,9 @@ public:
 		return true; 
 	}
 
-	virtual void OnCollision()
-	{}
+	virtual void SaveConfig(json &file) const {}
+
+	virtual void LoadConfig(const json &file) {}
 };
 
 #endif __ModuleH__

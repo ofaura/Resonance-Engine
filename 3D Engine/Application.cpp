@@ -49,10 +49,12 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	json config = jsonLoader.Load("Configuration.json");
+
 	// Call Init() in all modules
 	for (list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; ++item)
 	{
-		ret = (*item)->Init();
+		ret = (*item)->Init(config);
 	}
 
 	// After all Init calls we call Start() in all modules
@@ -110,6 +112,34 @@ void Application::FinishUpdate()
 		SDL_Delay(capped_ms - last_frame_ms);
 }
 
+void Application::LoadAllConfig(json &file)
+{
+	json config = jsonLoader.Load("Configuration.json");
+
+	for (list<Module*>::const_iterator item = list_modules.begin(); item != list_modules.end(); ++item)
+	{
+		(*item)->LoadConfig(config);
+	}
+}
+
+void Application::SaveAllConfig()
+{
+	json config = {
+		{"Application", 
+			{
+				{"Title", "3D Engine"}
+			}
+		}
+	};
+
+	for (list<Module*>::const_iterator item = list_modules.begin(); item != list_modules.end(); ++item)
+	{
+		(*item)->SaveConfig(config);
+	}
+
+	jsonLoader.Save("Configuration.json", config);
+}
+
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
@@ -139,6 +169,8 @@ update_status Application::Update()
 bool Application::CleanUp()
 {
 	bool ret = true;
+
+	SaveAllConfig();
 
 	for (list<Module*>::reverse_iterator item = list_modules.rbegin(); item != list_modules.rend() && ret; ++item)
 	{

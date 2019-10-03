@@ -67,7 +67,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	glVertex3f(0.f, 0.f, 0.f);
 	glVertex3f(0.f, 10.f, 0.f);
 	glEnd();
-	glLineWidth(1.0f);
+	glLineWidth(1.0f);
+
 
 	p.axis = true;
 	p.Render();
@@ -75,8 +76,3 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	return UPDATE_CONTINUE;
 }
-
-void ModuleSceneIntro::OnCollision()
-{
-}
-
