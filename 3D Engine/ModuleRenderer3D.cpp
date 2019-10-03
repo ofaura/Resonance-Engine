@@ -147,7 +147,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	BROFILER_CATEGORY("Render Postupdate", Profiler::Color::Azure)
 	
 	fbo_tex->UnbindFBO();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	App->editor->Draw();
 
