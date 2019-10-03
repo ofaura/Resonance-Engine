@@ -3,6 +3,10 @@
 #include "Primitive.h"
 #include "ModuleCamera3D.h"
 #include "Brofiler/Brofiler.h"
+#include "glmath.h"
+
+#include <gl/GL.h>
+#include <gl/GLU.h>
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module("SceneIntro", start_enabled) {}
 
@@ -53,8 +57,18 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::Beige)
-
+	
+	//grid
 	Plane p(0, 1, 0, 0);
+	
+	//draw test
+	glLineWidth(2.0f);
+	glBegin(GL_LINES);
+	glVertex3f(0.f, 0.f, 0.f);
+	glVertex3f(0.f, 10.f, 0.f);
+	glEnd();
+	glLineWidth(1.0f);
+
 	p.axis = true;
 	p.Render();
 

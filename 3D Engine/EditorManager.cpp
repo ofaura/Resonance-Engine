@@ -119,7 +119,8 @@ update_status EditorManager::Update(float dt)
 	}
 
 	// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background and handle the pass-thru hole, so we ask Begin() to not render a background.
-	if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
+	/*if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)*/
+		dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
 		window_flags |= ImGuiWindowFlags_NoBackground;
 
 	// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
@@ -218,7 +219,7 @@ update_status EditorManager::PostUpdate(float dt)
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	glViewport(0, 0, (int)test_io->DisplaySize.x, (int)test_io->DisplaySize.y);
 	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	return UPDATE_CONTINUE;
 }
