@@ -144,6 +144,13 @@
     <ClInclude Include="Console.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="FBO.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Game.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -224,5 +231,14 @@
     <ClCompile Include="Console.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="FBO.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="3D Engine.rc" />
   </ItemGroup>
 </Project>

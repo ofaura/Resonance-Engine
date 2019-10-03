@@ -105,6 +105,13 @@ void ModuleWindow::GetWindowSize(int & width, int & height)
 	SDL_GetWindowSize(window, &width, &height);
 }
 
+vec2 ModuleWindow::GetWindowSize()
+{
+	int width, height;
+	GetWindowSize(width, height);
+	return vec2(width, height);
+}
+
 void ModuleWindow::SetFullScreen(bool active)
 {
 	if (active)
