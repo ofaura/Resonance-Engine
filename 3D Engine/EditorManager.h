@@ -47,11 +47,15 @@ public:
 
 	void Draw();
 
+	void AddLOG(char* log, ...) IM_FMTARGS(2);
+
 private:
 
 	void AddEditorElement(EditorElement* element);
 	void StyleEditor(ImGuiStyle* ref = NULL);
 	void HelpMarker(const char* desc);
+
+	static char* Strdup(const char *str) { size_t len = strlen(str) + 1; void* buf = malloc(len); IM_ASSERT(buf); return (char*)memcpy(buf, (const void*)str, len); }
 
 public:
 

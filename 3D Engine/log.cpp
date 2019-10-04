@@ -1,6 +1,7 @@
 #pragma once
 #include "Globals.h"
-
+#include "EditorManager.h"
+#include "Application.h"
 void log(const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];

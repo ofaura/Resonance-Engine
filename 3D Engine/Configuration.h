@@ -43,6 +43,12 @@ private:
 	string	cpus;
 	string	ram;
 	string	gpu;
+
+	char* caps_log;
+	char* cpus_log;
+	char* ram_log;
+	char* gpu_log;
+	char* sdl_log;
 };
 
 #endif __Configuration__H__

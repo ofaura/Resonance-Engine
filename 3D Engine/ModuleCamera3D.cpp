@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "EditorManager.h"
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "Brofiler/Brofiler.h"
@@ -21,7 +22,7 @@ ModuleCamera3D::~ModuleCamera3D()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
 {
-	App->log_list.push_back("Setting up the camera");
+	LOG_CONSOLE("Setting up the camera");
 	LOG("Setting up the camera");
 	bool ret = true;
 

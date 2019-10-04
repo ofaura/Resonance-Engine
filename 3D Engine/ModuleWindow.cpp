@@ -1,4 +1,6 @@
 #include "Application.h"
+#include "Globals.h"
+#include "EditorManager.h"
 #include "ModuleWindow.h"
 #include "glew/include/GL/glew.h"
 #include "Brofiler/Brofiler.h"
@@ -17,7 +19,7 @@ ModuleWindow::~ModuleWindow()
 // Called before render is available
 bool ModuleWindow::Init(json file)
 {
-	App->log_list.push_back("Init SDL window & surface");
+	LOG_CONSOLE("Init SDL window & surface");
 	LOG("Init SDL window & surface");
 	bool ret = true;
 

@@ -20,11 +20,11 @@ public:
 	void CleanUp();
 
 private:
-	list<string> console_logs;
+	list<char*> console_logs;
 
 private:
 
-	void AddNewLog(string text);
+	void AddNewLog(char* text);
 	void DrawLogs();
 	void Clear();
 };

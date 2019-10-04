@@ -4,6 +4,7 @@
 #include "ModuleCamera3D.h"
 #include "Brofiler/Brofiler.h"
 #include "glmath.h"
+#include "EditorManager.h"
 
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -15,28 +16,9 @@ ModuleSceneIntro::~ModuleSceneIntro() {}
 // Load assets
 bool ModuleSceneIntro::Start()
 {
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
-	App->log_list.push_back("Loading Intro assets");
+	LOG_CONSOLE("Loading Intro assets");
 	LOG("Loading Intro assets");
+
 	bool ret = true;
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));

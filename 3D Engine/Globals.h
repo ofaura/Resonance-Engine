@@ -18,7 +18,7 @@ void log(const char file[], int line, const char* format, ...);
 #define RADTODEG 57.295779513082320876f
 #define HAVE_M_PI
 #define IM_NEWLINE  "\r\n"
-
+#define LOG_CONSOLE(text, ...) App->editor->AddLOG(text, __VA_ARGS__);
 
 typedef unsigned int uint;
 

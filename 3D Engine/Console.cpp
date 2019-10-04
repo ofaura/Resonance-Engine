@@ -25,11 +25,11 @@ void Console::Draw()
 		ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetItemsLineHeightWithSpacing()), false, ImGuiWindowFlags_HorizontalScrollbar);
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 6));
 
-		for (list<string>::iterator item = console_logs.begin(); item != console_logs.end(); ++item)
+		for (list<char*>::iterator item = console_logs.begin(); item != console_logs.end(); ++item)
 		{
 			ImVec4 color = ImColor(255, 255, 255, 255);
 			ImGui::PushStyleColor(ImGuiCol_Text, color);
-			ImGui::TextUnformatted((*item).c_str());
+			ImGui::TextUnformatted((*item));
 			ImGui::PopStyleColor();
 		}
 
@@ -43,7 +43,7 @@ void Console::CleanUp()
 {
 }
 
-void Console::AddNewLog(string text)
+void Console::AddNewLog(char* text)
 {
 	console_logs.push_back(text);
 
@@ -55,7 +55,7 @@ void Console::AddNewLog(string text)
 
 void Console::DrawLogs()
 {
-	for (list<string>::iterator item = App->log_list.begin(); item != App->log_list.end(); ++item)
+	for (list<char*>::iterator item = App->log_list.begin(); item != App->log_list.end(); ++item)
 	{
 		AddNewLog((*item));
 	}

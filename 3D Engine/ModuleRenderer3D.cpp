@@ -26,7 +26,7 @@ ModuleRenderer3D::~ModuleRenderer3D()
 // Called before render is available
 bool ModuleRenderer3D::Init(json file)
 {
-	App->log_list.push_back("Creating 3D Renderer context");
+	LOG_CONSOLE("Creating 3D Renderer context");
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
 	

@@ -36,6 +36,12 @@ void Configuration::Start()
 		caps += "SSE42";
 
 	SDL_GetVersion(&sdl_version);
+
+	LOG_CONSOLE("\nSDL Version: %d.%d.%d", (int)sdl_version.major, (int)sdl_version.minor, (int)sdl_version.patch);
+	LOG_CONSOLE("CPUs: %d   Cache: %d kb", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
+	LOG_CONSOLE("GPU: %s", glGetString(GL_RENDERER));
+	LOG_CONSOLE("Brand: %s", glGetString(GL_VENDOR));
+	LOG_CONSOLE("Version: %s \n\n",glGetString(GL_VERSION));
 }
 
 void Configuration::Draw()
@@ -86,12 +92,13 @@ void Configuration::Draw()
 		ImGui::Text("SDL Version: ");
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(255.0f, 0.0f, 255.0f, 255.00f), "%d.%d.%d", (int)sdl_version.major, (int)sdl_version.minor, (int)sdl_version.patch);
-
+		
 		ImGui::Text("CPUs: ");
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "%d", SDL_GetCPUCount());
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "(Cache: %d kb)", SDL_GetCPUCacheLineSize());
+
 
 		ImGui::Text("System RAM: ");
 		ImGui::SameLine();

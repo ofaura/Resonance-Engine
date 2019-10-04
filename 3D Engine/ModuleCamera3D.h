@@ -1,6 +1,7 @@
 #ifndef __ModuleCamera3D__
 #define __ModuleCamera3D__
 
+#include "Globals.h"
 #include "Module.h"
 #include "glmath.h"
 

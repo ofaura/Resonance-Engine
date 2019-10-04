@@ -234,6 +234,18 @@ void EditorManager::Draw()
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
+void EditorManager::AddLOG(char* log, ...)
+{
+	// FIXME-OPT
+	char buf[1024];
+	va_list args;
+	va_start(args, log);
+	vsnprintf(buf, IM_ARRAYSIZE(buf), log, args);
+	buf[IM_ARRAYSIZE(buf) - 1] = 0;
+	va_end(args);
+	App->log_list.push_back(Strdup(buf));
+}
+
 
 void EditorManager::AddEditorElement(EditorElement* element)
 {
