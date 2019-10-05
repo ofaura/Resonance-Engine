@@ -2,6 +2,7 @@
 #define __Game__H__
 
 #include "EditorManager.h"
+#include <float.h>
 
 class Game : public EditorElement
 {
@@ -14,6 +15,7 @@ public:
 	void Start();
 	void Draw();
 	void CleanUp();
+	const ImVec4 GetWindowRect();
 
 private:
 	ImVec2 size;

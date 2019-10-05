@@ -234,6 +234,11 @@ void EditorManager::Draw()
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
+const ImVec4 EditorManager::GetGameWindowRect()
+{
+	return game->GetWindowRect();
+}
+
 void EditorManager::AddLOG(char* log, ...)
 {
 	// FIXME-OPT

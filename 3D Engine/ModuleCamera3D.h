@@ -25,6 +25,7 @@ public:
 private:
 
 	void CalculateViewMatrix();
+	bool MouseInsideWindow();
 
 public:
 	

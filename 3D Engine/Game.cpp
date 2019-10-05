@@ -36,3 +36,8 @@ void Game::Draw()
 void Game::CleanUp()
 {
 }
+
+const ImVec4 Game::GetWindowRect()
+{
+	return ImVec4(position.x, position.y, size.x, size.y);
+}
