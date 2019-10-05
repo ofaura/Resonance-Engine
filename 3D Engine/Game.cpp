@@ -21,6 +21,12 @@ void Game::Draw()
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
 		size = ImVec2(ImGui::GetContentRegionAvail().y, ImGui::GetContentRegionAvail().x);
 
+		if ((new_size.x != size.x) || (new_size.y != size.y))
+		{
+			App->renderer3D->OnResize(size.y, size.x);
+			new_size = size;
+		}
+
 		ImGui::Image((void*)App->renderer3D->fbo_tex->GetTexture(), ImVec2(size.y, size.x), ImVec2(0, 1), ImVec2(1, 0));
 	}
 
