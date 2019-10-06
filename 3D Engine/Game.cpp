@@ -20,6 +20,21 @@ void Game::Draw()
 	{
 		if (ImGui::Checkbox("Wireframe", &wireframe))
 			App->renderer3D->EnableWireframeMode(wireframe);
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Depth Test", &depth_test))
+			App->renderer3D->EnableDepthTest(depth_test);
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Cull Face", &cull_face))
+			App->renderer3D->EnableCullFace(cull_face);
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Lighting", &lighting))
+			App->renderer3D->EnableLighting(lighting);
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Color Material", &color_material))
+			App->renderer3D->EnableColorMaterial(color_material);
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Texture 2D", &texture2D))
+			App->renderer3D->EnableTexture2D(texture2D);
 
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
 		size = ImVec2(ImGui::GetContentRegionAvail().y, ImGui::GetContentRegionAvail().x);

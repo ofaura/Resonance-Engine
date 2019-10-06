@@ -22,7 +22,12 @@ private:
 	ImVec2 new_size = { 0,0 };
 	ImVec2 position;
 
-	bool wireframe = false;
+	bool	wireframe = false;
+	bool	depth_test = true;
+	bool	cull_face = true;
+	bool	lighting = true;
+	bool	color_material = true;
+	bool	texture2D = true;
 };
 
 #endif __Game__H__

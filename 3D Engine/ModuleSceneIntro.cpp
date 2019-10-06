@@ -53,9 +53,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	glEnd();
 	glLineWidth(1.0f);
 
-	DrawCubeWithQuads(0, 0, 4, 3, green);
-	DrawCubeWithTriangles(-4, 0, 4, 3, blue);
-	DrawSolidSphere(4, 0, 4, 1.5, 12, 24);
+	DrawCubeWithQuads(0, 0, 0, 3, green);
+	DrawCubeWithTriangles(-4, 0, 0, 3, blue);
+	DrawSolidSphere(4, 0, 0, 1.5, 12, 24);
 
 	p.axis = true;
 	p.Render();
@@ -120,7 +120,7 @@ void ModuleSceneIntro::DrawCubeWithQuads(GLfloat centerPosX, GLfloat centerPosY,
 
 void ModuleSceneIntro::DrawCubeWithTriangles(GLfloat X, GLfloat Y, GLfloat Z, GLfloat edgeLength, GLfloat color[])
 {
-	GLfloat l = edgeLength / 2;
+	GLfloat l = edgeLength * 0.5;
 
 	GLubyte indices[] =
 	{
