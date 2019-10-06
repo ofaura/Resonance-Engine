@@ -167,7 +167,6 @@ void Configuration::Draw()
 	
 		if (ImGui::Checkbox("Texture 2D", &texture2D))
 			App->renderer3D->EnableTexture2D(texture2D);
-
 	}
 
 	ImGui::End();

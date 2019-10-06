@@ -28,6 +28,7 @@ public:
 	void EnableLighting(bool active);
 	void EnableColorMaterial(bool active);
 	void EnableTexture2D(bool active);
+	void EnableWireframeMode(bool active);
 
 public:
 

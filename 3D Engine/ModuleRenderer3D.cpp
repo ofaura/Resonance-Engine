@@ -216,3 +216,12 @@ void ModuleRenderer3D::EnableTexture2D(bool active)
 	else
 		glDisable(GL_TEXTURE_2D);
 }
+
+void ModuleRenderer3D::EnableWireframeMode(bool active)
+{
+	if (active)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+}

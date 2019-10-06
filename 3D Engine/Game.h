@@ -21,6 +21,8 @@ private:
 	ImVec2 size;
 	ImVec2 new_size = { 0,0 };
 	ImVec2 position;
+
+	bool wireframe = false;
 };
 
 #endif __Game__H__

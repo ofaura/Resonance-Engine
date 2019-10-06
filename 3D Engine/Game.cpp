@@ -18,6 +18,9 @@ void Game::Draw()
 	
 	if (ImGui::Begin("Game", &active))
 	{
+		if (ImGui::Checkbox("Wireframe", &wireframe))
+			App->renderer3D->EnableWireframeMode(wireframe);
+
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
 		size = ImVec2(ImGui::GetContentRegionAvail().y, ImGui::GetContentRegionAvail().x);
 

@@ -154,6 +154,9 @@
     <ClInclude Include="JSONLoader.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="par_shapes.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
