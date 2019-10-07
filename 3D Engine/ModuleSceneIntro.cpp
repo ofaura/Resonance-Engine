@@ -5,6 +5,7 @@
 #include "Brofiler/Brofiler.h"
 #include "glmath.h"
 #include "EditorManager.h"
+#include "par_shapes.h"
 
 #include <vector>
 

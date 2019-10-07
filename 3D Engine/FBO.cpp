@@ -51,7 +51,7 @@ void FBO::CreateFBO(uint _width, uint _height)
 void FBO::BindFBO()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-	glClearColor(0.25f, 0.25f, 0.25f, 0.25f);
+	glClearColor(0.10f, 0.10f, 0.10f, 0.25f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // we're not using the stencil buffer now
 	glEnable(GL_DEPTH_TEST);
 }
@@ -59,7 +59,7 @@ void FBO::BindFBO()
 void FBO::UnbindFBO()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // Unbind
-	glClearColor(0.25f, 0.25f, 0.25f, 0.25f);
+	glClearColor(0.10f, 0.10f, 0.10f, 0.25f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
