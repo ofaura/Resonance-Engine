@@ -173,6 +173,10 @@ update_status EditorManager::Update(float dt)
 
 			ImGui::MenuItem("Hierarchy", NULL, &hierarchy->active);
 
+			ImGui::MenuItem("Game", NULL, &game->active);
+
+			ImGui::MenuItem("Console", NULL, &console->active);
+
 			ImGui::EndMenu();
 		}
 
