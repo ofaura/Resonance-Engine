@@ -27,8 +27,7 @@ private:
 	void DrawSolidSphere(GLfloat X, GLfloat Y, GLfloat Z, float radius, uint rings = 12, uint sectors = 24);
 
 private:
-
-	GLfloat white[72] = { 1, 1, 1,   1, 1, 1,   1, 1, 1,   1, 1, 1,
+	GLfloat white[72] = { 1, 1, 1,   1, 1, 1,   1, 1, 1,   1, 1, 1,  
 				   1, 1, 1,   1, 1, 1,   1, 1, 1,   1, 1, 1,   
 				   1, 1, 1,   1, 1, 1,   1, 1, 1,   1, 1, 1,   
 				   1, 1, 1,   1, 1, 1,   1, 1, 1,   1, 1, 1,   
@@ -62,7 +61,6 @@ private:
 				   1, 1, 0,   1, 1, 0,   1, 1, 0,   1, 1, 0,
 				   1, 1, 0,   1, 1, 0,   1, 1, 0,   1, 1, 0,
 				   1, 1, 0,   1, 1, 0,   1, 1, 0,   1, 1, 0 };
-
 	GLfloat colors[72] =
 	{
 		 1, 1, 1,   1, 1, 0,   1, 0, 0,   1, 0, 1,  // v0,v1,v2,v3 (front)
@@ -78,5 +76,6 @@ private:
 	GLuint iboId = 0;
 };
 
+	
 
 #endif __ModuleSceneIntro__

@@ -52,9 +52,11 @@ void About::Draw()
 		ImGui::Text("LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,");
 		ImGui::Text("OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE");
 		ImGui::Text("SOFTWARE.");
-	}
-	ImGui::End();
 
+		
+	}
+	
+	ImGui::End();
 }
 
 void About::CleanUp()

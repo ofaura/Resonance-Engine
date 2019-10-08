@@ -5,7 +5,6 @@
 #include "Brofiler/Brofiler.h"
 #include "glmath.h"
 #include "EditorManager.h"
-#include "par_shapes.h"
 
 #include <vector>
 
@@ -62,6 +61,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
+
 	return UPDATE_CONTINUE;
 }
 
@@ -107,6 +107,7 @@ void ModuleSceneIntro::DrawCubeWithQuads(GLfloat centerPosX, GLfloat centerPosY,
 		centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ - halfSideLength, // bottom right
 		centerPosX + halfSideLength, centerPosY - halfSideLength, centerPosZ + halfSideLength, // bottom left
 	};
+
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 
@@ -239,7 +240,7 @@ void ModuleSceneIntro::DrawCubeWithVertexArrays(GLfloat X, GLfloat Y, GLfloat Z,
 {
 	GLfloat l = edgeLength * 0.5;
 
-	GLfloat vertices[] = 
+	GLfloat vertices[] =
 	{
 		 l, l, l,  -l, l, l,  -l,-l, l,  l,-l, l,   // v0,v1,v2,v3 (front)
 		 l, l, l,   l,-l, l,   l,-l,-l,  l, l,-l,   // v0,v3,v4,v5 (right)
@@ -250,7 +251,7 @@ void ModuleSceneIntro::DrawCubeWithVertexArrays(GLfloat X, GLfloat Y, GLfloat Z,
 	};
 
 	// normal array
-	GLfloat normals[] = 
+	GLfloat normals[] =
 	{
 		 0, 0, 1,   0, 0, 1,   0, 0, 1,   0, 0, 1,  // v0,v1,v2,v3 (front)
 		 1, 0, 0,   1, 0, 0,   1, 0, 0,   1, 0, 0,  // v0,v3,v4,v5 (right)
@@ -260,7 +261,7 @@ void ModuleSceneIntro::DrawCubeWithVertexArrays(GLfloat X, GLfloat Y, GLfloat Z,
 		 0, 0,-1,   0, 0,-1,   0, 0,-1,   0, 0,-1   // v4,v7,v6,v5 (back)
 	};
 
-	GLuint indices[] = 
+	GLuint indices[] =
 	{
 		 0, 1, 2,   2, 3, 0,    // v0-v1-v2, v2-v3-v0 (front)
 		 4, 5, 6,   6, 7, 4,    // v0-v3-v4, v4-v5-v0 (right)
@@ -270,7 +271,7 @@ void ModuleSceneIntro::DrawCubeWithVertexArrays(GLfloat X, GLfloat Y, GLfloat Z,
 		20,21,22,  22,23,20     // v4-v7-v6, v6-v5-v4 (back)
 	};
 
-	GLfloat colors[] = 
+	GLfloat colors[] =
 	{
 		 1, 1, 1,   1, 1, 0,   1, 0, 0,   1, 0, 1,  // v0,v1,v2,v3 (front)
 		 1, 1, 1,   1, 0, 1,   0, 0, 1,   0, 1, 1,  // v0,v3,v4,v5 (right)
@@ -280,7 +281,7 @@ void ModuleSceneIntro::DrawCubeWithVertexArrays(GLfloat X, GLfloat Y, GLfloat Z,
 		 0, 0, 1,   0, 0, 0,   0, 1, 0,   0, 1, 1   // v4,v7,v6,v5 (back)
 	};
 
-	
+
 	glGenBuffers(1, &vboId);
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) + sizeof(normals) + 288, 0, GL_STATIC_DRAW);
@@ -314,7 +315,7 @@ void ModuleSceneIntro::DrawCubeWithVertexArrays(GLfloat X, GLfloat Y, GLfloat Z,
 	glVertexPointer(3, GL_FLOAT, 0, 0);
 	glTranslatef(X, Y, Z);
 
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (void*)0);               
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (void*)0);
 
 	glPopMatrix();
 
