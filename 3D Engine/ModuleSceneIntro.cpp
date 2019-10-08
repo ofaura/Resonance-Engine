@@ -1,12 +1,8 @@
 #include "Application.h"
 #include "ModuleSceneIntro.h"
-#include "Primitive.h"
 #include "ModuleCamera3D.h"
 #include "Brofiler/Brofiler.h"
-#include "glmath.h"
 #include "EditorManager.h"
-
-#include <vector>
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module("SceneIntro", start_enabled) {}
 
@@ -23,6 +19,7 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	object = new Objects3D(vec3(0,0,0), vec3(1,1,1));
 
 	return ret;
 }
@@ -53,15 +50,16 @@ update_status ModuleSceneIntro::Update(float dt)
 	glEnd();
 	glLineWidth(1.0f);
 
-	DrawCubeWithQuads(0, 0, 0, 4, green);
+	/*DrawCubeWithQuads(0, 0, 0, 4, green);
 	DrawCubeWithTriangles(-4, 0, 0, 4, blue);
 	DrawSolidSphere(4, 0, 0, 2, 12, 24);
-	DrawCubeWithVertexArrays(8, 0, 0, 4, yellow);
-
+	DrawCubeWithVertexArrays(8, 0, 0, 4, yellow);*/
+	//ParShapes();
 	p.axis = true;
 	p.Render();
 
-
+	object->Draw();
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -329,3 +327,4 @@ void ModuleSceneIntro::DrawCubeWithVertexArrays(GLfloat X, GLfloat Y, GLfloat Z,
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
+

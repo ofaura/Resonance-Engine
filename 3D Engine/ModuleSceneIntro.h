@@ -3,11 +3,15 @@
 
 #include "Module.h"
 #include "Primitive.h"
+#include "Objects3D.h"
+#include <vector>
 
 #include "glew/include/GL/glew.h"
 
 #include <gl/GL.h>
 #include <gl/GLU.h>
+
+class Objects3D;
 
 class ModuleSceneIntro : public Module
 {
@@ -74,6 +78,8 @@ private:
 private:
 	GLuint vboId = 0;
 	GLuint iboId = 0;
+
+	Objects3D* object;
 };
 
 	
