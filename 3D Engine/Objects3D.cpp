@@ -57,6 +57,7 @@ Objects3D::Objects3D(SHAPE_TYPE type, vec3 position, vec3 size)
 			stacks = 20;
 			mesh = par_shapes_create_torus(slices, stacks, radius);
 			par_shapes_rotate(mesh, -M_PI_2, rotate);
+			break;
 	}
 
 	if (type == SHAPE_TYPE::TETRAHEDRON || type == SHAPE_TYPE::CUBE || type == SHAPE_TYPE::OCTOHEDRON || type == SHAPE_TYPE::DODECAHEDRON || type == SHAPE_TYPE::ICOSAHEDRON)
