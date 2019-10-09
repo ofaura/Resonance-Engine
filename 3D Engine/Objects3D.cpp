@@ -1,7 +1,9 @@
 #include "Objects3D.h"
 
-Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size)
+Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float object_color[3])
 {
+	color = new float[3];
+
 	switch (type)
 	{
 		case SHAPE_TYPE::TETRAHEDRON:
@@ -31,10 +33,10 @@ Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size)
 			par_shapes_merge(mesh, disk1);
 			par_shapes_free_mesh(disk1);
 			disk2 = par_shapes_create_disk(radius, slices, center2, normal);
-			par_shapes_rotate(disk2, M_PI, rotate);
+			par_shapes_rotate(disk2, -M_PI, rotate);
 			par_shapes_merge(mesh, disk2);
 			par_shapes_free_mesh(disk2);
-			par_shapes_rotate(mesh, M_PI_2, rotate);
+			par_shapes_rotate(mesh, -M_PI_2, rotate);
 			break;
 		case SHAPE_TYPE::CONE:
 			radius = 1.0f;
@@ -65,7 +67,7 @@ Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size)
 	if (type == SHAPE_TYPE::TETRAHEDRON || type == SHAPE_TYPE::CUBE || type == SHAPE_TYPE::OCTOHEDRON || type == SHAPE_TYPE::DODECAHEDRON || type == SHAPE_TYPE::ICOSAHEDRON)
 		par_shapes_compute_normals(mesh);
 	
-	
+
 	par_shapes_scale(mesh, size.x, size.y, size.z);
 	par_shapes_translate(mesh, position.x, position.y, position.z);
 
@@ -86,6 +88,8 @@ Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size)
 	glGenBuffers(1, &normal_id);
 	glBindBuffer(GL_ARRAY_BUFFER, normal_id);
 	glBufferData(GL_ARRAY_BUFFER, normal_vec.size() * sizeof(GL_FLOAT), &normal_vec[0], GL_STATIC_DRAW);
+
+	SetColor(object_color);
 }
 
 
@@ -97,6 +101,8 @@ Objects3D::~Objects3D()
 
 void Objects3D::Draw()
 {
+	glPushMatrix();
+
 	//enable vertices array
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_id);
@@ -110,17 +116,31 @@ void Objects3D::Draw()
 	//stride --> Specifies the byte offset between consecutive generic vertex attributes.If stride is 0, the generic vertex attributes are understood to be tightly packed in the array.The initial value is 0.
 	//pointer --> Specifies a pointer to the first component of the first generic vertex attribute in the array.The initial value is 0.
 
+
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	//enable normals array
 	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, normal_id);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	
+	glColor3fv(color);
 
 	glDrawArrays(GL_TRIANGLES, 0, triangle_vec.size());
 
+	glPopMatrix();
+
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+}
+
+void Objects3D::SetColor(float *color_)
+{
+	if (color_ != nullptr) 
+	{
+		for (int i = 0; i < 3; ++i)
+			color[i] = color_[i];
+	}
 }
 
 // Function to convert the list PAR_SHAPES_T (tuple-list) into a flat list

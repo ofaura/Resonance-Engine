@@ -29,11 +29,12 @@ enum class SHAPE_TYPE
 class Objects3D
 {
 public:
-	Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size);
+	Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float object_color[3]);
 	~Objects3D();
 
 public:
 	void Draw();
+	void SetColor(float* color_);
 
 private:
 	void TupleListToFlatList(par_shapes_mesh * mesh);
@@ -50,11 +51,16 @@ private:
 	float normal[3] = { 0, 0, 1 };
 	float center2[3] = { 0, 0, 0 };
 	float rotate[3] = { 1, 0, 0 };
+	
+	float red[3] = { 1.f, 0.f, 0.f };
+	float blue[3] = { 0.f, 0.f, 1.f };
 
 	GLuint vertex_id;
 	GLuint normal_id;
 
 private:
+	float* color = nullptr;
+
 	par_shapes_mesh* mesh = nullptr;
 	par_shapes_mesh* disk1 = nullptr;
 	par_shapes_mesh* disk2 = nullptr;

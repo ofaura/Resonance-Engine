@@ -23,9 +23,9 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 	
-	Objects3D* CreateObject3D(SHAPE_TYPE type, vec3 &position, vec3 &size);
+	Objects3D* CreateObject3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float color[3]);
 
-private:
+public:
 
 	list<Objects3D*> objects_list;
 };
