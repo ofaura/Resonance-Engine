@@ -5,6 +5,7 @@
 #include "SDL\include\SDL_opengl.h"
 #include "FBO.h"
 #include "EditorManager.h"
+#include "ModuleResourceManager.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -147,6 +148,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	fbo_tex->UnbindFBO();
 
 	App->editor->Draw();
+
+	App->rscr->Draw();
 
 	SDL_GL_SwapWindow(App->window->window);
 

@@ -52,8 +52,8 @@ bool ModuleResourceManager::CleanUp()
 	glDeleteBuffers(1, (GLuint*)&VerticesID);
 	glDeleteBuffers(1, (GLuint*)&IndicesID);
 
-	RELEASE_ARRAY(Vertices);
-	RELEASE_ARRAY(Indices);
+	/*RELEASE_ARRAY(Vertices);
+	RELEASE_ARRAY(Indices);*/
 
 	return true;
 }
@@ -94,11 +94,11 @@ bool ModuleResourceManager::LoadFileFromPath(const char* path)
 
 		// --- Vertices ---
 		verticesSize = mesh->mNumVertices;
-		Vertices = new float3[mesh->mNumVertices];
+		Vertices = new vec3[mesh->mNumVertices];
 
 		for (unsigned i = 0; i < mesh->mNumVertices; ++i)
 		{
-			Vertices[i] = *((float3*)&mesh->mVertices[i]);
+			Vertices[i] = *((vec3*)&mesh->mVertices[i]);
 		}
 
 		glGenBuffers(1, (GLuint*)&VerticesID); // create buffer

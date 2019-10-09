@@ -46,7 +46,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	
 	//draw test
-	glLineWidth(2.0f);
+	/*glLineWidth(2.0f);
 	glBegin(GL_LINES);
 		glVertex3f(0.f, 0.f, 0.f);
 		glVertex3f(0.f, 10.f, 0.f);
@@ -56,7 +56,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	DrawCubeWithQuads(0, 0, 0, 4, green);
 	DrawCubeWithTriangles(-4, 0, 0, 4, blue);
 	DrawSolidSphere(4, 0, 0, 2, 12, 24);
-	DrawCubeWithVertexArrays(8, 0, 0, 4, yellow);
+	DrawCubeWithVertexArrays(8, 0, 0, 4, yellow);*/
 
 	p.axis = true;
 	p.Render();
