@@ -1,10 +1,71 @@
 #include "Objects3D.h"
 
-Objects3D::Objects3D(vec3 position, vec3 size)
+Objects3D::Objects3D(SHAPE_TYPE type, vec3 position, vec3 size)
 {
-	mesh = par_shapes_create_cube();
-	par_shapes_unweld(mesh, true);
-	par_shapes_compute_normals(mesh);
+	switch (type)
+	{
+		case SHAPE_TYPE::TETRAHEDRON:
+			mesh = par_shapes_create_tetrahedron();
+			break;
+		case SHAPE_TYPE::CUBE:
+			mesh = par_shapes_create_cube();
+			break;
+		case SHAPE_TYPE::OCTOHEDRON:
+			mesh = par_shapes_create_octahedron();
+			break;
+		case SHAPE_TYPE::DODECAHEDRON:
+			mesh = par_shapes_create_dodecahedron();
+			break;
+		case SHAPE_TYPE::ICOSAHEDRON:
+			mesh = par_shapes_create_icosahedron();
+			break;
+		case SHAPE_TYPE::SPHERE:
+			mesh = par_shapes_create_parametric_sphere(24, 12);
+			break;
+		case SHAPE_TYPE::CYLINDER:
+			radius = 1.0f;
+			slices = 20;
+			stacks = 20;
+			mesh = par_shapes_create_cylinder(slices, stacks);
+			disk1 = par_shapes_create_disk(radius, slices, center, normal);
+			par_shapes_merge(mesh, disk1);
+			par_shapes_free_mesh(disk1);
+			disk2 = par_shapes_create_disk(radius, slices, center2, normal);
+			par_shapes_rotate(disk2, M_PI, rotate);
+			par_shapes_merge(mesh, disk2);
+			par_shapes_free_mesh(disk2);
+			par_shapes_rotate(mesh, M_PI_2, rotate);
+			break;
+		case SHAPE_TYPE::CONE:
+			radius = 1.0f;
+			slices = 20;
+			stacks = 10;
+			mesh = par_shapes_create_cone(slices, stacks);
+			disk2 = par_shapes_create_disk(radius, slices, center2, normal);
+			par_shapes_rotate(disk2, -M_PI, rotate);
+			par_shapes_merge(mesh, disk2);
+			par_shapes_free_mesh(disk2);
+			par_shapes_rotate(mesh, -M_PI_2, rotate);
+			break;
+		case SHAPE_TYPE::PLANE:
+			mesh = par_shapes_create_plane(3, 3);
+			par_shapes_rotate(mesh, -M_PI_2, rotate);
+			break;
+		case SHAPE_TYPE::TORUS:
+			radius = 0.2f;
+			slices = 20;
+			stacks = 20;
+			mesh = par_shapes_create_torus(slices, stacks, radius);
+			par_shapes_rotate(mesh, -M_PI_2, rotate);
+	}
+
+	if (type == SHAPE_TYPE::TETRAHEDRON || type == SHAPE_TYPE::CUBE || type == SHAPE_TYPE::OCTOHEDRON || type == SHAPE_TYPE::DODECAHEDRON || type == SHAPE_TYPE::ICOSAHEDRON)
+	{
+		par_shapes_unweld(mesh, true);
+		par_shapes_compute_normals(mesh);
+	}
+	
+
 
 	par_shapes_scale(mesh, size.x, size.y, size.z);
 	par_shapes_translate(mesh, position.x, position.y, position.z);

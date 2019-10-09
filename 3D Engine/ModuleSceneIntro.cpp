@@ -19,7 +19,7 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	object = new Objects3D(vec3(0,0,0), vec3(1,1,1));
+	object = new Objects3D(SHAPE_TYPE::TORUS, vec3(0,0,0), vec3(1,1,1));
 
 	return ret;
 }
