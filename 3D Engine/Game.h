@@ -28,6 +28,7 @@ private:
 	bool	lighting = true;
 	bool	color_material = true;
 	bool	texture2D = true;
+	bool	alpha = true;
 };
 
 #endif __Game__H__

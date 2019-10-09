@@ -33,7 +33,7 @@ bool ModuleSceneIntro::CleanUp()
 	return true;
 }
 
-Objects3D* ModuleSceneIntro::CreateObject3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float color[3])
+Objects3D* ModuleSceneIntro::CreateObject3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float color[4])
 {
 	Objects3D* ret = nullptr;
 

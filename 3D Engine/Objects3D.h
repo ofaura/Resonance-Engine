@@ -29,7 +29,7 @@ enum class SHAPE_TYPE
 class Objects3D
 {
 public:
-	Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float object_color[3]);
+	Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float object_color[4]);
 	~Objects3D();
 
 public:
@@ -52,8 +52,8 @@ private:
 	float center2[3] = { 0, 0, 0 };
 	float rotate[3] = { 1, 0, 0 };
 	
-	float red[3] = { 1.f, 0.f, 0.f };
-	float blue[3] = { 0.f, 0.f, 1.f };
+	float red[4] = { 1.f, 0.f, 0.f, 1.f };
+	float blue[4] = { 0.f, 0.f, 1.f, 1.f };
 
 	GLuint vertex_id;
 	GLuint normal_id;

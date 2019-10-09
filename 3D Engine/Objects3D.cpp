@@ -1,8 +1,8 @@
 #include "Objects3D.h"
 
-Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float object_color[3])
+Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float object_color[4])
 {
-	color = new float[3];
+	color = new float[4];
 
 	switch (type)
 	{
@@ -124,7 +124,7 @@ void Objects3D::Draw()
 	glBindBuffer(GL_ARRAY_BUFFER, normal_id);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	
-	glColor3fv(color);
+	glColor4fv(color);
 
 	glDrawArrays(GL_TRIANGLES, 0, triangle_vec.size());
 
@@ -138,7 +138,7 @@ void Objects3D::SetColor(float *color_)
 {
 	if (color_ != nullptr) 
 	{
-		for (int i = 0; i < 3; ++i)
+		for (int i = 0; i < 4; ++i)
 			color[i] = color_[i];
 	}
 }

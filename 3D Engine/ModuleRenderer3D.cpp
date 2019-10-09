@@ -109,6 +109,8 @@ bool ModuleRenderer3D::Init(json file)
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	glEnable(GL_TEXTURE_2D);
 
@@ -224,4 +226,13 @@ void ModuleRenderer3D::EnableWireframeMode(bool active)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+}
+
+void ModuleRenderer3D::EnableAlpha(bool active)
+{
+	if (active)
+		glEnable(GL_BLEND);
+	
+	else
+		glDisable(GL_BLEND);
 }
