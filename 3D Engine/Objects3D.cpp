@@ -116,17 +116,16 @@ void Objects3D::Draw()
 	//stride --> Specifies the byte offset between consecutive generic vertex attributes.If stride is 0, the generic vertex attributes are understood to be tightly packed in the array.The initial value is 0.
 	//pointer --> Specifies a pointer to the first component of the first generic vertex attribute in the array.The initial value is 0.
 
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
 	//enable normals array
 	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, normal_id);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	
 	glColor4fv(color);
 
-	glDrawArrays(GL_TRIANGLES, 0, triangle_vec.size());
+	glDrawArrays(GL_TRIANGLES, 0, triangle_vec.size() / 3);
 
 	glPopMatrix();
 
