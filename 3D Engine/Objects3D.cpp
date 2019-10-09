@@ -1,6 +1,6 @@
 #include "Objects3D.h"
 
-Objects3D::Objects3D(SHAPE_TYPE type, vec3 position, vec3 size)
+Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size)
 {
 	switch (type)
 	{
@@ -48,7 +48,9 @@ Objects3D::Objects3D(SHAPE_TYPE type, vec3 position, vec3 size)
 			par_shapes_rotate(mesh, -M_PI_2, rotate);
 			break;
 		case SHAPE_TYPE::PLANE:
-			mesh = par_shapes_create_plane(3, 3);
+			slices = 3;
+			stacks = 3;
+			mesh = par_shapes_create_plane(slices, stacks);
 			par_shapes_rotate(mesh, -M_PI_2, rotate);
 			break;
 		case SHAPE_TYPE::TORUS:
@@ -61,13 +63,9 @@ Objects3D::Objects3D(SHAPE_TYPE type, vec3 position, vec3 size)
 	}
 
 	if (type == SHAPE_TYPE::TETRAHEDRON || type == SHAPE_TYPE::CUBE || type == SHAPE_TYPE::OCTOHEDRON || type == SHAPE_TYPE::DODECAHEDRON || type == SHAPE_TYPE::ICOSAHEDRON)
-	{
-		par_shapes_unweld(mesh, true);
 		par_shapes_compute_normals(mesh);
-	}
 	
-
-
+	
 	par_shapes_scale(mesh, size.x, size.y, size.z);
 	par_shapes_translate(mesh, position.x, position.y, position.z);
 

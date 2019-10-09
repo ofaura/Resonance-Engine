@@ -29,7 +29,7 @@ enum class SHAPE_TYPE
 class Objects3D
 {
 public:
-	Objects3D::Objects3D(SHAPE_TYPE type, vec3 position, vec3 size);
+	Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size);
 	~Objects3D();
 
 public:

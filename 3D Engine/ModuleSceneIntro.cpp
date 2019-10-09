@@ -19,7 +19,7 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	CreateObject3D(SHAPE_TYPE::CUBE, { 0,0,0 }, { 1,1,1 });
+	//CreateObject3D(SHAPE_TYPE::CUBE, vec3{ 0,0,0 }, vec3{ 1,1,1 });
 	return ret;
 }
 
@@ -33,7 +33,7 @@ bool ModuleSceneIntro::CleanUp()
 	return true;
 }
 
-Objects3D* ModuleSceneIntro::CreateObject3D(SHAPE_TYPE type, vec3 position, vec3 size)
+Objects3D* ModuleSceneIntro::CreateObject3D(SHAPE_TYPE type, vec3 &position, vec3 &size)
 {
 	Objects3D* ret = nullptr;
 

@@ -22,8 +22,8 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-
-	Objects3D* CreateObject3D(SHAPE_TYPE type, vec3 position, vec3 size);
+	
+	Objects3D* CreateObject3D(SHAPE_TYPE type, vec3 &position, vec3 &size);
 
 private:
 

@@ -7,6 +7,8 @@
 #include "About.h"
 #include "Console.h"
 #include "Game.h"
+#include "Inspector.h"
+#include "ModuleSceneIntro.h"
 
 #include "imgui-1.72b/examples/imgui_impl_sdl.h"
 #include "imgui-1.72b/examples/imgui_impl_opengl3.h"
@@ -26,12 +28,14 @@ bool EditorManager::Init(json file)
 	about = new About(false);
 	console = new Console(true);
 	game = new Game(true);
+	inspector = new Inspector(true);
 
 	AddEditorElement(hierarchy);
 	AddEditorElement(configuration);
 	AddEditorElement(about);
 	AddEditorElement(console);
 	AddEditorElement(game);
+	AddEditorElement(inspector);
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -176,6 +180,43 @@ update_status EditorManager::Update(float dt)
 			ImGui::MenuItem("Game", NULL, &game->active);
 
 			ImGui::MenuItem("Console", NULL, &console->active);
+
+			ImGui::MenuItem("Inspector", NULL, &inspector->active);
+
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("GameObjects"))
+		{
+			if (ImGui::MenuItem("Cube"))
+				App->scene_intro->CreateObject3D(SHAPE_TYPE::CUBE, vec3(0,0,0), vec3(1,1,1));
+	
+			if (ImGui::MenuItem("Tetrahedron"))
+				App->scene_intro->CreateObject3D(SHAPE_TYPE::TETRAHEDRON, vec3(0, 0, 0), vec3(1, 1, 1));
+
+			if (ImGui::MenuItem("Octohedron"))
+				App->scene_intro->CreateObject3D(SHAPE_TYPE::OCTOHEDRON, vec3(0, 0, 0), vec3(1, 1, 1));
+
+			if (ImGui::MenuItem("Dodecahedron"))
+				App->scene_intro->CreateObject3D(SHAPE_TYPE::DODECAHEDRON, vec3(0, 0, 0), vec3(1, 1, 1));
+
+			if (ImGui::MenuItem("Icosahedron"))
+				App->scene_intro->CreateObject3D(SHAPE_TYPE::ICOSAHEDRON, vec3(0, 0, 0), vec3(1, 1, 1));
+			
+			if (ImGui::MenuItem("Sphere"))
+				App->scene_intro->CreateObject3D(SHAPE_TYPE::SPHERE, vec3(0, 0, 0), vec3(1, 1, 1));
+
+			if (ImGui::MenuItem("Cylinder"))
+				App->scene_intro->CreateObject3D(SHAPE_TYPE::CYLINDER, vec3(0, 0, 0), vec3(1, 1, 1));
+
+			if (ImGui::MenuItem("Cone"))
+				App->scene_intro->CreateObject3D(SHAPE_TYPE::CONE, vec3(0, 0, 0), vec3(1, 1, 1));
+
+			if (ImGui::MenuItem("Plane"))
+				App->scene_intro->CreateObject3D(SHAPE_TYPE::PLANE, vec3(0, 0, 0), vec3(1, 1, 1));
+
+			if (ImGui::MenuItem("Torus"))
+				App->scene_intro->CreateObject3D(SHAPE_TYPE::TORUS, vec3(0, 0, 0), vec3(1, 1, 1));
 
 			ImGui::EndMenu();
 		}
