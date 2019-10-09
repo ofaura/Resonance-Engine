@@ -16,6 +16,7 @@ class ModuleSceneIntro;
 class ModuleRenderer3D;
 class ModuleCamera3D;
 class EditorManager;
+class ModuleResourceManager;
 
 
 class Application
@@ -27,6 +28,7 @@ public:
 	ModuleRenderer3D*		renderer3D = nullptr;
 	ModuleCamera3D*			camera = nullptr;
 	EditorManager*			editor = nullptr;
+	ModuleResourceManager*  rscr = nullptr;
 
 private:
 

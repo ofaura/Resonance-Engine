@@ -6,6 +6,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "EditorManager.h"
+#include "ModuleResourceManager.h"
 
 Application::Application()
 {
@@ -15,6 +16,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	editor = new EditorManager(this);
+	rscr = new ModuleResourceManager(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -25,6 +27,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);	
 	AddModule(editor);
+	AddModule(rscr);
 
 	// Scenes
 	AddModule(scene_intro);
