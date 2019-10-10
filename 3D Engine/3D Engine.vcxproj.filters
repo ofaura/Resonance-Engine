@@ -147,7 +147,6 @@
     <ClInclude Include="FBO.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Game.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
@@ -261,8 +260,5 @@
     <ClCompile Include="Inspector.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="3D Engine.rc" />
   </ItemGroup>
 </Project>
