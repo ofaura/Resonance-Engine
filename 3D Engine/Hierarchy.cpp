@@ -15,7 +15,10 @@ void Hierarchy::Draw()
 	if (!active) return;
 	if (ImGui::Begin("Hierarchy", &active, ImGuiWindowFlags_AlwaysAutoResize))
 	{			
-		ImGui::Text("GameObject");
+		if (ImGui::MenuItem("GameObject"))
+		{
+
+		}
 	}
 
 	ImGui::End();
