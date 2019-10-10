@@ -12,6 +12,7 @@ class Configuration;
 class About;
 class Console;
 class Game;
+class Inspector;
 
 class EditorElement
 {
@@ -80,6 +81,7 @@ private:
 	About*			about = nullptr;
 	Console*		console = nullptr;
 	Game*			game = nullptr;
+	Inspector*		inspector = nullptr;
 };
 
 #endif __EditorManager__H__

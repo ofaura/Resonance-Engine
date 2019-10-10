@@ -21,6 +21,9 @@ void Game::Draw()
 		if (ImGui::Checkbox("Wireframe", &wireframe))
 			App->renderer3D->EnableWireframeMode(wireframe);
 		ImGui::SameLine();
+		if (ImGui::Checkbox("Alpha", &alpha))
+			App->renderer3D->EnableAlpha(alpha);
+		ImGui::SameLine();
 		if (ImGui::Checkbox("Depth Test", &depth_test))
 			App->renderer3D->EnableDepthTest(depth_test);
 		ImGui::SameLine();

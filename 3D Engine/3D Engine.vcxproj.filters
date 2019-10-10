@@ -150,7 +150,6 @@
     <ClInclude Include="FBO.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Game.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
@@ -168,6 +167,11 @@
     </ClInclude>
     <ClInclude Include="Resources.h">
       <Filter>Sources\Resources</Filter>
+    <ClInclude Include="Objects3D.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Inspector.h">
+      <Filter>Sources\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -270,5 +274,14 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="3D Engine.rc" />
+    <ClCompile Include="Objects3D.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="par_shapes.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Inspector.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

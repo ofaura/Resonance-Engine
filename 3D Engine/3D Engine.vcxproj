@@ -95,6 +95,7 @@
     <ClInclude Include="imgui-1.72b\imstb_rectpack.h" />
     <ClInclude Include="imgui-1.72b\imstb_textedit.h" />
     <ClInclude Include="imgui-1.72b\imstb_truetype.h" />
+    <ClInclude Include="Inspector.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="JSONLoader.h" />
     <ClInclude Include="Light.h" />
@@ -110,12 +111,12 @@
     <ClInclude Include="ModuleResourceManager.h" />
     <ClInclude Include="ModuleSceneIntro.h" />
     <ClInclude Include="ModuleWindow.h" />
+    <ClInclude Include="Objects3D.h" />
     <ClInclude Include="par_shapes.h" />
     <ClInclude Include="pcg-cpp-0.98\include\pcg_extras.hpp" />
     <ClInclude Include="pcg-cpp-0.98\include\pcg_random.hpp" />
     <ClInclude Include="pcg-cpp-0.98\include\pcg_uint128.hpp" />
     <ClInclude Include="Primitive.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +138,7 @@
     <ClCompile Include="imgui-1.72b\imgui_impl_opengl2.cpp" />
     <ClCompile Include="imgui-1.72b\imgui_impl_sdl.cpp" />
     <ClCompile Include="imgui-1.72b\imgui_widgets.cpp" />
+    <ClCompile Include="Inspector.cpp" />
     <ClCompile Include="JSONLoader.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />
@@ -149,11 +151,10 @@
     <ClCompile Include="ModuleResourceManager.cpp" />
     <ClCompile Include="ModuleSceneIntro.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="Objects3D.cpp" />
+    <ClCompile Include="par_shapes.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Timer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="3D Engine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
