@@ -47,7 +47,7 @@ enum update_status
            delete[] x;\
 	       x = nullptr;\
 		 }\
-
+	}
 
 // Configuration -----------
 #define SCREEN_WIDTH 1280
