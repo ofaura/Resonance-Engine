@@ -145,11 +145,13 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Render Postupdate", Profiler::Color::Azure)
 	
+	App->rscr->Draw();
+	
 	fbo_tex->UnbindFBO();
 
 	App->editor->Draw();
 
-	App->rscr->Draw();
+
 
 	SDL_GL_SwapWindow(App->window->window);
 

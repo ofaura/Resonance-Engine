@@ -5,6 +5,8 @@
 #include "Math.h"
 #include "glmath.h"
 
+class Meshes;
+
 class ModuleResourceManager : public Module
 {
 public:
@@ -13,21 +15,13 @@ public:
 	~ModuleResourceManager();
 
 	bool Init(json file);
-	bool Start();
 	bool CleanUp();
-	
-	void Draw();
 	bool LoadFileFromPath(const char* path);
+	void Draw();
 
 private:
 
-	vec3* Vertices = nullptr;
-	uint VerticesID = 0; // unique vertex in VRAM
-	uint verticesSize = 0;
-
-	uint* Indices = nullptr;
-	uint IndicesID = 0; // index in VRAM
-	uint IndicesSize = 0;
+	std::vector<Meshes*> meshes;
 };
 
 #endif

@@ -5,6 +5,7 @@
 #include <gl/GLU.h>
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "R_Meshes.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -17,14 +18,8 @@ void MyAssimpCallback(const char * msg, char * userData)
 	LOG("[Assimp]: %s", msg);
 }
 
-ModuleResourceManager::ModuleResourceManager(bool start_enabled) : Module("Resource Manager", start_enabled)
-{
-}
-
-ModuleResourceManager::~ModuleResourceManager()
-{
-}
-
+ModuleResourceManager::ModuleResourceManager(bool start_enabled) : Module("Resource Manager", start_enabled){}
+ModuleResourceManager::~ModuleResourceManager(){}
 
 bool ModuleResourceManager::Init(json file)
 {
@@ -32,14 +27,6 @@ bool ModuleResourceManager::Init(json file)
 	stream.callback = MyAssimpCallback;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-
-	return true;
-}
-
-bool ModuleResourceManager::Start()
-{
-	LoadFileFromPath("Assets/warrior.fbx");
-
 	return true;
 }
 
@@ -47,12 +34,14 @@ bool ModuleResourceManager::CleanUp()
 {
 	// detach log stream
 	aiDetachAllLogStreams();
-
-	glDeleteBuffers(1, (GLuint*)&VerticesID);
-	glDeleteBuffers(1, (GLuint*)&IndicesID);
-
-	RELEASE_ARRAY(Vertices);
-	RELEASE_ARRAY(Indices);
+	for (uint i = 0; i < meshes.size(); ++i)
+	{
+		glDeleteBuffers(1, (GLuint*)&meshes[i]->VerticesID);
+		glDeleteBuffers(1, (GLuint*)&meshes[i]->IndicesID);
+		RELEASE_ARRAY(meshes[i]->Vertices);
+		RELEASE_ARRAY(meshes[i]->Indices);
+		delete meshes[i];
+	}
 
 	return true;
 }
@@ -60,19 +49,44 @@ bool ModuleResourceManager::CleanUp()
 void ModuleResourceManager::Draw()
 {
 
-	glEnableClientState(GL_VERTEX_ARRAY);
+	for (uint i = 0; i < meshes.size(); ++i)
+	{
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glBindBuffer(GL_ARRAY_BUFFER, meshes[i]->VerticesID);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshes[i]->IndicesID);
+		glDrawElements(GL_TRIANGLES, meshes[i]->IndicesSize, GL_UNSIGNED_INT, NULL);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glDisableClientState(GL_VERTEX_ARRAY);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VerticesID);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
+		if (meshes[i]->TexCoords)
+		{
+			glEnable(GL_TEXTURE_2D);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshes[i]->TexID);
+			glDrawArrays(GL_TEXTURE_2D, 0, meshes[i]->TexCoordsSize);
+			glDisable(GL_TEXTURE_2D);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndicesID); 
-	glDrawElements(GL_TRIANGLES, IndicesSize, GL_UNSIGNED_INT, NULL); 
+		}
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0); 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); 
+		if (meshes[i]->Normals)
+		{
+			glBegin(GL_LINES);
+			glLineWidth(1.0f);
+			uint Normal_length = 1;
+			glColor4f(0.0f, 0.5f, 0.5f, 1.0f);
 
-	glDisableClientState(GL_VERTEX_ARRAY);
+			for (uint j = 0; j < meshes[i]->VerticesSize; ++j)
+			{
+				glVertex3f(meshes[i]->Vertices[j].x, meshes[i]->Vertices[j].y, meshes[i]->Vertices[j].z);
+				glVertex3f(meshes[i]->Vertices[j].x + meshes[i]->Normals[j].x*Normal_length, meshes[i]->Vertices[j].y + meshes[i]->Normals[j].y*Normal_length, meshes[i]->Vertices[j].z + meshes[i]->Normals[j].z*Normal_length);
+			}
 
+			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			glEnd();
+
+		}
+	}
 }
 
 bool ModuleResourceManager::LoadFileFromPath(const char* path)
@@ -81,62 +95,16 @@ bool ModuleResourceManager::LoadFileFromPath(const char* path)
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		// Use scene->mNumMeshes to iterate on scene->mMeshes array
-
 		for (uint i = 0; i < scene->mNumMeshes; ++i)
 		{
-
-
-
+			Meshes* mesh_aux = new Meshes;
+			meshes.push_back(mesh_aux);
+			aiMesh* mesh = scene->mMeshes[i];
+			mesh_aux->Importer(mesh);
 		}
-		aiMesh* mesh = scene->mMeshes[0];
-
-		// --- Vertices ---
-		verticesSize = mesh->mNumVertices;
-		Vertices = new vec3[mesh->mNumVertices];
-
-		for (unsigned i = 0; i < mesh->mNumVertices; ++i)
-		{
-			Vertices[i] = *((vec3*)&mesh->mVertices[i]);
-		}
-
-		glGenBuffers(1, (GLuint*)&VerticesID);
-		glBindBuffer(GL_ARRAY_BUFFER, VerticesID); 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * verticesSize, Vertices, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-
-		// --- Indices ---
-		IndicesSize = mesh->mNumFaces * 3;
-		Indices = new uint[IndicesSize];
-
-		for (unsigned j = 0; j < mesh->mNumFaces; ++j)
-		{
-			const aiFace& face = mesh->mFaces[j];
-
-			assert(face.mNumIndices == 3); // triangles limitated
-
-			Indices[j * 3] = face.mIndices[0];
-			Indices[j * 3 + 1] = face.mIndices[1];
-			Indices[j * 3 + 2] = face.mIndices[2];
-		}
-
-
-		glGenBuffers(1, (GLuint*)&IndicesID);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndicesID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * IndicesSize, Indices, GL_STATIC_DRAW);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
 		aiReleaseImport(scene);
-
-
 	}
-	else 
-	{
-		LOG("|[error]: Error loading scene %s", path);
-	}
-		
-
-
+	else { LOG("|[error]: Error loading scene %s", path); }
+	
 	return true;
 }

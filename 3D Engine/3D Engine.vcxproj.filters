@@ -37,6 +37,9 @@
     <Filter Include="Sources\External Libraries\glew">
       <UniqueIdentifier>{b193d212-d193-4da8-998d-92652f53db3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Resources">
+      <UniqueIdentifier>{6278acf3-db11-41e4-b8bc-d10ad664d2e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -158,7 +161,13 @@
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="ModuleResourceManager.h">
-      <Filter>Sources\Modules</Filter>
+      <Filter>Sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="R_Meshes.h">
+      <Filter>Sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Sources\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -250,7 +259,13 @@
       <Filter>Sources\Tools</Filter>
     </ClCompile>
     <ClCompile Include="ModuleResourceManager.cpp">
-      <Filter>Sources\Modules</Filter>
+      <Filter>Sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="R_Meshes.cpp">
+      <Filter>Sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Sources\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
