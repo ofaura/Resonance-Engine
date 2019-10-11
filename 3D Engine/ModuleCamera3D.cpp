@@ -42,29 +42,92 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	BROFILER_CATEGORY("Camera3D Update", Profiler::Color::Orchid)
 
-	// Implement a debug camera with keys and mouse
-	// Now we can make this movememnt frame rate independant!
-
 	if (MouseInsideWindow())
 	{
-		vec3 newPos(0,0,0);
+		vec3 newPos(0, 0, 0);
 		float speed = 3.0f * dt;
-		if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+
+		if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 			speed = 8.0f * dt;
 
-		if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-		if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+		//Movement by keys
 
-		if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-		if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
+		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
 
-		if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-		if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
 		Position += newPos;
 		Reference += newPos;
 
-		// Mouse motion ----------------
+		//RightButton
+
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		{
+
+			int dx = -App->input->GetMouseXMotion();
+			int dy = -App->input->GetMouseYMotion();
+
+			Sensitivity = 0.25f;
+
+			vec3 newPosition = Position - Reference;
+
+			if (dx != 0)
+			{
+				float DeltaX = (float)dx * Sensitivity;
+
+				X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			}
+
+			if (dy != 0)
+			{
+				float DeltaY = (float)dy * Sensitivity;
+
+				Y = rotate(Y, DeltaY, X);
+				Z = rotate(Z, DeltaY, X);
+
+				if (Y.y < 0.0f)
+				{
+					Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+					Y = cross(Z, X);
+				}
+			}
+
+			Reference = Position - Z * length(newPosition);
+		}
+		
+		//Mouse Wheel
+
+		if (App->input->GetMouseZ() != 0) 
+		{	
+			newPos = (0, 0, 0);
+			float wheelSensitivity = scrollSensitivity;
+			vec3 distance = Reference - Position;
+
+			if (length(distance) < zoomSensitivity)
+			{
+				wheelSensitivity = length(distance) / zoomSensitivity;
+			}
+			
+			if (App->input->GetMouseZ() > 0)
+			{
+				newPos -= Z * wheelSensitivity;
+			}
+			else
+			{
+				newPos += Z * wheelSensitivity;
+			}
+				
+			Position += newPos;
+		}
+
+		// Mouse motion
 
 		if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 		{

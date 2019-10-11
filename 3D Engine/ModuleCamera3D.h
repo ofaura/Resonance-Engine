@@ -30,6 +30,9 @@ private:
 public:
 	
 	vec3 X, Y, Z, Position, Reference;
+	float Sensitivity = 0.25f;
+	float scrollSensitivity = 10.0f;
+	float zoomSensitivity = 20.0f;
 
 private:
 
