@@ -13,6 +13,14 @@
 #include "Assimp/include/cfileio.h"
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
+#include "DevIL/include/IL/il.h"
+#include "DevIL/include/IL/ilut.h"
+#include "DevIL\include/IL\ilu.h"
+
+#pragma comment( lib, "Devil/lib/x86/Release/DevIL.lib" )
+#pragma comment( lib, "Devil/lib/x86/Release/ILU.lib" )
+#pragma comment( lib, "Devil/lib/x86/Release/ILUT.lib" )
+
 void MyAssimpCallback(const char * msg, char * userData)
 {
 	LOG("[Assimp]: %s", msg);
@@ -27,6 +35,22 @@ bool ModuleResourceManager::Init(json file)
 	stream.callback = MyAssimpCallback;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
+
+	// DevIL version checking
+	if (ilGetInteger(IL_VERSION_NUM) < IL_VERSION || iluGetInteger(ILU_VERSION_NUM) < ILU_VERSION || ilutGetInteger(ILUT_VERSION_NUM) < ILUT_VERSION)
+		printf("DevIL version is different");
+
+	return true;
+}
+
+bool ModuleResourceManager::Start()
+{
+	// Enable textures
+	glEnable(GL_TEXTURE_2D);
+
+	// Load textures	
+	CheckersTexture("Assets/Baker_house.png");
+
 	return true;
 }
 
@@ -52,12 +76,17 @@ void ModuleResourceManager::Draw()
 	for (uint i = 0; i < meshes.size(); ++i)
 	{
 		glEnableClientState(GL_VERTEX_ARRAY);
+		
+		glBindTexture(GL_TEXTURE_2D, tex);
 		glBindBuffer(GL_ARRAY_BUFFER, meshes[i]->VerticesID);
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshes[i]->IndicesID);
 		glDrawElements(GL_TRIANGLES, meshes[i]->IndicesSize, GL_UNSIGNED_INT, NULL);
+		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 		if (meshes[i]->TexCoords)
@@ -107,4 +136,39 @@ bool ModuleResourceManager::LoadFileFromPath(const char* path)
 	else { LOG("|[error]: Error loading scene %s", path); }
 	
 	return true;
+}
+
+void ModuleResourceManager::CheckersTexture(const char* path)
+{
+	ILuint image; 
+	ilGenImages(1, &image); 
+	ilBindImage(image);
+
+	if (!ilLoadImage(path))
+		ilDeleteImages(1, &image);
+	else {
+
+		tex = ilutGLBindTexImage();
+
+		long h, v, bpp, f;
+		ILubyte *texdata = 0;
+
+		h = ilGetInteger(IL_IMAGE_WIDTH);
+		v = ilGetInteger(IL_IMAGE_HEIGHT);
+		bpp = ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
+		f = ilGetInteger(IL_IMAGE_FORMAT);
+		texdata = ilGetData();
+
+		glGenTextures(1, &tex);
+		glBindTexture(GL_TEXTURE_2D, tex);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		gluBuild2DMipmaps(GL_TEXTURE_2D, bpp, h, v, f, GL_UNSIGNED_BYTE, texdata);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		ilBindImage(0);
+		ilDeleteImage(image);
+	}
 }

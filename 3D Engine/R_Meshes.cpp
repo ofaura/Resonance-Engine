@@ -8,8 +8,11 @@
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 #include "glmath.h"
+#include "ModuleResourceManager.h"
+#include "Globals.h"
+#include "Application.h"
 
-Meshes::Meshes() : Resources(Resources::RType::mesh){}
+Meshes::Meshes() {}
 Meshes::~Meshes(){}
 
 void Meshes::Importer(aiMesh* mesh)

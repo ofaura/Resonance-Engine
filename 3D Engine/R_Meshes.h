@@ -4,11 +4,10 @@
 #include "Globals.h"
 #include "Math.h"
 #include "glmath.h"
-#include "Resources.h"
 
 struct aiMesh;
 
-class Meshes : public Resources
+class Meshes
 {
 public:
 

@@ -5,6 +5,9 @@
 #include "Math.h"
 #include "glmath.h"
 
+#define CHECKERS_WIDTH 10
+#define CHECKERS_HEIGHT 10
+
 class Meshes;
 
 class ModuleResourceManager : public Module
@@ -15,13 +18,17 @@ public:
 	~ModuleResourceManager();
 
 	bool Init(json file);
+	bool Start();
 	bool CleanUp();
 	bool LoadFileFromPath(const char* path);
 	void Draw();
+	void CheckersTexture(const char* path);
 
-private:
+public:
 
 	std::vector<Meshes*> meshes;
+	uint tex = 0;
+
 };
 
 #endif
