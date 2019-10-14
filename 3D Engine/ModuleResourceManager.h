@@ -4,24 +4,22 @@
 #include "Module.h"
 #include <vector>
 
-struct MeshData {
+struct Data {
 
-	uint id_index = 0; // Index in VRAM
+	uint id_index = 0; 
 	uint num_indices = 0;
 	uint* indices = nullptr;
-
-	uint id_vertex = 0; // Vertex in VRAM
+	uint id_vertex = 0;
 	uint num_vertices = 0;
 	float* vertices = nullptr;
-
-	uint id_tex = 0;  // Texture in VRAM
-	uint num_tex = 0;
+	uint id_texture = 0;
+	uint num_texture = 0;
 	float* textures = nullptr;
 };
 
 struct Mesh {
 
-	std::vector<MeshData*> mesh;
+	std::vector<Data*> mesh;
 	uint texture = 0;
 };
 
@@ -44,10 +42,9 @@ public:
 	uint GenerateTexture(const char* path);
 
 public:
+	
 	std::vector<Mesh> MeshArray;
 	uint texture;
-
-private:
 
 };
 
