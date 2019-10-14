@@ -42,109 +42,104 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	BROFILER_CATEGORY("Camera3D Update", Profiler::Color::Orchid)
 
-	if (MouseInsideWindow())
-	{
-		vec3 newPos(0, 0, 0);
-		float speed = 3.0f * dt;
-
-		if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-			speed = 8.0f * dt;
-
-		//Movement by keys
-
-		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
-
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
-
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
-
-		
-		
-		//Get Mouse Movment
-
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
-		
-		//Left Button
-
-		if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
+		if (MouseInsideWindow())
 		{
-			if (dx != 0 || dy != 0)
-			{
-				newPos.y -= dy * MidButtonSensitivity;
-				newPos += X * dx * MidButtonSensitivity;
-			}
-			
+			vec3 newPos(0, 0, 0);
+			float speed = 3.0f * dt;
+			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+				speed = 8.0f * dt;
+
+			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
+			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+
 			Position += newPos;
 			Reference += newPos;
-		}
 
-		//Right Button
+			// Mouse motion ----------------
 
-		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-		{
-			Sensitivity = 0.25f;
-
-			vec3 newPosition = Position - Reference;
-
-			if (dx != 0)
+			if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 			{
-				float DeltaX = (float)dx * Sensitivity;
+				int dx = -App->input->GetMouseXMotion();
+				int dy = -App->input->GetMouseYMotion();
 
-				X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-				Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-				Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			}
+				float Sensitivity = 0.25f;
 
-			if (dy != 0)
-			{
-				float DeltaY = (float)dy * Sensitivity;
+				Position -= Reference;
 
-				Y = rotate(Y, DeltaY, X);
-				Z = rotate(Z, DeltaY, X);
-
-				if (Y.y < 0.0f)
+				if (dx != 0)
 				{
-					Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-					Y = cross(Z, X);
+					float DeltaX = (float)dx * Sensitivity;
+
+					X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+					Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+					Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
 				}
+
+				if (dy != 0)
+				{
+					float DeltaY = (float)dy * Sensitivity;
+
+					Y = rotate(Y, DeltaY, X);
+					Z = rotate(Z, DeltaY, X);
+
+					if (Y.y < 0.0f)
+					{
+						Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+						Y = cross(Z, X);
+					}
+				}
+
+				Position = Reference + Z * length(Position);
 			}
 
-			Reference = Position - Z * length(newPosition);
+			if (App->input->GetMouseZ() != 0)
+			{
+				newPos = (0, 0, 0);
+				float wheelSensitivity = scrollSensitivity;
+				vec3 distance = Reference - Position;
+
+				if (length(distance) < zoomSensitivity)
+				{
+					wheelSensitivity = length(distance) / zoomSensitivity;
+				}
+
+				if (App->input->GetMouseZ() > 0)
+				{
+					newPos -= Z * wheelSensitivity;
+				}
+				else
+				{
+					newPos += Z * wheelSensitivity;
+				}
+
+				Position += newPos;
+			}
+
+			int dx = -App->input->GetMouseXMotion();
+			int dy = -App->input->GetMouseYMotion();
+
+			//Left Button
+
+			if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
+			{
+				if (dx != 0 || dy != 0)
+				{
+					newPos.y -= dy * MidButtonSensitivity;
+					newPos += X * dx * MidButtonSensitivity;
+				}
+
+				Position += newPos;
+				Reference += newPos;
+			}
+			// Recalculate matrix -------------
+			CalculateViewMatrix();
 		}
-		
-		//Mouse Wheel
-
-		if (App->input->GetMouseZ() != 0) 
-		{	
-			newPos = (0, 0, 0);
-			float wheelSensitivity = scrollSensitivity;
-			vec3 distance = Reference - Position;
-
-			if (length(distance) < zoomSensitivity)
-			{
-				wheelSensitivity = length(distance) / zoomSensitivity;
-			}
-			
-			if (App->input->GetMouseZ() > 0)
-			{
-				newPos -= Z * wheelSensitivity;
-			}
-			else
-			{
-				newPos += Z * wheelSensitivity;
-			}
-				
-			Position += newPos;
-		}
-
-		// Recalculate matrix -------------
-		CalculateViewMatrix();
-	}
-	
 
 	return UPDATE_CONTINUE;
 }
