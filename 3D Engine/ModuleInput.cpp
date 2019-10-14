@@ -124,7 +124,13 @@ update_status ModuleInput::PreUpdate(float dt)
 			case SDL_DROPFILE:
 
 				if (e.drop.type == SDL_DROPFILE)
-					App->rscr->LoadFileFromPath(e.drop.file);
+					// We check if its a .png (texture) or an FBX
+					if (strstr(e.drop.file, ".png") != nullptr)
+						App->rscr->texture = App->rscr->GenerateTexture(e.drop.file);
+					else if (strstr(e.drop.file, ".fbx") != nullptr || strstr(e.drop.file, ".FBX") != nullptr)
+						App->rscr->LoadFilesFromPath(e.drop.file);
+				// Free dropped_filedir memory
+				SDL_free((void*)e.drop.file);
 
 				break;
 		}

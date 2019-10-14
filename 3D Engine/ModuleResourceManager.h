@@ -2,32 +2,52 @@
 #define __MODULE_RESOURCES_MANAGER_H__
 
 #include "Module.h"
-#include "Math.h"
-#include "glmath.h"
+#include <vector>
 
-#define CHECKERS_WIDTH 10
-#define CHECKERS_HEIGHT 10
+struct MeshData {
 
-class Meshes;
+	uint id_index = 0; // Index in VRAM
+	uint num_indices = 0;
+	uint* indices = nullptr;
 
+	uint id_vertex = 0; // Vertex in VRAM
+	uint num_vertices = 0;
+	float* vertices = nullptr;
+
+	uint id_tex = 0;  // Texture in VRAM
+	uint num_tex = 0;
+	float* textures = nullptr;
+};
+
+struct Mesh {
+
+	std::vector<MeshData*> mesh;
+	uint texture = 0;
+};
+
+// ---------------------------------------------------
 class ModuleResourceManager : public Module
 {
 public:
 
-	ModuleResourceManager( bool start_enabled = true);
-	~ModuleResourceManager();
+	ModuleResourceManager(Application* app, bool start_enabled = true);
+	virtual ~ModuleResourceManager();
 
-	bool Init(json file);
+
+	bool Init();
 	bool Start();
+	update_status Update(float dt);
 	bool CleanUp();
-	bool LoadFileFromPath(const char* path);
-	void Draw();
-	void CheckersTexture(const char* path);
+
+	void LoadFilesFromPath(const char* path, uint tex = 0);
+	void Draw(Mesh fbx_mesh);
+	uint GenerateTexture(const char* path);
 
 public:
+	std::vector<Mesh> MeshArray;
+	uint texture;
 
-	std::vector<Meshes*> meshes;
-	uint tex = 0;
+private:
 
 };
 
