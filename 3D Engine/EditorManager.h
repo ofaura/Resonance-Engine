@@ -13,6 +13,7 @@ class About;
 class Console;
 class Game;
 class Inspector;
+class TreeNodes;
 
 class EditorElement
 {
@@ -51,6 +52,7 @@ public:
 	void AddLOG(char* log, ...) IM_FMTARGS(2);
 
 	const ImVec4 GetGameWindowRect();
+
 
 private:
 
