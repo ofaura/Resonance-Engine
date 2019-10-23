@@ -2,26 +2,50 @@
 #define __MODULE_RESOURCES_MANAGER_H__
 
 #include "Module.h"
-#include "Math.h"
-#include "glmath.h"
+#include <vector>
 
-class Meshes;
+struct Data {
 
+	uint id_index = 0; 
+	uint num_indices = 0;
+	uint* indices = nullptr;
+	uint id_vertex = 0;
+	uint num_vertices = 0;
+	float* vertices = nullptr;
+	uint id_texture = 0;
+	uint num_texture = 0;
+	float* textures = nullptr;
+};
+
+struct Mesh {
+
+	std::vector<Data*> mesh;
+	uint texture = 0;
+};
+
+// ---------------------------------------------------
 class ModuleResourceManager : public Module
 {
 public:
 
-	ModuleResourceManager( bool start_enabled = true);
-	~ModuleResourceManager();
+	ModuleResourceManager(Application* app, bool start_enabled = true);
+	virtual ~ModuleResourceManager();
 
-	bool Init(json file);
+
+	bool Init();
+	bool Start();
+	update_status Update(float dt);
 	bool CleanUp();
-	bool LoadFileFromPath(const char* path);
-	void Draw();
 
-private:
+	void LoadFilesFromPath(const char* path, uint tex = 0);
+	void Draw(Mesh fbx_mesh);
+	uint GenerateTexture(const char* path);
 
-	std::vector<Meshes*> meshes;
+public:
+	
+	std::vector<Mesh> MeshArray;
+	uint texture;
+
 };
 
 #endif
