@@ -1,6 +1,8 @@
 #ifndef __Component__H__
 #define __Component__H__
 
+#include "GameObject.h"
+
 enum class COMPONENT_TYPE
 {
 	TRANSFORM,
@@ -25,6 +27,9 @@ private:
 
 	COMPONENT_TYPE type;
 	bool active = false;
+	GameObject* my_go;
+	string name;
+
 };
 
 #endif __Component__H__

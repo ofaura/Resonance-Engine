@@ -15,7 +15,7 @@ public:
 	virtual ~GameObject();
 
 	void Start();
-	void Draw();
+	void Update();
 	void CleanUp();
 
 	void EnableGO();
@@ -25,14 +25,19 @@ public:
 	void RemoveComponent(COMPONENT_TYPE type);
 	bool HasComponent(COMPONENT_TYPE type);
 
-private:
 
 private:
 
 	bool enable = false;
 	uint id = 0;
-	
 	vector<Component*> components;
+
+public:
+
+	string name;
+	GameObject* parent;
+	vector<GameObject*> children;
+
 };
 
 #endif __GameObject__H__

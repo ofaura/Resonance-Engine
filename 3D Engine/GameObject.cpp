@@ -9,7 +9,7 @@ void GameObject::Start()
 {
 }
 
-void GameObject::Draw()
+void GameObject::Update()
 {
 }
 
