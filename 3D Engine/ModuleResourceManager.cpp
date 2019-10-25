@@ -11,7 +11,7 @@
 #include "Assimp/include/cfileio.h"
 #include "DevIL/include/IL/il.h"
 #include "DevIL/include/IL/ilut.h"
-#include "DevIL\include/IL\ilu.h"
+#include "DevIL/include/IL/ilu.h"
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment( lib, "DevIL/lib/x86/Release/DevIL.lib" )

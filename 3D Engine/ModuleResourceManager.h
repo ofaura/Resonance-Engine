@@ -1,7 +1,8 @@
 #ifndef __MODULE_RESOURCE_MANAGER_H__
-#define __MODULE_RESOURCES_MANAGER_H__
+#define __MODULE_RESOURCE_MANAGER_H__
 
 #include "Module.h"
+
 #include <vector>
 
 struct Data {

@@ -2,7 +2,7 @@
 #include "imgui-1.72b/imgui.h"
 
 
-C_Transform::C_Transform(GameObject* gameobject, COMPONENT_TYPE type) : Component(type, gameobject)
+C_Transform::C_Transform(GameObject* object) : Component(COMPONENT_TYPE::TRANSFORM, object)
 {
 	name = "Transform";
 }

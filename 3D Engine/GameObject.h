@@ -5,8 +5,11 @@
 #include "Component.h"
 
 #include <vector>
+#include <string>
 
-class Component;
+class C_Mesh;
+class C_Texture;
+class C_Transform;
 
 class GameObject
 {
@@ -19,10 +22,11 @@ public:
 	void EnableGO();
 	void DisableGO();
 
-	Component* AddComponent(COMPONENT_TYPE type);
+	void AddComponent(COMPONENT_TYPE type);
 	void RemoveComponent(COMPONENT_TYPE type);
 	bool HasComponent(COMPONENT_TYPE type);
 
+	void RenderGameObject();
 
 private:
 

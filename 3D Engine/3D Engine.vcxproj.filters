@@ -108,6 +108,12 @@
     <ClCompile Include="C_Transform.cpp">
       <Filter>Sources\Tools\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="C_Mesh.cpp">
+      <Filter>Sources\Tools\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Texture.cpp">
+      <Filter>Sources\Tools\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -242,6 +248,12 @@
       <Filter>Sources\Tools\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="C_Transform.h">
+      <Filter>Sources\Tools\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Mesh.h">
+      <Filter>Sources\Tools\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Texture.h">
       <Filter>Sources\Tools\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>

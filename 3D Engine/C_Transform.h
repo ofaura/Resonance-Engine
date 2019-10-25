@@ -4,11 +4,13 @@
 #include "Component.h"
 #include "glmath.h"
 
+class GameObject;
+
 class C_Transform : public Component
 {
 public:
-	C_Transform(GameObject* gameobject, COMPONENT_TYPE type);
-	virtual ~C_Transform();
+	C_Transform(GameObject* object);
+	~C_Transform();
 
 	void Update();
 

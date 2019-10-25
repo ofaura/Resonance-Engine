@@ -80,6 +80,8 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="C_Mesh.h" />
+    <ClInclude Include="C_Texture.h" />
     <ClInclude Include="C_Transform.h" />
     <ClInclude Include="EditorManager.h" />
     <ClInclude Include="FBO.h" />
@@ -128,6 +130,8 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="Console.cpp" />
+    <ClCompile Include="C_Mesh.cpp" />
+    <ClCompile Include="C_Texture.cpp" />
     <ClCompile Include="C_Transform.cpp" />
     <ClCompile Include="EditorManager.cpp" />
     <ClCompile Include="FBO.cpp" />

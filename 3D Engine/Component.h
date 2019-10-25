@@ -1,5 +1,6 @@
 #ifndef __Component__H__
 #define __Component__H__
+
 #include "Globals.h"
 #include "Application.h"
 
@@ -9,7 +10,7 @@ enum class COMPONENT_TYPE
 {
 	TRANSFORM,
 	MESH,
-	MATERIAL
+	TEXTURE
 };
 
 class Component
@@ -19,11 +20,12 @@ public:
 	virtual ~Component();
 
 	virtual void Update() {};
+	//virtual void DrawInspector();
 
 	void Enable();
 	void Disable();
 
-	const COMPONENT_TYPE GetType();
+	const COMPONENT_TYPE GetType() const;
 
 protected:
 

@@ -16,7 +16,7 @@ void Component::Disable()
 		active = false;
 }
 
-const COMPONENT_TYPE Component::GetType()
+const COMPONENT_TYPE Component::GetType() const
 {
 	return type;
 }

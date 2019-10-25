@@ -1,11 +1,11 @@
 #include "GameObject.h"
-#include "C_Transform.h"
 #include "Application.h"
+#include "C_Transform.h"
+#include "C_Mesh.h"
+#include "C_Texture.h"
 
-GameObject::GameObject(uint id) : id(id) , name("GameObject")
-{
-	components.push_back(AddComponent(COMPONENT_TYPE::TRANSFORM));
-}
+
+GameObject::GameObject(uint id) : id(id) {}
 
 GameObject::~GameObject() {}
 
@@ -25,27 +25,25 @@ void GameObject::DisableGO()
 		enable = false;
 }
 
-Component* GameObject::AddComponent(COMPONENT_TYPE type)
+void GameObject::AddComponent(COMPONENT_TYPE type)
 {
 	Component* component = nullptr;
 
-	if (HasComponent(type)) return component;
+	if (HasComponent(type)) return;
 
 
 	switch (type)
 	{
 		case COMPONENT_TYPE::TRANSFORM:
-			component = new C_Transform(this,type);
+			component = new C_Transform(this);
+			break;
+		case COMPONENT_TYPE::MESH:
+			component = new C_Transform(this);
 			break;
 	}
 
 	if (component != nullptr)
-	{
-		component->Start();
 		components.push_back(component);
-	}
-
-	return component;
 }
 
 void GameObject::RemoveComponent(COMPONENT_TYPE type)
@@ -69,4 +67,11 @@ bool GameObject::HasComponent(COMPONENT_TYPE type)
 	}
 
 	return false;
+}
+
+void GameObject::RenderGameObject()
+{
+
+
+
 }
