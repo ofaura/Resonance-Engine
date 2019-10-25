@@ -4,6 +4,9 @@
 #include "Module.h"
 #include <vector>
 
+#define CHECKERS_WIDTH 100
+#define CHECKERS_HEIGHT 100
+
 struct Data {
 
 	uint id_index = 0; 
@@ -40,11 +43,13 @@ public:
 	void LoadFilesFromPath(const char* path, uint tex = 0);
 	void Draw(Mesh fbx_mesh);
 	uint GenerateTexture(const char* path);
+	void GenerateCheckerTexture();
 
 public:
 	
 	std::vector<Mesh> MeshArray;
 	uint texture;
+	uint checker_texture;
 
 };
 
