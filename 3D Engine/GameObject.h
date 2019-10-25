@@ -6,7 +6,7 @@
 
 #include <vector>
 
-using namespace std;
+class Component;
 
 class GameObject
 {

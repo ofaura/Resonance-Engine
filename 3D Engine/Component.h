@@ -2,7 +2,8 @@
 #define __Component__H__
 #include "Globals.h"
 #include "Application.h"
-#include "GameObject.h"
+
+class GameObject;
 
 enum class COMPONENT_TYPE
 {

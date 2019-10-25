@@ -4,7 +4,7 @@
 
 GameObject::GameObject(uint id) : id(id) , name("GameObject")
 {
-	components.push_back(AddComponent(TRANSFORM));
+	components.push_back(AddComponent(COMPONENT_TYPE::TRANSFORM));
 }
 
 GameObject::~GameObject() {}
@@ -27,9 +27,10 @@ void GameObject::DisableGO()
 
 Component* GameObject::AddComponent(COMPONENT_TYPE type)
 {
-	if (HasComponent(type)) return;
-
 	Component* component = nullptr;
+
+	if (HasComponent(type)) return component;
+
 
 	switch (type)
 	{
