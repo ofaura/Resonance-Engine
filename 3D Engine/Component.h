@@ -15,19 +15,17 @@ enum class COMPONENT_TYPE
 class Component
 {
 public:
-	Component(COMPONENT_TYPE type);
+	Component(COMPONENT_TYPE type, GameObject* gameobject);
 	virtual ~Component();
 
-	virtual void Start() {};
 	virtual void Update() {};
-	virtual void CleanUp() {};
 
 	void Enable();
 	void Disable();
 
 	const COMPONENT_TYPE GetType();
 
-private:
+protected:
 
 	COMPONENT_TYPE type;
 	bool active = false;

@@ -1,6 +1,6 @@
 #include "Component.h"
 
-Component::Component(COMPONENT_TYPE type) : type(type) {}
+Component::Component(COMPONENT_TYPE type, GameObject* gameobject) : type(type) , my_go(gameobject) {}
 
 Component::~Component() {}
 

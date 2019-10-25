@@ -35,7 +35,7 @@ Component* GameObject::AddComponent(COMPONENT_TYPE type)
 	switch (type)
 	{
 		case COMPONENT_TYPE::TRANSFORM:
-			component = new C_Transform();
+			component = new C_Transform(this,type);
 			break;
 	}
 
