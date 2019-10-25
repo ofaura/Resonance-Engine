@@ -14,14 +14,12 @@ public:
 	GameObject(uint id);
 	virtual ~GameObject();
 
-	void Start();
-	void Update();
 	void CleanUp();
 
 	void EnableGO();
 	void DisableGO();
 
-	void AddComponent(COMPONENT_TYPE type);
+	Component* AddComponent(COMPONENT_TYPE type);
 	void RemoveComponent(COMPONENT_TYPE type);
 	bool HasComponent(COMPONENT_TYPE type);
 
@@ -30,14 +28,14 @@ private:
 
 	bool enable = false;
 	uint id = 0;
-	vector<Component*> components;
+	
 
 public:
 
 	string name;
 	GameObject* parent;
 	vector<GameObject*> children;
-
+	vector<Component*> components;
 };
 
 #endif __GameObject__H__

@@ -1,17 +1,13 @@
 #include "GameObject.h"
 #include "C_Transform.h"
+#include "Application.h"
 
-GameObject::GameObject(uint id) : id(id) {}
+GameObject::GameObject(uint id) : id(id) , name("GameObject")
+{
+	components.push_back(AddComponent(TRANSFORM));
+}
 
 GameObject::~GameObject() {}
-
-void GameObject::Start()
-{
-}
-
-void GameObject::Update()
-{
-}
 
 void GameObject::CleanUp()
 {
@@ -19,13 +15,17 @@ void GameObject::CleanUp()
 
 void GameObject::EnableGO()
 {
+	if (!enable)
+		enable = true;
 }
 
 void GameObject::DisableGO()
 {
+	if (enable)
+		enable = false;
 }
 
-void GameObject::AddComponent(COMPONENT_TYPE type)
+Component* GameObject::AddComponent(COMPONENT_TYPE type)
 {
 	if (HasComponent(type)) return;
 
@@ -43,6 +43,8 @@ void GameObject::AddComponent(COMPONENT_TYPE type)
 		component->Start();
 		components.push_back(component);
 	}
+
+	return component;
 }
 
 void GameObject::RemoveComponent(COMPONENT_TYPE type)

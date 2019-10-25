@@ -96,9 +96,6 @@
     <ClCompile Include="TreeNodes.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleGameObject.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Objects3D.cpp">
       <Filter>Sources\Tools\GameObjects</Filter>
     </ClCompile>
@@ -234,9 +231,6 @@
     </ClInclude>
     <ClInclude Include="TreeNodes.h">
       <Filter>Sources\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleGameObject.h">
-      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Objects3D.h">
       <Filter>Sources\Tools\GameObjects</Filter>

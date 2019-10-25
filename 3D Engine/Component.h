@@ -1,11 +1,14 @@
 #ifndef __Component__H__
 #define __Component__H__
-
+#include "Globals.h"
+#include "Application.h"
 #include "GameObject.h"
 
 enum class COMPONENT_TYPE
 {
 	TRANSFORM,
+	MESH,
+	MATERIAL
 };
 
 class Component
