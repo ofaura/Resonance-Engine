@@ -11,6 +11,9 @@ void C_Texture::DrawInspector()
 {
 	if (ImGui::CollapsingHeader("Texture")) 
 	{
-		ImGui::Image((void*)texture, ImVec2(200, 200), ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::Checkbox("Enabled ", &active);
+
+		if (active)
+			ImGui::Image((void*)texture, ImVec2(200, 200), ImVec2(0, 1), ImVec2(1, 0));
 	}
 }

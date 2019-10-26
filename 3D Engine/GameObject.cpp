@@ -53,6 +53,11 @@ const char * GameObject::GetName() const
 	return name.c_str();
 }
 
+bool & GameObject::GetActive()
+{
+	return enable;
+}
+
 void GameObject::SetName(const char * name)
 {
 	this->name = name;
@@ -112,29 +117,33 @@ void GameObject::DrawInspector()
 		components[i]->DrawInspector();
 }
 
-void GameObject::RenderGameObject() const
+void GameObject::RenderGameObject(bool enable) const
 {
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	if (component_texture->active) 
-		glBindTexture(GL_TEXTURE_2D, component_texture->texture);
-	else 
-		glBindTexture(GL_TEXTURE_2D, App->rscr->checker_texture);
-	glActiveTexture(GL_TEXTURE0);
-	glBindBuffer(GL_ARRAY_BUFFER, component_mesh->meshData.id_texture);
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	if (enable)
+	{
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		if (component_texture->active) 
+			glBindTexture(GL_TEXTURE_2D, component_texture->texture);
+		else 
+			glBindTexture(GL_TEXTURE_2D, App->rscr->checker_texture);
+		glActiveTexture(GL_TEXTURE0);
+		glBindBuffer(GL_ARRAY_BUFFER, component_mesh->meshData.id_texture);
+		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-	// Render the mesh
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, component_mesh->meshData.id_vertex);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, component_mesh->meshData.id_index);
-	glDrawElements(GL_TRIANGLES, component_mesh->meshData.n_indices * 3, GL_UNSIGNED_INT, NULL);
+		// Render the mesh
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glBindBuffer(GL_ARRAY_BUFFER, component_mesh->meshData.id_vertex);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, component_mesh->meshData.id_index);
+		glDrawElements(GL_TRIANGLES, component_mesh->meshData.n_indices * 3, GL_UNSIGNED_INT, NULL);
 
-	// Clean all buffers
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, 0);
+		// Clean all buffers
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
 }

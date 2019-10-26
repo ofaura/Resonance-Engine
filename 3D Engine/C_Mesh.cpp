@@ -1,5 +1,9 @@
 #include "C_Mesh.h"
 #include "glmath.h"
+#include "ModuleSceneIntro.h"
+#include "GameObject.h"
+#include "Inspector.h"
+#include "EditorManager.h"
 
 C_Mesh::C_Mesh(GameObject * object) : Component(COMPONENT_TYPE::MESH, object)
 {
@@ -18,27 +22,32 @@ void C_Mesh::Update()
 
 void C_Mesh::DrawInspector()
 {
-	if (ImGui::CollapsingHeader("Mesh")) {
+	if (ImGui::CollapsingHeader("Mesh")) 
+	{
 		ImGui::Checkbox("Enabled", &active);
+		
+		if (active)
+		{
+			ImGui::Text("Number of vertices: ");
+			ImGui::SameLine();
+			ImGui::Text("%d", meshData.n_vertices);
 
-		ImGui::Text("Number of vertices: ");
-		ImGui::SameLine();
-		ImGui::Text("%d", meshData.n_vertices);
+			ImGui::Text("Number of polygons: ");
+			ImGui::SameLine();
+			ImGui::Text("%d", meshData.n_indices / 3);
 
-		ImGui::Text("Number of polygons: ");
-		ImGui::SameLine();
-		ImGui::Text("%d", meshData.n_indices / 3);
+			ImGui::Separator();
 
-		ImGui::Separator();
-
-		ImGui::Checkbox("Vertex normals", &drawVerticesNormals);
-		ImGui::Checkbox("Face normals", &drawFaceNormals);
+			ImGui::Checkbox("Vertex normals", &drawVerticesNormals);
+			ImGui::Checkbox("Face normals", &drawFaceNormals);
+		}
+		
 	}
 }
 
 void C_Mesh::DrawFaceNormals()
 {
-	for (uint i = 0; i < meshData.n_indices; ++i)
+	/*for (uint i = 0; i < meshData.n_indices; ++i)
 	{
 		vec3 a = vec3(meshData.vertices[i * 3], meshData.vertices[i * 3 + 1], meshData.vertices[i * 3 + 2]);
 		vec3 b = vec3(meshData.vertices[i * 3 + 3], meshData.vertices[i * 3 + 4], meshData.vertices[i * 3 + 5]);
@@ -55,28 +64,30 @@ void C_Mesh::DrawFaceNormals()
 
 		glColor3f(255, 255, 255);
 		glEnd();
-	}
+	}*/
+
+
 }
 
 void C_Mesh::DrawVerticesNormals()
 {
-	if (meshData.normals != nullptr)
-	{
-		for (uint i = 0; i < meshData.n_vertices; ++i)
-		{
-			vec3 point = vec3(meshData.vertices[i * 3], meshData.vertices[i * 3 + 1], meshData.vertices[i * 3 + 2]);
-			vec3 vec = vec3(meshData.normals[i * 3], meshData.normals[i * 3 + 1], meshData.normals[i * 3 + 2]);
+	//if (meshData.normals != nullptr)
+	//{
+	//	for (uint i = 0; i < meshData.n_vertices; ++i)
+	//	{
+	//		vec3 point = vec3(meshData.vertices[i * 3], meshData.vertices[i * 3 + 1], meshData.vertices[i * 3 + 2]);
+	//		vec3 vec = vec3(meshData.normals[i * 3], meshData.normals[i * 3 + 1], meshData.normals[i * 3 + 2]);
 
-			glLineWidth(1.0f);
-			glBegin(GL_LINES);
-			glColor3f(0, 255, 255);
-			glVertex3f(point.x, point.y, point.z);
-			glVertex3f((point.x + vec.x * 1.0f),
-				(point.y + vec.y * 1.0f),
-				(point.z + vec.z * 1.0f));
+	//		glLineWidth(1.0f);
+	//		glBegin(GL_LINES);
+	//		glColor3f(0, 255, 255);
+	//		glVertex3f(point.x, point.y, point.z);
+	//		glVertex3f((point.x + vec.x * 1.0f),
+	//			(point.y + vec.y * 1.0f),
+	//			(point.z + vec.z * 1.0f));
 
-			glColor3f(255, 255, 255);
-			glEnd();
-		}
-	}
+	//		glColor3f(255, 255, 255);
+	//		glEnd();
+	//	}
+	//}
 }

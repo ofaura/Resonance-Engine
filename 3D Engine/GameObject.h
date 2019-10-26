@@ -31,17 +31,19 @@ public:
 
 	const int GetId() const;
 	const char* GetName() const;
+	bool& GetActive();
 	void SetName(const char* name);
 
 	void DrawInspector();
-	void RenderGameObject() const;
+	void RenderGameObject(bool enable) const;
 
 private:
 
-	bool enable = false;
 	uint id = 0;
 
 public:
+
+	bool enable = true;
 
 	C_Mesh* component_mesh = nullptr;
 	C_Texture* component_texture = nullptr;

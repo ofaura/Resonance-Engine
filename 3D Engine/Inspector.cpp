@@ -23,10 +23,13 @@ void Inspector::Draw()
 
 		ImGui::BeginChild("child", ImVec2(0, 35), true);
 
-		static char GOName[100] = "";
-		strcpy_s(GOName, 100, Selected->GetName());
-		if (ImGui::InputText("", GOName, 100, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
-			Selected->SetName(GOName);
+		ImGui::Checkbox(" ", &App->scene_intro->goSelected->enable);
+		ImGui::SameLine();
+
+		static char name[100] = "";
+		strcpy_s(name, 100, Selected->GetName());
+		if (ImGui::InputText("", name, 100, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+			Selected->SetName(name);
 
 		ImGui::EndChild();
 

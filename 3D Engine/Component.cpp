@@ -20,3 +20,4 @@ const COMPONENT_TYPE Component::GetType() const
 {
 	return type;
 }
+
