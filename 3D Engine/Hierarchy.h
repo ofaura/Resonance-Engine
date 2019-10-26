@@ -20,13 +20,6 @@ public:
 	void Draw();
 	void CleanUp();
 
-private:
-
-	void AddSelectedGameObject(GameObject gameObject);
-	void SetSelected(const bool& selected);
-
-private:
-	vector<GameObject> selected;
 };
 
 #endif __Hierarchy__H__

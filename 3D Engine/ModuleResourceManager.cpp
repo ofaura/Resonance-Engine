@@ -94,7 +94,18 @@ void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 			if (string::npos != last_slash_idx)
 				name = directory.substr(0, last_slash_idx);
 
-			GameObject Loadmesh(name);
+			for (uint k = 0; k < App->scene_intro->gameObjects.size(); ++k)
+			{
+				if (App->scene_intro->gameObjects.at(k)->name == name)
+				{
+					name.append(" (");
+					name.append(std::to_string(App->scene_intro->gameObjects.size()));
+					name.append(")");
+				}
+			}
+
+			GameObject *Loadmesh = new GameObject(name);
+
 			Data data;
 
 			// Copy vertices
@@ -142,14 +153,13 @@ void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * data.n_textures, data.textures, GL_STATIC_DRAW);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);		
 
-			Loadmesh.component_mesh->meshData = data;
+			Loadmesh->component_mesh->meshData = data;
 			
 			if (tex == 0)
-				Loadmesh.component_texture->texture = texture;
+				Loadmesh->component_texture->texture = texture;
 			else 
-				Loadmesh.component_texture->texture = tex;
+				Loadmesh->component_texture->texture = tex;
 			
-			//App->scene_intro->gameObjects.push_back(&Loadmesh);
 			App->scene_intro->gameObjects.push_back(Loadmesh);
 		}
 		aiReleaseImport(scene);

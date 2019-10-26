@@ -31,8 +31,7 @@ public:
 
 	const int GetId() const;
 	const char* GetName() const;
-	const bool GetSelected() const;
-	void SetSelected(const bool& selected);
+	void SetName(const char* name);
 
 	void DrawInspector();
 	void RenderGameObject() const;
@@ -41,7 +40,6 @@ private:
 
 	bool enable = false;
 	uint id = 0;
-	bool is_selected;
 
 public:
 
@@ -52,7 +50,6 @@ public:
 	string name;
 	GameObject* parent;
 	vector<Component*> components;
-	vector<GameObject*> children;
 
 };
 

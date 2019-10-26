@@ -12,8 +12,6 @@ C_Transform::~C_Transform()
 void C_Transform::DrawInspector()
 {
 
-	if (ImGui::CollapsingHeader(name.c_str()))
-	{
 		//Position
 
 		ImGui::Text("Position:");
@@ -71,5 +69,5 @@ void C_Transform::DrawInspector()
 		ImGui::PushID("scale"); 
 		ImGui::DragFloat("Z", &scale.z, 0.005f); 
 		ImGui::PopID();
-	}
+	
 }

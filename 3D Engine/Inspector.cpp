@@ -19,7 +19,17 @@ void Inspector::Draw()
 	
 	if (App->scene_intro->goSelected != nullptr)
 	{
-		ImGui::Text(App->scene_intro->goSelected->name.c_str());
+		GameObject* Selected = App->scene_intro->gameObjects.at(App->scene_intro->id_goSelected);
+
+		ImGui::BeginChild("child", ImVec2(0, 35), true);
+
+		static char GOName[100] = "";
+		strcpy_s(GOName, 100, Selected->GetName());
+		if (ImGui::InputText("", GOName, 100, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+			Selected->SetName(GOName);
+
+		ImGui::EndChild();
+
 		App->scene_intro->goSelected->DrawInspector();
 	}
 	
