@@ -17,7 +17,6 @@ void Hierarchy::Draw()
 	if (!active) return;
 	if (ImGui::Begin("Hierarchy", &active, ImGuiWindowFlags_AlwaysAutoResize))
 	{			
-		ImGui::Text("a");
 		/*for (int i = 0; i < App->scene_intro->gameObjects.size(); i++) 
 		{
 			if (ImGui::Selectable(App->scene_intro->gameObjects[i].name.c_str(), App->scene_intro->id_goSelected == i)) 
@@ -27,14 +26,20 @@ void Hierarchy::Draw()
 			}
 		}*/
 
-		//for (uint i = 0; i < App->scene_intro->gameObjects.size(); i++)
-		//{
-		//	//if (ImGui::Selectable(App->scene_intro->gameObjects.at(i)->name.c_str(), App->scene_intro->id_goSelected == i))
-		//	//{
-		//	//	App->scene_intro->id_goSelected = i;
-		//	//	//App->scene_intro->goSelected = App->scene_intro->gameObjects.at(i);
-		//	//}
-		//}
+		vector<GameObject> game_objects = App->scene_intro->gameObjects;
+		for (vector<GameObject>::iterator item = game_objects.begin(); item != game_objects.end(); ++item)
+		{
+			ImGui::PushID((item)->GetId());
+
+			if (ImGui::Selectable((item)->GetName(), (item)->GetSelected()))
+			{
+
+				//AddSelectedGameObject((item));
+			}
+		
+			ImGui::PopID();
+		}
+
 	}
 
 	ImGui::End();
@@ -43,3 +48,16 @@ void Hierarchy::Draw()
 void Hierarchy::CleanUp()
 {
 }
+
+void Hierarchy::AddSelectedGameObject(GameObject gameObject)
+{
+	//for (vector<GameObject>::iterator it = selected.begin(); it != selected.end(); ++it)
+	//{
+	//	if ((it) == gameObject)
+	//		return;
+	//}
+
+	//gameObject->SetSelected(true);
+	//selected.push_back(gameObject);
+}
+

@@ -29,6 +29,11 @@ public:
 	void RemoveComponent(COMPONENT_TYPE type);
 	bool HasComponent(COMPONENT_TYPE type);
 
+	const int GetId() const;
+	const char* GetName() const;
+	const bool GetSelected() const;
+	void SetSelected(const bool& selected);
+
 	void DrawInspector();
 	void RenderGameObject() const;
 
@@ -36,7 +41,8 @@ private:
 
 	bool enable = false;
 	uint id = 0;
-	
+	bool is_selected;
+
 public:
 
 	C_Mesh* component_mesh = nullptr;

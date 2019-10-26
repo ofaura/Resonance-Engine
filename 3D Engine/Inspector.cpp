@@ -19,7 +19,7 @@ void Inspector::Draw()
 	
 	if (App->scene_intro->goSelected != nullptr)
 	{
-		//ImGui::Text(App->scene_intro->goSelected->name.c_str());
+		ImGui::Text(App->scene_intro->goSelected->name.c_str());
 		App->scene_intro->goSelected->DrawInspector();
 	}
 	

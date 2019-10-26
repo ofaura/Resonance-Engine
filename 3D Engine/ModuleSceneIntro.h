@@ -28,7 +28,7 @@ public:
 public:
 
 	list<Objects3D*> objects_list;
-	vector<GameObject*> gameObjects;
+	vector<GameObject> gameObjects;
 	GameObject* goSelected = nullptr;
 	uint id_goSelected = 0;
 };

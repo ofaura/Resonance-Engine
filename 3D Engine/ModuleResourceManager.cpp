@@ -149,8 +149,8 @@ void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 			else 
 				Loadmesh.component_texture->texture = tex;
 			
-			App->scene_intro->gameObjects.push_back(&Loadmesh);
-			//App->scene_intro->gameObjects.push_back(Loadmesh);
+			//App->scene_intro->gameObjects.push_back(&Loadmesh);
+			App->scene_intro->gameObjects.push_back(Loadmesh);
 		}
 		aiReleaseImport(scene);
 	}

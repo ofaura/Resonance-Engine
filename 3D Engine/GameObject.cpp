@@ -4,11 +4,13 @@
 #include "C_Mesh.h"
 #include "C_Texture.h"
 #include "ModuleResourceManager.h"
+#include "ModuleSceneIntro.h"
 
 GameObject::GameObject(uint id) : id(id) {}
 
 GameObject::GameObject(string name, GameObject* parent) : name(name), parent(parent)
 {
+	//id = App->GetRandom().Int();
 	component_mesh = (C_Mesh*)AddComponent(COMPONENT_TYPE::MESH);
 	component_texture = (C_Texture*)AddComponent(COMPONENT_TYPE::TEXTURE);
 	component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM, true);
@@ -39,6 +41,26 @@ void GameObject::DisableGO()
 {
 	if (enable)
 		enable = false;
+}
+
+const int GameObject::GetId() const
+{
+	return id;
+}
+
+const char * GameObject::GetName() const
+{
+	return name.c_str();
+}
+
+const bool GameObject::GetSelected() const
+{
+	return App->scene_intro->goSelected;
+}
+
+void GameObject::SetSelected(const bool& selected)
+{
+	is_selected = selected;
 }
 
 Component* GameObject::AddComponent(COMPONENT_TYPE type, bool active)
