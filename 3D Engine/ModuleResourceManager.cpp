@@ -12,6 +12,10 @@
 #include "DevIL/include/IL/il.h"
 #include "DevIL/include/IL/ilut.h"
 #include "DevIL/include/IL/ilu.h"
+#include "GameObject.h"
+#include "C_Texture.h"
+#include "C_Mesh.h"
+#include "ModuleSceneIntro.h"
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment( lib, "DevIL/lib/x86/Release/DevIL.lib" )
@@ -38,6 +42,12 @@ bool ModuleResourceManager::Start()
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
+	
+	texture = GenerateTexture("Assets/Baker_house.png");
+	LoadFilesFromPath("Assets/BakerHouse.fbx");
+	loadedAll = true;
+
+	GenerateCheckerTexture();
 
 	glEnable(GL_TEXTURE_2D);
 
@@ -46,118 +56,131 @@ bool ModuleResourceManager::Start()
 
 update_status ModuleResourceManager::Update(float dt)
 {
-	for (uint i = 0; i < MeshArray.size(); ++i)
-		Draw(MeshArray[i]);
-
 	return UPDATE_CONTINUE;
 }
 
 bool ModuleResourceManager::CleanUp()
 {
 	aiDetachAllLogStreams();
-	
-	for (uint i = 0; i < MeshArray.size(); ++i) MeshArray[i].mesh.clear();
-	MeshArray.clear();
 
 	return true;
 }
 
 void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 
-	Mesh Loadmesh;
+	
+
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		for (uint i = 0; i < scene->mNumMeshes; ++i) {
 
-			Data* data = new Data;
+			string n = path;
+			string directory;
+			string name;
+			uint j;
+
+			if (loadedAll)
+				j = n.rfind('\\', n.length());
+			else
+				j = n.rfind('//', n.length());
+
+			if (j != string::npos)
+				directory = (n.substr(j + 1, n.length() - j));
+
+			const uint last_slash_idx = directory.rfind('.');
+
+			if (string::npos != last_slash_idx)
+				name = directory.substr(0, last_slash_idx);
+
+			GameObject Loadmesh(name);
+			Data data;
 
 			// Copy vertices
-			data->num_vertices = scene->mMeshes[i]->mNumVertices;
-			data->vertices = new float[data->num_vertices * 3];
-			memcpy(data->vertices, scene->mMeshes[i]->mVertices, sizeof(float) * data->num_vertices * 3);
+			data.n_vertices = scene->mMeshes[i]->mNumVertices;
+			data.vertices = new float[data.n_vertices * 3];
+ 			memcpy(data.vertices, scene->mMeshes[i]->mVertices, sizeof(float) * data.n_vertices * 3);
 
-			glGenBuffers(1, (GLuint*)&data->id_vertex);
-			glBindBuffer(GL_ARRAY_BUFFER, data->id_vertex);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * data->num_vertices, data->vertices, GL_STATIC_DRAW);
+			glGenBuffers(1, (GLuint*)&data.id_vertex);
+			glBindBuffer(GL_ARRAY_BUFFER, data.id_vertex);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * data.n_vertices, data.vertices, GL_STATIC_DRAW);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 			// Copy faces
 			if (scene->mMeshes[i]->HasFaces())
 			{
-				data->num_indices = scene->mMeshes[i]->mNumFaces * 3;
-				data->indices = new uint[data->num_indices];
+				data.n_indices = scene->mMeshes[i]->mNumFaces * 3;
+				data.indices = new uint[data.n_indices];
 
 				for (uint j = 0; j < scene->mMeshes[i]->mNumFaces; ++j)
 				{
-						memcpy(&data->indices[j * 3], scene->mMeshes[i]->mFaces[j].mIndices, 3 * sizeof(uint));
+						memcpy(&data.indices[j * 3], scene->mMeshes[i]->mFaces[j].mIndices, 3 * sizeof(uint));
 				}
 			}
 
-			glGenBuffers(1, (GLuint*)&data->id_index);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, data->id_index);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * data->num_indices, data->indices, GL_STATIC_DRAW);
+			glGenBuffers(1, (GLuint*)&data.id_index);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, data.id_index);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * data.n_indices, data.indices, GL_STATIC_DRAW);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 			// Copy texture UVs
 			if (scene->mMeshes[i]->HasTextureCoords(0))
 			{
-				data->num_texture = scene->mMeshes[i]->mNumVertices;
-				data->textures = new float[scene->mMeshes[i]->mNumVertices * 2];
+				data.n_textures = scene->mMeshes[i]->mNumVertices;
+				data.textures = new float[scene->mMeshes[i]->mNumVertices * 2];
 
 				for (uint j = 0; j < scene->mMeshes[i]->mNumVertices; ++j)
 				{
-					data->textures[j * 2] = scene->mMeshes[i]->mTextureCoords[0][j].x;
-					data->textures[(j * 2) + 1] = scene->mMeshes[i]->mTextureCoords[0][j].y;
+					data.textures[j * 2] = scene->mMeshes[i]->mTextureCoords[0][j].x;
+					data.textures[(j * 2) + 1] = scene->mMeshes[i]->mTextureCoords[0][j].y;
 				}
 			}
 
-			glGenBuffers(1, (GLuint*)&data->id_texture);
-			glBindBuffer(GL_ARRAY_BUFFER, data->id_texture);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * data->num_texture, data->textures, GL_STATIC_DRAW);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			glGenBuffers(1, (GLuint*)&data.id_texture);
+			glBindBuffer(GL_ARRAY_BUFFER, data.id_texture);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * data.n_textures, data.textures, GL_STATIC_DRAW);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);		
+
+			Loadmesh.component_mesh->meshData = data;
 			
-			Loadmesh.mesh.push_back(data);
+			if (tex == 0)
+				Loadmesh.component_texture->texture = texture;
+			else 
+				Loadmesh.component_texture->texture = tex;
+			
+			App->scene_intro->gameObjects.push_back(&Loadmesh);
+			//App->scene_intro->gameObjects.push_back(Loadmesh);
 		}
-
-		if (tex == 0) 
-			Loadmesh.texture = texture;
-		else 
-			Loadmesh.texture = tex;
-		
-		MeshArray.push_back(Loadmesh);
-
 		aiReleaseImport(scene);
 	}
 	else LOG("Error loading FBX: %s", path);
 }
 
-void ModuleResourceManager::Draw(Mesh fbx_mesh) {
-
-	for (uint i = 0; i < fbx_mesh.mesh.size(); ++i) {
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);// Draw texture
-		glBindTexture(GL_TEXTURE_2D, fbx_mesh.texture);
-		glActiveTexture(GL_TEXTURE0);
-		glBindBuffer(GL_ARRAY_BUFFER, fbx_mesh.mesh[i]->id_texture);
-		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-		glEnableClientState(GL_VERTEX_ARRAY);// Draw mesh
-		glBindBuffer(GL_ARRAY_BUFFER, fbx_mesh.mesh[i]->id_vertex);
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, fbx_mesh.mesh[i]->id_index);
-		glDrawElements(GL_TRIANGLES, fbx_mesh.mesh[i]->num_indices, GL_UNSIGNED_INT, NULL);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);//Clean up
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-}
+//void ModuleResourceManager::Draw(Mesh fbx_mesh) {
+//
+//	for (uint i = 0; i < fbx_mesh.mesh.size(); ++i) {
+//		glEnableClientState(GL_TEXTURE_COORD_ARRAY);// Draw texture
+//		glBindTexture(GL_TEXTURE_2D, fbx_mesh.texture);
+//		glActiveTexture(GL_TEXTURE0);
+//		glBindBuffer(GL_ARRAY_BUFFER, fbx_mesh.mesh[i]->id_texture);
+//		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+//		glEnableClientState(GL_VERTEX_ARRAY);// Draw mesh
+//		glBindBuffer(GL_ARRAY_BUFFER, fbx_mesh.mesh[i]->id_vertex);
+//		glVertexPointer(3, GL_FLOAT, 0, NULL);
+//		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, fbx_mesh.mesh[i]->id_index);
+//		glDrawElements(GL_TRIANGLES, fbx_mesh.mesh[i]->num_indices, GL_UNSIGNED_INT, NULL);
+//		glBindBuffer(GL_ARRAY_BUFFER, 0);//Clean up
+//		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+//		glDisableClientState(GL_VERTEX_ARRAY);
+//		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//		glActiveTexture(GL_TEXTURE0);
+//		glBindTexture(GL_TEXTURE_2D, 0);
+//	}
+//}
 
 uint ModuleResourceManager::GenerateTexture(const char* path)
 {
-
 	ilInit();
 	iluInit();
 
@@ -212,4 +235,32 @@ uint ModuleResourceManager::GenerateTexture(const char* path)
 
 		return aux_texture;
 	}
+}
+
+void ModuleResourceManager::GenerateCheckerTexture()
+{
+	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+
+	for (int i = 0; i < CHECKERS_HEIGHT; i++)
+	{
+		for (int j = 0; j < CHECKERS_WIDTH; j++)
+		{
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &checker_texture);
+	glBindTexture(GL_TEXTURE_2D, checker_texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

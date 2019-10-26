@@ -1,6 +1,8 @@
 #include "Inspector.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "ModuleSceneIntro.h"
+#include "GameObject.h"
 
 Inspector::Inspector(bool is_visible) : EditorElement(is_visible) {}
 
@@ -13,11 +15,14 @@ void Inspector::Start()
 void Inspector::Draw()
 {
 	if (!active) return;
-	if (ImGui::Begin("Inspector", &active, ImGuiWindowFlags_AlwaysAutoResize))
+	ImGui::Begin("Inspector", &active, ImGuiWindowFlags_AlwaysAutoResize);
+	
+	if (App->scene_intro->goSelected != nullptr)
 	{
-		ImGui::Text("GameObject Info");
+		//ImGui::Text(App->scene_intro->goSelected->name.c_str());
+		App->scene_intro->goSelected->DrawInspector();
 	}
-
+	
 	ImGui::End();
 }
 

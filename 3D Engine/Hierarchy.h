@@ -4,7 +4,9 @@
 #include "EditorManager.h"
 #include "Objects3D.h"
 
+class GameObject;
 class TreeNodes;
+
 class Hierarchy : public EditorElement
 {
 public:
@@ -17,9 +19,6 @@ public:
 	void Start();
 	void Draw();
 	void CleanUp();
-
-private:
-
 
 };
 

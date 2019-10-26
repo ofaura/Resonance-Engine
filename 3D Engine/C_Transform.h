@@ -9,10 +9,11 @@ class GameObject;
 class C_Transform : public Component
 {
 public:
-	C_Transform(GameObject* object);
+	C_Transform(COMPONENT_TYPE type, GameObject* parent, bool active);
 	~C_Transform();
 
-	void Update();
+	void DrawInspector();
+	void Update() {};
 
 private:
 	vec3 position;

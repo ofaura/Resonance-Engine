@@ -1,18 +1,15 @@
 #include "C_Transform.h"
-#include "imgui-1.72b/imgui.h"
 
-
-C_Transform::C_Transform(GameObject* object) : Component(COMPONENT_TYPE::TRANSFORM, object)
+C_Transform::C_Transform(COMPONENT_TYPE type, GameObject * parent, bool active) : Component(type, parent, active)
 {
 	name = "Transform";
 }
-
 
 C_Transform::~C_Transform()
 {
 }
 
-void C_Transform::Update()
+void C_Transform::DrawInspector()
 {
 
 	if (ImGui::CollapsingHeader(name.c_str()))
@@ -75,6 +72,4 @@ void C_Transform::Update()
 		ImGui::DragFloat("Z", &scale.z, 0.005f); 
 		ImGui::PopID();
 	}
-
-		ImGui::GetStateStorage()->SetInt(ImGui::GetID(name.c_str()), 1);
 }

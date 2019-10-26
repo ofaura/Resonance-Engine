@@ -3,11 +3,27 @@
 #include "C_Transform.h"
 #include "C_Mesh.h"
 #include "C_Texture.h"
-
+#include "ModuleResourceManager.h"
 
 GameObject::GameObject(uint id) : id(id) {}
 
+GameObject::GameObject(string name, GameObject* parent) : name(name), parent(parent)
+{
+	component_mesh = (C_Mesh*)AddComponent(COMPONENT_TYPE::MESH);
+	component_texture = (C_Texture*)AddComponent(COMPONENT_TYPE::TEXTURE);
+	component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM, true);
+}
+
 GameObject::~GameObject() {}
+
+void GameObject::Update()
+{
+	for (int i = 0; i < components.size(); ++i)
+	{
+		if (components[i]->active) 
+			components[i]->Update();
+	}
+}
 
 void GameObject::CleanUp()
 {
@@ -25,25 +41,29 @@ void GameObject::DisableGO()
 		enable = false;
 }
 
-void GameObject::AddComponent(COMPONENT_TYPE type)
+Component* GameObject::AddComponent(COMPONENT_TYPE type, bool active)
 {
 	Component* component = nullptr;
 
-	if (HasComponent(type)) return;
-
+	if (HasComponent(type)) return component;
 
 	switch (type)
 	{
 		case COMPONENT_TYPE::TRANSFORM:
-			component = new C_Transform(this);
+			component = new C_Transform(type, this, active);
 			break;
 		case COMPONENT_TYPE::MESH:
-			component = new C_Transform(this);
+			component = new C_Mesh(this);
+			break;
+		case COMPONENT_TYPE::TEXTURE:
+			component = new C_Texture(this);
 			break;
 	}
 
 	if (component != nullptr)
 		components.push_back(component);
+
+	return component;
 }
 
 void GameObject::RemoveComponent(COMPONENT_TYPE type)
@@ -69,9 +89,35 @@ bool GameObject::HasComponent(COMPONENT_TYPE type)
 	return false;
 }
 
-void GameObject::RenderGameObject()
+void GameObject::DrawInspector()
 {
+	for (int i = 0; i < components.size(); ++i)
+		components[i]->DrawInspector();
+}
 
+void GameObject::RenderGameObject() const
+{
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	if (component_texture->active) 
+		glBindTexture(GL_TEXTURE_2D, component_texture->texture);
+	else 
+		glBindTexture(GL_TEXTURE_2D, App->rscr->checker_texture);
+	glActiveTexture(GL_TEXTURE0);
+	glBindBuffer(GL_ARRAY_BUFFER, component_mesh->meshData.id_texture);
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
+	// Render the mesh
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, component_mesh->meshData.id_vertex);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, component_mesh->meshData.id_index);
+	glDrawElements(GL_TRIANGLES, component_mesh->meshData.n_indices * 3, GL_UNSIGNED_INT, NULL);
 
+	// Clean all buffers
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

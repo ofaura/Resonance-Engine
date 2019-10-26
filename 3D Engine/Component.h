@@ -4,6 +4,9 @@
 #include "Globals.h"
 #include "Application.h"
 
+#include "imgui-1.72b/imgui.h"
+#include "glew/include/GL/glew.h"
+
 class GameObject;
 
 enum class COMPONENT_TYPE
@@ -16,22 +19,22 @@ enum class COMPONENT_TYPE
 class Component
 {
 public:
-	Component(COMPONENT_TYPE type, GameObject* gameobject);
+	Component(COMPONENT_TYPE type, GameObject* parent = nullptr, bool active = true);
 	virtual ~Component();
 
 	virtual void Update() {};
-	//virtual void DrawInspector();
+	virtual void DrawInspector() {};
 
 	void Enable();
 	void Disable();
 
 	const COMPONENT_TYPE GetType() const;
 
-protected:
+public:
 
 	COMPONENT_TYPE type;
-	bool active = false;
-	GameObject* my_go;
+	bool active;
+	GameObject* parent;
 	string name;
 
 };
