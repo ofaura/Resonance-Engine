@@ -23,7 +23,7 @@ void About::Draw()
 		ImGui::Text("By Jacobo Galofre and Oscar Faura\n\n");
 
 		if (ImGui::Button("Github"))
-			ShellExecuteA(NULL, "open", "https://github.com/ofaura/3D-Engine/", NULL, NULL, SW_SHOWNORMAL);
+			ShellExecuteA(NULL, "open", "https://github.com/ofaura/Resonance-Engine", NULL, NULL, SW_SHOWNORMAL);
 
 		ImGui::Text("\n3rd Party Libraries used:");
 		ImGui::BulletText("SDL");

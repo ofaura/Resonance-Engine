@@ -228,7 +228,6 @@ void ModuleRenderer3D::EnableWireframeMode(bool active)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 }
 
 void ModuleRenderer3D::EnableAlpha(bool active)
