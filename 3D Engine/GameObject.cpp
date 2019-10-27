@@ -124,8 +124,6 @@ void GameObject::RenderGameObject(bool enable) const
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		if (component_texture->active) 
 			glBindTexture(GL_TEXTURE_2D, component_texture->texture);
-		else 
-			glBindTexture(GL_TEXTURE_2D, App->rscr->checker_texture);
 		glActiveTexture(GL_TEXTURE0);
 		glBindBuffer(GL_ARRAY_BUFFER, component_mesh->meshData.id_texture);
 		glTexCoordPointer(2, GL_FLOAT, 0, NULL);

@@ -17,6 +17,9 @@ public:
 
 public:
 	uint texture = 0;
+
+private:
+	bool debug = false;
 };
 
 #endif __C__Texture__H__

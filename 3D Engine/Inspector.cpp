@@ -29,7 +29,30 @@ void Inspector::Draw()
 		static char name[100] = "";
 		strcpy_s(name, 100, Selected->GetName());
 		if (ImGui::InputText("", name, 100, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		{
 			Selected->SetName(name);
+			changedName = true;
+		}
+
+		if (changedName)
+		{ 
+			int count = 0;
+			string num;
+			for (uint k = 0; k < App->scene_intro->gameObjects.size(); ++k)
+			{
+				if (App->scene_intro->gameObjects.at(k)->name == name && k != App->scene_intro->id_goSelected)
+				{
+					count++;
+					num = std::to_string(count);
+					strcat_s(name, " (");
+					strcat_s(name, num.c_str());
+					strcat_s(name, ")");
+				}
+			}
+			Selected->SetName(name);
+			changedName = false;
+		}
+
 
 		ImGui::EndChild();
 
