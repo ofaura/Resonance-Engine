@@ -23,7 +23,7 @@ void Hierarchy::Draw()
 			{
 				App->scene_intro->goSelected = App->scene_intro->gameObjects.at(i);
 				App->scene_intro->id_goSelected = i;
-				if (ImGui::IsItemHovered()) //&& )
+				if (ImGui::IsItemHovered())
 				{
 					if (ImGui::IsMouseClicked(0))
 						int a = 0;
