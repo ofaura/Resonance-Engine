@@ -43,8 +43,8 @@ bool ModuleResourceManager::Start()
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 	
-	texture = GenerateTexture("Assets/Baker_house.png");
-	LoadFilesFromPath("Assets/BakerHouse.fbx");
+	//texture = GenerateTexture("Assets/bpuzp-21k2u.dds");
+	//LoadFilesFromPath("Assets/BakerHouse.fbx");
 	loadedAll = true;
 
 	GenerateCheckerTexture();
@@ -94,14 +94,12 @@ void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 			if (string::npos != last_slash_idx)
 				name = directory.substr(0, last_slash_idx);
 
-			uint count = 0;
 			for (uint k = 0; k < App->scene_intro->gameObjects.size(); ++k)
 			{
 				if (App->scene_intro->gameObjects.at(k)->name == name)
 				{
-					count++;
 					name.append(" (");
-					name.append(std::to_string(count));
+					name.append(std::to_string(App->scene_intro->gameObjects.size()));
 					name.append(")");
 				}
 			}
@@ -169,6 +167,27 @@ void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 	else LOG("Error loading FBX: %s", path);
 }
 
+//void ModuleResourceManager::Draw(Mesh fbx_mesh) {
+//
+//	for (uint i = 0; i < fbx_mesh.mesh.size(); ++i) {
+//		glEnableClientState(GL_TEXTURE_COORD_ARRAY);// Draw texture
+//		glBindTexture(GL_TEXTURE_2D, fbx_mesh.texture);
+//		glActiveTexture(GL_TEXTURE0);
+//		glBindBuffer(GL_ARRAY_BUFFER, fbx_mesh.mesh[i]->id_texture);
+//		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+//		glEnableClientState(GL_VERTEX_ARRAY);// Draw mesh
+//		glBindBuffer(GL_ARRAY_BUFFER, fbx_mesh.mesh[i]->id_vertex);
+//		glVertexPointer(3, GL_FLOAT, 0, NULL);
+//		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, fbx_mesh.mesh[i]->id_index);
+//		glDrawElements(GL_TRIANGLES, fbx_mesh.mesh[i]->num_indices, GL_UNSIGNED_INT, NULL);
+//		glBindBuffer(GL_ARRAY_BUFFER, 0);//Clean up
+//		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+//		glDisableClientState(GL_VERTEX_ARRAY);
+//		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//		glActiveTexture(GL_TEXTURE0);
+//		glBindTexture(GL_TEXTURE_2D, 0);
+//	}
+//}
 
 uint ModuleResourceManager::GenerateTexture(const char* path)
 {

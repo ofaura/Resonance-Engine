@@ -20,7 +20,9 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	goSelected = gameObjects.front();
+	int Size = gameObjects.size();
+	if(Size != 0)
+		goSelected = gameObjects.front();
 
 	return ret;
 }
@@ -97,8 +99,8 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	for (uint i = 0; i < gameObjects.size(); ++i) 
 	{
-		gameObjects[i]->Update();
 		gameObjects[i]->RenderGameObject();
+		gameObjects[i]->Update();
 	}
 	
 	return UPDATE_CONTINUE;
