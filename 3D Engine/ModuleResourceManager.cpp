@@ -45,6 +45,7 @@ bool ModuleResourceManager::Start()
 
 	texture = GenerateTexture("Assets/Baker_house.png");
 	LoadFilesFromPath("Assets/BakerHouse.fbx");
+
 	loadedAll = true;
 
 	GenerateCheckerTexture();
@@ -92,14 +93,12 @@ void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 			if (string::npos != last_slash_idx)
 				name = directory.substr(0, last_slash_idx);
 
-			uint count = 0;
 			for (uint k = 0; k < App->scene_intro->gameObjects.size(); ++k)
 			{
 				if (App->scene_intro->gameObjects.at(k)->name == name)
 				{
-					count++;
 					name.append(" (");
-					name.append(std::to_string(count));
+					name.append(std::to_string(App->scene_intro->gameObjects.size()));
 					name.append(")");
 				}
 			}
@@ -166,7 +165,6 @@ void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 	}
 	else LOG("Error loading FBX: %s", path);
 }
-
 
 uint ModuleResourceManager::GenerateTexture(const char* path)
 {
