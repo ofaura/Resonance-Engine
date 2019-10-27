@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Inspector.h"
 #include "EditorManager.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
 C_Mesh::C_Mesh(GameObject * object) : Component(COMPONENT_TYPE::MESH, object)
 {
@@ -22,7 +23,7 @@ void C_Mesh::Update()
 
 void C_Mesh::DrawInspector()
 {
-	if (ImGui::CollapsingHeader("Mesh"), ImGuiTreeNodeFlags_DefaultOpen)
+	if (ImGui::CollapsingHeader("Mesh"))
 	{
 		ImGui::Text("Number of vertices: ");
 		ImGui::SameLine();
@@ -47,6 +48,5 @@ void C_Mesh::DrawFaceNormals()
 
 void C_Mesh::DrawVerticesNormals()
 {
-
 
 }

@@ -9,7 +9,7 @@ C_Texture::~C_Texture() {}
 
 void C_Texture::DrawInspector()
 {
-	if (ImGui::CollapsingHeader("Texture"), ImGuiTreeNodeFlags_DefaultOpen)
+	if (ImGui::CollapsingHeader("Texture")) 
 	{
 		ImGui::Checkbox("Enabled ", &active);
 
@@ -20,7 +20,13 @@ void C_Texture::DrawInspector()
 			if (debug)
 				texture = App->rscr->checker_texture;
 			else
-				texture = App->rscr->texture;
+			{
+				if (original_texture != 0)
+					texture = original_texture;
+				else
+					texture = App->rscr->texture;
+			}
+
 			ImGui::Image((void*)texture, ImVec2(200, 200), ImVec2(0, 1), ImVec2(1, 0));
 		}
 		else

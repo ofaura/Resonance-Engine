@@ -34,6 +34,7 @@ public:
 
 	COMPONENT_TYPE type;
 	bool active;
+	bool open_header = true;
 	GameObject* parent;
 	string name;
 

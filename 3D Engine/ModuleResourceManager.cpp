@@ -68,8 +68,6 @@ bool ModuleResourceManager::CleanUp()
 
 void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 
-	
-
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (scene != nullptr && scene->HasMeshes())
@@ -223,6 +221,9 @@ uint ModuleResourceManager::GenerateTexture(const char* path)
 
 		ilBindImage(0);
 		ilDeleteImage(pic);
+
+		if (App->scene_intro->goSelected != nullptr)
+			App->scene_intro->goSelected->component_texture->original_texture = aux_texture;
 
 		return aux_texture;
 	}
