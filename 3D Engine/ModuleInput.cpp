@@ -130,6 +130,8 @@ update_status ModuleInput::PreUpdate(float dt)
 					// We check if its a .png (texture) or an FBX
 					if (strstr(e.drop.file, ".png") != nullptr)
 						App->scene_intro->goSelected->component_texture->texture = App->rscr->GenerateTexture(e.drop.file);
+					else if (strstr(e.drop.file, ".dds") != nullptr)
+						App->scene_intro->goSelected->component_texture->texture = App->rscr->GenerateTexture(e.drop.file);
 					else if (strstr(e.drop.file, ".fbx") != nullptr || strstr(e.drop.file, ".FBX") != nullptr)
 						App->rscr->LoadFilesFromPath(e.drop.file);
 				// Free dropped_filedir memory
