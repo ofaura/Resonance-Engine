@@ -97,8 +97,8 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	for (uint i = 0; i < gameObjects.size(); ++i) 
 	{
-		gameObjects[i]->RenderGameObject(goSelected->enable);
 		gameObjects[i]->Update();
+		gameObjects[i]->RenderGameObject();
 	}
 	
 	return UPDATE_CONTINUE;

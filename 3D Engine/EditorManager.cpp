@@ -190,7 +190,7 @@ update_status EditorManager::Update(float dt)
 		{
 			if (ImGui::BeginMenu("3D Objects"))
 			{
-				float white[4] = { 1.f,1.f,1.f,0.5f };
+				float white[4] = { 1.f,1.f,1.f,1.f };
 
 				if (ImGui::MenuItem("Cube"))
 					App->scene_intro->CreateObject3D(SHAPE_TYPE::CUBE, vec3(0, 0, 0), vec3(1, 1, 1), white);

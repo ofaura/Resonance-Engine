@@ -117,7 +117,7 @@ void GameObject::DrawInspector()
 		components[i]->DrawInspector();
 }
 
-void GameObject::RenderGameObject(bool enable) const
+void GameObject::RenderGameObject() const
 {
 	if (enable)
 	{

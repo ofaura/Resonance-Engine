@@ -9,7 +9,7 @@ C_Texture::~C_Texture() {}
 
 void C_Texture::DrawInspector()
 {
-	if (ImGui::CollapsingHeader("Texture")) 
+	if (ImGui::CollapsingHeader("Texture"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
 		ImGui::Checkbox("Enabled ", &active);
 
