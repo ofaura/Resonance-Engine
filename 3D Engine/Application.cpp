@@ -130,7 +130,7 @@ void Application::SaveAllConfig()
 	json config = {
 		{"Application", 
 			{
-				{"Title", "3D Engine"}
+				{"Title", "Resonance Engine"}
 			}
 		}
 	};

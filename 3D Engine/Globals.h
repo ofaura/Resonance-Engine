@@ -58,7 +58,7 @@ enum update_status
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
-#define TITLE "3D Engine"
+#define TITLE "Resonance Engine"
 
 
 #endif __GLOBALS_H__
