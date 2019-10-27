@@ -1,6 +1,8 @@
 #include "Hierarchy.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "ModuleSceneIntro.h"
+#include "GameObject.h"
 
 Hierarchy::Hierarchy(bool is_visible) : EditorElement(is_visible) {}
 
@@ -14,10 +16,14 @@ void Hierarchy::Draw()
 {
 	if (!active) return;
 	if (ImGui::Begin("Hierarchy", &active, ImGuiWindowFlags_AlwaysAutoResize))
-	{			
-		if (ImGui::MenuItem("GameObject"))
+	{		
+		for (uint i = 0; i < App->scene_intro->gameObjects.size(); ++i)
 		{
-
+			if (ImGui::Selectable(App->scene_intro->gameObjects.at(i)->name.data(), App->scene_intro->id_goSelected == i))
+			{
+				App->scene_intro->goSelected = App->scene_intro->gameObjects.at(i);
+				App->scene_intro->id_goSelected = i;
+			}
 		}
 	}
 

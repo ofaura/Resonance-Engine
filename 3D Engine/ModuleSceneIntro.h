@@ -12,7 +12,7 @@
 #include <gl/GLU.h>
 
 class Objects3D;
-
+class GameObject;
 class ModuleSceneIntro : public Module
 {
 public:
@@ -28,6 +28,9 @@ public:
 public:
 
 	list<Objects3D*> objects_list;
+	vector<GameObject*> gameObjects;
+	GameObject* goSelected = nullptr;
+	uint id_goSelected = 0;
 };
 
 	

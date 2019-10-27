@@ -4,6 +4,9 @@
 #include "EditorManager.h"
 #include "ModuleResourceManager.h"
 #include "Brofiler/Brofiler.h"
+#include "ModuleSceneIntro.h"
+#include "GameObject.h"
+#include "C_Texture.h"
 
 #define MAX_KEYS 300
 
@@ -126,7 +129,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				if (e.drop.type == SDL_DROPFILE)
 					// We check if its a .png (texture) or an FBX
 					if (strstr(e.drop.file, ".png") != nullptr)
-						App->rscr->texture = App->rscr->GenerateTexture(e.drop.file);
+						App->scene_intro->goSelected->component_texture->texture = App->rscr->GenerateTexture(e.drop.file);
 					else if (strstr(e.drop.file, ".fbx") != nullptr || strstr(e.drop.file, ".FBX") != nullptr)
 						App->rscr->LoadFilesFromPath(e.drop.file);
 				// Free dropped_filedir memory

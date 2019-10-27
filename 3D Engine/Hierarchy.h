@@ -2,6 +2,10 @@
 #define __Hierarchy__H__
 
 #include "EditorManager.h"
+#include "Objects3D.h"
+
+class GameObject;
+class TreeNodes;
 
 class Hierarchy : public EditorElement
 {
@@ -11,9 +15,11 @@ public:
 	virtual ~Hierarchy();
 
 public:
+
 	void Start();
 	void Draw();
 	void CleanUp();
+
 };
 
 #endif __Hierarchy__H__

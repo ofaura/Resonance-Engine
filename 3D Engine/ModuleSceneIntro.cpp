@@ -3,6 +3,7 @@
 #include "ModuleCamera3D.h"
 #include "Brofiler/Brofiler.h"
 #include "EditorManager.h"
+#include "GameObject.h"
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module("SceneIntro", start_enabled) {}
 
@@ -19,7 +20,8 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	//CreateObject3D(SHAPE_TYPE::CUBE, vec3{ 0,0,0 }, vec3{ 1,1,1 });
+	goSelected = gameObjects.front();
+
 	return ret;
 }
 
@@ -91,6 +93,12 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (list<Objects3D*>::iterator item = objects_list.begin(); item != objects_list.end(); ++item)
 	{
 		(*item)->Draw();
+	}
+
+	for (uint i = 0; i < gameObjects.size(); ++i) 
+	{
+		gameObjects[i]->Update();
+		gameObjects[i]->RenderGameObject();
 	}
 	
 	return UPDATE_CONTINUE;

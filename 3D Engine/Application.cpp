@@ -187,3 +187,9 @@ void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
 }
+
+LCG & Application::GetRandom()
+{
+	return *RandomNumber;
+}
+

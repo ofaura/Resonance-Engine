@@ -3,6 +3,8 @@
 
 #include "EditorManager.h"
 
+class GameObject;
+
 class Inspector : public EditorElement
 {
 public:
@@ -14,6 +16,11 @@ public:
 	void Start();
 	void Draw();
 	void CleanUp();
+
+private:
+
+	bool changedName = false;
+
 };
 
 #endif __Inspector__H__
