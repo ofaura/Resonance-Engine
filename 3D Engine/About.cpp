@@ -31,7 +31,6 @@ void About::Draw()
 		ImGui::BulletText("ImGui");
 		ImGui::BulletText("MathGeoLib");
 		ImGui::BulletText("OpenGL");
-		ImGui::BulletText("PCG");
 
 		ImGui::Text("\nMIT License");
 		ImGui::Text("Copyright (c) 2019 Oscar Faura Gracia and Jacobo Galofre Calbeto");

@@ -178,15 +178,6 @@
     <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
       <Filter>Sources\External Libraries\MathGeoLib</Filter>
     </ClInclude>
-    <ClInclude Include="pcg-cpp-0.98\include\pcg_extras.hpp">
-      <Filter>Sources\External Libraries\PCG</Filter>
-    </ClInclude>
-    <ClInclude Include="pcg-cpp-0.98\include\pcg_random.hpp">
-      <Filter>Sources\External Libraries\PCG</Filter>
-    </ClInclude>
-    <ClInclude Include="pcg-cpp-0.98\include\pcg_uint128.hpp">
-      <Filter>Sources\External Libraries\PCG</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
@@ -293,9 +284,6 @@
     </Filter>
     <Filter Include="Sources\External Libraries\MathGeoLib">
       <UniqueIdentifier>{432dd32a-039e-4fca-96ba-1babd75efcae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\External Libraries\PCG">
-      <UniqueIdentifier>{35edc02e-516b-46cc-b025-1a6256d14ab7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Tools\GameObjects">
       <UniqueIdentifier>{ba75ad31-f570-4bf8-9724-9336b8979b40}</UniqueIdentifier>
