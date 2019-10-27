@@ -155,7 +155,7 @@ void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 
 			Loadmesh->component_mesh->meshData = data;
 			
-			if (tex == 0)
+			if (tex == 0 && path == "Assets/BakerHouse.fbx")
 				Loadmesh->component_texture->texture = texture;
 			else 
 				Loadmesh->component_texture->texture = tex;
