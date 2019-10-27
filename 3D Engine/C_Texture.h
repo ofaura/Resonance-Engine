@@ -22,7 +22,6 @@ public:
 
 private:
 	bool debug = false;
-
 };
 
 #endif __C__Texture__H__

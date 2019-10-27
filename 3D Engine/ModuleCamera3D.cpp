@@ -203,5 +203,5 @@ bool ModuleCamera3D::MouseInsideWindow()
 	ImVec2 mouse_pos = { (float)App->input->GetMouseX(), (float)App->input->GetMouseY() };
 	ImVec4 game_window = App->editor->GetGameWindowRect();
 
-	return (mouse_pos.x > game_window.x && mouse_pos.x < game_window.x + game_window.w && mouse_pos.y > game_window.y && mouse_pos.y < game_window.y + game_window.z);
+	return ((mouse_pos.x > game_window.x) && (mouse_pos.x < game_window.x + game_window.w) && (mouse_pos.y > game_window.y) && (mouse_pos.y < game_window.y + game_window.z));
 }

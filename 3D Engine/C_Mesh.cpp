@@ -23,7 +23,7 @@ void C_Mesh::Update()
 
 void C_Mesh::DrawInspector()
 {
-	if (ImGui::CollapsingHeader("Mesh"))
+	if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::Text("Number of vertices: ");
 		ImGui::SameLine();
@@ -35,8 +35,8 @@ void C_Mesh::DrawInspector()
 
 		ImGui::Separator();
 
-		ImGui::Checkbox("Vertex normals", &drawVerticesNormals);
-		ImGui::Checkbox("Face normals", &drawFaceNormals);	
+		/*ImGui::Checkbox("Vertex normals", &drawVerticesNormals);
+		ImGui::Checkbox("Face normals", &drawFaceNormals);	*/
 	}
 }
 
