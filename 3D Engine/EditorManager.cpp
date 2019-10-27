@@ -9,6 +9,7 @@
 #include "Game.h"
 #include "Inspector.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleResourceManager.h"
 
 #include "imgui-1.72b/examples/imgui_impl_sdl.h"
 #include "imgui-1.72b/examples/imgui_impl_opengl3.h"
@@ -160,6 +161,19 @@ update_status EditorManager::Update(float dt)
 			if (ImGui::MenuItem("Quit", "Alt+F4"))
 				ret = UPDATE_STOP;
 
+			if (ImGui::BeginMenu("Open FBX"))
+			{
+				if (ImGui::MenuItem("Megalodon"))
+					App->rscr->LoadFilesFromPath("Assets\\megalodon.FBX");
+
+				if (ImGui::MenuItem("Dragon"))
+					App->rscr->LoadFilesFromPath("Assets\\Dragon.fbx");
+
+				if (ImGui::MenuItem("Chair"))
+					App->rscr->LoadFilesFromPath("Assets\\Chair.fbx");
+
+				ImGui::EndMenu();
+			}
 			ImGui::EndMenu();
 		}
 
@@ -167,6 +181,7 @@ update_status EditorManager::Update(float dt)
 		{
 			if (ImGui::MenuItem("Style Editor")) 
 				show_style_editor = true;		
+
 
 			ImGui::EndMenu();
 		}

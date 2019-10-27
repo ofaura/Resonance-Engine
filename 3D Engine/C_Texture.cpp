@@ -1,5 +1,7 @@
 #include "C_Texture.h"
 #include "ModuleResourceManager.h"
+#include "ModuleSceneIntro.h"
+
 C_Texture::C_Texture(GameObject * object) : Component(COMPONENT_TYPE::TEXTURE, object)
 {
 	name = "Texture";
@@ -26,8 +28,10 @@ void C_Texture::DrawInspector()
 			{
 				if (original_texture != 0)
 					texture = original_texture;
-				else
+				else  if (App->scene_intro->id_goSelected <= 1)
 					texture = App->rscr->texture;
+				else
+					texture = NULL;
 			}
 
 			ImGui::Image((void*)texture, ImVec2(200, 200), ImVec2(0, 1), ImVec2(1, 0));
