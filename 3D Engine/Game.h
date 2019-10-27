@@ -4,6 +4,8 @@
 #include "EditorManager.h"
 #include <float.h>
 
+class FBO;
+
 class Game : public EditorElement
 {
 public:
@@ -18,10 +20,6 @@ public:
 	const ImVec4 GetWindowRect();
 
 private:
-	ImVec2 size;
-	ImVec2 new_size = { 0,0 };
-	ImVec2 position;
-
 	bool	wireframe = false;
 	bool	depth_test = true;
 	bool	cull_face = true;
@@ -29,6 +27,12 @@ private:
 	bool	color_material = true;
 	bool	texture2D = true;
 	bool	alpha = true;
+
+public:
+	FBO* fbo = nullptr;	
+	ImVec2 size;
+	ImVec2 new_size = { 0,0 };
+	ImVec2 position;
 };
 
 #endif __Game__H__

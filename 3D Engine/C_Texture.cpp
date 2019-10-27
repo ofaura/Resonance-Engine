@@ -17,6 +17,9 @@ void C_Texture::DrawInspector()
 		{
 			ImGui::SameLine();
 			ImGui::Checkbox("Debug Texture", &debug);
+
+			ImGui::Text(texture_path.c_str());
+
 			if (debug)
 				texture = App->rscr->checker_texture;
 			else

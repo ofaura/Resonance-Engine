@@ -156,6 +156,7 @@ void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 			
 			if (tex == 0 && path == "Assets/BakerHouse.fbx")
 				Loadmesh->component_texture->texture = texture;
+
 			else 
 				Loadmesh->component_texture->texture = tex;
 			
@@ -168,6 +169,9 @@ void ModuleResourceManager::LoadFilesFromPath(const char* path, uint tex) {
 
 uint ModuleResourceManager::GenerateTexture(const char* path)
 {
+	if (App->scene_intro->goSelected != nullptr)
+		App->scene_intro->goSelected->component_texture->texture_path = path;
+
 	ilInit();
 	iluInit();
 

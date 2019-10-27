@@ -65,6 +65,7 @@ private:
 public:
 
 	ImGuiIO* test_io;
+	Game*			game = nullptr;
 
 private:
 	
@@ -82,7 +83,6 @@ private:
 	Configuration*	configuration = nullptr;
 	About*			about = nullptr;
 	Console*		console = nullptr;
-	Game*			game = nullptr;
 	Inspector*		inspector = nullptr;
 };
 

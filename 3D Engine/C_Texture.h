@@ -18,9 +18,11 @@ public:
 public:
 	uint texture = 0;
 	uint original_texture = 0;
+	string texture_path;
 
 private:
 	bool debug = false;
+
 };
 
 #endif __C__Texture__H__

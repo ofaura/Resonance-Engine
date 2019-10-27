@@ -22,8 +22,6 @@ private:
 	GLuint fbo;
 	GLuint texColorBuffer;
 	GLuint rbo;
-	int width;
-	int height;
 };
 
 #endif __FBO__H__

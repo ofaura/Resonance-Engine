@@ -4,6 +4,7 @@
 #include "ModuleWindow.h"
 #include "glew/include/GL/glew.h"
 #include "Brofiler/Brofiler.h"
+#include "ModuleRenderer3D.h"
 
 ModuleWindow::ModuleWindow(bool start_enabled) : Module("Window", start_enabled)
 {
@@ -100,7 +101,6 @@ void ModuleWindow::SetTitle(const char* title)
 {
 	SDL_SetWindowTitle(window, title);
 }
-
 
 void ModuleWindow::GetWindowSize(int & width, int & height)
 {

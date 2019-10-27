@@ -7,6 +7,7 @@
 #include "ModuleSceneIntro.h"
 #include "GameObject.h"
 #include "C_Texture.h"
+#include "FBO.h"
 
 #define MAX_KEYS 300
 
@@ -119,8 +120,13 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			case SDL_WINDOWEVENT:
 			{
-				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
+				if (e.window.event == SDL_WINDOWEVENT_RESIZED)
+				{
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
+					App->renderer3D->fbo_tex->DeleteFBO();
+					App->renderer3D->fbo_tex->CreateFBO(e.window.data1, e.window.data2);
+				}
+
 			}
 			break;
 
