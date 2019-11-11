@@ -9933,6 +9933,32 @@ const ImGuiPayload* ImGui::GetDragDropPayload()
     return g.DragDropActive ? &g.DragDropPayload : NULL;
 }
 
+
+const ImGuiPayload* ImGui::AcceptReorderDropPayload(const char* type, ImGuiDragDropFlags flags)
+{
+    ImGuiContext& g = *GImGui;
+    const ImGuiPayload* payload = NULL;
+    ImRect bb(GetCursorScreenPos(), GetCursorScreenPos());
+
+    if (flags & ImGuiDragDropFlags_ReorderHorizontal)
+    {
+        bb.Min.x -= g.Style.ItemSpacing.x;
+        bb.Max.y += g.FontSize;
+    }
+    else
+    {
+        bb.Max.x += GetContentRegionAvail().x;
+        bb.Min.y -= g.Style.ItemSpacing.y;
+    }
+
+    if (BeginDragDropTargetCustom(bb, GetID(type)))
+    {
+        payload = AcceptDragDropPayload(type, ImGuiDragDropFlags_AcceptNoPadding);
+        EndDragDropTarget();
+    }
+    return payload;
+}
+
 // We don't really use/need this now, but added it for the sake of consistency and because we might need it later.
 void ImGui::EndDragDropTarget()
 {
