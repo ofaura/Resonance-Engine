@@ -22,6 +22,7 @@
 #pragma comment( lib, "DevIL/lib/x86/Release/ILU.lib" )
 #pragma comment( lib, "DevIL/lib/x86/Release/ILUT.lib" )
 
+
 ModuleResourceManager::ModuleResourceManager(Application* app, bool start_enabled) : Module("Resource Manager", start_enabled) {}
 ModuleResourceManager::~ModuleResourceManager() {}
 
