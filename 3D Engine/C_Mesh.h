@@ -2,6 +2,7 @@
 #define __C__Mesh__H__
 
 #include "Component.h"
+#include "glmath.h"
 
 class GameObject;
 
@@ -13,7 +14,7 @@ struct Data {
 
 	uint id_vertex = 0;
 	uint n_vertices = 0;
-	float* vertices = nullptr;
+	vec3* vertices = nullptr;
 
 	uint id_texture = 0;
 	uint n_textures = 0;

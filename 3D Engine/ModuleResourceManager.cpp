@@ -104,8 +104,8 @@ void ModuleResourceManager::LoadFilesFBX(const char* path, uint tex) {
 
 			// copy vertices
 			m.n_vertices = scene->mMeshes[i]->mNumVertices;
-			m.vertices = new float[m.n_vertices * 3];
-			memcpy(m.vertices, scene->mMeshes[i]->mVertices, sizeof(float) * m.n_vertices * 3);
+			m.vertices = new vec3[m.n_vertices];
+			memcpy(m.vertices, scene->mMeshes[i]->mVertices, sizeof(vec3) * m.n_vertices);
 			LOG("New mesh with %d vertices", m.n_vertices);
 
 
@@ -113,9 +113,9 @@ void ModuleResourceManager::LoadFilesFBX(const char* path, uint tex) {
 			// copy faces
 			if (scene->mMeshes[i]->HasFaces())
 			{
-				m.n_indices = scene->mMeshes[i]->mNumFaces * 3;
-				m.indices = new uint[m.n_indices]; // assume each face is a triangle
-				for (uint j = 0; j < scene->mMeshes[i]->mNumFaces; ++j)
+				m.n_indices = scene->mMeshes[i]->mNumFaces;
+				m.indices = new uint[m.n_indices * 3]; // assume each face is a triangle
+				for (uint j = 0; j < m.n_indices; ++j)
 				{
 					if (scene->mMeshes[i]->mFaces[j].mNumIndices != 3)
 					{
@@ -123,7 +123,7 @@ void ModuleResourceManager::LoadFilesFBX(const char* path, uint tex) {
 					}
 
 					else
-						memcpy(&m.indices[i * 3], scene->mMeshes[i]->mFaces[i].mIndices, 3 * sizeof(uint));
+						memcpy(&m.indices[j * 3], scene->mMeshes[i]->mFaces[j].mIndices, sizeof(uint) * 3);
 				}
 			}
 
