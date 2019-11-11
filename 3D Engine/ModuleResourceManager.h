@@ -7,6 +7,8 @@
 #define CHECKERS_WIDTH 150
 #define CHECKERS_HEIGHT 150
 
+
+
 // ---------------------------------------------------
 class ModuleResourceManager : public Module
 {
@@ -18,15 +20,14 @@ public:
 
 	bool Init();
 	bool Start();
-	update_status Update(float dt);
 	bool CleanUp();
 
-	void LoadFilesFromPath(const char* path, uint tex = 0);
+	void LoadFilesFBX(const char* path, uint tex = 0);
 	uint GenerateTexture(const char* path);
 	void GenerateCheckerTexture();
 
 public:
-	
+
 	uint texture;
 	uint checker_texture;
 
