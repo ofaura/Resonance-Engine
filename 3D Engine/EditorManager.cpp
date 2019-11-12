@@ -50,7 +50,7 @@ bool EditorManager::Init(json file)
 	io->Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 
 	io->ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-	ImGui::StyleColorsDark();
+	ImGui::ApplyDefaultStyle();
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
