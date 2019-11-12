@@ -15,7 +15,7 @@ struct Data {
 
 	uint id_vertex = 0;
 	uint n_vertices = 0;
-	float3* vertices = nullptr;
+	vec3* vertices = nullptr;
 
 	uint id_texture = 0;
 	uint n_textures = 0;
@@ -38,6 +38,9 @@ public:
 	void DrawInspector();
 	void DrawFaceNormals();
 	void DrawVerticesNormals();
+
+	vec3 CrossProduct(vec3 vect_A, vec3 vect_B);
+	vec3 normalize(vec3 vect_A);
 
 private:
 	bool drawFaceNormals = false;
