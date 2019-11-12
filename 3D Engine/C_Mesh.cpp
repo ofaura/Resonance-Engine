@@ -50,24 +50,24 @@ void C_Mesh::DrawFaceNormals()
 {
 	for (uint i = 0; i < meshData.n_vertices; i += 3)
 	{
-		//vec3 a = meshData.vertices[meshData.indices[i]];
-		//vec3 b = meshData.vertices[meshData.indices[i + 1]];
-		//vec3 c = meshData.vertices[meshData.indices[i + 2]];
+		float3 a = meshData.vertices[meshData.indices[i]];
+		float3 b = meshData.vertices[meshData.indices[i + 1]];
+		float3 c = meshData.vertices[meshData.indices[i + 2]];
 
-		//vec3 vec = Cross((b - a), (c - a));
-		//vec.Normalize();
-		//float3 center = float3((a.x + b.x + c.x) / 3, (a.y + b.y + c.y) / 3, (a.z + b.z + c.z) / 3);
+		float3 vec = Cross((b - a), (c - a));
+		vec.Normalize();
+		float3 center = float3((a.x + b.x + c.x) / 3, (a.y + b.y + c.y) / 3, (a.z + b.z + c.z) / 3);
 
-		//glLineWidth(1.0f);
-		//glBegin(GL_LINES);
-		//glColor3f(192, 192, 192);
-		//glVertex3f(center.x, center.y, center.z);
-		//glVertex3f((center.x + vec.x * 0.5f),
-		//	(center.y + vec.y * 0.5f),
-		//	(center.z + vec.z * 0.5f));
+		glLineWidth(1.0f);
+		glBegin(GL_LINES);
+		glColor3f(192, 192, 192);
+		glVertex3f(center.x, center.y, center.z);
+		glVertex3f((center.x + vec.x * 0.5f),
+			(center.y + vec.y * 0.5f),
+			(center.z + vec.z * 0.5f));
 
-		//glColor3f(192, 192, 192);
-		//glEnd();
+		glColor3f(192, 192, 192);
+		glEnd();
 	}
 }
 
@@ -76,7 +76,7 @@ void C_Mesh::DrawVerticesNormals()
 	if (meshData.normals != nullptr) {
 
 		for (uint i = 0; i < meshData.n_vertices; ++i) {
-			vec3 point = meshData.vertices[i];
+			float3 point = meshData.vertices[i];
 			vec3 vec = meshData.normals[i];
 
 			glLineWidth(1.0f);

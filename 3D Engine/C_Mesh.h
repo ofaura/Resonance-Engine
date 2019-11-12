@@ -3,6 +3,7 @@
 
 #include "Component.h"
 #include "glmath.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
 class GameObject;
 
@@ -14,7 +15,7 @@ struct Data {
 
 	uint id_vertex = 0;
 	uint n_vertices = 0;
-	vec3* vertices = nullptr;
+	float3* vertices = nullptr;
 
 	uint id_texture = 0;
 	uint n_textures = 0;
