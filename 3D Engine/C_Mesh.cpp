@@ -1,18 +1,13 @@
 #include "C_Mesh.h"
-#include "glmath.h"
-#include "ModuleSceneIntro.h"
-#include "GameObject.h"
-#include "Inspector.h"
-#include "EditorManager.h"
 
-#include "glew/include/GL/glew.h"
-#include "SDL\include\SDL_opengl.h"
+//#include "glew/include/GL/glew.h"
+//#include "SDL\include\SDL_opengl.h"
+//
+//#include "gl/GL.h"
+//#include "gl/GLU.h""
 
-#include <gl/GL.h>
-#include <gl/GLU.h>
-
-#include "MathGeoLib/include/MathGeoLib.h"
-#include "glmath.h"
+//#include "MathGeoLib/include/MathGeoLib.h"
+//#include "glmath.h"
 
 C_Mesh::C_Mesh(GameObject * object) : Component(COMPONENT_TYPE::MESH, object)
 {
@@ -62,13 +57,13 @@ void C_Mesh::DrawFaceNormals()
 
 		glLineWidth(1.0f);
 		glBegin(GL_LINES);
-		glColor3f(192, 192, 192);
+		glColor3f(255, 255, 0);
 		glVertex3f(center.x, center.y, center.z);
-		glVertex3f((center.x + vec.x * 0.5f),
-			(center.y + vec.y * 0.5f),
-			(center.z + vec.z * 0.5f));
+		glVertex3f((center.x + vec.x),
+			(center.y + vec.y),
+			(center.z + vec.z));
 
-		glColor3f(192, 192, 192);
+		glColor3f(255, 255, 255);
 		glEnd();
 	}
 }
@@ -79,7 +74,7 @@ void C_Mesh::DrawVerticesNormals()
 
 		for (uint i = 0; i < meshData.n_vertices; ++i) {
 			float3 point = meshData.vertices[i];
-			vec3 vec = meshData.normals[i];
+			float3 vec = meshData.normals[i];
 
 			glLineWidth(1.0f);
 			glBegin(GL_LINES);
@@ -95,9 +90,9 @@ void C_Mesh::DrawVerticesNormals()
 	}
 }
 
-vec3 C_Mesh::CrossProduct(vec3 vect_A, vec3 vect_B)
+float3 C_Mesh::CrossProduct(float3 vect_A, float3 vect_B)
 {
-	vec3 cross_P;
+	float3 cross_P;
 
 	cross_P.x = vect_A.y * vect_B.z - vect_A.z * vect_B.y;
 	cross_P.y = vect_A.x * vect_B.z - vect_A.z * vect_B.x;
@@ -106,7 +101,7 @@ vec3 C_Mesh::CrossProduct(vec3 vect_A, vec3 vect_B)
 	return cross_P;
 }
 
-vec3 C_Mesh::normalize(vec3 vect_A)
+float3 C_Mesh::normalize(float3 vect_A)
 {
 	double mag = sqrt(pow(vect_A.x, 2) + pow(vect_A.y, 2) + pow(vect_A.z, 2));
 	vect_A.x = vect_A.x / mag;

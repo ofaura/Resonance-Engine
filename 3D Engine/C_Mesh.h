@@ -2,9 +2,8 @@
 #define __C__Mesh__H__
 
 #include "Component.h"
-#include "glmath.h"
 #include "MathGeoLib/include/MathGeoLib.h"
-#include "glmath.h"
+
 class GameObject;
 
 struct Data {
@@ -21,7 +20,7 @@ struct Data {
 	uint n_textures = 0;
 	float* textures = nullptr;
 
-	vec3* normals = nullptr;
+	float3* normals = nullptr;
 
 	uint n_colors = 0;
 	uint* colors = nullptr;
@@ -39,8 +38,8 @@ public:
 	void DrawFaceNormals();
 	void DrawVerticesNormals();
 
-	vec3 CrossProduct(vec3 vect_A, vec3 vect_B);
-	vec3 normalize(vec3 vect_A);
+	float3 CrossProduct(float3 vect_A, float3 vect_B);
+	float3 normalize(float3 vect_A);
 
 private:
 	bool drawFaceNormals = false;

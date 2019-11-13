@@ -1,23 +1,31 @@
+#include "Application.h"
 #include "ModuleResourceManager.h"
+#include "ModuleSceneIntro.h"
+#include "C_Texture.h"
+#include "C_Mesh.h"
+
 #include "glew/include/GL/glew.h"
 #include "SDL/include/SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-#include "Application.h"
+
+#include "GameObject.h"
 #include "ModuleRenderer3D.h"
+
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
-#include "DevIL/include/IL/il.h"
+
 #include "DevIL/include/IL/ilut.h"
-#include "DevIL/include/IL/ilu.h"
-#include "GameObject.h"
-#include "C_Texture.h"
-#include "C_Mesh.h"
-#include "ModuleSceneIntro.h"
+
 #include "MathGeoLib/include/MathGeoLib.h"
-#include "glmath.h"
+
+#ifdef _DEBUG
+#pragma comment( lib, "MathGeoLib/libx86/Debug/MathGeoLib.lib" )
+#else
+#pragma comment( lib, "MathGeoLib/libx86/Release/MathGeoLib.lib" )
+#endif
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment( lib, "DevIL/lib/x86/Release/DevIL.lib" )
@@ -134,8 +142,8 @@ void ModuleResourceManager::LoadFilesFBX(const char* path, uint tex) {
 			// Copy normals
 			if (scene->mMeshes[i]->HasNormals())
 			{
-				m.normals = new vec3[m.n_vertices];
-				memcpy(m.normals, scene->mMeshes[i]->mNormals, sizeof(vec3) * m.n_vertices);
+				m.normals = new float3[m.n_vertices];
+				memcpy(m.normals, scene->mMeshes[i]->mNormals, sizeof(float3) * m.n_vertices);
 			}
 
 			// Copy colors
