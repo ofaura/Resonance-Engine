@@ -16,6 +16,8 @@
 #include "C_Texture.h"
 #include "C_Mesh.h"
 #include "ModuleSceneIntro.h"
+#include "MathGeoLib/include/MathGeoLib.h"
+#include "glmath.h"
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment( lib, "DevIL/lib/x86/Release/DevIL.lib" )
@@ -105,7 +107,7 @@ void ModuleResourceManager::LoadFilesFBX(const char* path, uint tex) {
 
 			// copy vertices
 			m.n_vertices = scene->mMeshes[i]->mNumVertices;
-			m.vertices = new vec3[m.n_vertices];
+			m.vertices = new float3[m.n_vertices];
 			memcpy(m.vertices, scene->mMeshes[i]->mVertices, sizeof(vec3) * m.n_vertices);
 			LOG("New mesh with %d vertices", m.n_vertices);
 
