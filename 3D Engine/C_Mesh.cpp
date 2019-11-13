@@ -78,7 +78,7 @@ void C_Mesh::DrawVerticesNormals()
 	if (meshData.normals != nullptr) {
 
 		for (uint i = 0; i < meshData.n_vertices; ++i) {
-			vec3 point = meshData.vertices[i];
+			float3 point = meshData.vertices[i];
 			vec3 vec = meshData.normals[i];
 
 			glLineWidth(1.0f);
