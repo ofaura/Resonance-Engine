@@ -6,7 +6,10 @@
 #include "ModuleResourceManager.h"
 #include "ModuleSceneIntro.h"
 
-GameObject::GameObject(uint id) : id(id) {}
+
+GameObject::GameObject()
+{
+}
 
 GameObject::GameObject(string name, GameObject* parent) : name(name), parent(parent)
 {
@@ -20,10 +23,20 @@ GameObject::~GameObject() {}
 
 void GameObject::Update()
 {
+	
 	for (int i = 0; i < components.size(); ++i)
 	{
 		if (components[i]->active) 
 			components[i]->Update();
+	}
+
+	for (int i = 0; i < children.size(); ++i)
+	{
+		if (children[i]->enable)
+		{
+			children[i]->RenderGameObject();
+			children[i]->Update();
+		}
 	}
 }
 
@@ -145,3 +158,4 @@ void GameObject::RenderGameObject() const
 	}
 
 }
+

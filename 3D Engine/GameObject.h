@@ -14,7 +14,7 @@ class C_Transform;
 class GameObject
 {
 public:
-	GameObject(uint id);
+	GameObject();
 	GameObject(string name, GameObject* parent = nullptr);
 
 	virtual ~GameObject();
@@ -37,6 +37,7 @@ public:
 	void DrawInspector();
 	void RenderGameObject() const;
 
+
 private:
 
 	uint id = 0;
@@ -52,7 +53,7 @@ public:
 	string name;
 	GameObject* parent;
 	vector<Component*> components;
-
+	vector<GameObject*> children;
 };
 
 #endif __GameObject__H__

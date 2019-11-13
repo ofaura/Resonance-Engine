@@ -5,7 +5,12 @@
 #include "EditorManager.h"
 #include "GameObject.h"
 
-ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module("SceneIntro", start_enabled) {}
+ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module("SceneIntro", start_enabled) 
+{
+	root = new GameObject();
+	root->AddComponent(COMPONENT_TYPE::TRANSFORM);
+	root->name = "root";
+}
 
 ModuleSceneIntro::~ModuleSceneIntro() {}
 
@@ -20,9 +25,11 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	int Size = gameObjects.size();
+	/*int Size = gameObjects.size();
 	if(Size != 0)
-		goSelected = gameObjects.front();
+		goSelected = gameObjects.front();*/
+
+
 
 	return ret;
 }
@@ -81,6 +88,45 @@ Objects3D* ModuleSceneIntro::CreateObject3D(SHAPE_TYPE type, vec3 &position, vec
 	return ret;
 }
 
+void ModuleSceneIntro::SetParent(GameObject * child, GameObject * newParent)
+{
+	if (child->parent != nullptr)
+	{
+		for (int i = 0; i < child->parent->children.size(); ++i)
+		{
+			if (child->parent->children[i]->name == child->name)
+			{
+				child->parent->children.erase(child->parent->children.begin() + i);
+				break;
+			}
+		}
+	}
+
+	child->parent = newParent;
+
+	if (child->parent != nullptr)
+		child->parent->children.push_back(child);
+}
+
+string & ModuleSceneIntro::SetAvailableName(string name)
+{
+	uint num_version = 0;
+
+	string final_name = name;
+	for (int i = 0; i < root->children.size(); i++)
+	{
+		if (root->children[i]->name.c_str() == final_name)
+		{
+			num_version++;
+			final_name = name + '(' + std::to_string(num_version) + ')';
+			i = -1;
+		}
+	}
+	name = final_name;
+
+	return name;
+}
+
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
@@ -97,11 +143,7 @@ update_status ModuleSceneIntro::Update(float dt)
 		(*item)->Draw();
 	}
 
-	for (uint i = 0; i < gameObjects.size(); ++i) 
-	{
-		gameObjects[i]->RenderGameObject();
-		gameObjects[i]->Update();
-	}
+	root->Update();
 	
 	return UPDATE_CONTINUE;
 }

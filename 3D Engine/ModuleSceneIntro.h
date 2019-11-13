@@ -24,13 +24,21 @@ public:
 	bool CleanUp();
 	
 	Objects3D* CreateObject3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float color[4]);
+	
+	void SetParent(GameObject* child, GameObject* newParent);
+
+	string& SetAvailableName(string name);
+
 
 public:
 
 	list<Objects3D*> objects_list;
 	vector<GameObject*> gameObjects;
+
 	GameObject* goSelected = nullptr;
+	GameObject* root = nullptr;
 	uint id_goSelected = 0;
+
 };
 
 	

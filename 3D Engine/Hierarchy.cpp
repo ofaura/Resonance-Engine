@@ -17,115 +17,73 @@ void Hierarchy::Draw()
 	if (!active) return;
 	if (ImGui::Begin("Hierarchy", &active, ImGuiWindowFlags_AlwaysAutoResize))
 	{
-		for (uint i = 0; i < App->scene_intro->gameObjects.size(); ++i)
-		{
-			if (ImGui::Selectable(App->scene_intro->gameObjects.at(i)->name.data(), App->scene_intro->id_goSelected == i))
-			{
-				App->scene_intro->goSelected = App->scene_intro->gameObjects.at(i);
-				App->scene_intro->id_goSelected = i;
-			}
-		}
-
-		//ImGui::Indent();
-
-		static TreeNode* root = NULL;
-		if (root == NULL)
-		{
-			// Initialize tree with sample data
-			char name_buffer[32];
-			const char* colors[] = { "Red", "Green", "Blue", "Black" };
-			const char* animals[] = { "Seal", "Wolf", "Crow", "Horse" };
-			root = new TreeNode("Root");
-			for (int i = 0; i < 4; i++)
-			{
-				TreeNode* parent = root->AddChild(colors[i]);
-				for (int j = 0; j < 4; j++)
-				{
-					sprintf(name_buffer, "%s %s", colors[i], animals[j]);
-					parent->AddChild(name_buffer);
-				}
-			}
-		}
-		RenderReorderTree(root);
-
-		//ImGui::Unindent();
+		isSelected = false;
+		int id = 0;
+		for (int i = 0; i < App->scene_intro->root->children.size(); ++i)
+			HandleHierarchyGO(App->scene_intro->root->children[i], id);
 	}
 
 	ImGui::End();
-
-	
 }
 
 void Hierarchy::CleanUp()
 {
 }
 
-void Hierarchy::RenderReorderTree(TreeNode * node)
+void Hierarchy::HandleHierarchyGO(GameObject * gameObject, int & id)
 {
-	ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-	bool open = ImGui::TreeNode(node->Name);
+	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_DefaultOpen;
 
-	if (node->Parent != NULL)   // Can not move root node itself
+	if (gameObject == App->scene_intro->goSelected)
+		flags |= ImGuiTreeNodeFlags_Selected;
+
+	if (gameObject->children.size() == 0)
+		flags |= ImGuiTreeNodeFlags_Leaf;
+
+	id++;
+
+	if (ImGui::TreeNodeEx((void*)(intptr_t)id, flags, gameObject->name.data()))
 	{
-		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID))
+		if (ImGui::IsItemClicked(0) && isSelected == false)
 		{
-			ImGui::SetDragDropPayload("animal", &node, sizeof(node));
-			ImGui::TextUnformatted(node->Name);
+			App->scene_intro->goSelected = gameObject;
+			isSelected = true;
+		}
+
+		else if (ImGui::IsItemClicked(1) && ImGui::IsWindowHovered() && isSelected == false)
+		{
+			openNode = true;
+			App->scene_intro->goSelected = gameObject;
+		}
+
+
+		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+		{
+			ImGui::SetDragDropPayload("GAME_OBJECT", gameObject, sizeof(GameObject));
+			ImGui::Text(" %s ", gameObject->name.data());
+			draggedGO = gameObject;
 			ImGui::EndDragDropSource();
 		}
-	}
 
-	// Prevent dropping a parent node on to one of it's children.
-	bool acceptable = false;
-	TreeNode* dropped = NULL;
-	const ImGuiPayload* payload = ImGui::GetDragDropPayload();
-	if (payload != NULL && payload->IsDataType("animal"))
-	{
-		memcpy(&dropped, payload->Data, sizeof(dropped));
-		acceptable = !node->IsDescendantOf(dropped);
-	}
-
-	if (acceptable && ImGui::BeginDragDropTarget())
-	{
-		// Drop directly on to node and append to the end of it's children list.
-		if (ImGui::AcceptDragDropPayload("animal"))
+		if (ImGui::BeginDragDropTarget())
 		{
-			if (dropped->Parent->Children.find_erase(dropped))
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GAME_OBJECT"))
 			{
-				node->Children.push_back(dropped);
-				dropped->Parent = node;
+				App->scene_intro->SetParent(draggedGO, gameObject); 
+				draggedGO = nullptr;
 			}
+			ImGui::EndDragDropTarget();
 		}
-		ImGui::EndDragDropTarget();
-	}
 
-	if (open)
-	{
-		// Drop at specific position within a tree.
-		for (int i = -1; i < node->Children.Size; i++)
+		if (gameObject->children.size() > 0)
 		{
-			if (i >= 0)
-				RenderReorderTree(node->Children[i]);
-
-			if (acceptable && ImGui::AcceptReorderDropPayload("animal"))
+			for (int i = 0; i < gameObject->children.size(); ++i)
 			{
-				// This offset compensates for i starting at -1, however if we are moving a node within same parent
-				// and it is located at or before our destination position, deletion of this node does compensate
-				// for this offset already.
-				int offset = 1;
-				if (node->Children.contains(dropped))
-				{
-					int prev_i = node->Children.index_from_ptr(node->Children.find(dropped));
-					if (prev_i <= i)
-						offset = 0;
-				}
-
-				dropped->Parent->Children.find_erase(dropped);
-				node->Children.insert(node->Children.begin() + i + offset, dropped);
-				dropped->Parent = node;
+				HandleHierarchyGO(gameObject->children[i], id);
 			}
 		}
 
 		ImGui::TreePop();
 	}
 }
+

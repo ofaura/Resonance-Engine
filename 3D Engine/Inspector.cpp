@@ -19,7 +19,7 @@ void Inspector::Draw()
 	
 	if (App->scene_intro->goSelected != nullptr)
 	{
-		GameObject* Selected = App->scene_intro->gameObjects.at(App->scene_intro->id_goSelected);
+		GameObject* Selected = App->scene_intro->goSelected;
 
 		ImGui::BeginChild("child", ImVec2(0, 35), true);
 
@@ -30,26 +30,41 @@ void Inspector::Draw()
 		strcpy_s(name, 100, Selected->GetName());
 		if (ImGui::InputText("", name, 100, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 		{
-			Selected->SetName(name);
+			//Selected->SetName(name);
 			changedName = true;
 		}
 
 		if (changedName)
 		{ 
 			int count = 0;
+			string final_name = name;
 			string num;
-			for (uint k = 0; k < App->scene_intro->gameObjects.size(); ++k)
+			for (int i = 0; i < App->scene_intro->root->children.size(); i++)
 			{
-				if (App->scene_intro->gameObjects.at(k)->name == name && k != App->scene_intro->id_goSelected)
+				if (App->scene_intro->root->children[i] != Selected)
 				{
-					count++;
-					num = std::to_string(count);
-					strcat_s(name, " (");
-					strcat_s(name, num.c_str());
-					strcat_s(name, ")");
+					if (strcmp(App->scene_intro->root->children[i]->name.c_str(), name) == 0)
+					{	
+						count++;
+						//final_name = strcat(name, "(");
+						//num = std::to_string(count);
+						//final_name = strcat_s(name, num.c_str());
+						//final_name = strcat(name, ")");
+					}
 				}
+
 			}
-			Selected->SetName(name);
+
+			if (count != 0)
+			{
+				final_name = strcat(name, "(");
+				num = std::to_string(count);
+				final_name = strcat_s(name, num.c_str());
+				final_name = strcat(name, ")");
+			}
+
+			//name = App->scene_intro->SetAvailableName(name);
+			Selected->SetName(final_name.c_str());
 			changedName = false;
 		}
 
