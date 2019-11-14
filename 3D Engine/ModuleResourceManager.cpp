@@ -21,6 +21,8 @@
 
 #include "MathGeoLib/include/MathGeoLib.h"
 
+#include "mmgr/mmgr.h"
+
 #ifdef _DEBUG
 #pragma comment( lib, "MathGeoLib/libx86/Debug/MathGeoLib.lib" )
 #else

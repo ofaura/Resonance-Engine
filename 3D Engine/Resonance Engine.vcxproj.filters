@@ -93,9 +93,6 @@
     <ClCompile Include="Inspector.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="TreeNodes.cpp">
-      <Filter>Sources\Editor</Filter>
-    </ClCompile>
     <ClCompile Include="Objects3D.cpp">
       <Filter>Sources\Tools\GameObjects</Filter>
     </ClCompile>
@@ -113,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="C_Texture.cpp">
       <Filter>Sources\Tools\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="mmgr\mmgr.cpp">
+      <Filter>Sources\External Libraries\mmgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -226,9 +226,6 @@
     <ClInclude Include="Inspector.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="TreeNodes.h">
-      <Filter>Sources\Editor</Filter>
-    </ClInclude>
     <ClInclude Include="Objects3D.h">
       <Filter>Sources\Tools\GameObjects</Filter>
     </ClInclude>
@@ -246,6 +243,12 @@
     </ClInclude>
     <ClInclude Include="C_Texture.h">
       <Filter>Sources\Tools\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\mmgr.h">
+      <Filter>Sources\External Libraries\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\nommgr.h">
+      <Filter>Sources\External Libraries\mmgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +290,9 @@
     </Filter>
     <Filter Include="Sources\Tools\GameObjects">
       <UniqueIdentifier>{ba75ad31-f570-4bf8-9724-9336b8979b40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External Libraries\mmgr">
+      <UniqueIdentifier>{00891b1a-f73a-49b6-bc0f-9164c69e9892}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

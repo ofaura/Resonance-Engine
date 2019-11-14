@@ -6,6 +6,7 @@
 #include "ModuleResourceManager.h"
 #include "ModuleSceneIntro.h"
 
+#include "mmgr/mmgr.h"
 
 GameObject::GameObject()
 {

@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "Globals.h"
 
+#include "mmgr/mmgr.h"
+
 #include "SDL/include/SDL.h"
 #include "Brofiler/Brofiler.h"
 

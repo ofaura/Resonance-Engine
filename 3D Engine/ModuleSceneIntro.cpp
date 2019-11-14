@@ -5,6 +5,8 @@
 #include "EditorManager.h"
 #include "GameObject.h"
 
+#include "mmgr/mmgr.h"
+
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module("SceneIntro", start_enabled) 
 {
 	root = new GameObject();

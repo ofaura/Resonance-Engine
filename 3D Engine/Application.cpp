@@ -8,6 +8,8 @@
 #include "EditorManager.h"
 #include "ModuleResourceManager.h"
 
+#include "mmgr/mmgr.h"
+
 Application::Application()
 {
 	window = new ModuleWindow(this);

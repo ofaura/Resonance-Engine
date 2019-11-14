@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 
+#include "mmgr/mmgr.h"
+
 Console::Console(bool is_visible) : EditorElement(is_visible) {}
 
 Console::~Console() {}

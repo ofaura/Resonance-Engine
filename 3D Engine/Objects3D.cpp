@@ -1,5 +1,7 @@
 #include "Objects3D.h"
 
+#include "mmgr/mmgr.h"
+
 Objects3D::Objects3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float object_color[4])
 {
 	color = new float[4];

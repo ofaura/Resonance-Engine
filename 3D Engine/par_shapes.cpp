@@ -1,5 +1,7 @@
 #include "par_shapes.h"
 
+#include "mmgr/mmgr.h"
+
 static void par_shapes__sphere(float const* uv, float* xyz, void*);
 static void par_shapes__hemisphere(float const* uv, float* xyz, void*);
 static void par_shapes__plane(float const* uv, float* xyz, void*);

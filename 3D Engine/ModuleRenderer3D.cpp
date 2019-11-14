@@ -9,6 +9,8 @@
 
 #include "Brofiler/Brofiler.h"
 
+#include "mmgr/mmgr.h"
+
 #include <gl/GL.h>
 #include <gl/GLU.h>
 

@@ -4,6 +4,8 @@
 #include "ModuleSceneIntro.h"
 #include "GameObject.h"
 
+#include "mmgr/mmgr.h"
+
 Inspector::Inspector(bool is_visible) : EditorElement(is_visible) {}
 
 Inspector::~Inspector() {}
