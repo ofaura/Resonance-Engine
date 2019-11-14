@@ -9,7 +9,7 @@
 #pragma comment( lib, "PhysFS/libx86/physfs.lib" )
 
 
-ModuleFileSystem::ModuleFileSystem(const char* game_path, bool start_enabled) : Module("File System", start_enabled)
+ModuleFileSystem::ModuleFileSystem(const char* game_path) : Module("File System", true)
 {
 	// needs to be created before Init so other modules can use it
 	char* base_path = SDL_GetBasePath();

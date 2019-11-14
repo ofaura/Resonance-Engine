@@ -12,7 +12,7 @@ struct aiFileIO;
 class ModuleFileSystem : public Module
 {
 public:
-	ModuleFileSystem(const char* game_path = nullptr, bool start_enabled = true);
+	ModuleFileSystem(const char* game_path = nullptr);
 
 	// Destructor
 	~ModuleFileSystem();
