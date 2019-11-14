@@ -11,6 +11,7 @@
 #define HISTOGRAM_BARS 100
 
 class Module;
+class ModuleFileSystem;
 class ModuleWindow;
 class ModuleInput;
 class ModuleSceneIntro;
@@ -30,6 +31,7 @@ public:
 	ModuleCamera3D*			camera = nullptr;
 	EditorManager*			editor = nullptr;
 	ModuleResourceManager*  rscr = nullptr;
+	ModuleFileSystem*		fileSystem = nullptr;
 
 private:
 
