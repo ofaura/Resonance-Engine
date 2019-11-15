@@ -3,6 +3,9 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "Brofiler/Brofiler.h"
+#include "ModuleSceneIntro.h"
+#include "Application.h"
+#include "GameObject.h"
 
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module("Camera", start_enabled)
 {
@@ -42,6 +45,37 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	BROFILER_CATEGORY("Camera3D Update", Profiler::Color::Orchid)
 
+		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		{
+			if (App->scene_intro->goSelected != nullptr)
+			{
+
+				//Move camera to Point Reference of the Object(Pivot)
+				vec3 dist = { App->scene_intro->goSelected->box.CenterPoint().x - Reference.x, App->scene_intro->goSelected->box.CenterPoint().y - Reference.y, App->scene_intro->goSelected->box.CenterPoint().z - Reference.z };
+				Reference += dist;
+
+				//Focus Camera distance
+				float3 points[8];
+				App->scene_intro->goSelected->box.GetCornerPoints(points);
+				vec3 maximum = { points[0].At(0),points[0].At(1),points[0].At(2) }; //set first point
+
+				for (int i = 0; i < 8 - 1; ++i)
+				{
+					vec3 point = { points[i].At(0), points[i].At(1), points[i].At(2) };
+					if (length(maximum) < length(point))
+					{
+						maximum = point;
+					}
+				}
+
+				double radius = length(maximum) / 2; //radius of sphere
+				double fov = 60 * DEGTORAD;
+				double DistCamera = (radius * 2.0) / tan(fov / 2.0);
+				Position = Reference + Z * DistCamera;
+
+			}
+		}
+
 		if (MouseInsideWindow())
 		{
 			vec3 newPos(0, 0, 0);
@@ -49,8 +83,8 @@ update_status ModuleCamera3D::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 				speed = 8.0f * dt;
 
-			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+			/*if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
+			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;*/
 
 			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
 			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
@@ -60,6 +94,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 			Position += newPos;
 			Reference += newPos;
+
 
 			// Mouse motion ----------------
 

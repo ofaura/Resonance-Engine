@@ -133,7 +133,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::Beige)
 	
 	//grid
-	Plane p(0, 1, 0, 0);
+	Planes p(0, 1, 0, 0);
 	
 	p.axis = true;
 	p.Render();

@@ -3,6 +3,7 @@
 
 #include "Globals.h"
 #include "Component.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
 #include <vector>
 #include <string>
@@ -10,6 +11,7 @@
 class C_Mesh;
 class C_Texture;
 class C_Transform;
+//class AABB;
 
 class GameObject
 {
@@ -37,7 +39,6 @@ public:
 	void DrawInspector();
 	void RenderGameObject() const;
 
-
 private:
 
 	uint id = 0;
@@ -54,6 +55,8 @@ public:
 	GameObject* parent;
 	vector<Component*> components;
 	vector<GameObject*> children;
+
+	AABB box;
 };
 
 #endif __GameObject__H__

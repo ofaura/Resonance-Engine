@@ -110,13 +110,14 @@ void ModuleResourceManager::LoadFilesFBX(const char* path, uint tex) {
 			}
 
 			GameObject *Loadmesh = new GameObject(name);
-
 			Data m;
+			math::float3* points = (float3*)malloc(sizeof(float3) * scene->mMeshes[i]->mNumVertices);
 
 			// copy vertices
 			m.n_vertices = scene->mMeshes[i]->mNumVertices;
 			m.vertices = new float3[m.n_vertices];
 			memcpy(m.vertices, scene->mMeshes[i]->mVertices, sizeof(vec3) * m.n_vertices);
+			memcpy(points, scene->mMeshes[i]->mVertices, sizeof(vec3) * m.n_vertices);
 			LOG("New mesh with %d vertices", m.n_vertices);
 
 
@@ -134,7 +135,9 @@ void ModuleResourceManager::LoadFilesFBX(const char* path, uint tex) {
 					}
 
 					else
+					{
 						memcpy(&m.indices[j * 3], scene->mMeshes[i]->mFaces[j].mIndices, sizeof(uint) * 3);
+					}
 				}
 			}
 
@@ -207,6 +210,10 @@ void ModuleResourceManager::LoadFilesFBX(const char* path, uint tex) {
 			
 			//App->scene_intro->gameObjects.push_back(Loadmesh);
 			App->scene_intro->SetParent(Loadmesh, App->scene_intro->root);
+
+			Loadmesh->box.SetFrom(points, scene->mMeshes[i]->mNumVertices);
+
+			std::free(points);
 		}
 		aiReleaseImport(scene);
 	}

@@ -3,6 +3,7 @@
 
 #include "Component.h"
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "GameObject.h"
 
 class GameObject;
 
@@ -37,6 +38,7 @@ public:
 	void DrawInspector();
 	void DrawFaceNormals();
 	void DrawVerticesNormals();
+	void DrawBox() const;
 
 	float3 CrossProduct(float3 vect_A, float3 vect_B);
 	float3 normalize(float3 vect_A);
@@ -44,6 +46,7 @@ public:
 private:
 	bool drawFaceNormals = false;
 	bool drawVerticesNormals = false;
+	bool boundary_box = false;
 
 public:
 	Data meshData;

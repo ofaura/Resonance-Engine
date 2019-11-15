@@ -5,7 +5,13 @@
 #include "C_Texture.h"
 #include "ModuleResourceManager.h"
 #include "ModuleSceneIntro.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
+#ifdef _DEBUG
+#pragma comment( lib, "MathGeoLib/libx86/Debug/MathGeoLib.lib" )
+#else
+#pragma comment( lib, "MathGeoLib/libx86/Release/MathGeoLib.lib" )
+#endif
 
 GameObject::GameObject()
 {
@@ -38,6 +44,8 @@ void GameObject::Update()
 			children[i]->Update();
 		}
 	}
+
+
 }
 
 void GameObject::CleanUp()
@@ -155,7 +163,7 @@ void GameObject::RenderGameObject() const
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, 0);
+
 	}
 
 }
-
