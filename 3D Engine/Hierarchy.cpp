@@ -58,21 +58,23 @@ void Hierarchy::HandleHierarchyGO(GameObject * gameObject, int & id)
 			App->scene_intro->goSelected = gameObject;
 		}
 
-
-		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+		if (gameObject != App->scene_intro->root)
 		{
-			ImGui::SetDragDropPayload("GAME_OBJECT", gameObject, sizeof(GameObject));
-			ImGui::Text(" %s ", gameObject->name.data());
-			draggedGO = gameObject;
-			ImGui::EndDragDropSource();
+			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+			{
+				ImGui::SetDragDropPayload("GAME_OBJECT", gameObject, sizeof(GameObject));
+				ImGui::Text(" %s ", gameObject->name.data());
+				draggedGO = gameObject;
+				ImGui::EndDragDropSource();
+			}
 		}
+
 
 		if (ImGui::BeginDragDropTarget())
 		{
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GAME_OBJECT"))
 			{
-				App->scene_intro->SetParent(draggedGO, gameObject); 
-				draggedGO = nullptr;
+				App->scene_intro->SetParent(gameObject, draggedGO);
 			}
 			ImGui::EndDragDropTarget();
 		}

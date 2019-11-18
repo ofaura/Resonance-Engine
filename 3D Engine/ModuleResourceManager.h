@@ -7,7 +7,9 @@
 #define CHECKERS_WIDTH 150
 #define CHECKERS_HEIGHT 150
 
-
+class C_Mesh;
+class C_Texture;
+class aiMesh;
 
 // ---------------------------------------------------
 class ModuleResourceManager : public Module
@@ -22,9 +24,23 @@ public:
 	bool Start();
 	bool CleanUp();
 
-	void LoadFilesFBX(const char* path, uint tex = 0);
-	uint GenerateTexture(const char* path);
+	void LoadFilesFBX(const char* path);
+	void LoadMesh(C_Mesh* mesh, aiMesh* currentMesh);
+
+	void ImportFile(const char* path);
+	bool ImportTexture(const char* path, string& outputFile);
+	bool ImportMesh(C_Mesh* mesh, string &outputFile);
+
+	bool ValidTextureExtension(const string& extension);
+	bool ValidMeshExtension(const string& extension);
+	bool CheckTextureExtension(const char* extension);
+	bool CheckMeshExtension(const char* extension);
+
+
+	void GenerateTexture(const char* path, C_Texture* texture);
 	void GenerateCheckerTexture();
+
+	string GetNameFromPath(string path, bool withExtension = false);
 
 public:
 

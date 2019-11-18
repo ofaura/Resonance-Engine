@@ -1,8 +1,10 @@
 #include "Application.h"
+#include "Globals.h"
 #include "ModuleResourceManager.h"
 #include "ModuleSceneIntro.h"
 #include "C_Texture.h"
 #include "C_Mesh.h"
+#include "ModuleFileSystem.h"
 
 #include "glew/include/GL/glew.h"
 #include "SDL/include/SDL_opengl.h"
@@ -56,9 +58,6 @@ bool ModuleResourceManager::Start()
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
-	texture = GenerateTexture("Assets/Baker_house.png");
-	LoadFilesFBX("Assets/BakerHouse.fbx");
-
 	loadedAll = true;
 
 	GenerateCheckerTexture();
@@ -75,151 +74,298 @@ bool ModuleResourceManager::CleanUp()
 	return true;
 }
 
-void ModuleResourceManager::LoadFilesFBX(const char* path, uint tex) {
-
+void ModuleResourceManager::LoadFilesFBX(const char* path)
+{
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		for (uint i = 0; i < scene->mNumMeshes; ++i) {
+		GameObject* parent = new GameObject(GetNameFromPath(path));
+		parent->MakeChild(App->scene_intro->root);
 
-			string n = path;
-			string directory;
-			string name;
-			uint j;
+		for (uint i = 0; i < scene->mNumMeshes; ++i)
+		{
+			GameObject* fbxMesh = nullptr;
 
-			if (loadedAll)
-				j = n.rfind('\\', n.length());
+			if (scene->mNumMeshes > 1)
+			{
+				fbxMesh = new GameObject(scene->mMeshes[i]->mName.C_Str());
+				fbxMesh->MakeChild(parent);
+			}
+
 			else
-				j = n.rfind('//', n.length());
+				fbxMesh = parent;
 
-			if (j != string::npos)
-				directory = (n.substr(j + 1, n.length() - j));
+			// Copy the mesh						
+			C_Mesh* mesh = (C_Mesh*)fbxMesh->AddComponent(COMPONENT_TYPE::MESH, fbxMesh);
+			LoadMesh(mesh, scene->mMeshes[i]);
 
-			const uint last_slash_idx = directory.rfind('.');
-
-			if (string::npos != last_slash_idx)
-				name = directory.substr(0, last_slash_idx);
-
-			for (uint k = 0; k < App->scene_intro->gameObjects.size(); ++k)
-			{
-				if (App->scene_intro->gameObjects.at(k)->name == name)
-				{
-					name.append(" (");
-					name.append(std::to_string(App->scene_intro->gameObjects.size()));
-					name.append(")");
-				}
-			}
-
-			GameObject *Loadmesh = new GameObject(name);
-
-			Data m;
-
-			// copy vertices
-			m.n_vertices = scene->mMeshes[i]->mNumVertices;
-			m.vertices = new float3[m.n_vertices];
-			memcpy(m.vertices, scene->mMeshes[i]->mVertices, sizeof(vec3) * m.n_vertices);
-			LOG("New mesh with %d vertices", m.n_vertices);
-
-
-
-			// copy faces
-			if (scene->mMeshes[i]->HasFaces())
-			{
-				m.n_indices = scene->mMeshes[i]->mNumFaces;
-				m.indices = new uint[m.n_indices * 3]; // assume each face is a triangle
-				for (uint j = 0; j < m.n_indices; ++j)
-				{
-					if (scene->mMeshes[i]->mFaces[j].mNumIndices != 3)
-					{
-						LOG("WARNING, geometry face with != 3 indices!");
-					}
-
-					else
-						memcpy(&m.indices[j * 3], scene->mMeshes[i]->mFaces[j].mIndices, sizeof(uint) * 3);
-				}
-			}
-
-
-			// Copy normals
-			if (scene->mMeshes[i]->HasNormals())
-			{
-				m.normals = new float3[m.n_vertices];
-				memcpy(m.normals, scene->mMeshes[i]->mNormals, sizeof(float3) * m.n_vertices);
-			}
-
-			// Copy colors
-			if (scene->mMeshes[i]->HasVertexColors(0))
-			{
-				m.n_colors = scene->mMeshes[i]->mNumVertices;
-				m.colors = new uint[m.n_colors * 4];
-
-				for (uint j = 0; j < m.n_colors; ++j)
-				{
-					m.colors[j * 4] = scene->mMeshes[i]->mColors[0][j].r;
-					m.colors[j * 4 + 1] = scene->mMeshes[i]->mColors[0][j].g;
-					m.colors[j * 4 + 2] = scene->mMeshes[i]->mColors[0][j].b;
-					m.colors[j * 4 + 3] = scene->mMeshes[i]->mColors[0][j].a;
-				}
-			}
-
-			// Copy texture UVs
-			if (scene->mMeshes[i]->HasTextureCoords(0))
-			{
-				m.n_textures = scene->mMeshes[i]->mNumVertices;
-				m.textures = new float[m.n_textures * 2];
-
-				for (uint j = 0; j < m.n_textures; ++j)
-				{
-					m.textures[j * 2] = scene->mMeshes[i]->mTextureCoords[0][j].x;
-					m.textures[j * 2 + 1] = scene->mMeshes[i]->mTextureCoords[0][j].y;
-				}
-			}
-
-
-			// Copy material
-			aiMaterial* material = scene->mMaterials[scene->mMeshes[i]->mMaterialIndex];
-			uint totalTex = material->GetTextureCount(aiTextureType_DIFFUSE);
+			// Copy materials
+			aiMaterial* aux_mat = scene->mMaterials[scene->mMeshes[i]->mMaterialIndex];
+			uint totalTex = aux_mat->GetTextureCount(aiTextureType_DIFFUSE);
 			aiString p;
-			material->GetTexture(aiTextureType_DIFFUSE, 0, &p);
+			aux_mat->GetTexture(aiTextureType_DIFFUSE, 0, &p);
 
-			// Assigning the VRAM
-			glGenBuffers(1, (GLuint*)&m.id_vertex);
-			glBindBuffer(GL_ARRAY_BUFFER, m.id_vertex);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * m.n_vertices, m.vertices, GL_STATIC_DRAW);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			string file = "Assets/Textures/";
+			string name = GetNameFromPath(p.C_Str(), true);
+			string full_path = file + name;
 
-			glGenBuffers(1, (GLuint*)&m.id_index);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_index);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * 3 * m.n_indices, m.indices, GL_STATIC_DRAW);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+			C_Texture* texture = (C_Texture*)fbxMesh->AddComponent(COMPONENT_TYPE::TEXTURE, fbxMesh);
+			GenerateTexture(full_path.c_str(), texture);
 
-			glGenBuffers(1, (GLuint*)&m.id_texture);
-			glBindBuffer(GL_ARRAY_BUFFER, m.id_texture);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * m.n_textures, m.textures, GL_STATIC_DRAW);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-			Loadmesh->component_mesh->meshData = m;
-
-			if (tex == 0 && path == "Assets/BakerHouse.fbx")
-				Loadmesh->component_texture->texture = texture;
-
-			else
-				Loadmesh->component_texture->texture = tex;
-			
-			//App->scene_intro->gameObjects.push_back(Loadmesh);
-			App->scene_intro->SetParent(Loadmesh, App->scene_intro->root);
+			App->scene_intro->gameObjects.push_back(fbxMesh);
+			LOG("Loaded new model %s. GameObjects on scene: %d", fbxMesh->name.c_str(), App->scene_intro->gameObjects.size());
 		}
 		aiReleaseImport(scene);
+		
+		if (scene->mNumMeshes > 1) 
+			App->scene_intro->gameObjects.push_back(parent);
 	}
-	else LOG("Error loading FBX: %s", path);
 }
 
-uint ModuleResourceManager::GenerateTexture(const char* path)
+void ModuleResourceManager::ImportFile(const char * path)
 {
-	if (App->scene_intro->goSelected != nullptr)
-		App->scene_intro->goSelected->component_texture->texture_path = path;
+	string finalPath;
+	string extension;
 
+	App->fileSystem->SplitFilePath(path, nullptr, &finalPath, &extension);
+
+	if (CheckTextureExtension(extension.c_str()))
+		finalPath = ASSETS_TEXTURE_FOLDER + finalPath;
+	if (CheckMeshExtension(extension.c_str()))
+		finalPath = ASSETS_MODEL_FOLDER + finalPath;
+
+	if (App->fileSystem->CopyFromOutsideFS(path, finalPath.c_str()))
+	{
+		string written_file;
+		if (CheckTextureExtension(extension.c_str()))
+		{
+			C_Texture* texture = (C_Texture*)App->scene_intro->goSelected->GetComponent(COMPONENT_TYPE::TEXTURE);
+			if (!texture) 
+				texture = (C_Texture*)App->scene_intro->goSelected->AddComponent(COMPONENT_TYPE::TEXTURE, App->scene_intro->goSelected);
+
+			GenerateTexture(path, texture);
+			texture = nullptr;
+		}
+		else if (CheckMeshExtension(extension.c_str())) 
+		{
+			C_Mesh* mesh = new C_Mesh(COMPONENT_TYPE::MESH, nullptr, true);
+			LoadFilesFBX(path);
+			App->scene_intro->goSelected = App->scene_intro->gameObjects.back();
+		}
+		else
+			LOG("Importing of [%s] FAILED", finalPath.c_str())
+	}
+}
+
+bool ModuleResourceManager::ImportTexture(const char * path, string & outputFile)
+{
+	bool ret = false;
+
+	ILuint size;
+	ILubyte* data;
+
+	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);
+	size = ilSaveL(IL_DDS, NULL, 0);
+
+	if (size > 0) 
+	{
+		data = new ILubyte[size];
+		
+		if (ilSaveL(IL_DDS, data, size) > 0)
+			ret = App->fileSystem->SaveUnique(outputFile, data, size, LIBRARY_TEXTURES_FOLDER, GetNameFromPath(path).c_str(), "dds");
+		RELEASE_ARRAY(data);
+
+		LOG("Imported texture %s", outputFile);
+	}
+
+	if (!ret) 
+		LOG("Cannot import texture from path %s", path);
+
+	return ret;
+}
+
+bool ModuleResourceManager::ImportMesh(C_Mesh * mesh, string & outputFile)
+{
+	LOG("Importing mesh")
+		bool ret = false;
+
+	uint ranges[5] = 
+	{
+		mesh->meshData.n_indices,
+		mesh->meshData.n_vertices,
+		mesh->meshData.n_colors,
+		mesh->meshData.n_normals,
+		mesh->meshData.n_textures
+	};
+
+	uint size = sizeof(ranges) + sizeof(uint) * mesh->meshData.n_indices * 3 + sizeof(float3) * mesh->meshData.n_vertices
+	+ sizeof(uint) * mesh->meshData.n_colors * 4 + sizeof(float3) * mesh->meshData.n_normals + sizeof(float) * mesh->meshData.n_textures * 2;
+
+	if (size > 0)
+	{
+		char* data = new char[size];
+		char* cursor = data;
+
+		// Store ranges
+		uint bytes = sizeof(ranges);
+		memcpy(cursor, ranges, bytes);
+
+		// Store indices
+		cursor += bytes;
+		bytes = sizeof(uint) * mesh->meshData.n_indices * 3;
+		memcpy(cursor, mesh->meshData.indices, bytes);
+
+		// Store vertices
+		cursor += bytes;
+		bytes = sizeof(float3) * mesh->meshData.n_vertices;
+		memcpy(cursor, mesh->meshData.vertices, bytes);
+
+		// Store colors
+		cursor += bytes;
+		bytes = sizeof(uint) * mesh->meshData.n_colors * 4;
+		memcpy(cursor, mesh->meshData.colors, bytes);
+
+		// Store normals
+		cursor += bytes;
+		bytes = sizeof(float3) * mesh->meshData.n_normals;
+		memcpy(cursor, mesh->meshData.normals, bytes);
+
+		// Store UVs
+		cursor += bytes;
+		bytes = sizeof(float) * mesh->meshData.n_textures * 2;
+		memcpy(cursor, mesh->meshData.textures, bytes);
+
+		ret = App->fileSystem->SaveUnique(outputFile, cursor, size, LIBRARY_MESH_FOLDER, mesh->parent->name.c_str(), "fbx");
+		RELEASE_ARRAY(data);
+
+		if (ret) 
+			LOG("Imported mesh: %s", outputFile)
+	}
+
+	else 
+		LOG("Could not import mesh")
+
+	return ret;
+}
+
+void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
+{
+	Data data;
+
+	// Copy vertices
+	data.n_vertices = currentMesh->mNumVertices;
+	data.vertices = new float3[data.n_vertices];
+	memcpy(data.vertices, currentMesh->mVertices, sizeof(float3) * data.n_vertices);
+	LOG("NEW MESH");
+	LOG("Vertices: %d", data.n_vertices);
+
+	// Copy faces
+	if (currentMesh->HasFaces())
+	{
+		data.n_indices = currentMesh->mNumFaces;
+		data.indices = new uint[data.n_indices * 3];
+		for (uint j = 0; j < data.n_indices; ++j)
+		{
+			if (currentMesh->mFaces[j].mNumIndices != 3)
+				LOG("WARNING, geometry face with != 3 indices!")
+			else
+				memcpy(&data.indices[j * 3], currentMesh->mFaces[j].mIndices, sizeof(uint) * 3);
+		}
+		LOG("Faces: %d", data.n_indices / 3);
+	}
+
+	// Copy normals
+	if (currentMesh->HasNormals())
+	{
+		data.n_normals = currentMesh->mNumVertices;
+		data.normals = new float3[data.n_normals];
+		memcpy(data.normals, currentMesh->mNormals, sizeof(float3) * data.n_normals);
+	}
+
+	// Copy colors
+	if (currentMesh->HasVertexColors(0))
+	{
+		data.n_colors = currentMesh->mNumVertices;
+		data.colors = new uint[data.n_colors * 4];
+
+		for (uint j = 0; j < data.n_colors; ++j)
+		{
+			data.colors[j * 4] = currentMesh->mColors[0][j].r;
+			data.colors[j * 4 + 1] = currentMesh->mColors[0][j].g;
+			data.colors[j * 4 + 2] = currentMesh->mColors[0][j].b;
+			data.colors[j * 4 + 3] = currentMesh->mColors[0][j].a;
+		}
+	}
+
+	// Copy texture UVs
+	if (currentMesh->HasTextureCoords(0))
+	{
+		data.n_textures = currentMesh->mNumVertices;
+		data.textures = new float[data.n_textures * 2];
+
+		for (uint j = 0; j < data.n_textures; ++j)
+		{
+			data.textures[j * 2] = currentMesh->mTextureCoords[0][j].x;
+			data.textures[j * 2 + 1] = currentMesh->mTextureCoords[0][j].y;
+		}
+	}
+
+	// Assigning the VRAM
+	glGenBuffers(1, (GLuint*)&data.id_vertex);
+	glBindBuffer(GL_ARRAY_BUFFER, data.id_vertex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * data.n_vertices, data.vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glGenBuffers(1, (GLuint*)&data.id_index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, data.id_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * 3 * data.n_indices, data.indices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	glGenBuffers(1, (GLuint*)&data.id_texture);
+	glBindBuffer(GL_ARRAY_BUFFER, data.id_texture);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * data.n_textures, data.textures, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	mesh->meshData = data;
+
+	// We import the mesh to our library
+	string name;
+	ImportMesh(mesh, name);
+}
+
+bool ModuleResourceManager::ValidTextureExtension(const string& extension)
+{
+	string ext;
+	size_t i = extension.rfind('.', extension.length());
+	if (i != string::npos) 
+		ext = (char*)&(extension.substr(i + 1, extension.length() - i));
+	
+	return (ext == "dds" || ext == "png" || ext == "jpg" || ext == "DDS" || ext == "PNG" || ext == "JPG");
+}
+
+bool ModuleResourceManager::ValidMeshExtension(const string& extension)
+{
+	string ext;
+	size_t i = extension.rfind('.', extension.length());
+	if (i != string::npos)
+		ext = (char*)&(extension.substr(i + 1, extension.length() - i));
+
+	return (ext == "fbx" || ext == "FBX");
+}
+
+bool ModuleResourceManager::CheckTextureExtension(const char * extension)
+{
+	return (strcmp(extension, "dds") == 0 || strcmp(extension, "png") == 0 || strcmp(extension, "jpg") == 0);
+}
+
+bool ModuleResourceManager::CheckMeshExtension(const char * extension)
+{
+	return (strcmp(extension, "fbx") == 0 || strcmp(extension, "FBX") == 0);
+}
+
+void ModuleResourceManager::GenerateTexture(const char* path, C_Texture* texture)
+{
 	ilInit();
 	iluInit();
 
@@ -235,10 +381,12 @@ uint ModuleResourceManager::GenerateTexture(const char* path)
 	ilGenImages(1, &pic);
 	ilBindImage(pic);
 
-	if (!ilLoadImage(path)) {
+	if (!ilLoadImage(path)) 
+	{
 		ilDeleteImages(1, &pic);
-		return 0;
+		return;
 	}
+
 	else
 	{
 		aux_texture = ilutGLBindTexImage();
@@ -269,13 +417,18 @@ uint ModuleResourceManager::GenerateTexture(const char* path)
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+		if (texture)
+		{
+			texture->texture = aux_texture;
+		}
+
+		string name;
+		ImportTexture(path, name);
+
 		ilBindImage(0);
 		ilDeleteImage(pic);
 
-		if (App->scene_intro->goSelected != nullptr)
-			App->scene_intro->goSelected->component_texture->original_texture = aux_texture;
-
-		return aux_texture;
+		texture->original_texture = aux_texture;
 	}
 }
 
@@ -305,6 +458,25 @@ void ModuleResourceManager::GenerateCheckerTexture()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
 		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+string ModuleResourceManager::GetNameFromPath(string path, bool withExtension)
+{
+	string name;
+
+	App->fileSystem->NormalizePath(path);
+	name = path.substr(path.find_last_of("//") + 1);
+
+	if (withExtension)
+		return name;
+	
+	else 
+	{
+		string::size_type const p(name.find_last_of('.'));
+		string file_name = name.substr(0, p);
+
+		return file_name;
+	}
 }
 
 

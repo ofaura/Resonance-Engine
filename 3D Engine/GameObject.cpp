@@ -6,18 +6,19 @@
 #include "ModuleResourceManager.h"
 #include "ModuleSceneIntro.h"
 
+#include "glmath.h"
 #include "mmgr/mmgr.h"
 
 GameObject::GameObject()
 {
+	component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM, true);
+	uid = (uint)App->GetRandom().Int();
 }
 
 GameObject::GameObject(string name, GameObject* parent) : name(name), parent(parent)
 {
-	//id = App->GetRandom().Int();
+	uid = (uint)App->GetRandom().Int();
 	component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM, true);
-	component_mesh = (C_Mesh*)AddComponent(COMPONENT_TYPE::MESH);
-	component_texture = (C_Texture*)AddComponent(COMPONENT_TYPE::TEXTURE);
 }
 
 GameObject::~GameObject() {}
@@ -35,7 +36,7 @@ void GameObject::Update()
 	{
 		if (children[i]->enable)
 		{
-			children[i]->RenderGameObject();
+			//children[i]->RenderGameObject();
 			children[i]->Update();
 		}
 	}
@@ -59,7 +60,7 @@ void GameObject::DisableGO()
 
 const int GameObject::GetId() const
 {
-	return id;
+	return uid;
 }
 
 const char * GameObject::GetName() const
@@ -89,10 +90,10 @@ Component* GameObject::AddComponent(COMPONENT_TYPE type, bool active)
 			component = new C_Transform(type, this, active);
 			break;
 		case COMPONENT_TYPE::MESH:
-			component = new C_Mesh(this);
+			component = new C_Mesh(type, this, active);
 			break;
 		case COMPONENT_TYPE::TEXTURE:
-			component = new C_Texture(this);
+			component = new C_Texture(type, this, active);
 			break;
 	}
 
@@ -100,6 +101,17 @@ Component* GameObject::AddComponent(COMPONENT_TYPE type, bool active)
 		components.push_back(component);
 
 	return component;
+}
+
+Component * GameObject::GetComponent(COMPONENT_TYPE type)
+{
+	for (int i = 0; i < components.size(); ++i)
+	{
+		if (components[i]->type == type)
+			return components[i];
+	}
+
+	return nullptr;
 }
 
 void GameObject::RemoveComponent(COMPONENT_TYPE type)
@@ -133,30 +145,44 @@ void GameObject::DrawInspector()
 
 void GameObject::RenderGameObject() const
 {
-	if (enable)
-	{
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		if (component_texture->active) 
-			glBindTexture(GL_TEXTURE_2D, component_texture->texture);
-		glActiveTexture(GL_TEXTURE0);
-		glBindBuffer(GL_ARRAY_BUFFER, component_mesh->meshData.id_texture);
-		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	//if (enable)
+	//{
+	//	this->name;
+	//	C_Texture* texture = (C_Texture*)parent->GetComponent(COMPONENT_TYPE::TEXTURE);
 
-		// Render the mesh
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glBindBuffer(GL_ARRAY_BUFFER, component_mesh->meshData.id_vertex);
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, component_mesh->meshData.id_index);
-		glDrawElements(GL_TRIANGLES, component_mesh->meshData.n_indices * 3, GL_UNSIGNED_INT, NULL);
+	//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-		// Clean all buffers
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
+	//	if (texture->active)
+	//		glBindTexture(GL_TEXTURE_2D, texture->texture);
+	//	
+	//	else
+	//		glBindTexture(GL_TEXTURE_2D, App->rscr->checker_texture);
 
+	//	glActiveTexture(GL_TEXTURE0);
+	//	glBindBuffer(GL_ARRAY_BUFFER, meshData.id_texture);
+	//	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+
+	//	// Render the mesh
+	//	glEnableClientState(GL_VERTEX_ARRAY);
+	//	glBindBuffer(GL_ARRAY_BUFFER, component_mesh->meshData.id_vertex);
+	//	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, component_mesh->meshData.id_index);
+	//	glDrawElements(GL_TRIANGLES, component_mesh->meshData.n_indices * 3, GL_UNSIGNED_INT, NULL);
+
+	//	// Clean all buffers
+	//	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//	glDisableClientState(GL_VERTEX_ARRAY);
+	//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	//	glActiveTexture(GL_TEXTURE0);
+	//	glBindTexture(GL_TEXTURE_2D, 0);
+	//}
+
+}
+
+void GameObject::MakeChild(GameObject * parent)
+{
+	this->parent = parent;
+	parent->children.push_back(this);
 }
 
