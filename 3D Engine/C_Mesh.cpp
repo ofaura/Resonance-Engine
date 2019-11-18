@@ -120,11 +120,12 @@ float3 C_Mesh::normalize(float3 vect_A)
 
 void C_Mesh::DrawBox() const
 {
+		
 		float3 points[8];
 		parent->box.GetCornerPoints(points);
 
+		
 		glBegin(GL_LINES);
-		glColor3f(1, 0.84, 0);
 		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
 		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
 		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
@@ -154,6 +155,7 @@ void C_Mesh::DrawBox() const
 		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
 
 		glEnd();
+		
 }
 
 
