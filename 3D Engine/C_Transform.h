@@ -1,6 +1,7 @@
 #ifndef __C__Transform__H__
 #define __C__Transform__H__
 
+#include "MathGeoLib/include/MathGeoLib.h"
 #include "Component.h"
 #include "glmath.h"
 
@@ -14,11 +15,17 @@ public:
 
 	void DrawInspector();
 	void Update() {};
+	void UpdateMatrices();
 
-private:
-	vec3 position;
-	vec3 rotation;
-	vec3 scale;
+public:
+	mat4x4 globalMatrix;
+	mat4x4 localMatrix;
+
+	float4x4 f4x4_2_mat4x4;
+
+	float3 vposition = float3(0, 0, 0);
+	Quat vrotation = Quat(0, 0, 0, 0);
+	float3 vscale = float3(1, 1, 1);
 
 };
 

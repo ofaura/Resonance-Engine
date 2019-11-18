@@ -1,4 +1,5 @@
 #include "C_Transform.h"
+#include "GameObject.h"
 
 C_Transform::C_Transform(COMPONENT_TYPE type, GameObject * parent, bool active) : Component(type, parent, active)
 {
@@ -12,62 +13,30 @@ C_Transform::~C_Transform()
 void C_Transform::DrawInspector()
 {
 
-		//Position
-
-		ImGui::Text("Position:");
-		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); 
-		ImGui::DragFloat("X", &position.x, 0.005f); 
-		ImGui::PopID();
-		
-		ImGui::SameLine(); ImGui::PushItemWidth(60);  
-		ImGui::PushID("pos"); 
-		ImGui::DragFloat("Y", &position.y, 0.005f); ImGui::PopID();
-		
-		ImGui::SameLine(); 
-		ImGui::PushItemWidth(60);  ImGui::PushID("pos"); 
-		ImGui::DragFloat("Z", &position.z, 0.005f); 
-		ImGui::PopID();
-
-		//Rotation
-
-		ImGui::Text("Rotation:");
-		ImGui::SameLine(); 
-		ImGui::PushItemWidth(60); 
-		ImGui::PushID("rot"); 
-		ImGui::DragFloat("X", &rotation.x, 0.005f); 
-		ImGui::PopID();
-
-		ImGui::SameLine();
-		ImGui::PushItemWidth(60);
-		ImGui::PushID("rot");  
-		ImGui::DragFloat("Y", &rotation.y, 0.005f); 
-		ImGui::PopID();
-
-		ImGui::SameLine(); 
-		ImGui::PushItemWidth(60); 
-		ImGui::PushID("rot");  
-		ImGui::DragFloat("Z", &rotation.z, 0.005f); 
-		ImGui::PopID();
-
-		//Scale
-
-		ImGui::Text("Scale:   ");
-		ImGui::SameLine(); 
-		ImGui::PushItemWidth(60);  
-		ImGui::PushID("scale"); 
-		ImGui::DragFloat("X", &scale.x, 0.005f); 
-		ImGui::PopID();
-
-		ImGui::SameLine(); 
-		ImGui::PushItemWidth(60);  
-		ImGui::PushID("scale"); 
-		ImGui::DragFloat("Y", &scale.y, 0.005f);
-		ImGui::PopID();
-
-		ImGui::SameLine();
-		ImGui::PushItemWidth(60);
-		ImGui::PushID("scale"); 
-		ImGui::DragFloat("Z", &scale.z, 0.005f); 
-		ImGui::PopID();
+	ImGui::DragFloat3("Translation", &vposition.x, 0.05f);
+	ImGui::DragFloat3("Scale", &vscale.x, 0.05f);
+	ImGui::DragFloat3("Rotation", &vrotation.x, 0.5f);
 	
+}
+
+void C_Transform::UpdateMatrices() {
+
+	mat4x4 translation = translate(vposition.x, vposition.y, vposition.z);
+	mat4x4 rotation, aux;
+	rotation = rotation * aux.rotate(vrotation.x, { 1,0,0 });
+	rotation = rotation * aux.rotate(vrotation.y, { 0,1,0 });
+	rotation = rotation * aux.rotate(vrotation.z, { 0,0,1 });
+
+	mat4x4 scaling = scale(vscale.x, vscale.y, vscale.z);
+
+	localMatrix = translation * rotation * scaling;
+
+	if (parent != nullptr)
+		globalMatrix = parent->component_transform->globalMatrix * localMatrix;
+	else
+		globalMatrix = localMatrix;
+
+	for (int i = 0; i < parent->children.size(); ++i) {
+		parent->children[i]->component_transform->UpdateMatrices();
+	}
 }
