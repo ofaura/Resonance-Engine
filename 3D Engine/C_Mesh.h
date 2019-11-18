@@ -39,6 +39,7 @@ public:
 	void DrawFaceNormals();
 	void DrawVerticesNormals();
 	void DrawBox() const;
+	void Render() const;
 
 	float3 CrossProduct(float3 vect_A, float3 vect_B);
 	float3 normalize(float3 vect_A);

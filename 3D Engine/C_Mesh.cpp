@@ -1,6 +1,11 @@
 #include "C_Mesh.h"
 
 #include "mmgr/mmgr.h"
+#include "GameObject.h"
+#include "C_Transform.h"
+#include "C_Texture.h"
+#include "Application.h"
+#include "ModuleResourceManager.h"
 
 //#include "glew/include/GL/glew.h"
 //#include "SDL\include\SDL_opengl.h"
@@ -20,6 +25,8 @@ C_Mesh::~C_Mesh() {}
 
 void C_Mesh::Update()
 {
+	Render();
+
 	if (drawFaceNormals)
 		DrawFaceNormals();
 	if (drawVerticesNormals)
@@ -152,4 +159,41 @@ void C_Mesh::DrawBox() const
 		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
 
 		glEnd();
+}
+
+void C_Mesh::Render() const
+{
+	glPushMatrix();
+	glMultMatrixf(parent->component_transform->globalMatrix.M);
+
+	// Render the texture
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	C_Texture* texture = parent->component_texture;
+
+	if (texture->active)
+		glBindTexture(GL_TEXTURE_2D, texture->texture);
+
+	else glBindTexture(GL_TEXTURE_2D, App->rscr->checker_texture);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindBuffer(GL_ARRAY_BUFFER, meshData.id_texture);
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+
+	// Render the mesh
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, meshData.id_vertex);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshData.id_index);
+	glDrawElements(GL_TRIANGLES, meshData.n_indices * 3, GL_UNSIGNED_INT, NULL);
+
+	// Clean all buffers
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glPopMatrix();
 }

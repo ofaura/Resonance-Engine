@@ -215,7 +215,7 @@ void ModuleResourceManager::LoadFilesFBX(const char* path, uint tex) {
 
 			Loadmesh->box.SetFrom(points, scene->mMeshes[i]->mNumVertices);
 
-			std::free(points);
+			free(points);
 		}
 		aiReleaseImport(scene);
 	}

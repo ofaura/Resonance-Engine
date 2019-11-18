@@ -14,31 +14,36 @@ C_Transform::~C_Transform()
 
 void C_Transform::DrawInspector()
 {
+	float3 last_position = position;
+	ImGui::DragFloat3("Translation", &position.x, 0.05f);
+	float3 last_scale = scales;
+	ImGui::DragFloat3("Scale", &scales.x, 0.05f);
+	Quat last_rotation = rotation;
+	ImGui::DragFloat3("Rotation", &rotation.x, 0.5f);
 
-	ImGui::DragFloat3("Translation", &vposition.x, 0.05f);
-	ImGui::DragFloat3("Scale", &vscale.x, 0.05f);
-	ImGui::DragFloat3("Rotation", &vrotation.x, 0.5f);
+	if (last_position.x != position.x || last_position.y != position.y || last_position.z != position.z ||last_rotation.x != rotation.x || last_rotation.y != rotation.y || last_rotation.z != rotation.z || last_scale.x != scales.x || last_scale.y != scales.y || last_scale.z != scales.z)
+	{
+		UpdateMatrix(); 
+	}
 	
 }
 
-void C_Transform::UpdateMatrices() {
+void C_Transform::UpdateMatrix() {
 
-	mat4x4 translation = translate(vposition.x, vposition.y, vposition.z);
-	mat4x4 rotation, aux;
-	rotation = rotation * aux.rotate(vrotation.x, { 1,0,0 });
-	rotation = rotation * aux.rotate(vrotation.y, { 0,1,0 });
-	rotation = rotation * aux.rotate(vrotation.z, { 0,0,1 });
+	mat4x4 translation = translate(position.x, position.y, position.z);
+	mat4x4 scalate = scale(scales.x, scales.y, scales.z);
+	mat4x4 AuxRotation;
+	mat4x4 auxiliar;
 
-	mat4x4 scaling = scale(vscale.x, vscale.y, vscale.z);
+	AuxRotation = AuxRotation * auxiliar.rotate(rotation.x, { 1,0,0 });
+	AuxRotation = AuxRotation * auxiliar.rotate(rotation.y, { 0,1,0 });
+	AuxRotation = AuxRotation * auxiliar.rotate(rotation.z, { 0,0,1 });
+	localMatrix = translation * AuxRotation * scalate;
 
-	localMatrix = translation * rotation * scaling;
-
-	if (parent != nullptr)
-		globalMatrix = parent->component_transform->globalMatrix * localMatrix;
-	else
-		globalMatrix = localMatrix;
+	if (parent != nullptr) { globalMatrix = parent->component_transform->globalMatrix * localMatrix; }	
+	else { globalMatrix = localMatrix; }
 
 	for (int i = 0; i < parent->children.size(); ++i) {
-		parent->children[i]->component_transform->UpdateMatrices();
+		parent->children[i]->component_transform->UpdateMatrix();
 	}
 }

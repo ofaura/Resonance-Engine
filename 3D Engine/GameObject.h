@@ -37,7 +37,6 @@ public:
 	void SetName(const char* name);
 
 	void DrawInspector();
-	void RenderGameObject() const;
 
 private:
 
