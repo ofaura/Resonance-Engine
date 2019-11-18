@@ -9,7 +9,7 @@ class C_Texture : public Component
 
 {
 public:
-	C_Texture(GameObject* object);
+	C_Texture(COMPONENT_TYPE type, GameObject* parent, bool active);
 	~C_Texture();
 
 	void DrawInspector();
@@ -19,6 +19,9 @@ public:
 	uint texture = 0;
 	uint original_texture = 0;
 	string texture_path;
+
+	long width = 0;
+	long height = 0;
 
 private:
 	bool debug = false;

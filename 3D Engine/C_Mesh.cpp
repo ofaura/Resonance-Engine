@@ -1,30 +1,25 @@
 #include "C_Mesh.h"
+#include "C_Texture.h"
+#include "Application.h"
+#include "ModuleResourceManager.h"
+#include "GameObject.h"
+//#include "mmgr/mmgr.h"
 
-#include "mmgr/mmgr.h"
+//#include "mmgr/mmgr.h"
 #include "GameObject.h"
 #include "C_Transform.h"
 #include "C_Texture.h"
 #include "Application.h"
 #include "ModuleResourceManager.h"
 
-//#include "glew/include/GL/glew.h"
-//#include "SDL\include\SDL_opengl.h"
-//
-//#include "gl/GL.h"
-//#include "gl/GLU.h""
 
-//#include "MathGeoLib/include/MathGeoLib.h"
-//#include "glmath.h"
-
-C_Mesh::C_Mesh(GameObject * object) : Component(COMPONENT_TYPE::MESH, object)
-{
-	name = "Mesh";
-}
+C_Mesh::C_Mesh(COMPONENT_TYPE type, GameObject * parent, bool active) : Component(type, parent, active) {}
 
 C_Mesh::~C_Mesh() {}
 
 void C_Mesh::Update()
 {
+
 	Render();
 
 	if (drawFaceNormals)
@@ -161,20 +156,18 @@ void C_Mesh::DrawBox() const
 		glEnd();
 }
 
-void C_Mesh::Render() const
+
+void C_Mesh::Render()
 {
 	glPushMatrix();
 	glMultMatrixf(parent->component_transform->globalMatrix.M);
 
-	// Render the texture
+	C_Texture* texture = (C_Texture*)parent->GetComponent(COMPONENT_TYPE::TEXTURE);
+
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	C_Texture* texture = parent->component_texture;
-
+	
 	if (texture->active)
 		glBindTexture(GL_TEXTURE_2D, texture->texture);
-
-	else glBindTexture(GL_TEXTURE_2D, App->rscr->checker_texture);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindBuffer(GL_ARRAY_BUFFER, meshData.id_texture);
@@ -197,3 +190,4 @@ void C_Mesh::Render() const
 
 	glPopMatrix();
 }
+

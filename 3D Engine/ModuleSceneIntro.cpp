@@ -4,14 +4,12 @@
 #include "Brofiler/Brofiler.h"
 #include "EditorManager.h"
 #include "GameObject.h"
+#include "ModuleResourceManager.h"
 
 #include "mmgr/mmgr.h"
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module("SceneIntro", start_enabled) 
 {
-	root = new GameObject();
-	root->AddComponent(COMPONENT_TYPE::TRANSFORM);
-	root->name = "root";
 }
 
 ModuleSceneIntro::~ModuleSceneIntro() {}
@@ -24,9 +22,14 @@ bool ModuleSceneIntro::Start()
 
 	bool ret = true;
 
+	root = new GameObject();
+	root->AddComponent(COMPONENT_TYPE::TRANSFORM);
+	root->name = "root";
+
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	App->rscr->LoadFilesFBX("Assets/FBX/BakerHouse.fbx");
 	/*int Size = gameObjects.size();
 	if(Size != 0)
 		goSelected = gameObjects.front();*/

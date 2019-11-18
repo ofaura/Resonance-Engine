@@ -13,6 +13,9 @@
 
 Application::Application()
 {
+
+	randomNumber = new LCG();
+
 	window = new ModuleWindow();
 	input = new ModuleInput();
 	scene_intro = new ModuleSceneIntro();
@@ -27,11 +30,11 @@ Application::Application()
 	// They will CleanUp() in reverse order
 
 	// Main Modules
-	AddModule(fileSystem);
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);	
 	AddModule(editor);
+	AddModule(fileSystem);
 	AddModule(rscr);
 
 	// Scenes
@@ -51,6 +54,9 @@ Application::~Application()
 	}
 
 	list_modules.clear();
+
+	if (randomNumber)
+		RELEASE(randomNumber);
 }
 
 bool Application::Init()
@@ -193,8 +199,9 @@ void Application::AddModule(Module* mod)
 	list_modules.push_back(mod);
 }
 
-//LCG & Application::GetRandom()
-//{
-//	return *RandomNumber;
-//}
-//
+LCG & Application::GetRandom()
+{
+	int a = (int)randomNumber;
+	return *randomNumber;
+}
+

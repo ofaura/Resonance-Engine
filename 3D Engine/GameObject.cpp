@@ -13,19 +13,20 @@
 #pragma comment( lib, "MathGeoLib/libx86/Release/MathGeoLib.lib" )
 #endif
 
+#include "glmath.h"
 #include "mmgr/mmgr.h"
 
 
 GameObject::GameObject()
 {
+	component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM, true);
+	uid = (uint)App->GetRandom().Int();
 }
 
 GameObject::GameObject(string name, GameObject* parent) : name(name), parent(parent)
 {
-	//id = App->GetRandom().Int();
+	uid = (uint)App->GetRandom().Int();
 	component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM, true);
-	component_mesh = (C_Mesh*)AddComponent(COMPONENT_TYPE::MESH);
-	component_texture = (C_Texture*)AddComponent(COMPONENT_TYPE::TEXTURE);
 }
 
 GameObject::~GameObject() {}
@@ -68,7 +69,7 @@ void GameObject::DisableGO()
 
 const int GameObject::GetId() const
 {
-	return id;
+	return uid;
 }
 
 const char * GameObject::GetName() const
@@ -98,10 +99,10 @@ Component* GameObject::AddComponent(COMPONENT_TYPE type, bool active)
 			component = new C_Transform(type, this, active);
 			break;
 		case COMPONENT_TYPE::MESH:
-			component = new C_Mesh(this);
+			component = new C_Mesh(type, this, active);
 			break;
 		case COMPONENT_TYPE::TEXTURE:
-			component = new C_Texture(this);
+			component = new C_Texture(type, this, active);
 			break;
 	}
 
@@ -109,6 +110,17 @@ Component* GameObject::AddComponent(COMPONENT_TYPE type, bool active)
 		components.push_back(component);
 
 	return component;
+}
+
+Component * GameObject::GetComponent(COMPONENT_TYPE type)
+{
+	for (int i = 0; i < components.size(); ++i)
+	{
+		if (components[i]->type == type)
+			return components[i];
+	}
+
+	return nullptr;
 }
 
 void GameObject::RemoveComponent(COMPONENT_TYPE type)
@@ -139,3 +151,10 @@ void GameObject::DrawInspector()
 	for (int i = 0; i < components.size(); ++i)
 		components[i]->DrawInspector();
 }
+
+void GameObject::MakeChild(GameObject * parent)
+{
+	this->parent = parent;
+	parent->children.push_back(this);
+}
+
