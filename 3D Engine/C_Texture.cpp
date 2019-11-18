@@ -2,6 +2,8 @@
 #include "ModuleResourceManager.h"
 #include "ModuleSceneIntro.h"
 
+#include "mmgr/mmgr.h"
+
 C_Texture::C_Texture(GameObject * object) : Component(COMPONENT_TYPE::TEXTURE, object)
 {
 	name = "Texture";

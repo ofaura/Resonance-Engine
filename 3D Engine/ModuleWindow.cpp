@@ -6,6 +6,8 @@
 #include "Brofiler/Brofiler.h"
 #include "ModuleRenderer3D.h"
 
+#include "mmgr/mmgr.h"
+
 ModuleWindow::ModuleWindow(bool start_enabled) : Module("Window", start_enabled)
 {
 	window = NULL;

@@ -7,22 +7,27 @@
 #include "ModuleCamera3D.h"
 #include "EditorManager.h"
 #include "ModuleResourceManager.h"
+#include "ModuleFileSystem.h"
+
+#include "mmgr/mmgr.h"
 
 Application::Application()
 {
-	window = new ModuleWindow(this);
-	input = new ModuleInput(this);
-	scene_intro = new ModuleSceneIntro(this);
-	renderer3D = new ModuleRenderer3D(this);
-	camera = new ModuleCamera3D(this);
-	editor = new EditorManager(this);
+	window = new ModuleWindow();
+	input = new ModuleInput();
+	scene_intro = new ModuleSceneIntro();
+	renderer3D = new ModuleRenderer3D();
+	camera = new ModuleCamera3D();
+	editor = new EditorManager();
 	rscr = new ModuleResourceManager(this);
+	fileSystem = new ModuleFileSystem();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
 
 	// Main Modules
+	AddModule(fileSystem);
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);	

@@ -5,6 +5,7 @@
 
 #include "Brofiler/Brofiler.h"
 
+#include "mmgr/mmgr.h"
 
 Configuration::Configuration(bool is_visible) : EditorElement(is_visible) {}
 

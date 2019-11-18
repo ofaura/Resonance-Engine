@@ -11,6 +11,8 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleResourceManager.h"
 
+#include "mmgr/mmgr.h"
+
 #include "imgui-1.72b/examples/imgui_impl_sdl.h"
 #include "imgui-1.72b/examples/imgui_impl_opengl3.h"
 

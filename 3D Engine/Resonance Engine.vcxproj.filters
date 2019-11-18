@@ -18,10 +18,16 @@
     <ClCompile Include="Console.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="EditorManager.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Hierarchy.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Inspector.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
     <ClCompile Include="glew\src\glew.c">
@@ -48,6 +54,9 @@
     <ClCompile Include="imgui-1.72b\imgui_widgets.cpp">
       <Filter>Sources\External Libraries\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="mmgr\mmgr.cpp">
+      <Filter>Sources\External Libraries\mmgr</Filter>
+    </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
@@ -57,7 +66,13 @@
     <ClCompile Include="Primitive.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleSceneIntro.cpp">
+      <Filter>Sources\Modules\Game</Filter>
+    </ClCompile>
     <ClCompile Include="ModuleCamera3D.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleInput.cpp">
@@ -69,14 +84,26 @@
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleSceneIntro.cpp">
-      <Filter>Sources\Modules\Game</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleResourceManager.cpp">
       <Filter>Sources\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="EditorManager.cpp">
-      <Filter>Sources\Editor</Filter>
+    <ClCompile Include="C_Mesh.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Texture.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Transform.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects3D.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="FBO.cpp">
       <Filter>Sources\Tools</Filter>
@@ -87,32 +114,11 @@
     <ClCompile Include="log.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
+    <ClCompile Include="PerfTimer.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="Inspector.cpp">
-      <Filter>Sources\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="TreeNodes.cpp">
-      <Filter>Sources\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects3D.cpp">
-      <Filter>Sources\Tools\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Sources\Tools\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Sources\Tools\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="C_Transform.cpp">
-      <Filter>Sources\Tools\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="C_Mesh.cpp">
-      <Filter>Sources\Tools\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="C_Texture.cpp">
-      <Filter>Sources\Tools\GameObjects</Filter>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,10 +139,16 @@
     <ClInclude Include="Console.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="EditorManager.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
     <ClInclude Include="Hierarchy.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Inspector.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
     <ClInclude Include="glew\include\GL\glew.h">
@@ -169,14 +181,20 @@
     <ClInclude Include="imgui-1.72b\imstb_truetype.h">
       <Filter>Sources\External Libraries\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
+      <Filter>Sources\External Libraries\MathGeoLib</Filter>
+    </ClInclude>
     <ClInclude Include="MathGeoLib\include\MathBuildConfig.h">
       <Filter>Sources\External Libraries\MathGeoLib</Filter>
     </ClInclude>
     <ClInclude Include="MathGeoLib\include\MathGeoLib.h">
       <Filter>Sources\External Libraries\MathGeoLib</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
-      <Filter>Sources\External Libraries\MathGeoLib</Filter>
+    <ClInclude Include="mmgr\mmgr.h">
+      <Filter>Sources\External Libraries\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\nommgr.h">
+      <Filter>Sources\External Libraries\mmgr</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Sources\Helpers</Filter>
@@ -187,10 +205,13 @@
     <ClInclude Include="Primitive.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="Module.h">
+    <ClInclude Include="ModuleSceneIntro.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleCamera3D.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFileSystem.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleInput.h">
@@ -202,91 +223,88 @@
     <ClInclude Include="ModuleWindow.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleSceneIntro.h">
-      <Filter>Sources\Modules\Game</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleResourceManager.h">
       <Filter>Sources\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="EditorManager.h">
-      <Filter>Sources\Editor</Filter>
+    <ClInclude Include="C_Mesh.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Texture.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Transform.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects3D.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="FBO.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="JSONLoader.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="json.hpp">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="JSONLoader.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="PerfTimer.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Inspector.h">
-      <Filter>Sources\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="TreeNodes.h">
-      <Filter>Sources\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects3D.h">
-      <Filter>Sources\Tools\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Sources\Tools\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Sources\Tools\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Transform.h">
-      <Filter>Sources\Tools\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Mesh.h">
-      <Filter>Sources\Tools\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Texture.h">
-      <Filter>Sources\Tools\GameObjects</Filter>
+    <ClInclude Include="Module.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
-      <UniqueIdentifier>{da2e30e7-4a98-4b92-9248-629cfac9db24}</UniqueIdentifier>
+      <UniqueIdentifier>{c777ec6a-73e7-4ef6-819d-914a7b023ece}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Containers">
-      <UniqueIdentifier>{e4b384e4-18bd-4877-9a11-4f97beee201e}</UniqueIdentifier>
+      <UniqueIdentifier>{9d45c226-9a99-4258-b07d-4142d7e69d3a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Editor">
-      <UniqueIdentifier>{73f5f449-f51b-41fc-b245-266e871a058c}</UniqueIdentifier>
+      <UniqueIdentifier>{3aaa64db-71ff-4590-a01a-dab0f85eae79}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\External Libraries">
-      <UniqueIdentifier>{7aa2b0b1-0a9c-4f4b-83b3-09230a2e6a41}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Helpers">
-      <UniqueIdentifier>{efd18307-4fcd-4d88-b4e3-2face7ce2ef3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Modules">
-      <UniqueIdentifier>{2f659147-6554-485f-8b30-409eadbdde80}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Modules\Game">
-      <UniqueIdentifier>{93a066d3-95e3-47c3-8832-bb8651fc9b50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Resources">
-      <UniqueIdentifier>{205a02e6-0220-413a-83cf-f264c32e180a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Tools">
-      <UniqueIdentifier>{90ef4324-2236-494e-aae0-ed989a228dad}</UniqueIdentifier>
+      <UniqueIdentifier>{a457ffb6-300d-4dde-a23f-d48dca199306}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\External Libraries\glew">
-      <UniqueIdentifier>{0d8c7b4c-7465-4bb5-abae-027a641dd684}</UniqueIdentifier>
+      <UniqueIdentifier>{114725b4-d75f-4f43-aa36-bf426ea4a26b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\External Libraries\ImGui">
-      <UniqueIdentifier>{3e233b04-6a49-49ed-862a-8bcbdcd6a5f7}</UniqueIdentifier>
+      <UniqueIdentifier>{727b315b-4ab6-41aa-b07d-ab28ee505f4d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\External Libraries\MathGeoLib">
-      <UniqueIdentifier>{432dd32a-039e-4fca-96ba-1babd75efcae}</UniqueIdentifier>
+      <UniqueIdentifier>{3dcf83b8-9ac5-4949-8252-255635362bc1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Tools\GameObjects">
-      <UniqueIdentifier>{ba75ad31-f570-4bf8-9724-9336b8979b40}</UniqueIdentifier>
+    <Filter Include="Sources\External Libraries\mmgr">
+      <UniqueIdentifier>{83f8bf82-9157-4930-93de-c8aba782b5de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Helpers">
+      <UniqueIdentifier>{8e138119-c728-4276-b000-7f7fdf15f9dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Modules">
+      <UniqueIdentifier>{c8898384-5e1d-4d87-816f-dd376d84924d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Modules\Game">
+      <UniqueIdentifier>{95d94c67-fb05-43c8-a64c-09b5abe44b4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Resources">
+      <UniqueIdentifier>{a2211982-4726-4b08-9f8f-287c968d8905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Tools">
+      <UniqueIdentifier>{02d3a6c2-499a-4bf1-a345-de75d71fbc38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Tools\Game Objects">
+      <UniqueIdentifier>{a43210e8-af5d-42b5-9d7a-2a177446f6c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

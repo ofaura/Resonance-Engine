@@ -13,6 +13,9 @@
 #pragma comment( lib, "MathGeoLib/libx86/Release/MathGeoLib.lib" )
 #endif
 
+#include "mmgr/mmgr.h"
+
+
 GameObject::GameObject()
 {
 }

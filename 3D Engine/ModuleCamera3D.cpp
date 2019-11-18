@@ -7,6 +7,8 @@
 #include "Application.h"
 #include "GameObject.h"
 
+#include "mmgr/mmgr.h"
+
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module("Camera", start_enabled)
 {
 	CalculateViewMatrix();

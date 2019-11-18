@@ -4,6 +4,8 @@
 #include "ModuleSceneIntro.h"
 #include "GameObject.h"
 
+#include "mmgr/mmgr.h"
+
 Hierarchy::Hierarchy(bool is_visible) : EditorElement(is_visible) {}
 
 Hierarchy::~Hierarchy() {}

@@ -4,6 +4,8 @@
 #include "ModuleRenderer3D.h"
 #include "FBO.h"
 
+#include "mmgr/mmgr.h"
+
 Game::Game(bool is_visible) : EditorElement(is_visible) {}
 
 Game::~Game() {}

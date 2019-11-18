@@ -1,6 +1,8 @@
 #include "C_Transform.h"
 #include "GameObject.h"
 
+#include "mmgr/mmgr.h"
+
 C_Transform::C_Transform(COMPONENT_TYPE type, GameObject * parent, bool active) : Component(type, parent, active)
 {
 	name = "Transform";
