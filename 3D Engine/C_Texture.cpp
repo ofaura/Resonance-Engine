@@ -2,9 +2,11 @@
 #include "ModuleResourceManager.h"
 #include "ModuleSceneIntro.h"
 
-C_Texture::C_Texture(GameObject * object) : Component(COMPONENT_TYPE::TEXTURE, object)
+#include "mmgr/mmgr.h"
+
+
+C_Texture::C_Texture(COMPONENT_TYPE type, GameObject * parent, bool active) : Component(type, parent, active)
 {
-	name = "Texture";
 }
 
 C_Texture::~C_Texture() {}
@@ -28,8 +30,8 @@ void C_Texture::DrawInspector()
 			{
 				if (original_texture != 0)
 					texture = original_texture;
-				else  if (App->scene_intro->id_goSelected <= 1)
-					texture = App->rscr->texture;
+				//else  if (App->scene_intro->id_goSelected <= 1)
+				//	texture = App->rscr->texture;
 				else
 					texture = NULL;
 			}

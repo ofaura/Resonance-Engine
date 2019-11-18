@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "Timer.h"
 #include "Module.h"
-//#include "MathGeoLib/include/Algorithm/Random/LCG.h"
+#include "MathGeoLib/include/Algorithm/Random/LCG.h"
 
 #include <list>
 
@@ -57,7 +57,7 @@ public:
 	vector<float> fps_vec;
 	vector<float> ms_vec;
 	list<char*> log_list;
-	//LCG* RandomNumber = nullptr;
+	LCG* randomNumber = nullptr;
 
 public:
 
@@ -68,7 +68,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	//LCG& GetRandom();
+	LCG& GetRandom();
 
 private:
 

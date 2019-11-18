@@ -26,6 +26,8 @@ public:
 	void DisableGO();
 
 	Component* AddComponent(COMPONENT_TYPE type, bool active = true);
+	Component* GetComponent(COMPONENT_TYPE type);
+
 	void RemoveComponent(COMPONENT_TYPE type);
 	bool HasComponent(COMPONENT_TYPE type);
 
@@ -37,17 +39,16 @@ public:
 	void DrawInspector();
 	void RenderGameObject() const;
 
+	void MakeChild(GameObject* parent);
 
 private:
 
-	uint id = 0;
+	uint uid = 0;
 
 public:
 
 	bool enable = true;
 
-	C_Mesh* component_mesh = nullptr;
-	C_Texture* component_texture = nullptr;
 	C_Transform* component_transform = nullptr;
 
 	string name;

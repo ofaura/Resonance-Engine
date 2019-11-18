@@ -11,12 +11,14 @@
 
 Application::Application()
 {
-	window = new ModuleWindow(this);
-	input = new ModuleInput(this);
-	scene_intro = new ModuleSceneIntro(this);
-	renderer3D = new ModuleRenderer3D(this);
-	camera = new ModuleCamera3D(this);
-	editor = new EditorManager(this);
+	randomNumber = new LCG();
+
+	window = new ModuleWindow();
+	input = new ModuleInput();
+	scene_intro = new ModuleSceneIntro();
+	renderer3D = new ModuleRenderer3D();
+	camera = new ModuleCamera3D();
+	editor = new EditorManager();
 	rscr = new ModuleResourceManager(this);
 	fileSystem = new ModuleFileSystem(this);
 
@@ -25,11 +27,11 @@ Application::Application()
 	// They will CleanUp() in reverse order
 
 	// Main Modules
-	AddModule(fileSystem);
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);	
 	AddModule(editor);
+	AddModule(fileSystem);
 	AddModule(rscr);
 
 	// Scenes
@@ -49,6 +51,9 @@ Application::~Application()
 	}
 
 	list_modules.clear();
+
+	if (randomNumber)
+		RELEASE(randomNumber);
 }
 
 bool Application::Init()
@@ -191,8 +196,9 @@ void Application::AddModule(Module* mod)
 	list_modules.push_back(mod);
 }
 
-//LCG & Application::GetRandom()
-//{
-//	return *RandomNumber;
-//}
-//
+LCG & Application::GetRandom()
+{
+	int a = (int)randomNumber;
+	return *randomNumber;
+}
+

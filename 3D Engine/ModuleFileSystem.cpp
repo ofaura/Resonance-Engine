@@ -39,7 +39,6 @@ ModuleFileSystem::ModuleFileSystem(const char* game_path, bool start_enabled) : 
 			CreateDirectory(dirs[i]);
 	}
 
-	// Generate IO interfaces
 	CreateAssimpIO();
 }
 
@@ -58,10 +57,6 @@ bool ModuleFileSystem::Init(json file)
 
 	// Ask SDL for a write dir
 	char* write_path = SDL_GetPrefPath(ORGANITZATION, TITLE);
-
-	// Trun this on while in game mode
-	//if(PHYSFS_setWriteDir(write_path) == 0)
-		//LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
 
 	SDL_free(write_path);
 
@@ -364,7 +359,7 @@ bool ModuleFileSystem::SaveUnique(string& name, const void* buffer, uint size, c
 {
 	char result[250];
 
-	sprintf_s(result, 250, "%s%s.%s", path, prefix, "dds");
+	sprintf_s(result, 250, "%s%s.%s", path, prefix, extension);
 	NormalizePath(result);
 	if (Save(result, buffer, size) > 0)
 	{
