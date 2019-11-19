@@ -19,7 +19,7 @@ void C_Transform::DrawInspector()
 	float3 last_scale = scales;
 	ImGui::DragFloat3("Scale", &scales.x, 0.001f);
 	Quat last_rotation = rotation;
-	ImGui::DragFloat3("Rotation", &rotation.x, 0.001f);
+	ImGui::DragFloat3("Rotation", &rotation.x, 0.1f);
 
 	if (last_position.x != position.x || last_position.y != position.y || last_position.z != position.z ||last_rotation.x != rotation.x || last_rotation.y != rotation.y || last_rotation.z != rotation.z || last_scale.x != scales.x || last_scale.y != scales.y || last_scale.z != scales.z)
 	{
