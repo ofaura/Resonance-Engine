@@ -16,6 +16,7 @@ public:
 	void DrawInspector();
 	void Update() {};
 	void UpdateMatrix();
+	void Reset();
 
 public:
 	mat4x4 globalMatrix;
