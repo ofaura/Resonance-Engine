@@ -22,6 +22,7 @@ public:
 	mat4x4 globalMatrix;
 	mat4x4 localMatrix;
 	float4x4 f4x4_2_mat4x4;
+
 	float3 position = float3(0, 0, 0);
 	Quat rotation = Quat(0, 0, 0, 0);
 	float3 scales = float3(1, 1, 1);
