@@ -53,7 +53,6 @@ public:
 
 	const ImVec4 GetGameWindowRect();
 
-
 private:
 
 	void AddEditorElement(EditorElement* element);

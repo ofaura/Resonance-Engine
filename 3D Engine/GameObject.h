@@ -44,10 +44,13 @@ public:
 
 	float4x4 mat2float4(mat4x4 mat);
 
+	void Load(const char* gameObject, const json &file);
+	void Save(const char* gameObject, json &file);
+
 private:
 
-	uint uid = 0;
-
+	uint UUID = 0;
+	uint parentUUID = 0;
 public:
 
 	bool enable = true;

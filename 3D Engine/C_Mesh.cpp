@@ -121,6 +121,28 @@ float3 C_Mesh::normalize(float3 vect_A)
 	return vect_A;
 }
 
+
+void C_Mesh::Load(const char * gameObject, const json & file)
+{
+	json tmp = file["Game Objects"][gameObject]["Components"]["Mesh"]["Name"];
+	name = tmp.get<std::string>();
+
+	UUID = file["Game Objects"][gameObject]["Components"]["Mesh"]["UUID"];
+	parentUUID = file["Game Objects"][gameObject]["Components"]["Mesh"]["Parent UUID"];
+	active = file["Game Objects"][gameObject]["Components"]["Mesh"]["Active"];
+
+	string path = LIBRARY_MESH_FOLDER + name + ".mesh";
+	App->rscr->LoadMesh(path.c_str(), this);
+}
+
+void C_Mesh::Save(const char * gameObject, json & file)
+{
+	file["Game Objects"][gameObject]["Components"]["Mesh"]["UUID"] = UUID;
+	file["Game Objects"][gameObject]["Components"]["Mesh"]["Parent UUID"] = parentUUID;
+	file["Game Objects"][gameObject]["Components"]["Mesh"]["Active"] = active;
+	file["Game Objects"][gameObject]["Components"]["Mesh"]["Name"] = name;
+}
+
 void C_Mesh::DrawBox(AABB& bbox, OBB& obb)
 {
 		
@@ -170,10 +192,10 @@ void C_Mesh::Render()
 {
 	glPushMatrix();
 	glMultMatrixf(parent->component_transform->globalMatrix.M);
+	
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	C_Texture* texture = (C_Texture*)parent->GetComponent(COMPONENT_TYPE::TEXTURE);
-
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	
 	if (texture->active)
 		glBindTexture(GL_TEXTURE_2D, texture->texture);

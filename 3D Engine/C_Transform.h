@@ -18,7 +18,11 @@ public:
 	void UpdateMatrix();
 	void Reset();
 
+	void Load(const char* gameObject, const json &file);
+	void Save(const char* gameObject, json &file);
+
 public:
+
 	mat4x4 globalMatrix;
 	mat4x4 localMatrix;
 	float4x4 f4x4_2_mat4x4;

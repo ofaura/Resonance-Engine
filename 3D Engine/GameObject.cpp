@@ -6,6 +6,7 @@
 #include "ModuleResourceManager.h"
 #include "ModuleSceneIntro.h"
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "ModuleSceneManager.h"
 
 #ifdef _DEBUG
 #pragma comment( lib, "MathGeoLib/libx86/Debug/MathGeoLib.lib" )
@@ -19,14 +20,22 @@
 
 GameObject::GameObject()
 {
+	MakeChild(App->scene_intro->root);
+	UUID = (uint)App->GetRandom().Int();
 	component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM, true);
-	uid = (uint)App->GetRandom().Int();
 }
 
 GameObject::GameObject(string name, GameObject* parent) : name(name), parent(parent)
 {
-	uid = (uint)App->GetRandom().Int();
-	component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM, true);
+	if (parent)
+		MakeChild(parent);
+	if (name != "root")
+		UUID = (uint)App->GetRandom().Int();
+	
+	if (!App->scene->loadingScene)
+	{
+		component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM, true);
+	}
 }
 
 GameObject::~GameObject() {}
@@ -71,7 +80,7 @@ void GameObject::DisableGO()
 
 const int GameObject::GetId() const
 {
-	return uid;
+	return UUID;
 }
 
 const char * GameObject::GetName() const
@@ -158,6 +167,39 @@ void GameObject::MakeChild(GameObject * parent)
 {
 	this->parent = parent;
 	parent->children.push_back(this);
+	parentUUID = parent->GetId();
+}
+
+void GameObject::Load(const char * gameObject, const json & file)
+{
+	json tmp = file["Game Objects"][gameObject]["Name"];
+	name = tmp.get<string>();
+	UUID = file["Game Objects"][gameObject]["UUID"];
+	parentUUID = file["Game Objects"][gameObject]["Parent UUID"];
+
+	if (HasComponent(COMPONENT_TYPE::TRANSFORM) == false)
+		component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM);
+
+	int numComponents = file["Game Objects"][gameObject]["Components"].size();
+
+	if (numComponents > 1)
+		AddComponent(COMPONENT_TYPE::MESH);
+	
+	if (numComponents > 2)
+		AddComponent(COMPONENT_TYPE::TEXTURE);
+
+	for (uint i = 0; i < components.size(); ++i)
+		components[i]->Load(gameObject, file);
+}
+
+void GameObject::Save(const char * gameObject, json & file)
+{
+	file["Game Objects"][gameObject]["Name"] = name;
+	file["Game Objects"][gameObject]["UUID"] = UUID;
+	file["Game Objects"][gameObject]["Parent UUID"] = parentUUID;
+
+	for (uint i = 0; i < components.size(); ++i)
+		components[i]->Save(gameObject, file);
 }
 
 void GameObject::Updatebbox() 

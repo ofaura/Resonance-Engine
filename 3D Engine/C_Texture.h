@@ -15,6 +15,9 @@ public:
 	void DrawInspector();
 	void Update() {};
 
+	void Load(const char* gameObject, const json &file);
+	void Save(const char* gameObject, json &file);
+
 public:
 	uint texture = 0;
 	uint original_texture = 0;

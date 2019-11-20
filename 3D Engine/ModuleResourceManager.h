@@ -26,16 +26,17 @@ public:
 
 	void LoadFilesFBX(const char* path);
 	void LoadMesh(C_Mesh* mesh, aiMesh* currentMesh);
+	void LoadMesh(const char* path, C_Mesh* mesh);
 
+	// From Library
 	void ImportFile(const char* path);
 	bool ImportTexture(const char* path, string& outputFile);
-	bool ImportMesh(C_Mesh* mesh, string &outputFile);
+	bool ImportMesh(const char* path, C_Mesh* mesh);
 
 	bool ValidTextureExtension(const string& extension);
 	bool ValidMeshExtension(const string& extension);
 	bool CheckTextureExtension(const char* extension);
 	bool CheckMeshExtension(const char* extension);
-
 
 	void GenerateTexture(const char* path, C_Texture* texture);
 	void GenerateCheckerTexture();

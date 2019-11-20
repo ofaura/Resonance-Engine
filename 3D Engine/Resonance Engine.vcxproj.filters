@@ -67,58 +67,61 @@
       <Filter>Sources\External Libraries\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="ModuleSceneIntro.cpp">
-      <Filter>Sources\External Libraries\Modules\Game</Filter>
+      <Filter>Sources\Modules\Game</Filter>
     </ClCompile>
     <ClCompile Include="ModuleCamera3D.cpp">
-      <Filter>Sources\External Libraries\Modules</Filter>
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFileSystem.cpp">
-      <Filter>Sources\External Libraries\Modules</Filter>
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleInput.cpp">
-      <Filter>Sources\External Libraries\Modules</Filter>
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleRenderer3D.cpp">
-      <Filter>Sources\External Libraries\Modules</Filter>
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleWindow.cpp">
-      <Filter>Sources\External Libraries\Modules</Filter>
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleResourceManager.cpp">
-      <Filter>Sources\External Libraries\Resources</Filter>
+      <Filter>Sources\Resources</Filter>
     </ClCompile>
     <ClCompile Include="C_Mesh.cpp">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="C_Texture.cpp">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="C_Transform.cpp">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="Objects3D.cpp">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="FBO.cpp">
-      <Filter>Sources\External Libraries\Tools</Filter>
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
     <ClCompile Include="JSONLoader.cpp">
-      <Filter>Sources\External Libraries\Tools</Filter>
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
     <ClCompile Include="log.cpp">
-      <Filter>Sources\External Libraries\Tools</Filter>
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
     <ClCompile Include="PerfTimer.cpp">
-      <Filter>Sources\External Libraries\Tools</Filter>
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
-      <Filter>Sources\External Libraries\Tools</Filter>
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneManager.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="C_Camera.cpp">
       <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
@@ -209,61 +212,64 @@
       <Filter>Sources\External Libraries\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="ModuleSceneIntro.h">
-      <Filter>Sources\External Libraries\Modules\Game</Filter>
+      <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
     <ClInclude Include="ModuleWindow.h">
-      <Filter>Sources\External Libraries\Modules</Filter>
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Module.h">
-      <Filter>Sources\External Libraries\Modules</Filter>
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleCamera3D.h">
-      <Filter>Sources\External Libraries\Modules</Filter>
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleFileSystem.h">
-      <Filter>Sources\External Libraries\Modules</Filter>
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleInput.h">
-      <Filter>Sources\External Libraries\Modules</Filter>
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleRenderer3D.h">
-      <Filter>Sources\External Libraries\Modules</Filter>
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleResourceManager.h">
-      <Filter>Sources\External Libraries\Resources</Filter>
+      <Filter>Sources\Resources</Filter>
     </ClInclude>
     <ClInclude Include="C_Mesh.h">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="C_Texture.h">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="C_Transform.h">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="Objects3D.h">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="FBO.h">
-      <Filter>Sources\External Libraries\Tools</Filter>
+      <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="json.hpp">
-      <Filter>Sources\External Libraries\Tools</Filter>
+      <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="JSONLoader.h">
-      <Filter>Sources\External Libraries\Tools</Filter>
+      <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="PerfTimer.h">
-      <Filter>Sources\External Libraries\Tools</Filter>
+      <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
-      <Filter>Sources\External Libraries\Tools</Filter>
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneManager.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="C_Camera.h">
       <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
@@ -297,19 +303,19 @@
     <Filter Include="Sources\External Libraries\Helpers">
       <UniqueIdentifier>{edabe474-f8e7-433a-a516-10e51a302236}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\External Libraries\Modules">
+    <Filter Include="Sources\Modules">
       <UniqueIdentifier>{f2767dba-f3ef-4b2e-8015-042d429ad307}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\External Libraries\Modules\Game">
+    <Filter Include="Sources\Modules\Game">
       <UniqueIdentifier>{fc1bdd45-7ead-4d3d-9c49-fbdd045c813b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\External Libraries\Resources">
+    <Filter Include="Sources\Resources">
       <UniqueIdentifier>{d018fad8-8d58-4101-8c82-c22f2bfdaae2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\External Libraries\Tools">
+    <Filter Include="Sources\Tools">
       <UniqueIdentifier>{6ecb63be-b064-45c0-a7fb-26cd188c9634}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\External Libraries\Tools\Game Objects">
+    <Filter Include="Sources\Tools\Game Objects">
       <UniqueIdentifier>{1776b3b8-7e9e-4f11-8541-d89ecdcfe04f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

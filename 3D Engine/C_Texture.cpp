@@ -30,8 +30,7 @@ void C_Texture::DrawInspector()
 			{
 				if (original_texture != 0)
 					texture = original_texture;
-				//else  if (App->scene_intro->id_goSelected <= 1)
-				//	texture = App->rscr->texture;
+
 				else
 					texture = NULL;
 			}
@@ -42,4 +41,27 @@ void C_Texture::DrawInspector()
 			ImGui::Image(NULL, ImVec2(200, 200), ImVec2(0, 1), ImVec2(1, 0));
 
 	}
+}
+
+void C_Texture::Load(const char * gameObject, const json & file)
+{
+	UUID = file["Game Objects"][gameObject]["Components"]["Texture"]["UUID"];
+	parentUUID = file["Game Objects"][gameObject]["Components"]["Texture"]["Parent UUID"];
+	active = file["Game Objects"][gameObject]["Components"]["Texture"]["Active"];
+
+	texture = file["Game Objects"][gameObject]["Components"]["Texture"]["Texture"];
+	original_texture = file["Game Objects"][gameObject]["Components"]["Texture"]["Original Texture"];
+	width = file["Game Objects"][gameObject]["Components"]["Texture"]["Width"];
+	height = file["Game Objects"][gameObject]["Components"]["Texture"]["Height"];
+}
+
+void C_Texture::Save(const char * gameObject, json & file)
+{
+	file["Game Objects"][gameObject]["Components"]["Texture"]["UUID"] = UUID;
+	file["Game Objects"][gameObject]["Components"]["Texture"]["Parent UUID"] = parentUUID;
+	file["Game Objects"][gameObject]["Components"]["Texture"]["Active"] = active;
+	file["Game Objects"][gameObject]["Components"]["Texture"]["Texture"] = texture;
+	file["Game Objects"][gameObject]["Components"]["Texture"]["Original Texture"] = original_texture;
+	file["Game Objects"][gameObject]["Components"]["Texture"]["Width"] = width;
+	file["Game Objects"][gameObject]["Components"]["Texture"]["Height"] = height;
 }
