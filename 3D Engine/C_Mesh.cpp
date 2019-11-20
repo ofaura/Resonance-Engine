@@ -26,8 +26,11 @@ void C_Mesh::Update()
 		DrawFaceNormals();
 	if (drawVerticesNormals)
 		DrawVerticesNormals();
-	if(boundary_box)
-		DrawBox();
+	if (boundary_box)
+	{
+		DrawBox(parent->Globalbbox,parent->obb);
+	}
+		
 }
 
 void C_Mesh::DrawInspector()
@@ -118,6 +121,7 @@ float3 C_Mesh::normalize(float3 vect_A)
 	return vect_A;
 }
 
+
 void C_Mesh::Load(const char * gameObject, const json & file)
 {
 	json tmp = file["Game Objects"][gameObject]["Components"]["Mesh"]["Name"];
@@ -140,45 +144,52 @@ void C_Mesh::Save(const char * gameObject, json & file)
 }
 
 void C_Mesh::DrawBox() const
+
+void C_Mesh::DrawBox(AABB& bbox, OBB& obb)
+
 {
 		
 		float3 points[8];
-		parent->box.GetCornerPoints(points);
-
-		
-		glBegin(GL_LINES);
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
 
 
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+		bbox.GetCornerPoints(points);
 
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+		for (int i = 0; i <= 1; i++)
+		{
+			glBegin(GL_LINES);
+			glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+			glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+			glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+			glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+			glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+			glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+			glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+			glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
 
-		glEnd();
-		
+
+			glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+			glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+			glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+			glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+			glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+			glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+			glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+			glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+
+			glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+			glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+			glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+			glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+			glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+			glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+			glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+			glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+
+			glEnd();
+
+			obb.GetCornerPoints(points);
+		}
 }
-
 
 void C_Mesh::Render()
 {

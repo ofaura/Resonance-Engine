@@ -147,6 +147,14 @@ update_status ModuleSceneIntro::Update(float dt)
 	}
 
 	root->Update();
+
+	if (ShowBoundingBoxes)
+	{
+		for (int i = 0; i < AABBInScene.size(); i++)
+		{
+			mesh->DrawBox(*AABBInScene[i],*OBBInScene[i]);
+		}
+	}
 	
 	return UPDATE_CONTINUE;
 }

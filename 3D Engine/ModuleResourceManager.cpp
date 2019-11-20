@@ -248,13 +248,11 @@ bool ModuleResourceManager::ImportMesh(const char* path, C_Mesh* mesh)
 void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 {
 	Data data;
-	math::float3* points = (float3*)malloc(sizeof(float3) * currentMesh->mNumVertices);
 
 	// Copy vertices
 	data.n_vertices = currentMesh->mNumVertices;
 	data.vertices = new float3[data.n_vertices];
 	memcpy(data.vertices, currentMesh->mVertices, sizeof(float3) * data.n_vertices);
-	memcpy(points, currentMesh->mVertices, sizeof(vec3) * data.n_vertices);
 	LOG("NEW MESH");
 	LOG("Vertices: %d", data.n_vertices);
 
@@ -310,6 +308,10 @@ void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 		}
 	}
 
+	// Generate AABB
+	mesh->parent->Localbbox.SetNegativeInfinity();
+	mesh->parent->Localbbox.Enclose((float3*)data.vertices, data.n_vertices);
+
 	// Assigning the VRAM
 	glGenBuffers(1, (GLuint*)&data.id_vertex);
 	glBindBuffer(GL_ARRAY_BUFFER, data.id_vertex);
@@ -325,9 +327,6 @@ void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 	glBindBuffer(GL_ARRAY_BUFFER, data.id_texture);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * data.n_textures, data.textures, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	mesh->parent->box.SetFrom(points, currentMesh->mNumVertices);
-	std::free(points);
 
 	mesh->meshData = data;
 	mesh->name = mesh->parent->name;
