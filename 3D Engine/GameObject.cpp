@@ -164,8 +164,14 @@ void GameObject::Updatebbox()
 {
 	obb = Localbbox;
 	obb.Transform(mat2float4(this->component_transform->globalMatrix));
+	
 	Globalbbox.SetNegativeInfinity();
 	Globalbbox.Enclose(obb);
+
+	App->scene_intro->AABBInScene.push_back(&Globalbbox);
+	App->scene_intro->OBBInScene.push_back(&obb);
+
+
 }
 
 float4x4 GameObject::mat2float4(mat4x4 mat)

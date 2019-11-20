@@ -3,6 +3,8 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "FBO.h"
+#include "ModuleSceneIntro.h"
+#include "C_Mesh.h"
 
 #include "mmgr/mmgr.h"
 
@@ -40,6 +42,14 @@ void Game::Draw()
 		ImGui::SameLine();
 		if (ImGui::Checkbox("Texture 2D", &texture2D))
 			App->renderer3D->EnableTexture2D(texture2D);
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Bounding Boxes", &boundingboxes))
+		{
+			if (!App->scene_intro->ShowBoundingBoxes)
+				App->scene_intro->ShowBoundingBoxes = true;
+			else
+				App->scene_intro->ShowBoundingBoxes = false;
+		}
 
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
 		size = ImVec2(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y);
