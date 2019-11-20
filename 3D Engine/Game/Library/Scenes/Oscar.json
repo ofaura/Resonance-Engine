@@ -1,0 +1,147 @@
+{
+    "Game Objects": {
+        "Count": 4,
+        "GameObject 1": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 0,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1748736766
+                }
+            },
+            "Name": "root",
+            "Parent UUID": 0,
+            "UUID": 0
+        },
+        "GameObject 2": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1511986315,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 645827969
+                }
+            },
+            "Name": "bakerhouse",
+            "Parent UUID": 0,
+            "UUID": 1511986315
+        },
+        "GameObject 3": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Name": "Untitled.001",
+                    "Parent UUID": 1323912510,
+                    "UUID": 249076197
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Original Texture": 4,
+                    "Parent UUID": 1323912510,
+                    "Texture": 4,
+                    "UUID": 3461812,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1323912510,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 2114729470
+                }
+            },
+            "Name": "Untitled.001",
+            "Parent UUID": 1511986315,
+            "UUID": 1323912510
+        },
+        "GameObject 4": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Name": "Untitled",
+                    "Parent UUID": 496644788,
+                    "UUID": 327366082
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Original Texture": 6,
+                    "Parent UUID": 496644788,
+                    "Texture": 6,
+                    "UUID": 310049311,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 496644788,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 272585001
+                }
+            },
+            "Name": "Untitled",
+            "Parent UUID": 1511986315,
+            "UUID": 496644788
+        }
+    }
+}

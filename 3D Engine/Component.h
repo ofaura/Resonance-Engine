@@ -30,6 +30,16 @@ public:
 
 	const COMPONENT_TYPE GetType() const;
 
+	virtual void Load(const char* gameObject, const json &file) {};
+	virtual void Save(const char* gameObject, json &file) {};
+
+	uint GetUUID() const;
+
+protected:
+
+	uint UUID = 0;
+	uint parentUUID = 0;
+
 public:
 
 	COMPONENT_TYPE type;

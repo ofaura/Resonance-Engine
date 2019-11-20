@@ -47,3 +47,35 @@ void C_Transform::UpdateMatrix() {
 		parent->children[i]->component_transform->UpdateMatrix();
 	}
 }
+
+void C_Transform::Load(const char * gameObject, const json & file)
+{
+	UUID = file["Game Objects"][gameObject]["Components"]["Transform"]["UUID"];
+	parentUUID = file["Game Objects"][gameObject]["Components"]["Transform"]["Parent UUID"];
+	active = file["Game Objects"][gameObject]["Components"]["Transform"]["Active"];
+
+	rotation.x = file["Game Objects"][gameObject]["Components"]["Transform"]["Rotation"].at(0);
+	rotation.y = file["Game Objects"][gameObject]["Components"]["Transform"]["Rotation"].at(1);
+	rotation.z = file["Game Objects"][gameObject]["Components"]["Transform"]["Rotation"].at(2);
+	rotation.w = file["Game Objects"][gameObject]["Components"]["Transform"]["Rotation"].at(3);
+
+	position.x = file["Game Objects"][gameObject]["Components"]["Transform"]["Position"].at(0);
+	position.y = file["Game Objects"][gameObject]["Components"]["Transform"]["Position"].at(1);
+	position.z = file["Game Objects"][gameObject]["Components"]["Transform"]["Position"].at(2);
+
+	scales.x = file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"].at(0);
+	scales.y = file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"].at(1);
+	scales.z = file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"].at(2);
+
+}
+
+void C_Transform::Save(const char * gameObject, json & file)
+{
+	file["Game Objects"][gameObject]["Components"]["Transform"]["UUID"] = UUID;
+	file["Game Objects"][gameObject]["Components"]["Transform"]["Parent UUID"] = parentUUID;
+	file["Game Objects"][gameObject]["Components"]["Transform"]["Active"] = active;
+
+	file["Game Objects"][gameObject]["Components"]["Transform"]["Rotation"] = { rotation.x, rotation.y, rotation.z, rotation.w };
+	file["Game Objects"][gameObject]["Components"]["Transform"]["Position"] = { position.x, position.y, position.z };
+	file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"] = { scales.x, scales.y, scales.y };
+}

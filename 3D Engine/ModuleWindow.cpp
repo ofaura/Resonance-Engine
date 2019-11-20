@@ -5,6 +5,7 @@
 #include "glew/include/GL/glew.h"
 #include "Brofiler/Brofiler.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleSceneManager.h"
 
 #include "mmgr/mmgr.h"
 

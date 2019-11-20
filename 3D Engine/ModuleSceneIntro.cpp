@@ -22,9 +22,7 @@ bool ModuleSceneIntro::Start()
 
 	bool ret = true;
 
-	root = new GameObject();
-	root->AddComponent(COMPONENT_TYPE::TRANSFORM);
-	root->name = "root";
+	root = new GameObject("root");
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));

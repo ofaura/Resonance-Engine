@@ -42,10 +42,13 @@ public:
 
 	void MakeChild(GameObject* parent);
 
+	void Load(const char* gameObject, const json &file);
+	void Save(const char* gameObject, json &file);
+
 private:
 
-	uint uid = 0;
-
+	uint UUID = 0;
+	uint parentUUID = 0;
 public:
 
 	bool enable = true;
