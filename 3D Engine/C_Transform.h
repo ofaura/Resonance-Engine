@@ -22,6 +22,7 @@ public:
 	void Save(const char* gameObject, json &file);
 
 public:
+
 	mat4x4 globalMatrix;
 	mat4x4 localMatrix;
 	float4x4 f4x4_2_mat4x4;

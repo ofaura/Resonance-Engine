@@ -143,10 +143,7 @@ void C_Mesh::Save(const char * gameObject, json & file)
 	file["Game Objects"][gameObject]["Components"]["Mesh"]["Name"] = name;
 }
 
-void C_Mesh::DrawBox() const
-
 void C_Mesh::DrawBox(AABB& bbox, OBB& obb)
-
 {
 		
 		float3 points[8];

@@ -82,6 +82,7 @@ void C_Transform::Load(const char * gameObject, const json & file)
 	scales.y = file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"].at(1);
 	scales.z = file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"].at(2);
 
+	UpdateMatrix();
 }
 
 void C_Transform::Save(const char * gameObject, json & file)

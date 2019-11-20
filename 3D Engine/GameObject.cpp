@@ -177,7 +177,8 @@ void GameObject::Load(const char * gameObject, const json & file)
 	UUID = file["Game Objects"][gameObject]["UUID"];
 	parentUUID = file["Game Objects"][gameObject]["Parent UUID"];
 
-	component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM);
+	if (HasComponent(COMPONENT_TYPE::TRANSFORM) == false)
+		component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM);
 
 	int numComponents = file["Game Objects"][gameObject]["Components"].size();
 

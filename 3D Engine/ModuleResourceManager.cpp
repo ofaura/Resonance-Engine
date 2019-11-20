@@ -308,10 +308,6 @@ void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 		}
 	}
 
-	// Generate AABB
-	mesh->parent->Localbbox.SetNegativeInfinity();
-	mesh->parent->Localbbox.Enclose((float3*)data.vertices, data.n_vertices);
-
 	// Assigning the VRAM
 	glGenBuffers(1, (GLuint*)&data.id_vertex);
 	glBindBuffer(GL_ARRAY_BUFFER, data.id_vertex);
@@ -328,6 +324,9 @@ void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * data.n_textures, data.textures, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+	// Generate AABB
+	mesh->parent->Localbbox.SetNegativeInfinity();
+	mesh->parent->Localbbox.Enclose((float3*)data.vertices, data.n_vertices);
 	mesh->meshData = data;
 	mesh->name = mesh->parent->name;
 	
@@ -400,6 +399,9 @@ void ModuleResourceManager::LoadMesh(const char * path, C_Mesh * mesh)
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->meshData.id_texture);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->meshData.n_textures, mesh->meshData.textures, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		mesh->parent->Localbbox.SetNegativeInfinity();
+		mesh->parent->Localbbox.Enclose((float3*)mesh->meshData.vertices, mesh->meshData.n_vertices);
 
 		RELEASE_ARRAY(buffer);
 		cursor = nullptr;
