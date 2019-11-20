@@ -52,29 +52,6 @@ update_status ModuleCamera3D::Update(float dt)
 			if (App->scene_intro->goSelected != nullptr)
 			{
 
-				//Move camera to Point Reference of the Object(Pivot)
-				vec3 dist = { App->scene_intro->goSelected->box.CenterPoint().x - Reference.x, App->scene_intro->goSelected->box.CenterPoint().y - Reference.y, App->scene_intro->goSelected->box.CenterPoint().z - Reference.z };
-				Reference += dist;
-
-				//Focus Camera distance
-				float3 points[8];
-				App->scene_intro->goSelected->box.GetCornerPoints(points);
-				vec3 maximum = { points[0].At(0),points[0].At(1),points[0].At(2) }; //set first point
-
-				for (int i = 0; i < 8 - 1; ++i)
-				{
-					vec3 point = { points[i].At(0), points[i].At(1), points[i].At(2) };
-					if (length(maximum) < length(point))
-					{
-						maximum = point;
-					}
-				}
-
-				double radius = length(maximum) / 2; //radius of sphere
-				double fov = 60 * DEGTORAD;
-				double DistCamera = (radius * 2.0) / tan(fov / 2.0);
-				Position = Reference + Z * DistCamera;
-
 			}
 		}
 

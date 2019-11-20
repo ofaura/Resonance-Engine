@@ -122,7 +122,7 @@ void C_Mesh::DrawBox() const
 {
 		
 		float3 points[8];
-		parent->box.GetCornerPoints(points);
+		parent->Globalbbox.GetCornerPoints(points);
 
 		
 		glBegin(GL_LINES);

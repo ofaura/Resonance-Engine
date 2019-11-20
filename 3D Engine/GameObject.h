@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "Component.h"
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "glmath.h"
 
 #include <vector>
 #include <string>
@@ -37,10 +38,11 @@ public:
 	const char* GetName() const;
 	bool& GetActive();
 	void SetName(const char* name);
-
 	void DrawInspector();
-
 	void MakeChild(GameObject* parent);
+	void Updatebbox();
+
+	float4x4 mat2float4(mat4x4 mat);
 
 private:
 
@@ -57,7 +59,10 @@ public:
 	vector<Component*> components;
 	vector<GameObject*> children;
 
-	AABB box;
+	AABB Localbbox;
+	AABB Globalbbox;
+	OBB obb;
+
 };
 
 #endif __GameObject__H__

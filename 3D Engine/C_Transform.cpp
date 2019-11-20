@@ -47,7 +47,7 @@ void C_Transform::UpdateMatrix()
 	
 	localMatrix = translation * AuxRotation * scalate;
 	globalMatrix = localMatrix;
-
+	parent->Updatebbox();
 
 }
 

@@ -31,6 +31,8 @@ GameObject::GameObject(string name, GameObject* parent) : name(name), parent(par
 
 GameObject::~GameObject() {}
 
+
+
 void GameObject::Update()
 {
 	
@@ -48,7 +50,7 @@ void GameObject::Update()
 		}
 	}
 
-
+	Updatebbox();
 }
 
 void GameObject::CleanUp()
@@ -158,3 +160,17 @@ void GameObject::MakeChild(GameObject * parent)
 	parent->children.push_back(this);
 }
 
+void GameObject::Updatebbox() 
+{
+	obb = Localbbox;
+	obb.Transform(mat2float4(this->component_transform->globalMatrix));
+	Globalbbox.SetNegativeInfinity();
+	Globalbbox.Enclose(obb);
+}
+
+float4x4 GameObject::mat2float4(mat4x4 mat)
+{
+	float4x4 f_mat;
+	f_mat.Set(mat.M);
+	return f_mat.Transposed();
+}
