@@ -9,24 +9,13 @@ C_Camera::C_Camera(COMPONENT_TYPE type,GameObject* gameobject, bool active) : Co
 
 	name = "Camera";
 	
-	
 	frustum.type = FrustumType::PerspectiveFrustum;
 	frustum.pos = float3(0, 0, 0);
 	frustum.front = float3(0,0,1);
 	frustum.up = float3(0,1,0);
 	frustum.nearPlaneDistance = 1.0f;
 	frustum.farPlaneDistance = 100.0f;
-	
-	if (gameobject == nullptr) 
-	{
-		frustum.verticalFov = 1.0f;
-		frustum.horizontalFov = 1.0f;
-	}
-	else 
-	{
-		SetFOV(60);
-	}
-	
+	SetFOV(90);
 	GetPlanes();
 
 }
@@ -38,14 +27,21 @@ void C_Camera::DrawInspector()
 
 		ImGui::Checkbox("Draw Camera", &Draw_Cam);
 		ImGui::DragInt("FOV", &fov, 1, 1, 200);
-
-		if (ImGui::IsItemEdited()) 
-		{ 
+		if (ImGui::IsItemEdited())
+		{
 			SetFOV(fov);
 		}
-
+		ImGui::DragInt("Near Plane", &NearPlane, 1, 0, 50);
+		if (ImGui::IsItemEdited())
+		{
+			SetPlanes(NearPlane, FarPlane);
+		}
+		ImGui::DragInt("Far Plane", &FarPlane, 1, 150, 300);
+		if (ImGui::IsItemEdited()) 
+		{ 
+			SetPlanes(NearPlane, FarPlane);
+		}
 		
-
 }
 
 void C_Camera::Update()
@@ -77,10 +73,10 @@ void C_Camera::SetPlanes(float neardistance, float fardistance)
 {
 
 	if (fardistance > 0 && fardistance > frustum.nearPlaneDistance)
-		frustum.nearPlaneDistance = fardistance;
+		frustum.nearPlaneDistance = neardistance;
 
 	if (neardistance > 0 && neardistance < frustum.farPlaneDistance)
-		frustum.farPlaneDistance = neardistance;
+		frustum.farPlaneDistance = fardistance;
 
 	GetPlanes();
 

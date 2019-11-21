@@ -42,6 +42,8 @@ public:
 	Frustum frustum;
 	Plane planes[6];
 	int fov = 60;
+	int NearPlane = 1;
+	int FarPlane = 200;
 
 private:
 
