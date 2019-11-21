@@ -13,7 +13,8 @@ enum class COMPONENT_TYPE
 {
 	TRANSFORM,
 	MESH,
-	TEXTURE
+	TEXTURE,
+	CAMERA
 };
 
 class Component

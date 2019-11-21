@@ -265,6 +265,11 @@ update_status EditorManager::Update(float dt)
 
 				ImGui::EndMenu();
 			}
+			if (ImGui::MenuItem("Camera"))
+			{
+				GameObject* Camera = new GameObject("Camera", App->scene_intro->root);
+				Camera->AddComponent(COMPONENT_TYPE::CAMERA, true);
+			}
 			ImGui::EndMenu();
 		}
 

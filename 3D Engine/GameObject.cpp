@@ -3,6 +3,7 @@
 #include "C_Transform.h"
 #include "C_Mesh.h"
 #include "C_Texture.h"
+#include "C_Camera.h"
 #include "ModuleResourceManager.h"
 #include "ModuleSceneIntro.h"
 #include "MathGeoLib/include/MathGeoLib.h"
@@ -116,6 +117,9 @@ Component* GameObject::AddComponent(COMPONENT_TYPE type, bool active)
 			break;
 		case COMPONENT_TYPE::TEXTURE:
 			component = new C_Texture(type, this, active);
+			break;
+		case COMPONENT_TYPE::CAMERA:
+			component = new C_Camera(type, this, active);
 			break;
 	}
 

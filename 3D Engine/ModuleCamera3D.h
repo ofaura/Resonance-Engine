@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "Module.h"
 #include "glmath.h"
+#include "C_Camera.h"
 
 
 
@@ -34,10 +35,12 @@ public:
 	float scrollSensitivity = 10.0f;
 	float zoomSensitivity = 20.0f;
 	float MidButtonSensitivity = 0.02;
+	C_Camera* editorcamera = nullptr;
 
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
+
 };
 
 #endif __ModuleCamera3D__

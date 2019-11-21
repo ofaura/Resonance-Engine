@@ -21,6 +21,9 @@ public:
 	void Load(const char* gameObject, const json &file);
 	void Save(const char* gameObject, json &file);
 
+	float4x4 mat2float4(mat4x4 mat);
+
+
 public:
 
 	mat4x4 globalMatrix;

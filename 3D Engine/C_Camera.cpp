@@ -4,7 +4,7 @@
 
 #include "mmgr/mmgr.h"
 
-C_Camera::C_Camera(COMPONENT_TYPE type,GameObject* gameobject) : Component(type, gameobject)
+C_Camera::C_Camera(COMPONENT_TYPE type,GameObject* gameobject, bool active) : Component(type, gameobject, active)
 {
 
 	name = "Camera";
@@ -15,7 +15,7 @@ C_Camera::C_Camera(COMPONENT_TYPE type,GameObject* gameobject) : Component(type,
 	frustum.front = float3(0,0,1);
 	frustum.up = float3(0,1,0);
 	frustum.nearPlaneDistance = 1.0f;
-	frustum.farPlaneDistance = 2000.0f;
+	frustum.farPlaneDistance = 100.0f;
 	
 	if (gameobject == nullptr) 
 	{
@@ -36,6 +36,7 @@ C_Camera::~C_Camera(){}
 void C_Camera::DrawInspector()
 {
 
+		ImGui::Checkbox("Draw Camera", &Draw_Cam);
 		ImGui::DragInt("FOV", &fov, 1, 1, 200);
 
 		if (ImGui::IsItemEdited()) 
@@ -43,6 +44,16 @@ void C_Camera::DrawInspector()
 			SetFOV(fov);
 		}
 
+		
+
+}
+
+void C_Camera::Update()
+{
+	if (Draw_Cam)
+	{
+		Draw();
+	}
 }
 
 void C_Camera::UpdateTransform(float4x4 global) 
@@ -118,38 +129,12 @@ float* C_Camera::ViewMatrix()
 
 }
 
-mat4x4 C_Camera::ViewMatrix4x4() 
-{
-
-	float4x4 m = frustum.ViewMatrix();
-	m.Transpose();
-	mat4x4 m4 = { m.At(0,0), m.At(0,1), m.At(0,2), m.At(0,3),
-				 m.At(1,0), m.At(1,1), m.At(1,2), m.At(1,3),
-				 m.At(2,0), m.At(2,1), m.At(2,2), m.At(2,3),
-				 m.At(3,0), m.At(3,1), m.At(3,2), m.At(3,3) };
-	return m4;
-
-}
-
 float* C_Camera::ProjectionMatrix() 
 {
 
 	float4x4 m = frustum.ProjectionMatrix();
 	m.Transpose();
 	return (float*)m.v;
-
-}
-
-mat4x4 C_Camera::ProjectionMatrix4x4() 
-{
-
-	float4x4 m = frustum.ProjectionMatrix();
-	m.Transpose();
-	mat4x4 m4 = { m.At(0,0), m.At(0,1), m.At(0,2), m.At(0,3),
-				 m.At(1,0), m.At(1,1), m.At(1,2), m.At(1,3),
-				 m.At(2,0), m.At(2,1), m.At(2,2), m.At(2,3),
-				 m.At(3,0), m.At(3,1), m.At(3,2), m.At(3,3) };
-	return m4;
 
 }
 
@@ -164,4 +149,43 @@ void C_Camera::Look(const float3 &pos)
 
 	GetPlanes();
 
+}
+
+void C_Camera::Draw()
+{
+	float3 points[8];
+
+
+	frustum.GetCornerPoints(points);
+
+		glBegin(GL_LINES);
+		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+
+
+		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+
+		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+
+		glEnd();
 }

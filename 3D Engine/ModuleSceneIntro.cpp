@@ -23,6 +23,8 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 
 	root = new GameObject("root");
+	GameObject* MainCamera = new GameObject("Main Camera", root);
+	MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
@@ -160,5 +162,7 @@ update_status ModuleSceneIntro::Update(float dt)
 		}
 	}
 	
+	
+
 	return UPDATE_CONTINUE;
 }

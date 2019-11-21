@@ -10,10 +10,11 @@ class C_Camera : public Component
 {
 public:
 
-	C_Camera(COMPONENT_TYPE type, GameObject* gameobject );
+	C_Camera(COMPONENT_TYPE type, GameObject* gameobject, bool active);
 	~C_Camera();
 
 	void DrawInspector();
+	void Update();
 	void UpdateTransform(float4x4 global);
 
 	//Getters
@@ -30,17 +31,22 @@ public:
 
 	//Projection and ViewMatrix
 	float* ViewMatrix();
-	mat4x4 ViewMatrix4x4();
 	float* ProjectionMatrix();
-	mat4x4 ProjectionMatrix4x4();
 	
 	void Look(const float3 & Spot);
+
+	void Draw();
 
 public:
 	
 	Frustum frustum;
 	Plane planes[6];
 	int fov = 60;
+
+private:
+
+	bool Draw_Cam = true;
+
 };
 
 #endif
