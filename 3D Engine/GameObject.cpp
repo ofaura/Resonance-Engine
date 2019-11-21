@@ -64,6 +64,8 @@ void GameObject::Update()
 
 void GameObject::CleanUp()
 {
+	for (int i = 0; i < components.size(); i++)
+		delete(components[i]);
 }
 
 void GameObject::EnableGO()

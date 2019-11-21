@@ -10,6 +10,8 @@
 #include <fstream>
 #include <iomanip>
 
+#include "mmgr/mmgr.h"
+
 ModuleSceneManager::ModuleSceneManager(bool start_enabled) : Module("Scene Manager", start_enabled)
 {
 }
@@ -125,7 +127,9 @@ void ModuleSceneManager::DeleteSceneGO(GameObject * root)
 {
 	for (int i = 0; i < root->children.size(); ++i)
 	{
+		root->children[i]->CleanUp();
 		DeleteSceneGO(root->children[i]);
+		
 	}
 
 	RELEASE(root);

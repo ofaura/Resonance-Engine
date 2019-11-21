@@ -44,6 +44,10 @@ bool ModuleSceneIntro::CleanUp()
 
 	objects_list.clear();
 
+	root->CleanUp();
+
+
+
 	return true;
 }
 

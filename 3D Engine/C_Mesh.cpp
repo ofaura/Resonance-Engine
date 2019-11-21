@@ -3,9 +3,7 @@
 #include "Application.h"
 #include "ModuleResourceManager.h"
 #include "GameObject.h"
-//#include "mmgr/mmgr.h"
-
-//#include "mmgr/mmgr.h"
+#include "mmgr/mmgr.h"
 #include "GameObject.h"
 #include "C_Transform.h"
 #include "C_Texture.h"

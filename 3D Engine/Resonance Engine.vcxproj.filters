@@ -123,9 +123,7 @@
     <ClCompile Include="ModuleSceneManager.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="C_Camera.cpp">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
-    </ClCompile>
+    <ClCompile Include="C_Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -271,9 +269,7 @@
     <ClInclude Include="ModuleSceneManager.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="C_Camera.h">
-      <Filter>Sources\External Libraries\Tools\Game Objects</Filter>
-    </ClInclude>
+    <ClInclude Include="C_Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">

@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "C_Camera.h"
 
+#include "mmgr/mmgr.h"
+
 C_Camera::C_Camera(COMPONENT_TYPE type,GameObject* gameobject) : Component(type, gameobject)
 {
 
