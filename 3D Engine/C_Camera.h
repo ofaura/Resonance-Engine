@@ -6,13 +6,6 @@
 #include "glmath.h"
 
 
-#ifdef _DEBUG
-#pragma comment (lib, "lib/MathGeoLib/libx86/Debug/MathGeoLib.lib")
-#else
-#pragma comment (lib, "lib/MathGeoLib/libx86/Release/MathGeoLib.lib")
-#endif
-
-
 class C_Camera : public Component
 {
 public:
@@ -20,17 +13,16 @@ public:
 	C_Camera(COMPONENT_TYPE type, GameObject* gameobject );
 	~C_Camera();
 
-	void Update();
+	void DrawInspector();
 	void UpdateTransform(float4x4 global);
 
 	//Getters
-	void GetPlanes();
-	float GetFOV();
-	float GetAspectRatio();
+	void GetPlanes() { frustum.GetPlanes(planes); };
+	float GetFOV() { return frustum.verticalFov * RADTODEG; };
+	float GetAspectRatio() { return frustum.AspectRatio(); };
 	
 	//Setters
-	void SetNearPlane(float distance);
-	void SetFarPlane(float distance);
+	void SetPlanes(float neardistance, float fardistance);
 	void SetFOV(float fov, float width = 16.0f, float height = 9.0f);
 	void SetPos(float3 position);
 	void SetPos(vec3 position);
