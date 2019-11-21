@@ -26,6 +26,8 @@ struct Data {
 
 	uint n_colors = 0;
 	uint* colors = nullptr;
+
+	void CleanUp();
 };
 
 class C_Mesh : public Component
@@ -36,6 +38,7 @@ public:
 	~C_Mesh();
 
 	void Update() override;
+	void CleanUp() override;
 	void DrawInspector();
 	void DrawFaceNormals();
 	void DrawVerticesNormals();

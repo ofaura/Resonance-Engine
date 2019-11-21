@@ -25,6 +25,7 @@ public:
 
 	virtual void Update() {};
 	virtual void DrawInspector() {};
+	virtual void CleanUp() {};
 
 	void Enable();
 	void Disable();

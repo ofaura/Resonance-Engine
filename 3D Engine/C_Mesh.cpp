@@ -10,6 +10,14 @@
 #include "Application.h"
 #include "ModuleResourceManager.h"
 
+void Data::CleanUp()
+{
+	RELEASE_ARRAY(indices);
+	RELEASE_ARRAY(vertices);
+	RELEASE_ARRAY(normals);
+	RELEASE_ARRAY(colors);
+	RELEASE_ARRAY(textures);
+}
 
 C_Mesh::C_Mesh(COMPONENT_TYPE type, GameObject * parent, bool active) : Component(type, parent, active) {}
 
@@ -29,6 +37,11 @@ void C_Mesh::Update()
 		DrawBox(parent->Globalbbox,parent->obb);
 	}
 		
+}
+
+void C_Mesh::CleanUp()
+{
+	meshData.CleanUp();
 }
 
 void C_Mesh::DrawInspector()

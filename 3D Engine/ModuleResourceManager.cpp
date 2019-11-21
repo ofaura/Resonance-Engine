@@ -70,6 +70,7 @@ bool ModuleResourceManager::Start()
 bool ModuleResourceManager::CleanUp()
 {
 	aiDetachAllLogStreams();
+	
 
 	return true;
 }
@@ -330,6 +331,8 @@ void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 	mesh->meshData = data;
 	mesh->name = mesh->parent->name;
 	
+	data.CleanUp();
+
 	// We import the mesh to our library
 	string path = LIBRARY_MESH_FOLDER + mesh->parent->name + ".mesh";;
 	ImportMesh(path.c_str(), mesh);
