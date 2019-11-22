@@ -5,9 +5,12 @@
 
 Component::Component(COMPONENT_TYPE type, GameObject* parent, bool active) : type(type) , parent(parent), active(active) 
 {
-	UUID = (uint)App->GetRandom().Int();
-	if (parent) 
+	
+	if (parent)
+	{
+		UUID = (uint)App->GetRandom().Int();
 		parentUUID = parent->GetId();
+	}
 }
 
 Component::~Component() {}

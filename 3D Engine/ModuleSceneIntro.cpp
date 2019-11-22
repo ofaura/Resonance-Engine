@@ -26,7 +26,7 @@ bool ModuleSceneIntro::Start()
 	GameObject* MainCamera = new GameObject("Main Camera", root);
 	MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
 
-	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
+	//App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	App->rscr->LoadFilesFBX("Assets/FBX/BakerHouse.fbx");
