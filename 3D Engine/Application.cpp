@@ -91,6 +91,20 @@ void Application::PrepareUpdate()
 
 	dt = (float)frame_time.ReadSec();
 	frame_time.Start();
+
+
+
+	if (!GameMode || GamePaused)
+		Game_dt = 0.0f;
+	else
+		Game_dt = dt * GameSpeed;
+
+	if (GameMode && !StartCount)
+	{
+		StartCount = true;
+		GameTimer.Start();
+	}
+	//Game_dt *= GameSpeed;
 }
 
 // ---------------------------------------------

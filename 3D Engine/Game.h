@@ -27,6 +27,7 @@ private:
 	bool	color_material = true;
 	bool	texture2D = true;
 	bool	alpha = true;
+	bool	step = false;
 
 public:
 	FBO* fbo = nullptr;	
