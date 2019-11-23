@@ -7,6 +7,9 @@
 #include <vector>
 
 #include "glew/include/GL/glew.h"
+#include "MathGeoLib/include/MathGeoLib.h"
+#include "glmath.h"
+#include "C_Mesh.h"
 
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -38,6 +41,13 @@ public:
 	GameObject* goSelected = nullptr;
 	GameObject* root = nullptr;
 	uint id_goSelected = 0;
+
+	vector<AABB*> AABBInScene;
+	vector<OBB*> OBBInScene;
+
+	C_Mesh* mesh;
+
+	bool ShowBoundingBoxes = false;
 
 };
 

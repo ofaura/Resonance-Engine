@@ -28,6 +28,7 @@ private:
 	bool	texture2D = true;
 	bool	alpha = true;
 	bool	step = false;
+	bool	boundingboxes = false;
 
 public:
 	FBO* fbo = nullptr;	

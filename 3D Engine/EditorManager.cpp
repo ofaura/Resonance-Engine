@@ -10,6 +10,8 @@
 #include "Inspector.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleResourceManager.h"
+#include "ModuleSceneManager.h"
+#include "ModuleFileSystem.h"
 
 #include "mmgr/mmgr.h"
 
@@ -176,8 +178,30 @@ update_status EditorManager::Update(float dt)
 
 				ImGui::EndMenu();
 			}
+
+			if (ImGui::BeginMenu("Open Scene"))
+			{
+				App->scene->LoadScenePopUp();
+
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::MenuItem("Save Scene", "Ctrl+S"))
+			{
+				if (App->scene->GetSceneName() == "Untitled")
+					App->scene->saveScene = true;
+
+				else
+					App->scene->SaveScene(App->scene->GetSceneName());
+			}
+
+			if (ImGui::MenuItem("Save Scene as"))
+				App->scene->saveScene = true;
+			
 			ImGui::EndMenu();
 		}
+
+
 
 		if (ImGui::BeginMenu("Edit"))
 		{

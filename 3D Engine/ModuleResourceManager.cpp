@@ -118,9 +118,6 @@ void ModuleResourceManager::LoadFilesFBX(const char* path)
 			LOG("Loaded new model %s. GameObjects on scene: %d", fbxMesh->name.c_str(), App->scene_intro->gameObjects.size());
 		}
 		aiReleaseImport(scene);
-		
-		if (scene->mNumMeshes > 1) 
-			App->scene_intro->gameObjects.push_back(parent);
 	}
 }
 
@@ -186,7 +183,7 @@ bool ModuleResourceManager::ImportTexture(const char * path, string & outputFile
 	return ret;
 }
 
-bool ModuleResourceManager::ImportMesh(C_Mesh * mesh, string & outputFile)
+bool ModuleResourceManager::ImportMesh(const char* path, C_Mesh* mesh)
 {
 	LOG("Importing mesh")
 		bool ret = false;
@@ -237,14 +234,12 @@ bool ModuleResourceManager::ImportMesh(C_Mesh * mesh, string & outputFile)
 		bytes = sizeof(float) * mesh->meshData.n_textures * 2;
 		memcpy(cursor, mesh->meshData.textures, bytes);
 
-		ret = App->fileSystem->SaveUnique(outputFile, cursor, size, LIBRARY_MESH_FOLDER, mesh->parent->name.c_str(), "fbx");
+		ret = App->fileSystem->Save(path, data, size);
 		RELEASE_ARRAY(data);
-
-		if (ret) 
-			LOG("Imported mesh: %s", outputFile)
+		cursor = nullptr;
 	}
 
-	else 
+	if (!ret)
 		LOG("Could not import mesh")
 
 	return ret;
@@ -253,13 +248,11 @@ bool ModuleResourceManager::ImportMesh(C_Mesh * mesh, string & outputFile)
 void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 {
 	Data data;
-	math::float3* points = (float3*)malloc(sizeof(float3) * currentMesh->mNumVertices);
 
 	// Copy vertices
 	data.n_vertices = currentMesh->mNumVertices;
 	data.vertices = new float3[data.n_vertices];
 	memcpy(data.vertices, currentMesh->mVertices, sizeof(float3) * data.n_vertices);
-	memcpy(points, currentMesh->mVertices, sizeof(vec3) * data.n_vertices);
 	LOG("NEW MESH");
 	LOG("Vertices: %d", data.n_vertices);
 
@@ -331,14 +324,88 @@ void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * data.n_textures, data.textures, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	mesh->parent->box.SetFrom(points, currentMesh->mNumVertices);
-	std::free(points);
-
+	// Generate AABB
+	mesh->parent->Localbbox.SetNegativeInfinity();
+	mesh->parent->Localbbox.Enclose((float3*)data.vertices, data.n_vertices);
 	mesh->meshData = data;
-
+	mesh->name = mesh->parent->name;
+	
 	// We import the mesh to our library
-	string name;
-	ImportMesh(mesh, name);
+	string path = LIBRARY_MESH_FOLDER + mesh->parent->name + ".mesh";;
+	ImportMesh(path.c_str(), mesh);
+}
+
+void ModuleResourceManager::LoadMesh(const char * path, C_Mesh * mesh)
+{
+	char* buffer = nullptr;
+	App->fileSystem->Load(path, &buffer);
+
+	if (buffer) 
+	{
+		char* cursor = buffer;
+
+		uint ranges[5];
+		uint bytes = sizeof(ranges);
+		memcpy(ranges, cursor, bytes);
+
+		mesh->meshData.n_indices = ranges[0] * 3;
+		mesh->meshData.n_vertices = ranges[1];
+		mesh->meshData.n_colors = ranges[2] * 4;
+		mesh->meshData.n_normals = ranges[3];
+		mesh->meshData.n_textures = ranges[4] * 2;
+
+		// Load indices
+		cursor += bytes;
+		bytes = sizeof(uint) * mesh->meshData.n_indices;
+		mesh->meshData.indices = new uint[mesh->meshData.n_indices];
+		memcpy(mesh->meshData.indices, cursor, bytes);
+
+		// Load vertices
+		cursor += bytes;
+		bytes = sizeof(float3) * mesh->meshData.n_vertices;
+		mesh->meshData.vertices = new float3[mesh->meshData.n_vertices];
+		memcpy(mesh->meshData.vertices, cursor, bytes);
+
+		// Load colors
+		cursor += bytes;
+		bytes = sizeof(uint) * mesh->meshData.n_colors;
+		mesh->meshData.colors = new uint[mesh->meshData.n_colors];
+		memcpy(mesh->meshData.colors, cursor, bytes);
+
+		// Load normals
+		cursor += bytes;
+		bytes = sizeof(float3) * mesh->meshData.n_normals;
+		mesh->meshData.normals = new float3[mesh->meshData.n_normals];
+		memcpy(mesh->meshData.normals, cursor, bytes);
+
+		// Load Texture UVs
+		cursor += bytes;
+		bytes = sizeof(float) * mesh->meshData.n_textures;
+		mesh->meshData.textures = new float[mesh->meshData.n_textures];
+		memcpy(mesh->meshData.textures, cursor, bytes);
+
+		// Assigning the VRAM
+		glGenBuffers(1, (GLuint*)&mesh->meshData.id_vertex);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->meshData.id_vertex);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * mesh->meshData.n_vertices, mesh->meshData.vertices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		glGenBuffers(1, (GLuint*)&mesh->meshData.id_index);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->meshData.id_index);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->meshData.n_indices, mesh->meshData.indices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		glGenBuffers(1, (GLuint*)&mesh->meshData.id_texture);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->meshData.id_texture);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->meshData.n_textures, mesh->meshData.textures, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		mesh->parent->Localbbox.SetNegativeInfinity();
+		mesh->parent->Localbbox.Enclose((float3*)mesh->meshData.vertices, mesh->meshData.n_vertices);
+
+		RELEASE_ARRAY(buffer);
+		cursor = nullptr;
+	}
 }
 
 bool ModuleResourceManager::ValidTextureExtension(const string& extension)

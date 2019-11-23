@@ -32,7 +32,7 @@ ModuleFileSystem::ModuleFileSystem(const char* game_path) : Module("File System"
 		LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
 
 	// Make sure standard paths exist
-	const char* dirs[] = { ASSETS_FOLDER, LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER, LIBRARY_MODEL_FOLDER, LIBRARY_MATERIAL_FOLDER };
+	const char* dirs[] = { ASSETS_FOLDER, LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER, LIBRARY_SCENE_FOLDER };
 
 	for (uint i = 0; i < sizeof(dirs) / sizeof(const char*); ++i)
 	{
@@ -121,6 +121,22 @@ void ModuleFileSystem::DiscoverFiles(const char* directory, vector<string> & fil
 	}
 
 	PHYSFS_freeList(rc);
+}
+
+void ModuleFileSystem::GetAllFilesWithExtension(const char * directory, const char * extension, std::vector<std::string>& file_list) const
+{
+	vector<string> files;
+	vector<string> dirs;
+	DiscoverFiles(directory, files, dirs);
+
+	for (uint i = 0; i < files.size(); i++)
+	{
+		string ext;
+		SplitFilePath(files[i].c_str(), nullptr, nullptr, &ext);
+
+		if (ext == extension)
+			file_list.push_back(files[i]);
+	}
 }
 
 bool ModuleFileSystem::CopyFromOutsideFS(const char* full_path, const char* destination)

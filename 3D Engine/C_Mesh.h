@@ -39,10 +39,13 @@ public:
 	void DrawInspector();
 	void DrawFaceNormals();
 	void DrawVerticesNormals();
-	void DrawBox() const;
+	void DrawBox(AABB& bbox, OBB& obb);
 
 	float3 CrossProduct(float3 vect_A, float3 vect_B);
 	float3 normalize(float3 vect_A);
+
+	void Load(const char* gameObject, const json &file);
+	void Save(const char* gameObject, json &file);
 
 private:
 	void Render();
@@ -54,7 +57,7 @@ private:
 
 public:
 	Data meshData;
-
+	string name;
 };
 
 #endif __C__Mesh__H__
