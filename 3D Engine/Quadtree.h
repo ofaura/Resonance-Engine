@@ -14,7 +14,7 @@ enum class NODE_TYPE {
 	LEAF
 };
 
-class TreeNode;
+class Node;
 
 class Quadtree {
 
@@ -25,17 +25,18 @@ public:
 
 public:
 
-	TreeNode* rootNode;
+	Node* rootNode;
+	bool firstnode = true;
 
 };
 
-class TreeNode {
+class Node {
 
 public:
 
-	TreeNode();
-	TreeNode(AABB aabb, NODE_TYPE ntype, int capacity);
-	~TreeNode();
+	Node();
+	Node(AABB aabb, NODE_TYPE ntype, int capacity);
+	~Node();
 
 	void Clear();
 	void Split();
@@ -50,7 +51,7 @@ public:
 	bool isLeaf = true;
 	NODE_TYPE nodeType = NODE_TYPE::NONE;
 	AABB aabb;
-	TreeNode *nodes = nullptr;
+	Node *nodes = nullptr;
 	std::vector<GameObject*> objects;
 	int capacity = 0;
 

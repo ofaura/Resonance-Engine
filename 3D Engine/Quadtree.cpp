@@ -4,7 +4,7 @@
 
 Quadtree::Quadtree( AABB aabb, int capacity)
 {
-	rootNode = new TreeNode(aabb, NODE_TYPE::ROOT, capacity);
+	rootNode = new Node(aabb, NODE_TYPE::ROOT, capacity);
 	rootNode->capacity = capacity;
 	rootNode->aabb = aabb;
 
@@ -14,13 +14,13 @@ Quadtree::~Quadtree() { delete[] rootNode; }
 
 //--------------------------------------------------------------------
 
-TreeNode::TreeNode(){}
+Node::Node(){}
 
-TreeNode::TreeNode(AABB aabb, NODE_TYPE ntype, int capacity) : aabb(aabb), nodeType(ntype), capacity(capacity){}
+Node::Node(AABB aabb, NODE_TYPE ntype, int capacity) : aabb(aabb), nodeType(ntype), capacity(capacity){}
 
-TreeNode::~TreeNode(){}
+Node::~Node(){}
 
-void TreeNode::Split()
+void Node::Split()
 {
 	isLeaf = false;
 	AABB newAABBs[4];
@@ -50,12 +50,12 @@ void TreeNode::Split()
 	newAABBs[3].minPoint = minPoint;
 	newAABBs[3].maxPoint = maxPoint;
 
-	nodes = new TreeNode[4];
+	nodes = new Node[4];
 
 	this;
 
 	for (int i = 0; i < 4; ++i)
-		nodes[i] = TreeNode(newAABBs[i], NODE_TYPE::LEAF, capacity);
+		nodes[i] = Node(newAABBs[i], NODE_TYPE::LEAF, capacity);
 
 	if (nodeType != NODE_TYPE::ROOT)
 		nodeType = NODE_TYPE::BRANCH;
@@ -64,7 +64,7 @@ void TreeNode::Split()
 
 }
 
-bool TreeNode::Insert(GameObject* gameObject)
+bool Node::Insert(GameObject* gameObject)
 {
 
 	int nodesContaining = 0;
@@ -193,7 +193,7 @@ bool TreeNode::Insert(GameObject* gameObject)
 
 }
 
-std::vector<GameObject*> TreeNode::CollectChilldren(Frustum frustum)
+std::vector<GameObject*> Node::CollectChilldren(Frustum frustum)
 {
 	std::vector<GameObject*> ret;
 	std::vector<GameObject*> auxVec;
@@ -214,7 +214,7 @@ std::vector<GameObject*> TreeNode::CollectChilldren(Frustum frustum)
 	return ret;
 }
 
-void TreeNode::Clear()
+void Node::Clear()
 {
 	if (nodes != NULL)
 		delete[] nodes;
@@ -222,7 +222,7 @@ void TreeNode::Clear()
 	objects.clear();
 }
 
-bool TreeNode::Intersect(Frustum frustum, AABB aabb)
+bool Node::Intersect(Frustum frustum, AABB aabb)
 {
 	Plane planes[6];
 	float3 corners[8];
@@ -246,7 +246,7 @@ bool TreeNode::Intersect(Frustum frustum, AABB aabb)
 
 }
 
-void TreeNode::Draw()
+void Node::Draw()
 {
 	float3 points[8];
 

@@ -175,7 +175,7 @@ bool ModuleResourceManager::ImportTexture(const char * path, string & outputFile
 			ret = App->fileSystem->SaveUnique(outputFile, data, size, LIBRARY_TEXTURES_FOLDER, GetNameFromPath(path).c_str(), "dds");
 		RELEASE_ARRAY(data);
 
-		LOG("Imported texture %s", outputFile);
+		//LOG("Imported texture %s", outputFile);
 	}
 
 	if (!ret) 
