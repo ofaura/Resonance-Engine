@@ -23,6 +23,7 @@ public:
 	virtual ~GameObject();
 
 	void Update();
+	void PostUpdate();
 	void CleanUp();
 
 	void EnableGO();

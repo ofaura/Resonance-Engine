@@ -41,8 +41,6 @@ GameObject::GameObject(string name, GameObject* parent) : name(name), parent(par
 
 GameObject::~GameObject() {}
 
-
-
 void GameObject::Update()
 {
 	
@@ -61,6 +59,22 @@ void GameObject::Update()
 	}
 
 	Updatebbox();
+}
+
+void GameObject::PostUpdate()
+{
+	for (int i = 0; i < components.size(); ++i)
+	{
+		if (components[i]->active)
+			components[i]->PostUpdate();
+	}
+	for (int i = 0; i < children.size(); ++i)
+	{
+		if (children[i]->enable)
+		{
+			children[i]->PostUpdate();
+		}
+	}
 }
 
 void GameObject::CleanUp()

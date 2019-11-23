@@ -38,6 +38,7 @@ public:
 	~C_Mesh();
 
 	void Update() override;
+	void PostUpdate() override;
 	void CleanUp() override;
 	void DrawInspector();
 	void DrawFaceNormals();
@@ -49,6 +50,8 @@ public:
 
 	void Load(const char* gameObject, const json &file);
 	void Save(const char* gameObject, json &file);
+
+	bool Intersect(Frustum frustum, AABB aabb);
 
 private:
 	void Render();

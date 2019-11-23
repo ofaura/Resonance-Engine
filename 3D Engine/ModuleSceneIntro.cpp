@@ -5,6 +5,7 @@
 #include "EditorManager.h"
 #include "GameObject.h"
 #include "ModuleResourceManager.h"
+#include "ModuleInput.h"
 
 #include "mmgr/mmgr.h"
 
@@ -23,17 +24,14 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 
 	root = new GameObject("root");
-	GameObject* MainCamera = new GameObject("Main Camera", root);
+	MainCamera = new GameObject("Main Camera", root);
 	MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
 
-	//App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	App->rscr->LoadFilesFBX("Assets/FBX/BakerHouse.fbx");
-	/*int Size = gameObjects.size();
-	if(Size != 0)
-		goSelected = gameObjects.front();*/
 
+	objectTree = new Quadtree( AABB({ -50,-50,-50 }, { 50,50,50 }), 1);
 
 
 	return ret;
@@ -48,7 +46,7 @@ bool ModuleSceneIntro::CleanUp()
 
 	root->CleanUp();
 
-
+	objectTree->rootNode->Clear();
 
 	return true;
 }
@@ -162,7 +160,19 @@ update_status ModuleSceneIntro::Update(float dt)
 		}
 	}
 	
-	
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		for (int i = 0; i < root->children.size(); ++i)
+			objectTree->rootNode->Insert(root->children[i]);
+
+
+	objectTree->rootNode->Draw();
+
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleSceneIntro::PostUpdate(float dt)
+{
+	root->PostUpdate();
 
 	return UPDATE_CONTINUE;
 }

@@ -9,6 +9,11 @@
 #include "C_Texture.h"
 #include "Application.h"
 #include "ModuleResourceManager.h"
+#include "ModuleSceneIntro.h"
+#include "C_Camera.h"
+#include "Component.h"
+#include "Quadtree.h"
+
 
 void Data::CleanUp()
 {
@@ -25,8 +30,12 @@ C_Mesh::~C_Mesh() {}
 
 void C_Mesh::Update()
 {
+	//std::vector<GameObject*> treeObjects = App->scene_intro->objectTree->CollectChilldren(auxcam->frustum);
 
-	Render();
+	//for (int i = 0; i < treeObjects.size(); ++i)
+	//{
+	//}
+	
 
 	if (drawFaceNormals)
 		DrawFaceNormals();
@@ -37,6 +46,21 @@ void C_Mesh::Update()
 		DrawBox(parent->Globalbbox,parent->obb);
 	}
 		
+}
+
+void C_Mesh::PostUpdate()
+{
+	C_Camera* auxcam = (C_Camera*)App->scene_intro->MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
+	std::vector<GameObject*> treeObjects = App->scene_intro->objectTree->rootNode->CollectChilldren(auxcam->frustum);
+	
+	static Frustum* frust = &auxcam->frustum;
+	for (int i = 0; i < treeObjects.size(); ++i)
+	{
+		if (Intersect(*frust, parent->Globalbbox))
+		{
+			Render();
+		}
+	}
 }
 
 void C_Mesh::CleanUp()
@@ -233,3 +257,26 @@ void C_Mesh::Render()
 	glPopMatrix();
 }
 
+bool C_Mesh::Intersect(Frustum frustum, AABB aabb)
+{
+	Plane planes[6];
+	float3 corners[8];
+
+	frustum.GetPlanes(planes);
+	aabb.GetCornerPoints(corners);
+
+	for (int p = 0; p < 6; ++p)
+	{
+		int inCount = 8;
+
+		for (int c = 0; c < 8; ++c)
+		{
+			if (planes[p].IsOnPositiveSide(corners[c]))
+				inCount--;
+		}
+		if (inCount == 0)
+			return false;
+	}
+	return true;
+
+}
