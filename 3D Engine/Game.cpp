@@ -42,7 +42,6 @@ void Game::Draw()
 		ImGui::SameLine();
 		if (ImGui::Checkbox("Texture 2D", &texture2D))
 			App->renderer3D->EnableTexture2D(texture2D);
-
 		ImGui::SameLine();
 		if (ImGui::Checkbox("Bounding Boxes", &boundingboxes))
 		{
@@ -60,48 +59,6 @@ void Game::Draw()
 				App->scene_intro->ShowQuadtree = false;
 		}
 
-		if (ImGui::ArrowButton("Play", ImGuiDir_Right))
-		{
-			//gametimer = 0;
-			if (!App->GameMode)
-			{
-				//App->Save();
-				App->GameMode = true;
-			}
-			else
-			{
-				//App->Load();
-				App->GameMode = false;
-				App->GamePaused = false;
-			}
-		}
-		ImGui::SameLine();
-		if (ImGui::Button("||", { 23,19 }) && App->GameMode)
-		{
-			if (!App->GamePaused)
-			{
-				App->GamePaused = true;
-			}
-			else
-			{
-				App->GamePaused = false;
-			}
-		}
-		ImGui::SameLine();
-
-		if (App->GameMode && !App->GamePaused && step == true)
-		{
-			App->GamePaused = true;
-			step = false;
-		}
-
-		if (ImGui::Button("->", { 23,19 }) && App->GameMode && App->GamePaused)
-		{
-			App->GamePaused = false;
-			step = true;
-		}
-
-		//
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
 		size = ImVec2(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y);
 
