@@ -35,7 +35,7 @@ void About::Draw()
 		ImGui::BulletText("OpenGL");
 
 		ImGui::Text("\nMIT License");
-		ImGui::Text("Copyright (c) 2019 Oscar Faura Gracia and Jacobo Galofre Calbeto");
+		ImGui::Text("Copyright (c) 2019 Oscar Faura Gracia, Jacobo Galofre Calbeto and Rafel Brau Ramia");
 		ImGui::Text("Permission is hereby granted, free of charge, to any person obtaining a copy");
 		ImGui::Text("of this software and associated documentation files (the 'Software'), to deal");
 		ImGui::Text("in the Software without restriction, including without limitation the rights");

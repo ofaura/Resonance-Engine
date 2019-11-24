@@ -97,10 +97,8 @@ void C_Camera::SetFOV(float fov, float width, float height)
 
 void C_Camera::SetPos(float3 position) 
 {
-
 	frustum.pos = position;
 	GetPlanes();
-
 }
 
 void C_Camera::SetPos(vec3 position) 

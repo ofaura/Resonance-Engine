@@ -6,7 +6,7 @@
 #include "ModuleFileSystem.h"
 #include "ModuleWindow.h"
 #include "C_Camera.h"
-
+#include "C_Transform.h"
 #include <fstream>
 #include <iomanip>
 
@@ -67,7 +67,9 @@ void ModuleSceneManager::LoadScene(const string scene)
 	
 	App->scene_intro->MainCamera = new GameObject("Main Camera", App->scene_intro->root);
 	App->scene_intro->MainCamera->AddComponent(COMPONENT_TYPE::CAMERA);
-
+	App->scene_intro->MainCamera->component_transform->position.z = 100;
+	App->scene_intro->MainCamera->component_transform->rotation.y = 180;
+	App->scene_intro->MainCamera->component_transform->UpdateMatrix();
 	App->scene_intro->goSelected = nullptr;
 	goLoaded = 0;
 
