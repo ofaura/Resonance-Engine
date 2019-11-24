@@ -6,6 +6,10 @@
 #include "GameObject.h"
 #include "ModuleResourceManager.h"
 #include "ModuleInput.h"
+#include "ModuleFileSystem.h"
+#include "C_Transform.h"
+#include "C_Mesh.h"
+#include "C_Texture.h"
 
 #include "mmgr/mmgr.h"
 
@@ -28,8 +32,6 @@ bool ModuleSceneIntro::Start()
 	//MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
 
 	App->camera->LookAt(vec3(0, 0, 0));
-
-	//App->rscr->LoadFilesFBX("Assets/FBX/BakerHouse.fbx");
 
 	objectTree = new Quadtree( AABB({ -1000,-50,-1000 }, { 1000,50,1000 }), 1);
 
@@ -96,9 +98,32 @@ Objects3D* ModuleSceneIntro::CreateObject3D(SHAPE_TYPE type, vec3 &position, vec
 	return ret;
 }
 
-void ModuleSceneIntro::SetParent(GameObject * child, GameObject * newParent)
+
+GameObject * ModuleSceneIntro::AddGameObject(const char * name)
 {
-	if (child->parent != nullptr)
+	GameObject* ret = new GameObject(name);
+
+	ret->parent = root;
+	root->children.push_back(ret);
+
+	return ret;
+}
+
+void ModuleSceneIntro::SetParent(GameObject * newParent, GameObject * child)
+{
+	for (int i = 0; i < child->children.size(); ++i) 
+	{
+		GameObject* tmp = child;
+
+		while (tmp->children.size() != 0)
+		{
+			if (child->children[i] == newParent)
+				return;
+		}
+		
+	}
+
+	if (newParent->parent != nullptr)
 	{
 		for (int i = 0; i < child->parent->children.size(); ++i)
 		{
@@ -110,10 +135,20 @@ void ModuleSceneIntro::SetParent(GameObject * child, GameObject * newParent)
 		}
 	}
 
-	child->parent = newParent;
+	/*for (int i = 0; i < newParent->children.size(); ++i)
+	{
+		if (child->parent->children[i]->name == child->name)
+		{
+			child->parent->children.erase(child->parent->children.begin() + i);
+			break;
+		}
+	}*/
 
-	if (child->parent != nullptr)
-		child->parent->children.push_back(child);
+
+
+	child->parent = newParent;
+	newParent->children.push_back(child);
+
 }
 
 string & ModuleSceneIntro::SetAvailableName(string name)
@@ -153,6 +188,7 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	root->Update();
 
+	root->children.size();
 	if (ShowBoundingBoxes)
 	{
 		for (int i = 0; i < AABBInScene.size(); i++)

@@ -4,7 +4,6 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleInput.h"
 #include "ModuleFileSystem.h"
-#include "ModuleResourceManager.h"
 #include "ModuleWindow.h"
 
 #include <fstream>
@@ -46,16 +45,16 @@ void ModuleSceneManager::LoadScene(const string scene)
 
 	CleanUp();
 
-	App->scene_intro->root = new GameObject("root", nullptr);
 
 	json file;
-	string path = LIBRARY_SCENE_FOLDER + scene + sceneExtension;
+	string path = ASSETS_SCENE_FOLDER + scene + sceneExtension;
 
 	ifstream stream;
 	stream.open(path);
 	file = json::parse(stream);
 	stream.close();
 
+	App->scene_intro->root = new GameObject("root", nullptr);
 	numGO = file["Game Objects"]["Count"];
 	LoadAllGO(App->scene_intro->root, file);
 	App->scene_intro->goSelected = nullptr;
@@ -69,7 +68,7 @@ void ModuleSceneManager::SaveScene(string scene)
 	SetSceneName(sceneName);
 
 	json file;
-	string path = LIBRARY_SCENE_FOLDER + scene + sceneExtension;
+	string path = ASSETS_SCENE_FOLDER + scene + sceneExtension;
 
 	SaveAllGO(App->scene_intro->root, file);
 	file["Game Objects"]["Count"] = goSaved;
@@ -180,14 +179,14 @@ void ModuleSceneManager::SaveScenePopUp()
 void ModuleSceneManager::LoadScenePopUp()
 {
 	sceneList.clear();
-	App->fileSystem->GetAllFilesWithExtension(LIBRARY_SCENE_FOLDER, "json", sceneList);
+	App->fileSystem->GetAllFilesWithExtension(ASSETS_SCENE_FOLDER, "scene", sceneList);
 
 	for (uint i = 0; i < sceneList.size(); i++)
 	{
 		if (ImGui::MenuItem(sceneList[i].c_str()))
 		{
 			SaveScene(sceneName);
-			LoadScene(App->rscr->GetNameFromPath(sceneList[i].c_str()));
+			LoadScene(GetNameFromPath(sceneList[i].c_str()));
 		}
 	}
 }
@@ -198,4 +197,23 @@ bool ModuleSceneManager::CleanUp()
 	numGO = 0;
 
 	return true;
+}
+
+string ModuleSceneManager::GetNameFromPath(string path, bool withExtension)
+{
+	string name;
+
+	App->fileSystem->NormalizePath(path);
+	name = path.substr(path.find_last_of("//") + 1);
+
+	if (withExtension)
+		return name;
+
+	else
+	{
+		string::size_type const p(name.find_last_of('.'));
+		string file_name = name.substr(0, p);
+
+		return file_name;
+	}
 }

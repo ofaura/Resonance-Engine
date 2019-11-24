@@ -8,6 +8,7 @@
 #include "Console.h"
 #include "Game.h"
 #include "Inspector.h"
+#include "Assets.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleResourceManager.h"
 #include "ModuleSceneManager.h"
@@ -34,6 +35,7 @@ bool EditorManager::Init(json file)
 	console = new Console(true);
 	game = new Game(true);
 	inspector = new Inspector(true);
+	assets = new Assets(true);
 
 	AddEditorElement(hierarchy);
 	AddEditorElement(configuration);
@@ -41,6 +43,7 @@ bool EditorManager::Init(json file)
 	AddEditorElement(console);
 	AddEditorElement(game);
 	AddEditorElement(inspector);
+	AddEditorElement(assets);
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -168,16 +171,16 @@ update_status EditorManager::Update(float dt)
 			if (ImGui::BeginMenu("Open FBX"))
 			{
 				if (ImGui::MenuItem("Megalodon"))
-					App->rscr->LoadFilesFBX("Assets\\FBX\\megalodon.FBX");
+					App->rscr->FileReceived("Assets\\FBX\\megalodon.FBX");
 
 				if (ImGui::MenuItem("Dragon"))
-					App->rscr->LoadFilesFBX("Assets\\FBX\\Dragon.fbx");
+					App->rscr->FileReceived("Assets\\FBX\\Dragon.fbx");
 
 				if (ImGui::MenuItem("Chair"))
-					App->rscr->LoadFilesFBX("Assets\\FBX\\Chair.fbx");
+					App->rscr->FileReceived("Assets\\FBX\\Chair.fbx");
 
 				if(ImGui::MenuItem("House"))
-					App->rscr->LoadFilesFBX("Assets\\FBX\\BakerHouse.fbx");
+					App->rscr->FileReceived("Assets\\FBX\\BakerHouse.fbx");
 
 				ImGui::EndMenu();
 			}

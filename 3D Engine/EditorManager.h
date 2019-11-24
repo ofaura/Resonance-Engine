@@ -14,6 +14,7 @@ class Console;
 class Game;
 class Inspector;
 class TreeNodes;
+class Assets;
 
 class EditorElement
 {
@@ -83,6 +84,7 @@ private:
 	About*			about = nullptr;
 	Console*		console = nullptr;
 	Inspector*		inspector = nullptr;
+	Assets*			assets = nullptr;
 };
 
 #endif __EditorManager__H__

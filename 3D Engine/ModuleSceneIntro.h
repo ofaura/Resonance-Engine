@@ -30,7 +30,8 @@ public:
 	
 	Objects3D* CreateObject3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float color[4]);
 	
-	void SetParent(GameObject* child, GameObject* newParent);
+	GameObject*  AddGameObject(const char* name);
+	void SetParent(GameObject* newParent, GameObject* Child);
 
 	string& SetAvailableName(string name);
 
@@ -53,6 +54,7 @@ public:
 	Quadtree* objectTree;
 
 	bool ShowBoundingBoxes = false;
+
 	bool ShowQuadtree = true;
 
 };

@@ -22,6 +22,7 @@ void log(const char file[], int line, const char* format, ...);
 
 typedef unsigned int uint;
 typedef unsigned __int64 uint64;
+typedef unsigned long long uuid;
 
 enum update_status
 {
@@ -65,18 +66,19 @@ enum update_status
 
 // Configuration -----------
 #define VERSION "0.4-alpha"
-#define ASSETS_FOLDER "/Assets/"
-#define ASSETS_MODEL_FOLDER "/Assets/FBX/"
-#define ASSETS_TEXTURE_FOLDER "/Assets/Textures/"
-#define SETTINGS_FOLDER "/Settings/"
-#define LIBRARY_FOLDER "/Library/"
-#define LIBRARY_AUDIO_FOLDER "/Library/Audio/"
-#define LIBRARY_TEXTURES_FOLDER "/Library/Textures/"
+#define ASSETS_FOLDER "Assets/"
+#define ASSETS_MODEL_FOLDER "Assets/FBX/"
+#define ASSETS_TEXTURE_FOLDER "Assets/Textures/"
+#define ASSETS_SCENE_FOLDER "Assets/Scenes/"
+#define SETTINGS_FOLDER "Settings/"
+#define LIBRARY_FOLDER "Library/"
+#define LIBRARY_AUDIO_FOLDER "Library/Audio/"
+#define LIBRARY_TEXTURES_FOLDER "Library/Textures/"
 #define LIBRARY_MESH_FOLDER "Library/Meshes/"
-#define LIBRARY_ANIMATION_FOLDER "/Library/Animations/"
+#define LIBRARY_ANIMATION_FOLDER "Library/Animations/"
 #define LIBRARY_SCENE_FOLDER "Library/Scenes/"
-#define LIBRARY_MODEL_FOLDER "/Library/Models/"
-#define LIBRARY_MATERIAL_FOLDER "/Library/Materials/"
-#define LIBRARY_STATE_MACHINE_FOLDER "/Library/StateMachines/"
+#define LIBRARY_MODEL_FOLDER "Library/Models/"
+#define LIBRARY_MATERIAL_FOLDER "Library/Materials/"
+#define LIBRARY_STATE_MACHINE_FOLDER "Library/StateMachines/"
 
 #endif __GLOBALS_H__

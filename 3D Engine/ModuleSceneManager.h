@@ -15,6 +15,7 @@ public:
 	~ModuleSceneManager();
 
 	update_status Update(float dt);
+	update_status PostUpdate(float dt) { return UPDATE_CONTINUE; };
 
 	void SaveScenePopUp();
 	void LoadScenePopUp();
@@ -23,11 +24,12 @@ public:
 
 	string GetSceneName();
 
+	void LoadScene(const string scene);
+
 private:
 
 	bool Start();
 
-	void LoadScene(const string scene);
 	void LoadAllGO(GameObject* root, const json &file);
 	void SaveAllGO(GameObject* root, json &file);
 	
@@ -37,13 +39,15 @@ private:
 
 	bool CleanUp();
 
+	string GetNameFromPath(string path, bool withExtension = false);
+
 private:
 
 	uint numGO = 0;
 	uint goLoaded = 0;
 	uint goSaved = 0;
 
-	const char* sceneExtension = ".json";
+	const char* sceneExtension = ".scene";
 
 	string sceneName = "Untitled";
 

@@ -6,6 +6,7 @@
 #include "GameObject.h"
 
 class GameObject;
+class C_Texture;
 
 struct Data {
 
@@ -16,14 +17,14 @@ struct Data {
 	uint id_vertex = 0;
 	uint n_vertices = 0;
 	float3* vertices = nullptr;
-
+	
 	uint id_texture = 0;
 	uint n_textures = 0;
 	float* textures = nullptr;
 
 	uint n_normals = 0;
 	float3* normals = nullptr;
-
+	
 	uint n_colors = 0;
 	uint* colors = nullptr;
 
@@ -52,6 +53,8 @@ public:
 	void Save(const char* gameObject, json &file);
 
 	bool Intersect(Frustum frustum, AABB aabb);
+	
+	void SetTexture(C_Texture* texture);
 
 private:
 	void Render();
@@ -64,6 +67,10 @@ private:
 public:
 	Data meshData;
 	string name;
+
+	AABB bbox;
+
+	C_Texture* texture = nullptr;
 };
 
 #endif __C__Mesh__H__

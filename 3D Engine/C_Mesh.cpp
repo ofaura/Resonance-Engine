@@ -160,7 +160,9 @@ void C_Mesh::Load(const char * gameObject, const json & file)
 	parentUUID = file["Game Objects"][gameObject]["Components"]["Mesh"]["Parent UUID"];
 	active = file["Game Objects"][gameObject]["Components"]["Mesh"]["Active"];
 
-	string path = LIBRARY_MESH_FOLDER + name + ".mesh";
+	string newName = name;
+	App->rscr->RemoveSpacesFromPath(&newName);
+	string path = LIBRARY_MESH_FOLDER + newName + ".mesh";
 	App->rscr->LoadMesh(path.c_str(), this);
 }
 
@@ -170,6 +172,11 @@ void C_Mesh::Save(const char * gameObject, json & file)
 	file["Game Objects"][gameObject]["Components"]["Mesh"]["Parent UUID"] = parentUUID;
 	file["Game Objects"][gameObject]["Components"]["Mesh"]["Active"] = active;
 	file["Game Objects"][gameObject]["Components"]["Mesh"]["Name"] = name;
+}
+
+void C_Mesh::SetTexture(C_Texture * texture)
+{
+	this->texture = texture;
 }
 
 void C_Mesh::DrawBox(AABB& bbox, OBB& obb)
@@ -226,27 +233,31 @@ void C_Mesh::Render()
 
 	C_Texture* texture = (C_Texture*)parent->GetComponent(COMPONENT_TYPE::TEXTURE);
 	
-	if (texture->active)
-		glBindTexture(GL_TEXTURE_2D, texture->texture);
+	if (texture != nullptr)
+	{
+		if (texture->active)
+			glBindTexture(GL_TEXTURE_2D, texture->texture);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindBuffer(GL_ARRAY_BUFFER, meshData.id_texture);
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+		glActiveTexture(GL_TEXTURE0);
+		glBindBuffer(GL_ARRAY_BUFFER, meshData.id_texture);
+		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-	// Render the mesh
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, meshData.id_vertex);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshData.id_index);
-	glDrawElements(GL_TRIANGLES, meshData.n_indices * 3, GL_UNSIGNED_INT, NULL);
+		// Render the mesh
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glBindBuffer(GL_ARRAY_BUFFER, meshData.id_vertex);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshData.id_index);
+		glDrawElements(GL_TRIANGLES, meshData.n_indices * 3, GL_UNSIGNED_INT, NULL);
 
-	// Clean all buffers
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, 0);
+		// Clean all buffers
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
 
 	glPopMatrix();
 }

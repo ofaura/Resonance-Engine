@@ -5,6 +5,10 @@
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/types.h"
 
+#include <experimental/filesystem>
+#include <fstream>
+#include <iomanip>
+
 #include "PhysFS/include/physfs.h"
 #pragma comment( lib, "PhysFS/libx86/physfs.lib" )
 
@@ -32,7 +36,7 @@ ModuleFileSystem::ModuleFileSystem(const char* game_path) : Module("File System"
 		LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
 
 	// Make sure standard paths exist
-	const char* dirs[] = { ASSETS_FOLDER, LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER, LIBRARY_SCENE_FOLDER };
+	const char* dirs[] = { ASSETS_FOLDER, ASSETS_MODEL_FOLDER, ASSETS_TEXTURE_FOLDER, ASSETS_SCENE_FOLDER, LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER };
 
 	for (uint i = 0; i < sizeof(dirs) / sizeof(const char*); ++i)
 	{
@@ -99,35 +103,59 @@ bool ModuleFileSystem::IsDirectory(const char* file) const
 	return PHYSFS_isDirectory(file) != 0;
 }
 
+bool ModuleFileSystem::RemoveFile(const char * path) const
+{
+	bool isDirectory = PHYSFS_isDirectory(path);
+	if (PHYSFS_delete(path) != 0)
+	{
+		if (isDirectory)
+			RemovePath(path);
+		return true;
+	}
+	LOG("PHYSFS - Error while deleting file: %s", PHYSFS_getLastError());
+	return false;
+}
+
+bool ModuleFileSystem::RemovePath(const char * path) const
+{
+	/*if (PHYSFS_unmount(path) != 0)
+	{
+		LOG("Removed path: %s", path);
+		return true;
+	}*/
+	LOG("PHYSFS - Error while removing path: %s", PHYSFS_getLastError());
+	return false;
+}
+
 // Creates a directory
 void ModuleFileSystem::CreateDirectory(const char* directory)
 {
 	PHYSFS_mkdir(directory);
 }
 
-void ModuleFileSystem::DiscoverFiles(const char* directory, vector<string> & file_list, vector<string> & dir_list) const
+void ModuleFileSystem::DiscoverFiles(string directory, vector<string> * file_list, vector<string> * dir_list) const
 {
-	char **rc = PHYSFS_enumerateFiles(directory);
-	char **i;
+	const std::experimental::filesystem::directory_iterator end{};
 
-	string dir(directory);
-
-	for (i = rc; *i != nullptr; i++)
+	std::string button_name;
+	for (std::experimental::filesystem::directory_iterator iter{ directory }; iter != end; ++iter)
 	{
-		if (PHYSFS_isDirectory((dir + *i).c_str()))
-			dir_list.push_back(*i);
-		else
-			file_list.push_back(*i);
+		if (std::experimental::filesystem::is_directory(*iter))
+		{
+			dir_list->push_back(iter->path().string());
+		}
+		else if (std::experimental::filesystem::is_regular_file(*iter))
+		{
+			file_list->push_back(iter->path().string());
+		}
 	}
-
-	PHYSFS_freeList(rc);
 }
 
 void ModuleFileSystem::GetAllFilesWithExtension(const char * directory, const char * extension, std::vector<std::string>& file_list) const
 {
 	vector<string> files;
 	vector<string> dirs;
-	DiscoverFiles(directory, files, dirs);
+	DiscoverFiles(directory, &files, &dirs);
 
 	for (uint i = 0; i < files.size(); i++)
 	{
@@ -258,6 +286,48 @@ void ModuleFileSystem::NormalizePath(std::string& full_path) const
 			*it = '/';
 		else
 			*it = tolower(*it);
+	}
+}
+
+void ModuleFileSystem::GetNameFromPath(const char * full_path, string * path, string * file, string * fileWithExtension, string * extension) const
+{
+	if (full_path != nullptr)
+	{
+		string nwFullPath = full_path;
+		NormalizePath(nwFullPath);
+		uint posSlash = nwFullPath.find_last_of("\\/");
+		uint posDot = nwFullPath.find_last_of(".");
+
+		if (path != nullptr)
+		{
+			if (posSlash < nwFullPath.length())
+				*path = nwFullPath.substr(0, posSlash + 1);
+			else
+				path->clear();
+		}
+		if (fileWithExtension != nullptr) {
+			if (posSlash < nwFullPath.length()) {
+				*fileWithExtension = nwFullPath.substr(posSlash + 1);
+			}
+			else
+				*fileWithExtension = nwFullPath;
+		}
+
+		if (file != nullptr)
+		{
+			nwFullPath = nwFullPath.substr(0, posDot);
+			posSlash = nwFullPath.find_last_of("\\/");
+			*file = nwFullPath.substr(posSlash + 1);
+
+		}
+
+		if (extension != nullptr)
+		{
+			if (posDot < nwFullPath.length())
+				*extension = nwFullPath.substr(posDot);
+			else
+				extension->clear();
+		}
 	}
 }
 
