@@ -8,6 +8,7 @@
 #include "Console.h"
 #include "Game.h"
 #include "Inspector.h"
+#include "Assets.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleResourceManager.h"
 #include "ModuleSceneManager.h"
@@ -34,6 +35,7 @@ bool EditorManager::Init(json file)
 	console = new Console(true);
 	game = new Game(true);
 	inspector = new Inspector(true);
+	assets = new Assets(true);
 
 	AddEditorElement(hierarchy);
 	AddEditorElement(configuration);
@@ -41,6 +43,7 @@ bool EditorManager::Init(json file)
 	AddEditorElement(console);
 	AddEditorElement(game);
 	AddEditorElement(inspector);
+	AddEditorElement(assets);
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();

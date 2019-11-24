@@ -30,7 +30,7 @@ public:
 	bool RemoveFile(const char* path) const;
 	bool RemovePath(const char* path) const;
 	void CreateDirectory(const char* directory);
-	void DiscoverFiles(const char* directory, std::vector<std::string>& file_list, std::vector<std::string>& dir_list) const;
+	void DiscoverFiles(string directory, std::vector<std::string>* file_list, std::vector<std::string>* dir_list) const;
 	void GetAllFilesWithExtension(const char* directory, const char* extension, std::vector<std::string>& file_list) const;
 	bool CopyFromOutsideFS(const char* full_path, const char* destination);
 	bool Copy(const char* source, const char* destination);

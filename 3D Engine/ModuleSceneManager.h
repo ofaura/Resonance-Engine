@@ -24,11 +24,12 @@ public:
 
 	string GetSceneName();
 
+	void LoadScene(const string scene);
+
 private:
 
 	bool Start();
 
-	void LoadScene(const string scene);
 	void LoadAllGO(GameObject* root, const json &file);
 	void SaveAllGO(GameObject* root, json &file);
 	
@@ -46,7 +47,7 @@ private:
 	uint goLoaded = 0;
 	uint goSaved = 0;
 
-	const char* sceneExtension = ".json";
+	const char* sceneExtension = ".scene";
 
 	string sceneName = "Untitled";
 

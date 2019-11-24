@@ -5,6 +5,7 @@
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/types.h"
 
+#include <experimental/filesystem>
 #include <fstream>
 #include <iomanip>
 
@@ -35,7 +36,7 @@ ModuleFileSystem::ModuleFileSystem(const char* game_path) : Module("File System"
 		LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
 
 	// Make sure standard paths exist
-	const char* dirs[] = { ASSETS_FOLDER, LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER, LIBRARY_SCENE_FOLDER };
+	const char* dirs[] = { ASSETS_FOLDER, ASSETS_MODEL_FOLDER, ASSETS_TEXTURE_FOLDER, ASSETS_SCENE_FOLDER, LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER };
 
 	for (uint i = 0; i < sizeof(dirs) / sizeof(const char*); ++i)
 	{
@@ -132,29 +133,29 @@ void ModuleFileSystem::CreateDirectory(const char* directory)
 	PHYSFS_mkdir(directory);
 }
 
-void ModuleFileSystem::DiscoverFiles(const char* directory, vector<string> & file_list, vector<string> & dir_list) const
+void ModuleFileSystem::DiscoverFiles(string directory, vector<string> * file_list, vector<string> * dir_list) const
 {
-	char **rc = PHYSFS_enumerateFiles(directory);
-	char **i;
+	const std::experimental::filesystem::directory_iterator end{};
 
-	string dir(directory);
-
-	for (i = rc; *i != nullptr; i++)
+	std::string button_name;
+	for (std::experimental::filesystem::directory_iterator iter{ directory }; iter != end; ++iter)
 	{
-		if (PHYSFS_isDirectory((dir + *i).c_str()))
-			dir_list.push_back(*i);
-		else
-			file_list.push_back(*i);
+		if (std::experimental::filesystem::is_directory(*iter))
+		{
+			dir_list->push_back(iter->path().string());
+		}
+		else if (std::experimental::filesystem::is_regular_file(*iter))
+		{
+			file_list->push_back(iter->path().string());
+		}
 	}
-
-	PHYSFS_freeList(rc);
 }
 
 void ModuleFileSystem::GetAllFilesWithExtension(const char * directory, const char * extension, std::vector<std::string>& file_list) const
 {
 	vector<string> files;
 	vector<string> dirs;
-	DiscoverFiles(directory, files, dirs);
+	DiscoverFiles(directory, &files, &dirs);
 
 	for (uint i = 0; i < files.size(); i++)
 	{

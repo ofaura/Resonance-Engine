@@ -126,6 +126,9 @@
     <ClCompile Include="C_Camera.cpp">
       <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Assets.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -273,6 +276,9 @@
     </ClInclude>
     <ClInclude Include="C_Camera.h">
       <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>Sources\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

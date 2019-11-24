@@ -69,6 +69,7 @@ enum update_status
 #define ASSETS_FOLDER "Assets/"
 #define ASSETS_MODEL_FOLDER "Assets/FBX/"
 #define ASSETS_TEXTURE_FOLDER "Assets/Textures/"
+#define ASSETS_SCENE_FOLDER "Assets/Scenes/"
 #define SETTINGS_FOLDER "Settings/"
 #define LIBRARY_FOLDER "Library/"
 #define LIBRARY_AUDIO_FOLDER "Library/Audio/"

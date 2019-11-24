@@ -45,10 +45,6 @@ void C_Mesh::DrawInspector()
 		ImGui::SameLine();
 		ImGui::Text("%d", meshData.n_indices / 3);
 
-		ImGui::Text("Number of normals: ");
-		ImGui::SameLine();
-		ImGui::Text("%d", meshData.n_normals);
-
 		ImGui::Separator();
 
 		ImGui::Checkbox("Vertex normals", &drawVerticesNormals);
@@ -134,12 +130,7 @@ void C_Mesh::Load(const char * gameObject, const json & file)
 	UUID = file["Game Objects"][gameObject]["Components"]["Mesh"]["UUID"];
 	parentUUID = file["Game Objects"][gameObject]["Components"]["Mesh"]["Parent UUID"];
 	active = file["Game Objects"][gameObject]["Components"]["Mesh"]["Active"];
-	meshData.id_texture = file["Game Objects"][gameObject]["Components"]["Mesh"]["Data"]["id_texture"];
-	meshData.id_vertex = file["Game Objects"][gameObject]["Components"]["Mesh"]["Data"]["id_vertex"];
-	meshData.id_index = file["Game Objects"][gameObject]["Components"]["Mesh"]["Data"]["id_index"];
-	meshData.n_indices = file["Game Objects"][gameObject]["Components"]["Mesh"]["Data"]["n_indices"];
-	meshData.n_vertices = file["Game Objects"][gameObject]["Components"]["Mesh"]["Data"]["n_vertices"];
-	
+
 	string newName = name;
 	App->rscr->RemoveSpacesFromPath(&newName);
 	string path = LIBRARY_MESH_FOLDER + newName + ".mesh";
@@ -152,13 +143,6 @@ void C_Mesh::Save(const char * gameObject, json & file)
 	file["Game Objects"][gameObject]["Components"]["Mesh"]["Parent UUID"] = parentUUID;
 	file["Game Objects"][gameObject]["Components"]["Mesh"]["Active"] = active;
 	file["Game Objects"][gameObject]["Components"]["Mesh"]["Name"] = name;
-	file["Game Objects"][gameObject]["Components"]["Mesh"]["Data"]["id_texture"] = meshData.id_texture;
-	file["Game Objects"][gameObject]["Components"]["Mesh"]["Data"]["id_vertex"] = meshData.id_vertex;
-	file["Game Objects"][gameObject]["Components"]["Mesh"]["Data"]["id_index"] = meshData.id_index;
-	file["Game Objects"][gameObject]["Components"]["Mesh"]["Data"]["n_indices"] = meshData.n_indices;
-	file["Game Objects"][gameObject]["Components"]["Mesh"]["Data"]["n_vertices"] = meshData.n_vertices;
-
-
 }
 
 void C_Mesh::SetTexture(C_Texture * texture)

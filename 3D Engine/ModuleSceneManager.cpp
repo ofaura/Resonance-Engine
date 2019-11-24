@@ -45,7 +45,7 @@ void ModuleSceneManager::LoadScene(const string scene)
 
 
 	json file;
-	string path = LIBRARY_SCENE_FOLDER + scene + sceneExtension;
+	string path = ASSETS_SCENE_FOLDER + scene + sceneExtension;
 
 	ifstream stream;
 	stream.open(path);
@@ -66,7 +66,7 @@ void ModuleSceneManager::SaveScene(string scene)
 	SetSceneName(sceneName);
 
 	json file;
-	string path = LIBRARY_SCENE_FOLDER + scene + sceneExtension;
+	string path = ASSETS_SCENE_FOLDER + scene + sceneExtension;
 
 	SaveAllGO(App->scene_intro->root, file);
 	file["Game Objects"]["Count"] = goSaved;
@@ -175,7 +175,7 @@ void ModuleSceneManager::SaveScenePopUp()
 void ModuleSceneManager::LoadScenePopUp()
 {
 	sceneList.clear();
-	App->fileSystem->GetAllFilesWithExtension(LIBRARY_SCENE_FOLDER, "json", sceneList);
+	App->fileSystem->GetAllFilesWithExtension(ASSETS_SCENE_FOLDER, "scene", sceneList);
 
 	for (uint i = 0; i < sceneList.size(); i++)
 	{

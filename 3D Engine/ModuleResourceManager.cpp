@@ -86,8 +86,6 @@ bool ModuleResourceManager::FileReceived(string path)
 
 	aiReleaseImport(scene);
 
-	/*if (CheckTextureExtension(extension.c_str()));
-		LoadTexture(path);*/
 	return true;
 }
 
@@ -483,8 +481,6 @@ void ModuleResourceManager::LoadMesh(const char * path, C_Mesh * mesh)
 	}
 }
 
-
-
 bool ModuleResourceManager::ValidTextureExtension(const string& extension)
 {
 	string ext;
@@ -503,6 +499,16 @@ bool ModuleResourceManager::ValidMeshExtension(const string& extension)
 		ext = (char*)&(extension.substr(i + 1, extension.length() - i));
 
 	return (ext == "fbx" || ext == "FBX");
+}
+
+bool ModuleResourceManager::ValidSceneExtension(const string & extension)
+{
+	string ext;
+	size_t i = extension.rfind('.', extension.length());
+	if (i != string::npos)
+		ext = (char*)&(extension.substr(i + 1, extension.length() - i));
+
+	return (ext == "scene");
 }
 
 bool ModuleResourceManager::CheckTextureExtension(const char * extension)

@@ -37,7 +37,6 @@ public:
 	void LoadMesh(C_Mesh* mesh, aiMesh* currentMesh);
 	void LoadMesh(const char* path, C_Mesh* mesh);
 
-
 	// From Library
 	void ImportFile(string * path);
 	bool ImportTexture(const char* path, string& outputFile, C_Texture* texture = nullptr);
@@ -45,6 +44,8 @@ public:
 
 	bool ValidTextureExtension(const string& extension);
 	bool ValidMeshExtension(const string& extension);
+	bool ValidSceneExtension(const string& extension);
+
 	bool CheckTextureExtension(const char* extension);
 	bool CheckMeshExtension(const char* extension);
 

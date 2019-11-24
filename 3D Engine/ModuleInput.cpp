@@ -139,10 +139,10 @@ update_status ModuleInput::PreUpdate(float dt)
 				}
 				else if (App->rscr->ValidTextureExtension(e.drop.file))
 				{
-					App->rscr->GenerateTexture(e.drop.file, (C_Texture*)App->scene_intro->goSelected->GetComponent(COMPONENT_TYPE::TEXTURE));
+					if (App->scene_intro->goSelected != nullptr)
+						App->rscr->GenerateTexture(e.drop.file, (C_Texture*)App->scene_intro->goSelected->GetComponent(COMPONENT_TYPE::TEXTURE));
 				}
-					
-				
+								
 				// Free dropped_filedir memory
 				SDL_free((void*)e.drop.file);
 
