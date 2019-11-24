@@ -1,6 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "C_Camera.h"
+#include "C_Transform.h"
+#include "ModuleSceneIntro.h"
+#include "ModuleSceneManager.h"
 
 #include "mmgr/mmgr.h"
 
@@ -184,4 +187,20 @@ void C_Camera::Draw()
 		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
 
 		glEnd();
+}
+
+void C_Camera::Load(const char * gameObject, const json & file)
+{
+	active = file["Game Objects"][gameObject]["Components"]["Camera"]["Active"];
+	fov = file["Game Objects"][gameObject]["Components"]["Camera"]["fov"];
+	NearPlane = file["Game Objects"][gameObject]["Components"]["Camera"]["NearPlane"];
+	FarPlane = file["Game Objects"][gameObject]["Components"]["Camera"]["FarPlane"];
+}
+
+void C_Camera::Save(const char * gameObject, json & file)
+{
+	file["Game Objects"][gameObject]["Components"]["Camera"]["Active"] = active;
+	file["Game Objects"][gameObject]["Components"]["Camera"]["fov"] = fov;
+	file["Game Objects"][gameObject]["Components"]["Camera"]["NearPlane"] = NearPlane;
+	file["Game Objects"][gameObject]["Components"]["Camera"]["FarPlane"] = FarPlane;
 }

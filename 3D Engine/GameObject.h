@@ -12,6 +12,7 @@
 class C_Mesh;
 class C_Texture;
 class C_Transform;
+class C_Camera;
 
 class GameObject
 {
@@ -64,6 +65,7 @@ public:
 	bool enable = true;
 
 	C_Transform* component_transform = nullptr;
+	C_Camera* c_camera = nullptr;
 
 	string name;
 	GameObject* parent;

@@ -5,6 +5,7 @@
 #include "ModuleInput.h"
 #include "ModuleFileSystem.h"
 #include "ModuleWindow.h"
+#include "C_Camera.h"
 
 #include <fstream>
 #include <iomanip>
@@ -45,7 +46,6 @@ void ModuleSceneManager::LoadScene(const string scene)
 
 	CleanUp();
 
-
 	json file;
 	string path = ASSETS_SCENE_FOLDER + scene + sceneExtension;
 
@@ -55,8 +55,13 @@ void ModuleSceneManager::LoadScene(const string scene)
 	stream.close();
 
 	App->scene_intro->root = new GameObject("root", nullptr);
+
 	numGO = file["Game Objects"]["Count"];
 	LoadAllGO(App->scene_intro->root, file);
+	
+	App->scene_intro->MainCamera = new GameObject("Main Camera", App->scene_intro->root);
+	App->scene_intro->MainCamera->AddComponent(COMPONENT_TYPE::CAMERA);
+
 	App->scene_intro->goSelected = nullptr;
 	goLoaded = 0;
 
@@ -119,7 +124,10 @@ void ModuleSceneManager::SaveAllGO(GameObject * root, json & file)
 	root->Save(name, file);
 
 	for (int i = 0; i < root->children.size(); ++i)
-		SaveAllGO(root->children[i], file);
+	{
+		if (root->children[i]->name != "Main Camera")
+			SaveAllGO(root->children[i], file);
+	}
 }
 
 void ModuleSceneManager::DeleteSceneGO(GameObject * root)
@@ -127,8 +135,7 @@ void ModuleSceneManager::DeleteSceneGO(GameObject * root)
 	for (int i = 0; i < root->children.size(); ++i)
 	{
 		root->children[i]->CleanUp();
-		DeleteSceneGO(root->children[i]);
-		
+		DeleteSceneGO(root->children[i]);		
 	}
 
 	RELEASE(root);

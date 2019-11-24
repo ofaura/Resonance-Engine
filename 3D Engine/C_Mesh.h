@@ -68,6 +68,8 @@ public:
 	Data meshData;
 	string name;
 
+	
+	float3 pos = { 0,0,0 };
 	AABB bbox;
 
 	C_Texture* texture = nullptr;

@@ -43,8 +43,17 @@ void C_Mesh::Update()
 }
 
 void C_Mesh::PostUpdate()
-{
-	C_Camera* auxcam = (C_Camera*)App->scene_intro->MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
+{		
+	C_Camera* auxcam = nullptr;
+	auxcam = (C_Camera*)App->scene_intro->MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
+	//if (auxcam == nullptr)
+	//{
+	//	auxcam = new C_Camera(COMPONENT_TYPE::CAMERA, nullptr, true);
+	//	auxcam->SetFOV(FOV);
+	//	auxcam->SetPlanes(nearPlane, farPlane);
+	//	auxcam->SetPos(pos);
+	//}
+
 	std::vector<GameObject*> treeObjects = App->scene_intro->objectTree->base->ObjectsInside(auxcam->frustum);
 	
 	static Frustum* frust = &auxcam->frustum;

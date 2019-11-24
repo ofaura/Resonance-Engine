@@ -401,14 +401,14 @@ void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 	mesh->meshData = data;
 	mesh->name = mesh->parent->name;
 	
-	data.CleanUp();
-
 	// We import the mesh to our library
 	string newName = mesh->parent->name;
 	RemoveSpacesFromPath(&newName);
 
 	string path = LIBRARY_MESH_FOLDER + newName + ".mesh";;
 	ImportMesh(path.c_str(), mesh);
+
+	data.CleanUp();
 }
 
 void ModuleResourceManager::LoadMesh(const char * path, C_Mesh * mesh)

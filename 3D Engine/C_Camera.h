@@ -37,6 +37,9 @@ public:
 
 	void Draw();
 
+	void Load(const char* gameObject, const json &file);
+	void Save(const char* gameObject, json &file);
+
 public:
 	
 	Frustum frustum;
