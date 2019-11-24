@@ -35,6 +35,9 @@ public:
 	ImVec2 size;
 	ImVec2 new_size = { 0,0 };
 	ImVec2 position;
+public:
+	float GameTime = 0.0f;
+	bool step = false;
 };
 
 #endif __Game__H__
