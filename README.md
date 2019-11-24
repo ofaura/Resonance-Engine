@@ -12,11 +12,15 @@ The engine helps it's users create games in a simple way-
 
 [@Jacobo Galofre]( https://github.com/sherzock )
 
+[@Rafel Brau]( https://github.com/rafefix )
+
 # Game engine instructions:
 
 ## File:
   - Quit: to quit the application
   - Open FBX : To Open any of the 3 fbx we have as samples.
+  - Open Scene: To Open any scene previously saved.
+  - Save Scene: To save the actual scene.
 ## Edit:
   - Style Editor : Opens up the style editor of the engine
 ## Window:
@@ -25,6 +29,7 @@ The engine helps it's users create games in a simple way-
   - Game: This window shows the 3D representation of the scene.
   - Console: Shows basic logs of things happening on the engine.
   - Inspector: Shows information and components of the selected GameObject.
+  - Assets: Shows available assets to import.
 ## GameObjects:
   - 3D Objects: Here the user will be able to create some basic 3D shapes such as cubes, spheres, cones, etc. 
 ## Help:
@@ -39,11 +44,12 @@ The engine helps it's users create games in a simple way-
   - Mouse Wheel to zoom in and zoom out
   - Right Click to rotate
   - Shift to speed up the camera movement
+  - F to center camera in selected game object
 
 
 # LICENSE
 
-Copyright <2019> <Resonance Engine by Oscar Faura Sol and Jacobo Galofre>
+Copyright <2019> <Resonance Engine by Oscar Faura, Jacobo Galofre and Rafel Brau>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
 associated documentation files (the Software), to deal in the Software without restriction, including 
