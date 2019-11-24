@@ -118,9 +118,9 @@ void Game::Draw()
 
 		std::string smin = min;
 		std::string ssec = sec;
-		std::string total = smin + ":" + ssec;
+		std::string FinalTime = smin + ":" + ssec;
 
-		ImGui::Text(total.c_str());
+		ImGui::Text(FinalTime.c_str());
 
 		//
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
