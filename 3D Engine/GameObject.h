@@ -60,8 +60,6 @@ public:
 
 public:
 
-	C_Camera* auxcam = nullptr;
-
 	uint UUID = 0;
 	uint parentUUID = 0;
 
