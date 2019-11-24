@@ -15,6 +15,7 @@ public:
 	~ModuleSceneManager();
 
 	update_status Update(float dt);
+	update_status PostUpdate(float dt) { return UPDATE_CONTINUE; };
 
 	void SaveScenePopUp();
 	void LoadScenePopUp();
@@ -36,6 +37,8 @@ private:
 	void SetSceneName(string name);
 
 	bool CleanUp();
+
+	string GetNameFromPath(string path, bool withExtension = false);
 
 private:
 

@@ -26,6 +26,8 @@ public:
 	long width = 0;
 	long height = 0;
 
+	string name;
+
 private:
 	bool debug = false;
 };

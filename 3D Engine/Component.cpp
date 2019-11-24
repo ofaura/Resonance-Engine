@@ -1,4 +1,5 @@
 #include "Component.h"
+#include "Application.h"
 #include "GameObject.h"
 
 #include "mmgr/mmgr.h"

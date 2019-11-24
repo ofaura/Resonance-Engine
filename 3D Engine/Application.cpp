@@ -23,7 +23,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	editor = new EditorManager();
-	rscr = new ModuleResourceManager(this);
+	rscr = new ModuleResourceManager();
 	fileSystem = new ModuleFileSystem();
 	scene = new ModuleSceneManager();
 

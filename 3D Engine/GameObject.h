@@ -19,6 +19,8 @@ class GameObject
 public:
 	GameObject();
 	GameObject(string name, GameObject* parent = nullptr);
+	GameObject(GameObject* parent, const char* name = "Unnamed", const float3& translation = float3::zero, const float3& scale = float3::one, const Quat& rotation = Quat::identity);
+
 
 	virtual ~GameObject();
 
@@ -29,7 +31,11 @@ public:
 	void DisableGO();
 
 	Component* AddComponent(COMPONENT_TYPE type, bool active = true);
+	void AddComponent(Component* component, COMPONENT_TYPE type);
 	Component* GetComponent(COMPONENT_TYPE type);
+
+	GameObject* AddChildren(string name);
+	void GetChildren(vector<GameObject*>* child);
 
 	void RemoveComponent(COMPONENT_TYPE type);
 	bool HasComponent(COMPONENT_TYPE type);
@@ -44,14 +50,16 @@ public:
 
 	float4x4 mat2float4(mat4x4 mat);
 
+	void SetLocalAABB(AABB aabb);
+
 	void Load(const char* gameObject, const json &file);
 	void Save(const char* gameObject, json &file);
 
-private:
+public:
 
 	uint UUID = 0;
 	uint parentUUID = 0;
-public:
+
 
 	bool enable = true;
 
@@ -61,6 +69,8 @@ public:
 	GameObject* parent;
 	vector<Component*> components;
 	vector<GameObject*> children;
+
+	map<uint, GameObject*> mapChildren;
 
 	AABB Localbbox;
 	AABB Globalbbox;

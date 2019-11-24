@@ -5,6 +5,9 @@
 #include "Assimp/include/cfileio.h"
 #include "Assimp/include/types.h"
 
+#include <fstream>
+#include <iomanip>
+
 #include "PhysFS/include/physfs.h"
 #pragma comment( lib, "PhysFS/libx86/physfs.lib" )
 
@@ -97,6 +100,30 @@ bool ModuleFileSystem::Exists(const char* file) const
 bool ModuleFileSystem::IsDirectory(const char* file) const
 {
 	return PHYSFS_isDirectory(file) != 0;
+}
+
+bool ModuleFileSystem::RemoveFile(const char * path) const
+{
+	bool isDirectory = PHYSFS_isDirectory(path);
+	if (PHYSFS_delete(path) != 0)
+	{
+		if (isDirectory)
+			RemovePath(path);
+		return true;
+	}
+	LOG("PHYSFS - Error while deleting file: %s", PHYSFS_getLastError());
+	return false;
+}
+
+bool ModuleFileSystem::RemovePath(const char * path) const
+{
+	/*if (PHYSFS_unmount(path) != 0)
+	{
+		LOG("Removed path: %s", path);
+		return true;
+	}*/
+	LOG("PHYSFS - Error while removing path: %s", PHYSFS_getLastError());
+	return false;
 }
 
 // Creates a directory
@@ -258,6 +285,48 @@ void ModuleFileSystem::NormalizePath(std::string& full_path) const
 			*it = '/';
 		else
 			*it = tolower(*it);
+	}
+}
+
+void ModuleFileSystem::GetNameFromPath(const char * full_path, string * path, string * file, string * fileWithExtension, string * extension) const
+{
+	if (full_path != nullptr)
+	{
+		string nwFullPath = full_path;
+		NormalizePath(nwFullPath);
+		uint posSlash = nwFullPath.find_last_of("\\/");
+		uint posDot = nwFullPath.find_last_of(".");
+
+		if (path != nullptr)
+		{
+			if (posSlash < nwFullPath.length())
+				*path = nwFullPath.substr(0, posSlash + 1);
+			else
+				path->clear();
+		}
+		if (fileWithExtension != nullptr) {
+			if (posSlash < nwFullPath.length()) {
+				*fileWithExtension = nwFullPath.substr(posSlash + 1);
+			}
+			else
+				*fileWithExtension = nwFullPath;
+		}
+
+		if (file != nullptr)
+		{
+			nwFullPath = nwFullPath.substr(0, posDot);
+			posSlash = nwFullPath.find_last_of("\\/");
+			*file = nwFullPath.substr(posSlash + 1);
+
+		}
+
+		if (extension != nullptr)
+		{
+			if (posDot < nwFullPath.length())
+				*extension = nwFullPath.substr(posDot);
+			else
+				extension->clear();
+		}
 	}
 }
 

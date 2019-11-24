@@ -168,13 +168,13 @@ update_status EditorManager::Update(float dt)
 			if (ImGui::BeginMenu("Open FBX"))
 			{
 				if (ImGui::MenuItem("Megalodon"))
-					App->rscr->LoadFilesFBX("Assets\\FBX\\megalodon.FBX");
+					App->rscr->FileReceived("Assets\\FBX\\megalodon.FBX");
 
 				if (ImGui::MenuItem("Dragon"))
-					App->rscr->LoadFilesFBX("Assets\\FBX\\Dragon.fbx");
+					App->rscr->FileReceived("Assets\\FBX\\Dragon.fbx");
 
 				if (ImGui::MenuItem("Chair"))
-					App->rscr->LoadFilesFBX("Assets\\FBX\\Chair.fbx");
+					App->rscr->FileReceived("Assets\\FBX\\Chair.fbx");
 
 				ImGui::EndMenu();
 			}

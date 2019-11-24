@@ -1,0 +1,1759 @@
+{
+    "Game Objects": {
+        "Count": 38,
+        "GameObject 1": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 0,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 2129366861
+                }
+            },
+            "Name": "root",
+            "Parent UUID": 0,
+            "UUID": 0
+        },
+        "GameObject 10": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 19,
+                        "id_texture": 20,
+                        "id_vertex": 18,
+                        "n_indices": 32,
+                        "n_vertices": 25
+                    },
+                    "Name": "Plane001",
+                    "Parent UUID": 2022396133,
+                    "UUID": 201647589
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "",
+                    "Original Texture": 0,
+                    "Parent UUID": 2022396133,
+                    "Texture": 0,
+                    "UUID": 806193330,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 2022396133,
+                    "Position": [
+                        -0.02860260009765625,
+                        0.026032090187072754,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        0.9966352581977844,
+                        0.9706164598464966,
+                        0.9706164598464966
+                    ],
+                    "UUID": 1475860038
+                }
+            },
+            "Name": "Plane001",
+            "Parent UUID": 0,
+            "UUID": 2022396133
+        },
+        "GameObject 11": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 25,
+                        "id_texture": 26,
+                        "id_vertex": 24,
+                        "n_indices": 1666,
+                        "n_vertices": 3268
+                    },
+                    "Name": "City_building_010",
+                    "Parent UUID": 1234200004,
+                    "UUID": 1686450320
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building01_c",
+                    "Original Texture": 15,
+                    "Parent UUID": 1234200004,
+                    "Texture": 15,
+                    "UUID": 836812642,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1234200004,
+                    "Position": [
+                        25.154010772705078,
+                        -39.15372085571289,
+                        8.553864176974457e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1122794720
+                }
+            },
+            "Name": "City_building_010",
+            "Parent UUID": 0,
+            "UUID": 1234200004
+        },
+        "GameObject 12": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 28,
+                        "id_texture": 29,
+                        "id_vertex": 27,
+                        "n_indices": 228,
+                        "n_vertices": 436
+                    },
+                    "Name": "City_building_011",
+                    "Parent UUID": 649089219,
+                    "UUID": 1675301365
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_016_c",
+                    "Original Texture": 17,
+                    "Parent UUID": 649089219,
+                    "Texture": 17,
+                    "UUID": 2024496801,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 649089219,
+                    "Position": [
+                        30.134540557861328,
+                        37.4932861328125,
+                        -1.5106878663573298e-06
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 742132178
+                }
+            },
+            "Name": "City_building_011",
+            "Parent UUID": 0,
+            "UUID": 649089219
+        },
+        "GameObject 13": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 31,
+                        "id_texture": 32,
+                        "id_vertex": 30,
+                        "n_indices": 1399,
+                        "n_vertices": 2452
+                    },
+                    "Name": "City_building_013",
+                    "Parent UUID": 1697578870,
+                    "UUID": 1513234842
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building06_c",
+                    "Original Texture": 19,
+                    "Parent UUID": 1697578870,
+                    "Texture": 19,
+                    "UUID": 1670180356,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1697578870,
+                    "Position": [
+                        -42.288055419921875,
+                        33.201576232910156,
+                        5.014607040720875e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 375995625
+                }
+            },
+            "Name": "City_building_013",
+            "Parent UUID": 0,
+            "UUID": 1697578870
+        },
+        "GameObject 14": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 34,
+                        "id_texture": 35,
+                        "id_vertex": 33,
+                        "n_indices": 2212,
+                        "n_vertices": 4218
+                    },
+                    "Name": "City_building_014",
+                    "Parent UUID": 1977014614,
+                    "UUID": 978062287
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building03_c",
+                    "Original Texture": 21,
+                    "Parent UUID": 1977014614,
+                    "Texture": 21,
+                    "UUID": 1263004151,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1977014614,
+                    "Position": [
+                        -19.439706802368164,
+                        32.061729431152344,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        -4.371138828673793e-08
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 917570476
+                }
+            },
+            "Name": "City_building_014",
+            "Parent UUID": 0,
+            "UUID": 1977014614
+        },
+        "GameObject 15": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 40,
+                        "id_texture": 41,
+                        "id_vertex": 39,
+                        "n_indices": 1666,
+                        "n_vertices": 3268
+                    },
+                    "Name": "City_building_016",
+                    "Parent UUID": 176920837,
+                    "UUID": 536065510
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building01_c",
+                    "Original Texture": 25,
+                    "Parent UUID": 176920837,
+                    "Texture": 25,
+                    "UUID": 298570497,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 176920837,
+                    "Position": [
+                        34.270423889160156,
+                        -41.972747802734375,
+                        8.553864176974457e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        -4.371138828673793e-08
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1586877232
+                }
+            },
+            "Name": "City_building_016",
+            "Parent UUID": 0,
+            "UUID": 176920837
+        },
+        "GameObject 16": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 46,
+                        "id_texture": 47,
+                        "id_vertex": 45,
+                        "n_indices": 1666,
+                        "n_vertices": 3268
+                    },
+                    "Name": "City_building_017",
+                    "Parent UUID": 1270797659,
+                    "UUID": 2012922089
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building01_c",
+                    "Original Texture": 29,
+                    "Parent UUID": 1270797659,
+                    "Texture": 29,
+                    "UUID": 1160922343,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1270797659,
+                    "Position": [
+                        44.26008224487305,
+                        -39.15372085571289,
+                        8.553864176974457e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 25044486
+                }
+            },
+            "Name": "City_building_017",
+            "Parent UUID": 0,
+            "UUID": 1270797659
+        },
+        "GameObject 17": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 49,
+                        "id_texture": 50,
+                        "id_vertex": 48,
+                        "n_indices": 2832,
+                        "n_vertices": 4670
+                    },
+                    "Name": "City_building_022",
+                    "Parent UUID": 1879903511,
+                    "UUID": 1478136182
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building05_c",
+                    "Original Texture": 31,
+                    "Parent UUID": 1879903511,
+                    "Texture": 31,
+                    "UUID": 1902762782,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1879903511,
+                    "Position": [
+                        -20.831323623657227,
+                        -27.426488876342773,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.9470718370939721e-07
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 223989269
+                }
+            },
+            "Name": "City_building_022",
+            "Parent UUID": 0,
+            "UUID": 1879903511
+        },
+        "GameObject 18": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 52,
+                        "id_texture": 53,
+                        "id_vertex": 51,
+                        "n_indices": 228,
+                        "n_vertices": 436
+                    },
+                    "Name": "City_building_023",
+                    "Parent UUID": 423913133,
+                    "UUID": 391150194
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_016_c",
+                    "Original Texture": 33,
+                    "Parent UUID": 423913133,
+                    "Texture": 33,
+                    "UUID": 27528867,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 423913133,
+                    "Position": [
+                        42.13064193725586,
+                        37.4932861328125,
+                        -1.5106878663573298e-06
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 388471872
+                }
+            },
+            "Name": "City_building_023",
+            "Parent UUID": 0,
+            "UUID": 423913133
+        },
+        "GameObject 19": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 55,
+                        "id_texture": 56,
+                        "id_vertex": 54,
+                        "n_indices": 288,
+                        "n_vertices": 419
+                    },
+                    "Name": "City_building_024",
+                    "Parent UUID": 1031836283,
+                    "UUID": 396045277
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_025_c",
+                    "Original Texture": 35,
+                    "Parent UUID": 1031836283,
+                    "Texture": 35,
+                    "UUID": 1525686184,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1031836283,
+                    "Position": [
+                        -20.572771072387695,
+                        43.060829162597656,
+                        -0.06919445842504501
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        4.371138828673793e-08
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1998382946
+                }
+            },
+            "Name": "City_building_024",
+            "Parent UUID": 0,
+            "UUID": 1031836283
+        },
+        "GameObject 2": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1411626330,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1395099622
+                }
+            },
+            "Name": "RootNode",
+            "Parent UUID": 0,
+            "UUID": 1411626330
+        },
+        "GameObject 20": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 58,
+                        "id_texture": 59,
+                        "id_vertex": 57,
+                        "n_indices": 2744,
+                        "n_vertices": 4523
+                    },
+                    "Name": "City_building_026",
+                    "Parent UUID": 961668350,
+                    "UUID": 241462166
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building05_c",
+                    "Original Texture": 37,
+                    "Parent UUID": 961668350,
+                    "Texture": 37,
+                    "UUID": 335470370,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 961668350,
+                    "Position": [
+                        31.51188850402832,
+                        -16.446016311645508,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        4.371138828673793e-08
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 214532831
+                }
+            },
+            "Name": "City_building_026",
+            "Parent UUID": 0,
+            "UUID": 961668350
+        },
+        "GameObject 21": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 61,
+                        "id_texture": 62,
+                        "id_vertex": 60,
+                        "n_indices": 2764,
+                        "n_vertices": 6069
+                    },
+                    "Name": "City_building_028",
+                    "Parent UUID": 1897968645,
+                    "UUID": 752313476
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_v01_c",
+                    "Original Texture": 39,
+                    "Parent UUID": 1897968645,
+                    "Texture": 39,
+                    "UUID": 1837845913,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1897968645,
+                    "Position": [
+                        13.38798999786377,
+                        -33.75503921508789,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1658749988
+                }
+            },
+            "Name": "City_building_028",
+            "Parent UUID": 0,
+            "UUID": 1897968645
+        },
+        "GameObject 22": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 64,
+                        "id_texture": 65,
+                        "id_vertex": 63,
+                        "n_indices": 720,
+                        "n_vertices": 1440
+                    },
+                    "Name": "Object010",
+                    "Parent UUID": 1299653419,
+                    "UUID": 18569091
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "",
+                    "Original Texture": 0,
+                    "Parent UUID": 1299653419,
+                    "Texture": 0,
+                    "UUID": 13529017,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1299653419,
+                    "Position": [
+                        -2.5033531188964844,
+                        15.800846099853516,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1094701501
+                }
+            },
+            "Name": "Object010",
+            "Parent UUID": 0,
+            "UUID": 1299653419
+        },
+        "GameObject 23": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 67,
+                        "id_texture": 68,
+                        "id_vertex": 66,
+                        "n_indices": 2764,
+                        "n_vertices": 6069
+                    },
+                    "Name": "City_building_030",
+                    "Parent UUID": 1305855171,
+                    "UUID": 1164595180
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_v01_c",
+                    "Original Texture": 41,
+                    "Parent UUID": 1305855171,
+                    "Texture": 41,
+                    "UUID": 2035934295,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1305855171,
+                    "Position": [
+                        -42.8072395324707,
+                        -41.83556365966797,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1222664446
+                }
+            },
+            "Name": "City_building_030",
+            "Parent UUID": 0,
+            "UUID": 1305855171
+        },
+        "GameObject 24": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 70,
+                        "id_texture": 71,
+                        "id_vertex": 69,
+                        "n_indices": 2764,
+                        "n_vertices": 6069
+                    },
+                    "Name": "City_building_031",
+                    "Parent UUID": 1270915607,
+                    "UUID": 590222770
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_v01_c",
+                    "Original Texture": 43,
+                    "Parent UUID": 1270915607,
+                    "Texture": 43,
+                    "UUID": 1947368472,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1270915607,
+                    "Position": [
+                        -34.679481506347656,
+                        -41.83556365966797,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1794251253
+                }
+            },
+            "Name": "City_building_031",
+            "Parent UUID": 0,
+            "UUID": 1270915607
+        },
+        "GameObject 25": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 73,
+                        "id_texture": 74,
+                        "id_vertex": 72,
+                        "n_indices": 1996,
+                        "n_vertices": 3850
+                    },
+                    "Name": "City_building_032",
+                    "Parent UUID": 655303061,
+                    "UUID": 1381304161
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building03_c",
+                    "Original Texture": 45,
+                    "Parent UUID": 655303061,
+                    "Texture": 45,
+                    "UUID": 1311796674,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 655303061,
+                    "Position": [
+                        -29.478403091430664,
+                        21.01409912109375,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1711813013
+                }
+            },
+            "Name": "City_building_032",
+            "Parent UUID": 0,
+            "UUID": 655303061
+        },
+        "GameObject 26": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 76,
+                        "id_texture": 77,
+                        "id_vertex": 75,
+                        "n_indices": 2662,
+                        "n_vertices": 4772
+                    },
+                    "Name": "City_building_033",
+                    "Parent UUID": 411700938,
+                    "UUID": 1089632191
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building06_c",
+                    "Original Texture": 47,
+                    "Parent UUID": 411700938,
+                    "Texture": 47,
+                    "UUID": 1422939336,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 411700938,
+                    "Position": [
+                        -32.36149597167969,
+                        42.37042236328125,
+                        5.014607040720875e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 566767989
+                }
+            },
+            "Name": "City_building_033",
+            "Parent UUID": 0,
+            "UUID": 411700938
+        },
+        "GameObject 27": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 79,
+                        "id_texture": 80,
+                        "id_vertex": 78,
+                        "n_indices": 2126,
+                        "n_vertices": 3481
+                    },
+                    "Name": "City_building_034",
+                    "Parent UUID": 891391899,
+                    "UUID": 318886609
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building05_c",
+                    "Original Texture": 49,
+                    "Parent UUID": 891391899,
+                    "Texture": 49,
+                    "UUID": 518662503,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 891391899,
+                    "Position": [
+                        16.049516677856445,
+                        -16.696884155273438,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071068286895752,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1612969273
+                }
+            },
+            "Name": "City_building_034",
+            "Parent UUID": 0,
+            "UUID": 891391899
+        },
+        "GameObject 28": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 82,
+                        "id_texture": 83,
+                        "id_vertex": 81,
+                        "n_indices": 2764,
+                        "n_vertices": 6069
+                    },
+                    "Name": "City_building_035",
+                    "Parent UUID": 2012080705,
+                    "UUID": 1534434656
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_v01_c",
+                    "Original Texture": 51,
+                    "Parent UUID": 2012080705,
+                    "Texture": 51,
+                    "UUID": 153681714,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 2012080705,
+                    "Position": [
+                        13.38798999786377,
+                        -40.80251693725586,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 564985348
+                }
+            },
+            "Name": "City_building_035",
+            "Parent UUID": 0,
+            "UUID": 2012080705
+        },
+        "GameObject 29": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 85,
+                        "id_texture": 86,
+                        "id_vertex": 84,
+                        "n_indices": 1399,
+                        "n_vertices": 2452
+                    },
+                    "Name": "City_building_036",
+                    "Parent UUID": 711081040,
+                    "UUID": 1984598196
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building06_c",
+                    "Original Texture": 53,
+                    "Parent UUID": 711081040,
+                    "Texture": 53,
+                    "UUID": 613155736,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 711081040,
+                    "Position": [
+                        -31.216331481933594,
+                        33.201576232910156,
+                        5.014607040720875e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 232571549
+                }
+            },
+            "Name": "City_building_036",
+            "Parent UUID": 0,
+            "UUID": 711081040
+        },
+        "GameObject 3": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1840396746,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 650055011
+                }
+            },
+            "Name": "Sky001",
+            "Parent UUID": 0,
+            "UUID": 1840396746
+        },
+        "GameObject 30": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 88,
+                        "id_texture": 89,
+                        "id_vertex": 87,
+                        "n_indices": 1510,
+                        "n_vertices": 2548
+                    },
+                    "Name": "City_building_037",
+                    "Parent UUID": 835560990,
+                    "UUID": 1302297887
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building05_c",
+                    "Original Texture": 55,
+                    "Parent UUID": 835560990,
+                    "Texture": 55,
+                    "UUID": 521614487,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 835560990,
+                    "Position": [
+                        -20.31769371032715,
+                        -16.16360855102539,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.9470718370939721e-07
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1554654854
+                }
+            },
+            "Name": "City_building_037",
+            "Parent UUID": 0,
+            "UUID": 835560990
+        },
+        "GameObject 31": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 91,
+                        "id_texture": 92,
+                        "id_vertex": 90,
+                        "n_indices": 2464,
+                        "n_vertices": 3972
+                    },
+                    "Name": "City_building_038",
+                    "Parent UUID": 1373728657,
+                    "UUID": 226518482
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building05_c",
+                    "Original Texture": 57,
+                    "Parent UUID": 1373728657,
+                    "Texture": 57,
+                    "UUID": 1470815401,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1373728657,
+                    "Position": [
+                        -41.64900207519531,
+                        -16.495393753051758,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071068286895752,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 31126205
+                }
+            },
+            "Name": "City_building_038",
+            "Parent UUID": 0,
+            "UUID": 1373728657
+        },
+        "GameObject 32": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 94,
+                        "id_texture": 95,
+                        "id_vertex": 93,
+                        "n_indices": 2764,
+                        "n_vertices": 6069
+                    },
+                    "Name": "City_building_039",
+                    "Parent UUID": 1176293120,
+                    "UUID": 1530795230
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_v01_c",
+                    "Original Texture": 59,
+                    "Parent UUID": 1176293120,
+                    "Texture": 59,
+                    "UUID": 176274514,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1176293120,
+                    "Position": [
+                        -42.8072395324707,
+                        -30.643888473510742,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 414429175
+                }
+            },
+            "Name": "City_building_039",
+            "Parent UUID": 0,
+            "UUID": 1176293120
+        },
+        "GameObject 33": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 97,
+                        "id_texture": 98,
+                        "id_vertex": 96,
+                        "n_indices": 2764,
+                        "n_vertices": 6069
+                    },
+                    "Name": "City_building_040",
+                    "Parent UUID": 1686380236,
+                    "UUID": 1634861364
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_v01_c",
+                    "Original Texture": 61,
+                    "Parent UUID": 1686380236,
+                    "Texture": 61,
+                    "UUID": 1902248397,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1686380236,
+                    "Position": [
+                        -34.679481506347656,
+                        -30.643888473510742,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 252461772
+                }
+            },
+            "Name": "City_building_040",
+            "Parent UUID": 0,
+            "UUID": 1686380236
+        },
+        "GameObject 34": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 100,
+                        "id_texture": 101,
+                        "id_vertex": 99,
+                        "n_indices": 1392,
+                        "n_vertices": 2129
+                    },
+                    "Name": "City_building_041",
+                    "Parent UUID": 1119137047,
+                    "UUID": 1190916206
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_v02_c",
+                    "Original Texture": 63,
+                    "Parent UUID": 1119137047,
+                    "Texture": 63,
+                    "UUID": 581050903,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1119137047,
+                    "Position": [
+                        30.69527816772461,
+                        21.612646102905273,
+                        2.121072952832037e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 438668733
+                }
+            },
+            "Name": "City_building_041",
+            "Parent UUID": 0,
+            "UUID": 1119137047
+        },
+        "GameObject 35": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1195459224,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1190410972
+                }
+            },
+            "Name": "Camera001",
+            "Parent UUID": 0,
+            "UUID": 1195459224
+        },
+        "GameObject 36": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1913376588,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 633326091
+                }
+            },
+            "Name": "Camera001.Target",
+            "Parent UUID": 0,
+            "UUID": 1913376588
+        },
+        "GameObject 37": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 661541307,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 85557438
+                }
+            },
+            "Name": "Spot001",
+            "Parent UUID": 0,
+            "UUID": 661541307
+        },
+        "GameObject 38": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1622237867,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1362575383
+                }
+            },
+            "Name": "Spot001.Target",
+            "Parent UUID": 0,
+            "UUID": 1622237867
+        },
+        "GameObject 4": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1409543953,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 299334854
+                }
+            },
+            "Name": "Dummy001",
+            "Parent UUID": 0,
+            "UUID": 1409543953
+        },
+        "GameObject 5": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 4,
+                        "id_texture": 5,
+                        "id_vertex": 3,
+                        "n_indices": 1996,
+                        "n_vertices": 3850
+                    },
+                    "Name": "City_building_004",
+                    "Parent UUID": 810559846,
+                    "UUID": 557808697
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building03_c",
+                    "Original Texture": 5,
+                    "Parent UUID": 810559846,
+                    "Texture": 5,
+                    "UUID": 105021489,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 810559846,
+                    "Position": [
+                        -41.47589111328125,
+                        21.01409912109375,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 411762500
+                }
+            },
+            "Name": "City_building_004",
+            "Parent UUID": 0,
+            "UUID": 810559846
+        },
+        "GameObject 6": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 7,
+                        "id_texture": 8,
+                        "id_vertex": 6,
+                        "n_indices": 1392,
+                        "n_vertices": 2129
+                    },
+                    "Name": "City_building_001",
+                    "Parent UUID": 1666751281,
+                    "UUID": 2055464062
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_v02_c",
+                    "Original Texture": 7,
+                    "Parent UUID": 1666751281,
+                    "Texture": 7,
+                    "UUID": 1595675363,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1666751281,
+                    "Position": [
+                        17.707164764404297,
+                        20.05327606201172,
+                        2.121072952832037e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1612068856
+                }
+            },
+            "Name": "City_building_001",
+            "Parent UUID": 0,
+            "UUID": 1666751281
+        },
+        "GameObject 7": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 10,
+                        "id_texture": 11,
+                        "id_vertex": 9,
+                        "n_indices": 228,
+                        "n_vertices": 436
+                    },
+                    "Name": "City_building_007",
+                    "Parent UUID": 1037904466,
+                    "UUID": 502156903
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_016_c",
+                    "Original Texture": 9,
+                    "Parent UUID": 1037904466,
+                    "Texture": 9,
+                    "UUID": 1779454250,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1037904466,
+                    "Position": [
+                        16.0104923248291,
+                        37.4932861328125,
+                        -1.5106878663573298e-06
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 1417073130
+                }
+            },
+            "Name": "City_building_007",
+            "Parent UUID": 0,
+            "UUID": 1037904466
+        },
+        "GameObject 8": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 13,
+                        "id_texture": 14,
+                        "id_vertex": 12,
+                        "n_indices": 288,
+                        "n_vertices": 419
+                    },
+                    "Name": "City_building_008",
+                    "Parent UUID": 1200227467,
+                    "UUID": 847483845
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "building_025_c",
+                    "Original Texture": 11,
+                    "Parent UUID": 1200227467,
+                    "Texture": 11,
+                    "UUID": 559571420,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 1200227467,
+                    "Position": [
+                        40.97999572753906,
+                        18.270824432373047,
+                        -2.0522466002148576e-06
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 300291590
+                }
+            },
+            "Name": "City_building_008",
+            "Parent UUID": 0,
+            "UUID": 1200227467
+        },
+        "GameObject 9": {
+            "Components": {
+                "Mesh": {
+                    "Active": true,
+                    "Data": {
+                        "id_index": 16,
+                        "id_texture": 17,
+                        "id_vertex": 15,
+                        "n_indices": 24,
+                        "n_vertices": 48
+                    },
+                    "Name": "Line002",
+                    "Parent UUID": 420991593,
+                    "UUID": 1200572336
+                },
+                "Texture": {
+                    "Active": true,
+                    "Height": 0,
+                    "Name": "",
+                    "Original Texture": 0,
+                    "Parent UUID": 420991593,
+                    "Texture": 0,
+                    "UUID": 688096122,
+                    "Width": 0
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 420991593,
+                    "Position": [
+                        -2.1597719192504883,
+                        1.8538382053375244,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 998881997
+                }
+            },
+            "Name": "Line002",
+            "Parent UUID": 0,
+            "UUID": 420991593
+        }
+    }
+}

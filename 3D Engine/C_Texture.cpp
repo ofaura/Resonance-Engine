@@ -53,6 +53,21 @@ void C_Texture::Load(const char * gameObject, const json & file)
 	original_texture = file["Game Objects"][gameObject]["Components"]["Texture"]["Original Texture"];
 	width = file["Game Objects"][gameObject]["Components"]["Texture"]["Width"];
 	height = file["Game Objects"][gameObject]["Components"]["Texture"]["Height"];
+	
+	json tmp = file["Game Objects"][gameObject]["Components"]["Texture"]["Name"];
+	name = tmp.get<std::string>();
+	string n = file["Game Objects"][gameObject]["Name"];
+
+	if (name == "" && n != "Plane001")
+	{
+		parent->RemoveComponent(COMPONENT_TYPE::TEXTURE);
+		return;
+	}
+		
+	string path = LIBRARY_TEXTURES_FOLDER + name + ".dds";
+	if (path != "Library/Textures/.dds")
+		App->rscr->GenerateTexture(path.c_str(), this);
+
 }
 
 void C_Texture::Save(const char * gameObject, json & file)
@@ -64,4 +79,6 @@ void C_Texture::Save(const char * gameObject, json & file)
 	file["Game Objects"][gameObject]["Components"]["Texture"]["Original Texture"] = original_texture;
 	file["Game Objects"][gameObject]["Components"]["Texture"]["Width"] = width;
 	file["Game Objects"][gameObject]["Components"]["Texture"]["Height"] = height;
+	file["Game Objects"][gameObject]["Components"]["Texture"]["Name"] = name;
+
 }

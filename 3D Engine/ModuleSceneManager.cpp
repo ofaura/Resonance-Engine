@@ -4,7 +4,6 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleInput.h"
 #include "ModuleFileSystem.h"
-#include "ModuleResourceManager.h"
 #include "ModuleWindow.h"
 
 #include <fstream>
@@ -44,7 +43,6 @@ void ModuleSceneManager::LoadScene(const string scene)
 
 	CleanUp();
 
-	App->scene_intro->root = new GameObject("root", nullptr);
 
 	json file;
 	string path = LIBRARY_SCENE_FOLDER + scene + sceneExtension;
@@ -54,6 +52,7 @@ void ModuleSceneManager::LoadScene(const string scene)
 	file = json::parse(stream);
 	stream.close();
 
+	App->scene_intro->root = new GameObject("root", nullptr);
 	numGO = file["Game Objects"]["Count"];
 	LoadAllGO(App->scene_intro->root, file);
 	App->scene_intro->goSelected = nullptr;
@@ -183,7 +182,7 @@ void ModuleSceneManager::LoadScenePopUp()
 		if (ImGui::MenuItem(sceneList[i].c_str()))
 		{
 			SaveScene(sceneName);
-			LoadScene(App->rscr->GetNameFromPath(sceneList[i].c_str()));
+			LoadScene(GetNameFromPath(sceneList[i].c_str()));
 		}
 	}
 }
@@ -194,4 +193,23 @@ bool ModuleSceneManager::CleanUp()
 	numGO = 0;
 
 	return true;
+}
+
+string ModuleSceneManager::GetNameFromPath(string path, bool withExtension)
+{
+	string name;
+
+	App->fileSystem->NormalizePath(path);
+	name = path.substr(path.find_last_of("//") + 1);
+
+	if (withExtension)
+		return name;
+
+	else
+	{
+		string::size_type const p(name.find_last_of('.'));
+		string file_name = name.substr(0, p);
+
+		return file_name;
+	}
 }

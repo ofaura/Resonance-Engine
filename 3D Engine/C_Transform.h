@@ -21,6 +21,11 @@ public:
 	void Load(const char* gameObject, const json &file);
 	void Save(const char* gameObject, json &file);
 
+	void SetLocalFromMatrix(mat4x4 matrix);
+	mat4x4 GetLocalTransformMatrix();
+
+	mat4x4 SetLocalMatrix(float3 pos, Quat rot, float3 scale);
+
 public:
 
 	mat4x4 globalMatrix;

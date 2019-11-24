@@ -4,6 +4,7 @@
 #include "ModuleSceneIntro.h"
 #include "C_Texture.h"
 #include "C_Mesh.h"
+#include "C_Transform.h"
 #include "ModuleFileSystem.h"
 
 #include "glew/include/GL/glew.h"
@@ -37,7 +38,7 @@
 #pragma comment( lib, "DevIL/lib/x86/Release/ILUT.lib" )
 
 
-ModuleResourceManager::ModuleResourceManager(Application* app, bool start_enabled) : Module("Resource Manager", start_enabled) {}
+ModuleResourceManager::ModuleResourceManager(bool start_enabled) : Module("Resource Manager", start_enabled) {}
 ModuleResourceManager::~ModuleResourceManager() {}
 
 bool ModuleResourceManager::Init()
@@ -58,8 +59,6 @@ bool ModuleResourceManager::Start()
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
-	loadedAll = true;
-
 	GenerateCheckerTexture();
 
 	glEnable(GL_TEXTURE_2D);
@@ -74,34 +73,67 @@ bool ModuleResourceManager::CleanUp()
 	return true;
 }
 
-void ModuleResourceManager::LoadFilesFBX(const char* path)
+bool ModuleResourceManager::FileReceived(string path)
 {
-	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
+	string extension;
+	string name;
+	App->fileSystem->SplitFilePath(path.c_str(), nullptr, &name, &extension);
+
+	const aiScene* scene = aiImportFile(path.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
+
+	if (CheckMeshExtension(extension.c_str()))
+		App->scene_intro->root->children.push_back(LoadFilesFBX(scene->mRootNode, scene, &path, App->scene_intro->root));
+
+	aiReleaseImport(scene);
+
+	/*if (CheckTextureExtension(extension.c_str()));
+		LoadTexture(path);*/
+	return true;
+}
+
+GameObject* ModuleResourceManager::LoadFilesFBX(aiNode* node, const aiScene* scene, string* path, GameObject* parent)
+{
+	GameObject* fbxMesh = nullptr;
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		GameObject* parent = new GameObject(GetNameFromPath(path));
-		parent->MakeChild(App->scene_intro->root);
+		string name = node->mName.C_Str();
+		static const char* transformNodes[5] = {
+			"$AssimpFbx$_PreRotation", "$AssimpFbx$_Rotation", "$AssimpFbx$_PostRotation",
+			"$AssimpFbx$_Scaling", "$AssimpFbx$_Translation" };
 
-		for (uint i = 0; i < scene->mNumMeshes; ++i)
+		for (int i = 0; i < 5; i++)
 		{
-			GameObject* fbxMesh = nullptr;
-
-			if (scene->mNumMeshes > 1)
+			if (name.find(transformNodes[i]) != string::npos && node->mNumChildren > 0)
 			{
-				fbxMesh = new GameObject(scene->mMeshes[i]->mName.C_Str());
-				fbxMesh->MakeChild(parent);
+				node = node->mChildren[0];
+				name = node->mName.C_Str();
+				i = -1;
+			}
+		}
+		RemoveSpacesFromPath(&name);
+		if (node->mNumMeshes == 0)
+			fbxMesh = new GameObject(node->mName.C_Str());
+
+		for (uint i = 0; i < node->mNumMeshes; ++i)
+		{
+
+			if (scene->mNumMeshes > 0)
+			{
+				fbxMesh = new GameObject(scene->mMeshes[node->mMeshes[i]]->mName.C_Str());
+				fbxMesh->name = node->mName.C_Str();
 			}
 
-			else
-				fbxMesh = parent;
+			fbxMesh->parent = parent;
 
-			// Copy the mesh						
-			C_Mesh* mesh = (C_Mesh*)fbxMesh->AddComponent(COMPONENT_TYPE::MESH, fbxMesh);
-			LoadMesh(mesh, scene->mMeshes[i]);
+			// Copy the mesh			
+			if (fbxMesh->HasComponent(COMPONENT_TYPE::MESH))
+				int a = 0;
+			C_Mesh* mesh = (C_Mesh*)fbxMesh->AddComponent(COMPONENT_TYPE::MESH, true);
+			LoadMesh(mesh, scene->mMeshes[node->mMeshes[i]]);
 
 			// Copy materials
-			aiMaterial* aux_mat = scene->mMaterials[scene->mMeshes[i]->mMaterialIndex];
+			aiMaterial* aux_mat = scene->mMaterials[scene->mMeshes[node->mMeshes[i]]->mMaterialIndex];
 			uint totalTex = aux_mat->GetTextureCount(aiTextureType_DIFFUSE);
 			aiString p;
 			aux_mat->GetTexture(aiTextureType_DIFFUSE, 0, &p);
@@ -113,27 +145,62 @@ void ModuleResourceManager::LoadFilesFBX(const char* path)
 			C_Texture* texture = (C_Texture*)fbxMesh->AddComponent(COMPONENT_TYPE::TEXTURE, fbxMesh);
 			GenerateTexture(full_path.c_str(), texture);
 
+			if (fbxMesh != nullptr) 
+			{
+				aiVector3D translation, scaling;
+				aiQuaternion rotation;
+				node->mTransformation.Decompose(scaling, rotation, translation);
 
-			App->scene_intro->gameObjects.push_back(fbxMesh);
+				float3 pos(translation.x, translation.y, translation.z);
+				float3 scale(scaling.x, scaling.y, scaling.z);
+				Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+
+				fbxMesh->component_transform->position = pos;
+				fbxMesh->component_transform->rotation = rot;
+				fbxMesh->component_transform->scales= scale;
+
+				fbxMesh->component_transform->UpdateMatrix();
+			}
+
+			//App->scene_intro->gameObjects.push_back(fbxMesh);
 			LOG("Loaded new model %s. GameObjects on scene: %d", fbxMesh->name.c_str(), App->scene_intro->gameObjects.size());
 		}
-		aiReleaseImport(scene);
+
+		for (int i = 0; i < node->mNumChildren; ++i)
+		{
+			aiNode* child = node->mChildren[i];
+			GameObject* go = nullptr;
+
+/*
+			if (fbxMesh == nullptr)
+				fbxMesh = new GameObject(node->mName.C_Str(), App->scene_intro->root);*/
+
+			go = LoadFilesFBX(child, scene, path, fbxMesh);
+
+			if (go != nullptr)
+			{
+				fbxMesh->children.push_back(go);
+			}
+		}
 	}
+
+	return fbxMesh;
 }
 
-void ModuleResourceManager::ImportFile(const char * path)
+
+void ModuleResourceManager::ImportFile(string * path)
 {
 	string finalPath;
 	string extension;
 
-	App->fileSystem->SplitFilePath(path, nullptr, &finalPath, &extension);
+	App->fileSystem->SplitFilePath(path->c_str(), nullptr, &finalPath, &extension);
 
 	if (CheckTextureExtension(extension.c_str()))
 		finalPath = ASSETS_TEXTURE_FOLDER + finalPath;
 	if (CheckMeshExtension(extension.c_str()))
 		finalPath = ASSETS_MODEL_FOLDER + finalPath;
 
-	if (App->fileSystem->CopyFromOutsideFS(path, finalPath.c_str()))
+	if (App->fileSystem->CopyFromOutsideFS(path->c_str(), finalPath.c_str()))
 	{
 		string written_file;
 		if (CheckTextureExtension(extension.c_str()))
@@ -142,13 +209,13 @@ void ModuleResourceManager::ImportFile(const char * path)
 			if (!texture) 
 				texture = (C_Texture*)App->scene_intro->goSelected->AddComponent(COMPONENT_TYPE::TEXTURE, App->scene_intro->goSelected);
 
-			GenerateTexture(path, texture);
+			GenerateTexture(path->c_str(), texture);
 			texture = nullptr;
 		}
 		else if (CheckMeshExtension(extension.c_str())) 
 		{
 			C_Mesh* mesh = new C_Mesh(COMPONENT_TYPE::MESH, nullptr, true);
-			LoadFilesFBX(path);
+			//LoadFilesFBX(path);
 			App->scene_intro->goSelected = App->scene_intro->gameObjects.back();
 		}
 		else
@@ -156,7 +223,7 @@ void ModuleResourceManager::ImportFile(const char * path)
 	}
 }
 
-bool ModuleResourceManager::ImportTexture(const char * path, string & outputFile)
+bool ModuleResourceManager::ImportTexture(const char * path, string & outputFile, C_Texture* texture)
 {
 	bool ret = false;
 
@@ -170,8 +237,13 @@ bool ModuleResourceManager::ImportTexture(const char * path, string & outputFile
 	{
 		data = new ILubyte[size];
 		
+		string newPath = path;
+		RemoveSpacesFromPath(&newPath);
+
+		texture->name = GetNameFromPath(newPath).c_str();
+
 		if (ilSaveL(IL_DDS, data, size) > 0)
-			ret = App->fileSystem->SaveUnique(outputFile, data, size, LIBRARY_TEXTURES_FOLDER, GetNameFromPath(path).c_str(), "dds");
+			ret = App->fileSystem->SaveUnique(outputFile, data, size, LIBRARY_TEXTURES_FOLDER, GetNameFromPath(newPath).c_str(), "dds");
 		RELEASE_ARRAY(data);
 
 		LOG("Imported texture %s", outputFile);
@@ -329,9 +401,12 @@ void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 	mesh->parent->Localbbox.Enclose((float3*)data.vertices, data.n_vertices);
 	mesh->meshData = data;
 	mesh->name = mesh->parent->name;
-	
+		
 	// We import the mesh to our library
-	string path = LIBRARY_MESH_FOLDER + mesh->parent->name + ".mesh";;
+	string newName = mesh->parent->name;
+	RemoveSpacesFromPath(&newName);
+
+	string path = LIBRARY_MESH_FOLDER + newName + ".mesh";;
 	ImportMesh(path.c_str(), mesh);
 }
 
@@ -408,6 +483,8 @@ void ModuleResourceManager::LoadMesh(const char * path, C_Mesh * mesh)
 	}
 }
 
+
+
 bool ModuleResourceManager::ValidTextureExtension(const string& extension)
 {
 	string ext;
@@ -415,7 +492,7 @@ bool ModuleResourceManager::ValidTextureExtension(const string& extension)
 	if (i != string::npos) 
 		ext = (char*)&(extension.substr(i + 1, extension.length() - i));
 	
-	return (ext == "dds" || ext == "png" || ext == "jpg" || ext == "DDS" || ext == "PNG" || ext == "JPG");
+	return (ext == "dds" || ext == "png" || ext == "jpg" || ext == "tga" || ext == "DDS" || ext == "PNG" || ext == "JPG" || ext == "TGA");
 }
 
 bool ModuleResourceManager::ValidMeshExtension(const string& extension)
@@ -430,7 +507,7 @@ bool ModuleResourceManager::ValidMeshExtension(const string& extension)
 
 bool ModuleResourceManager::CheckTextureExtension(const char * extension)
 {
-	return (strcmp(extension, "dds") == 0 || strcmp(extension, "png") == 0 || strcmp(extension, "jpg") == 0);
+	return (strcmp(extension, "dds") == 0 || strcmp(extension, "png") == 0 || strcmp(extension, "jpg") || strcmp(extension, "tga") == 0);
 }
 
 bool ModuleResourceManager::CheckMeshExtension(const char * extension)
@@ -497,7 +574,7 @@ void ModuleResourceManager::GenerateTexture(const char* path, C_Texture* texture
 		}
 
 		string name;
-		ImportTexture(path, name);
+		ImportTexture(path, name, texture);
 
 		ilBindImage(0);
 		ilDeleteImage(pic);
@@ -551,6 +628,13 @@ string ModuleResourceManager::GetNameFromPath(string path, bool withExtension)
 
 		return file_name;
 	}
+}
+
+string* ModuleResourceManager::RemoveSpacesFromPath(string* path)
+{
+	path->erase(remove(path->begin(), path->end(), ' '), path->end());
+	
+	return path;
 }
 
 

@@ -1,6 +1,6 @@
 {
     "Game Objects": {
-        "Count": 4,
+        "Count": 1,
         "GameObject 1": {
             "Components": {
                 "Transform": {
@@ -22,126 +22,12 @@
                         1.0,
                         1.0
                     ],
-                    "UUID": 138823163
+                    "UUID": 721874182
                 }
             },
             "Name": "root",
             "Parent UUID": 0,
             "UUID": 0
-        },
-        "GameObject 2": {
-            "Components": {
-                "Transform": {
-                    "Active": true,
-                    "Parent UUID": 1331019723,
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "UUID": 857283286
-                }
-            },
-            "Name": "bakerhouse",
-            "Parent UUID": 0,
-            "UUID": 1331019723
-        },
-        "GameObject 3": {
-            "Components": {
-                "Mesh": {
-                    "Active": true,
-                    "Name": "Untitled.001",
-                    "Parent UUID": 2054137182,
-                    "UUID": 1470734686
-                },
-                "Texture": {
-                    "Active": true,
-                    "Height": 0,
-                    "Original Texture": 4,
-                    "Parent UUID": 2054137182,
-                    "Texture": 4,
-                    "UUID": 1999285046,
-                    "Width": 0
-                },
-                "Transform": {
-                    "Active": true,
-                    "Parent UUID": 2054137182,
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "UUID": 1558759704
-                }
-            },
-            "Name": "Untitled.001",
-            "Parent UUID": 1331019723,
-            "UUID": 2054137182
-        },
-        "GameObject 4": {
-            "Components": {
-                "Mesh": {
-                    "Active": true,
-                    "Name": "Untitled",
-                    "Parent UUID": 924123614,
-                    "UUID": 396099908
-                },
-                "Texture": {
-                    "Active": true,
-                    "Height": 0,
-                    "Original Texture": 6,
-                    "Parent UUID": 924123614,
-                    "Texture": 6,
-                    "UUID": 1034183741,
-                    "Width": 0
-                },
-                "Transform": {
-                    "Active": true,
-                    "Parent UUID": 924123614,
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "UUID": 1947549821
-                }
-            },
-            "Name": "Untitled",
-            "Parent UUID": 1331019723,
-            "UUID": 924123614
         }
     }
 }

@@ -38,6 +38,17 @@ GameObject::GameObject(string name, GameObject* parent) : name(name), parent(par
 	}
 }
 
+GameObject::GameObject(GameObject * parent, const char * name, const float3 & translation, const float3 & scale, const Quat & rotation)
+{
+	if (parent)
+		MakeChild(parent);
+
+	component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM, true);
+	component_transform->position = translation;
+	component_transform->rotation = rotation;
+	component_transform->scales = scale;
+}
+
 GameObject::~GameObject() {}
 
 
@@ -123,6 +134,13 @@ Component* GameObject::AddComponent(COMPONENT_TYPE type, bool active)
 	return component;
 }
 
+void GameObject::AddComponent(Component * component, COMPONENT_TYPE type)
+{
+	component->type = type;
+	component->parent = this;
+	components.push_back(component);
+}
+
 Component * GameObject::GetComponent(COMPONENT_TYPE type)
 {
 	for (int i = 0; i < components.size(); ++i)
@@ -132,6 +150,23 @@ Component * GameObject::GetComponent(COMPONENT_TYPE type)
 	}
 
 	return nullptr;
+}
+
+GameObject * GameObject::AddChildren(string name)
+{
+	GameObject* ret = new GameObject(name, this);
+	mapChildren.insert({ ret->UUID, ret });
+
+	return ret;
+}
+
+void GameObject::GetChildren(vector<GameObject*>* child)
+{
+	for (auto item = mapChildren.begin(); item != mapChildren.end(); ++item)
+	{
+		(*item).second->GetChildren(child);
+	}
+	child->push_back(this);
 }
 
 void GameObject::RemoveComponent(COMPONENT_TYPE type)
@@ -221,4 +256,17 @@ float4x4 GameObject::mat2float4(mat4x4 mat)
 	float4x4 f_mat;
 	f_mat.Set(mat.M);
 	return f_mat.Transposed();
+}
+
+void GameObject::SetLocalAABB(AABB aabb)
+{
+	AABB compare;
+	compare.SetNegativeInfinity();
+	if (Localbbox.minPoint.Equals(compare.minPoint) && Localbbox.minPoint.Equals(compare.minPoint))
+	{
+		Localbbox = aabb;
+		obb = Localbbox;
+	}
+	else
+		Localbbox.Enclose(aabb);
 }

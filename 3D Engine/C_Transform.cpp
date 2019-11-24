@@ -95,3 +95,31 @@ void C_Transform::Save(const char * gameObject, json & file)
 	file["Game Objects"][gameObject]["Components"]["Transform"]["Position"] = { position.x, position.y, position.z };
 	file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"] = { scales.x, scales.y, scales.y };
 }
+
+void C_Transform::SetLocalFromMatrix(mat4x4 matrix)
+{
+	localMatrix = matrix;
+}
+
+mat4x4 C_Transform::GetLocalTransformMatrix()
+{
+	return localMatrix;
+}
+
+mat4x4 C_Transform::SetLocalMatrix(float3 pos, Quat rot, float3 _scale)
+{
+	mat4x4 ret;
+
+	mat4x4 translation = translate(pos.x, pos.y, pos.z);
+	mat4x4 AuxRotation;
+	mat4x4 auxiliar;
+	mat4x4 scalate = scale(_scale.x, _scale.y, _scale.z);
+
+	AuxRotation = AuxRotation * auxiliar.rotate(rot.x, { 1,0,0 });
+	AuxRotation = AuxRotation * auxiliar.rotate(rot.y, { 0,1,0 });
+	AuxRotation = AuxRotation * auxiliar.rotate(rot.z, { 0,0,1 });
+
+	ret = translation * AuxRotation * scalate;
+
+	return ret;
+}
