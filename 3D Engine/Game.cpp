@@ -50,6 +50,14 @@ void Game::Draw()
 			else
 				App->scene_intro->ShowBoundingBoxes = false;
 		}
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Quad Tree", &quadtree))
+		{
+			if (!App->scene_intro->ShowQuadtree)
+				App->scene_intro->ShowQuadtree = true;
+			else
+				App->scene_intro->ShowQuadtree = false;
+		}
 
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
 		size = ImVec2(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y);

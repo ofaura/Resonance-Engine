@@ -24,15 +24,16 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 
 	root = new GameObject("root");
-	MainCamera = new GameObject("Main Camera", root);
-	MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
+	//MainCamera = new GameObject("Main Camera", root);
+	//MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
 
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	App->rscr->LoadFilesFBX("Assets/FBX/BakerHouse.fbx");
+	//App->rscr->LoadFilesFBX("Assets/FBX/BakerHouse.fbx");
 
-	objectTree = new Quadtree( AABB({ -50,-50,-50 }, { 50,50,50 }), 1);
+	objectTree = new Quadtree( AABB({ -1000,-50,-1000 }, { 1000,50,1000 }), 1);
 
+	UpdateQuadtree();
 
 	return ret;
 }
@@ -46,7 +47,7 @@ bool ModuleSceneIntro::CleanUp()
 
 	root->CleanUp();
 
-	objectTree->rootNode->Clear();
+	objectTree->base->Clear();
 
 	return true;
 }
@@ -159,13 +160,9 @@ update_status ModuleSceneIntro::Update(float dt)
 			mesh->DrawBox(*AABBInScene[i],*OBBInScene[i]);
 		}
 	}
-	
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		for (int i = 0; i < root->children.size(); ++i)
-			objectTree->rootNode->Insert(root->children[i]);
 
-
-	objectTree->rootNode->Draw();
+	if(ShowQuadtree)
+		objectTree->base->Draw();
 
 	return UPDATE_CONTINUE;
 }
@@ -175,4 +172,13 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 	root->PostUpdate();
 
 	return UPDATE_CONTINUE;
+}
+
+void ModuleSceneIntro::UpdateQuadtree()
+{
+
+	for (int i = 0; i < root->children.size(); ++i)
+	{	
+		objectTree->base->Insert(root->children[i]);
+	}
 }

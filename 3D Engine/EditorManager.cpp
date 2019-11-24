@@ -176,6 +176,9 @@ update_status EditorManager::Update(float dt)
 				if (ImGui::MenuItem("Chair"))
 					App->rscr->LoadFilesFBX("Assets\\FBX\\Chair.fbx");
 
+				if(ImGui::MenuItem("House"))
+					App->rscr->LoadFilesFBX("Assets\\FBX\\BakerHouse.fbx");
+
 				ImGui::EndMenu();
 			}
 

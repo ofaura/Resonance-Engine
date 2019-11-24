@@ -12,7 +12,6 @@
 class C_Mesh;
 class C_Texture;
 class C_Transform;
-//class AABB;
 
 class GameObject
 {

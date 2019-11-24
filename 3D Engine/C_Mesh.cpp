@@ -13,6 +13,7 @@
 #include "C_Camera.h"
 #include "Component.h"
 #include "Quadtree.h"
+#include "ModuleCamera3D.h"
 
 
 void Data::CleanUp()
@@ -30,13 +31,6 @@ C_Mesh::~C_Mesh() {}
 
 void C_Mesh::Update()
 {
-	//std::vector<GameObject*> treeObjects = App->scene_intro->objectTree->CollectChilldren(auxcam->frustum);
-
-	//for (int i = 0; i < treeObjects.size(); ++i)
-	//{
-	//}
-	
-
 	if (drawFaceNormals)
 		DrawFaceNormals();
 	if (drawVerticesNormals)
@@ -50,8 +44,8 @@ void C_Mesh::Update()
 
 void C_Mesh::PostUpdate()
 {
-	C_Camera* auxcam = (C_Camera*)App->scene_intro->MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
-	std::vector<GameObject*> treeObjects = App->scene_intro->objectTree->rootNode->CollectChilldren(auxcam->frustum);
+	C_Camera* auxcam = (C_Camera*)App->camera->editorcamera;
+	std::vector<GameObject*> treeObjects = App->scene_intro->objectTree->base->ObjectsInside(auxcam->frustum);
 	
 	static Frustum* frust = &auxcam->frustum;
 	for (int i = 0; i < treeObjects.size(); ++i)

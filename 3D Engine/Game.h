@@ -28,6 +28,7 @@ private:
 	bool	texture2D = true;
 	bool	alpha = true;
 	bool	boundingboxes = false;
+	bool	quadtree = true;
 
 public:
 	FBO* fbo = nullptr;	

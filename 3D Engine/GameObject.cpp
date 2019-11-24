@@ -59,6 +59,7 @@ void GameObject::Update()
 	}
 
 	Updatebbox();
+	App->scene_intro->UpdateQuadtree();
 }
 
 void GameObject::PostUpdate()

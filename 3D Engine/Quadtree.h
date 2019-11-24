@@ -7,13 +7,6 @@
 #include "glmath.h"
 #include "GameObject.h"
 
-enum class NODE_TYPE {
-	NONE = -1,
-	ROOT,
-	BRANCH,
-	LEAF
-};
-
 class Node;
 
 class Quadtree {
@@ -25,39 +18,47 @@ public:
 
 public:
 
-	Node* rootNode;
+	Node* base;
 	bool firstnode = true;
 
 };
+
+enum class Quadpart {
+	NONE = -1,
+	BASE,
+	MIDDLE,
+	EXTREMITY
+};
+
 
 class Node {
 
 public:
 
 	Node();
-	Node(AABB aabb, NODE_TYPE ntype, int capacity);
+	Node(AABB aabb, Quadpart ntype, int capacity);
 	~Node();
 
 	void Clear();
 	void Split();
 	void Draw();
 	bool Insert(GameObject* gameObject);
-	std::vector<GameObject*> CollectChilldren(Frustum frustum);
+	std::vector<GameObject*> ObjectsInside(Frustum frustum);
 	bool Intersect(Frustum frustum, AABB aabb);
 
 
 public:
 
-	bool isLeaf = true;
-	NODE_TYPE nodeType = NODE_TYPE::NONE;
-	AABB aabb;
-	Node *nodes = nullptr;
+	bool DontDrawChilds = true;
+	Quadpart nodeType = Quadpart::NONE;
+	AABB box;
+	Node *childs = nullptr;
 	std::vector<GameObject*> objects;
 	int capacity = 0;
 
 private:
 
-	int nodesAmount = 0;
+	int N_Childs = 0;
 	
 };
 

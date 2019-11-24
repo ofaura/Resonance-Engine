@@ -2,222 +2,315 @@
 #include "GameObject.h"
 #include "mmgr/mmgr.h"
 
-Quadtree::Quadtree( AABB aabb, int capacity)
+Quadtree::Quadtree( AABB box, int capacity)
 {
-	rootNode = new Node(aabb, NODE_TYPE::ROOT, capacity);
-	rootNode->capacity = capacity;
-	rootNode->aabb = aabb;
+
+	base = new Node(box, Quadpart::BASE, capacity);
+	base->capacity = capacity;
+	base->box = box;
 
 }
 
-Quadtree::~Quadtree() { delete[] rootNode; }
+Quadtree::~Quadtree() { delete[] base; }
 
 //--------------------------------------------------------------------
 
 Node::Node(){}
-
-Node::Node(AABB aabb, NODE_TYPE ntype, int capacity) : aabb(aabb), nodeType(ntype), capacity(capacity){}
-
+Node::Node(AABB box, Quadpart ntype, int capacity) : box(box), nodeType(ntype), capacity(capacity){}
 Node::~Node(){}
 
 void Node::Split()
 {
-	isLeaf = false;
-	AABB newAABBs[4];
-	float3 maxPoint, minPoint;
 
-	//NORTH-WEST subnode
-	maxPoint = { aabb.MaxX(), aabb.MaxY(), aabb.MaxZ() };
-	minPoint = { (aabb.MaxX() + aabb.MinX()) / 2 , aabb.MinY(), (aabb.MaxZ() + aabb.MinZ()) / 2 };
-	newAABBs[0].minPoint = minPoint;
-	newAABBs[0].maxPoint = maxPoint;
+	DontDrawChilds = false;
+	AABB childsbox[4];
+	float3 max[4];
+	float3 min[4];
+	childs = new Node[4];
 
-	//NORTH-EAST subnode
-	maxPoint = { (aabb.MaxX() + aabb.MinX()) / 2, aabb.MaxY(), aabb.MaxZ() };
-	minPoint = { aabb.MinX(), aabb.MinY(), (aabb.MaxZ() + aabb.MinZ()) / 2 };
-	newAABBs[1].minPoint = minPoint;
-	newAABBs[1].maxPoint = maxPoint;
 
-	//SOUTH-WEST subnode
-	maxPoint = { aabb.MaxX(), aabb.MaxY(),(aabb.MaxZ() + aabb.MinZ()) / 2 };
-	minPoint = { (aabb.MaxX() + aabb.MinX()) / 2, aabb.MinY(), aabb.MinZ() };
-	newAABBs[2].minPoint = minPoint;
-	newAABBs[2].maxPoint = maxPoint;
+	max[0] = { box.MaxX(), box.MaxY(), box.MaxZ() };
+	max[1] = { (box.MaxX() + box.MinX()) / 2, box.MaxY(), box.MaxZ() };
+	max[2] = { box.MaxX(), box.MaxY(),(box.MaxZ() + box.MinZ()) / 2 };
+	max[3] = { (box.MaxX() + box.MinX()) / 2, box.MaxY(),(box.MaxZ() + box.MinZ()) / 2 };
 
-	//SOUTH-EAST subnode
-	maxPoint = { (aabb.MaxX() + aabb.MinX()) / 2, aabb.MaxY(),(aabb.MaxZ() + aabb.MinZ()) / 2 };
-	minPoint = { aabb.MinX(), aabb.MinY(), aabb.MinZ() };
-	newAABBs[3].minPoint = minPoint;
-	newAABBs[3].maxPoint = maxPoint;
 
-	nodes = new Node[4];
+	min[0] = { (box.MaxX() + box.MinX()) / 2 , box.MinY(), (box.MaxZ() + box.MinZ()) / 2 };
+	min[1] = { box.MinX(), box.MinY(), (box.MaxZ() + box.MinZ()) / 2 };
+	min[2] = { (box.MaxX() + box.MinX()) / 2, box.MinY(), box.MinZ() };
+	min[3] = { box.MinX(), box.MinY(), box.MinZ() };
+	
+	
+	childsbox[0].minPoint = min[0];
+	childsbox[0].maxPoint = max[0];
+	childsbox[1].minPoint = min[1];
+	childsbox[1].maxPoint = max[1];
+	childsbox[2].minPoint = min[2];
+	childsbox[2].maxPoint = max[2];
+	childsbox[3].minPoint = min[3];
+	childsbox[3].maxPoint = max[3];
 
-	this;
 
-	for (int i = 0; i < 4; ++i)
-		nodes[i] = Node(newAABBs[i], NODE_TYPE::LEAF, capacity);
+	childs[0] = Node(childsbox[0], Quadpart::EXTREMITY, capacity);
+	childs[1] = Node(childsbox[1], Quadpart::EXTREMITY, capacity);
+	childs[2] = Node(childsbox[2], Quadpart::EXTREMITY, capacity);
+	childs[3] = Node(childsbox[3], Quadpart::EXTREMITY, capacity);
 
-	if (nodeType != NODE_TYPE::ROOT)
-		nodeType = NODE_TYPE::BRANCH;
+	if (nodeType != Quadpart::BASE) nodeType = Quadpart::MIDDLE;
 
-	nodesAmount = 4;
+	N_Childs = 4;
 
 }
 
 bool Node::Insert(GameObject* gameObject)
 {
 
-	int nodesContaining = 0;
-	int container = 0;
+	int numberofnodes = 0;
+	int auxcounter = 0;
 
 	switch (nodeType)
 	{
-	case NODE_TYPE::ROOT:
-		if (nodesAmount == 0)
+
+
+	case Quadpart::BASE:
+		
+		
+		if (N_Childs == 0)
 		{
+
+
 			objects.push_back(gameObject);
+
 
 			if (objects.size() > capacity)
 			{
+
+
 				Split();
 
-				std::vector<GameObject*> auxVector = objects;
-				//objects.clear();
 
-				for (int a = 0; a < auxVector.size(); ++a)
+				for (int a = 0; a < objects.size(); ++a)
 				{
-					nodesContaining = 0;
-					container = 0;
-					for (int i = 0; i < nodesAmount; ++i)
+
+					numberofnodes = 0;
+					auxcounter = 0;
+					
+					for (int i = 0; i < N_Childs; ++i)
 					{
-						if (nodes[i].aabb.Intersects(auxVector[a]->Globalbbox))
+						
+
+						if (childs[i].box.Intersects(objects[a]->Globalbbox))
 						{
-							nodesContaining++;
-							container = i;
+							numberofnodes++;
+							auxcounter = i;
 						}
-						if (nodesContaining > 1)
+						
+
+						if (numberofnodes > 1)
+						{
 							break;
+						}
+					
+
 					}
 
-					if (nodesContaining == 1)
-						nodes[container].Insert(auxVector[a]);
 
-					else if (nodesContaining > 1)
-						objects.push_back(auxVector[a]);
+					if (numberofnodes == 1)
+					{
+						childs[auxcounter].Insert(objects[a]);
+					}
+
+
+					else if (numberofnodes > 1)
+					{
+						objects.push_back(objects[a]);
+					}
+
 				}
 
 			}
+
 		}
 
 		else
 		{
-			for (int i = 0; i < nodesAmount; ++i)
+
+
+			for (int i = 0; i < N_Childs; ++i)
 			{
-				if (nodes[i].aabb.Intersects(gameObject->Globalbbox))
+
+
+				if (childs[i].box.Intersects(gameObject->Globalbbox))
 				{
-					nodesContaining++;
-					container = i;
+					numberofnodes++;
+					auxcounter = i;
 				}
-				if (nodesContaining > 1)
+
+
+				if (numberofnodes > 1)
+				{
 					break;
+				}
+					
+
 			}
 
-			if (nodesContaining == 1)
-				nodes[container].Insert(gameObject);
 
-			else if (nodesContaining > 1)
-				objects.push_back(gameObject);
-		}
-
-		break;
-	case NODE_TYPE::BRANCH:
-
-		for (int i = 0; i < nodesAmount; ++i)
-		{
-			if (nodes[i].aabb.Intersects(gameObject->Globalbbox))
+			if (numberofnodes == 1)
 			{
-				nodesContaining++;
-				container = i;
+				childs[auxcounter].Insert(gameObject);
 			}
-			if (nodesContaining > 1)
-				break;
+				
+
+			else if (numberofnodes > 1)
+			{
+				objects.push_back(gameObject);
+			}
+				
+
 		}
 
-		if (nodesContaining == 1)
-			nodes[container].Insert(gameObject);
-
-		else if (nodesContaining > 1)
-			objects.push_back(gameObject);
 
 		break;
 
-	case NODE_TYPE::LEAF:
+
+	case Quadpart::MIDDLE:
+
+		for (int i = 0; i < N_Childs; ++i)
+		{
+
+
+			if (childs[i].box.Intersects(gameObject->Globalbbox))
+			{
+				numberofnodes++;
+				auxcounter = i;
+			}
+
+
+			if (numberofnodes > 1)
+			{
+				break;
+			}
+			
+		}
+
+
+		if (numberofnodes == 1)
+		{
+			childs[auxcounter].Insert(gameObject);
+		}
+			
+
+		else if (numberofnodes > 1)
+		{
+			objects.push_back(gameObject);
+		}
+			
+
+		break;
+
+
+	case Quadpart::EXTREMITY:
+
 
 		objects.push_back(gameObject);
 
+
 		if (objects.size() > capacity)
 		{
+
+
 			Split();
 
-			std::vector<GameObject*> auxVector = objects;
-			//objects.clear();
 
-			for (int a = 0; a < auxVector.size(); ++a)
+			for (int a = 0; a < objects.size(); ++a)
 			{
-				nodesContaining = 0;
-				container = 0;
-				for (int i = 0; i < nodesAmount; ++i)
+
+
+				numberofnodes = 0;
+				auxcounter = 0;
+
+
+				for (int i = 0; i < N_Childs; ++i)
 				{
-					if (nodes[i].aabb.Intersects(auxVector[a]->Globalbbox))
+
+
+					if (childs[i].box.Intersects(objects[a]->Globalbbox))
 					{
-						nodesContaining++;
-						container = i;
+						numberofnodes++;
+						auxcounter = i;
 					}
-					if (nodesContaining > 1)
+
+
+					if (numberofnodes > 1)
+					{
 						break;
+					}
+
+
 				}
 
-				if (nodesContaining == 1)
-					nodes[container].Insert(auxVector[a]);
 
-				else if (nodesContaining > 1)
-					objects.push_back(auxVector[a]);
+				if (numberofnodes == 1)
+				{
+					childs[auxcounter].Insert(objects[a]);
+				}
+
+
+				else if (numberofnodes > 1)
+				{
+					objects.push_back(objects[a]);
+				}
+
+
 			}
+
 
 		}
 
 
 		break;
 	}
+
+
 	return true;
 
 }
 
-std::vector<GameObject*> Node::CollectChilldren(Frustum frustum)
+std::vector<GameObject*> Node::ObjectsInside(Frustum frustum)
 {
 	std::vector<GameObject*> ret;
 	std::vector<GameObject*> auxVec;
 
-	if (!Intersect(frustum, aabb))
+	if (!Intersect(frustum, box))
+	{
 		return ret;
+	}
+		
 
 	for (int i = 0; i < objects.size(); ++i)
-		ret.push_back(objects[i]);
-
-	for (int i = 0; i < nodesAmount; ++i)
 	{
-		auxVec = nodes[i].CollectChilldren(frustum);
-		for (int j = 0; j < auxVec.size(); ++j)
-			ret.push_back(auxVec[j]);
+		ret.push_back(objects[i]);
 	}
+		
 
+	for (int i = 0; i < N_Childs; ++i)
+	{
+		auxVec = childs[i].ObjectsInside(frustum);
+
+		for (int j = 0; j < auxVec.size(); ++j)
+		{
+			ret.push_back(auxVec[j]);
+		}
+
+	}
 	return ret;
 }
 
 void Node::Clear()
 {
-	if (nodes != NULL)
-		delete[] nodes;
+	if (childs != NULL)
+		delete[] childs;
 
 	objects.clear();
 }
@@ -226,21 +319,15 @@ bool Node::Intersect(Frustum frustum, AABB aabb)
 {
 	Plane planes[6];
 	float3 corners[8];
-
 	frustum.GetPlanes(planes);
 	aabb.GetCornerPoints(corners);
 
-	for (int p = 0; p < 6; ++p)
+	for (int i = 0; i < 6; ++i)
 	{
-		int aux = 8;
-
-		for (int c = 0; c < 8; ++c)
-		{
-			if (planes[p].IsOnPositiveSide(corners[c]))
-				aux--;
-		}
-		if (aux == 0)
-			return false;
+		int counter = 8;
+		for (int j = 0; j < 8; ++j)
+		{ if (planes[i].IsOnPositiveSide(corners[i])) counter--;}
+		if (counter == 0) return false;
 	}
 	return true;
 
@@ -251,7 +338,7 @@ void Node::Draw()
 	float3 points[8];
 
 
-	aabb.GetCornerPoints(points);
+	box.GetCornerPoints(points);
 
 		glBegin(GL_LINES);
 		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
@@ -262,7 +349,6 @@ void Node::Draw()
 		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
 		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
 		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
-
 
 		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
 		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
@@ -284,9 +370,9 @@ void Node::Draw()
 
 		glEnd();
 
-	if (!this->isLeaf)
+	if (!this->DontDrawChilds)
 	{
-		for (int i = 0; i < nodesAmount; ++i)
-			nodes[i].Draw();
+		for (int i = 0; i < N_Childs; ++i)
+			childs[i].Draw();
 	}
 }

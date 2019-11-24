@@ -34,6 +34,7 @@ public:
 
 	string& SetAvailableName(string name);
 
+	void UpdateQuadtree();
 
 public:
 
@@ -52,6 +53,7 @@ public:
 	Quadtree* objectTree;
 
 	bool ShowBoundingBoxes = false;
+	bool ShowQuadtree = true;
 
 };
 
