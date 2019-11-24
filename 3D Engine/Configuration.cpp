@@ -152,6 +152,11 @@ void Configuration::Draw()
 		ImGui::Text("Mouse released:"); for (int i = 0; i < IM_ARRAYSIZE(App->editor->test_io->MouseDown); i++) if (ImGui::IsMouseReleased(i)) { ImGui::SameLine(); ImGui::Text("b%d", i); }
 	}
 
+	if (ImGui::CollapsingHeader("GameSp"))
+	{
+		ImGui::SliderFloat("Game Speed", &App->GameSpeed, 0.1f, 5.0f);
+	}
+
 	ImGui::End();
 }
 

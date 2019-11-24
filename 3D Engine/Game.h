@@ -37,6 +37,7 @@ public:
 	ImVec2 position;
 public:
 	float GameTime = 0.0f;
+	bool step = false;
 };
 
 #endif __Game__H__
