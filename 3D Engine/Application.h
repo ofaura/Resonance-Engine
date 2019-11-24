@@ -84,16 +84,14 @@ public:
 
 	float Game_dt = 0.0f;
 	float GameSpeed = 1.0f;
+	int GameMaxFPS = 60;
 	bool GameMode = false;
 	bool GamePaused = false;
-	bool StartCount = false;
 
-private:
-
-	Timer GameTimer;
-	int GameMaxFPS = 60.0f;
-	float GameTime = 0.0f;
-	float GamePauseTime = 0.0f;
+	void PlayGame();
+	void PauseGame();
+	void ResumeGame();
+	void StopPlay();
 
 };
 

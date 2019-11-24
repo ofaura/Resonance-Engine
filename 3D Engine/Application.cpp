@@ -100,13 +100,10 @@ void Application::PrepareUpdate()
 	if (!GameMode || GamePaused)
 		Game_dt = 0.0f;
 	else
-		Game_dt = dt * GameSpeed;
+		Game_dt = dt;
+	Game_dt *= GameSpeed;
 
-	if (GameMode && !StartCount)
-	{
-		StartCount = true;
-		GameTimer.Start();
-	}
+
 	//Game_dt *= GameSpeed;
 }
 
@@ -171,6 +168,7 @@ void Application::SaveAllConfig()
 	jsonLoader.Save("Configuration.json", config);
 }
 
+
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
@@ -220,5 +218,39 @@ LCG & Application::GetRandom()
 {
 	int a = (int)randomNumber;
 	return *randomNumber;
+}
+
+
+void Application::PlayGame()
+{
+	if (!GameMode)
+	{
+	GameMode = true;
+	}
+}
+
+void Application::PauseGame()
+{
+	if (GameMode)
+	{
+		GamePaused = true;
+	}
+}
+
+void Application::ResumeGame()
+{
+	if (GameMode && GamePaused)
+	{
+		GamePaused = false;
+	}
+}
+
+void Application::StopPlay()
+{
+	if (GameMode)
+	{
+		GameMode = false;
+		GamePaused = false;
+	}
 }
 

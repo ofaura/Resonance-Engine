@@ -12,6 +12,7 @@ Game::Game(bool is_visible) : EditorElement(is_visible) {}
 
 Game::~Game() {}
 
+
 void Game::Start()
 {
 }
@@ -54,17 +55,16 @@ void Game::Draw()
 
 		if (ImGui::ArrowButton("Play", ImGuiDir_Right))
 		{
-			//gametimer = 0;
+			GameTime = 0;
 			if (!App->GameMode)
 			{
 				//App->Save();
-				App->GameMode = true;
+				App->PlayGame();
 			}
 			else
 			{
 				//App->Load();
-				App->GameMode = false;
-				App->GamePaused = false;
+				App->StopPlay();
 			}
 		}
 		ImGui::SameLine();
@@ -72,11 +72,11 @@ void Game::Draw()
 		{
 			if (!App->GamePaused)
 			{
-				App->GamePaused = true;
+				App->PauseGame();
 			}
 			else
 			{
-				App->GamePaused = false;
+				App->ResumeGame();
 			}
 		}
 		ImGui::SameLine();
@@ -92,6 +92,35 @@ void Game::Draw()
 			App->GamePaused = false;
 			step = true;
 		}
+		ImGui::SameLine();
+		
+		if (App->GameMode && !App->GamePaused)
+			ImGui::Text("Game Timer: On");
+		else if (App->GameMode && App->GamePaused)
+			ImGui::Text("Game Timer: Paused");
+		else 
+			ImGui::Text("Game Timer: Off");
+
+		ImGui::SameLine();
+
+		char sec[64], min[64];
+
+		float FrameRel = (float)App->maxFPS / (float)App->GameMaxFPS;
+
+		GameTime += App->Game_dt / ( FrameRel * FrameRel);
+
+		int nsec = ((int)GameTime) % 60;
+
+		int nmin = ((int)GameTime / 60);
+
+		sprintf(sec, "%02d", nsec);
+		sprintf(min, "%02d", nmin);
+
+		std::string smin = min;
+		std::string ssec = sec;
+		std::string total = smin + ":" + ssec;
+
+		ImGui::Text(total.c_str());
 
 		//
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
