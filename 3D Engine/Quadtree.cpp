@@ -319,15 +319,21 @@ bool Node::Intersect(Frustum frustum, AABB aabb)
 {
 	Plane planes[6];
 	float3 corners[8];
+
 	frustum.GetPlanes(planes);
 	aabb.GetCornerPoints(corners);
 
-	for (int i = 0; i < 6; ++i)
+	for (int p = 0; p < 6; ++p)
 	{
-		int counter = 8;
-		for (int j = 0; j < 8; ++j)
-		{ if (planes[i].IsOnPositiveSide(corners[i])) counter--;}
-		if (counter == 0) return false;
+		int inCount = 8;
+
+		for (int c = 0; c < 8; ++c)
+		{
+			if (planes[p].IsOnPositiveSide(corners[c]))
+				inCount--;
+		}
+		if (inCount == 0)
+			return false;
 	}
 	return true;
 
