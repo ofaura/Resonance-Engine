@@ -99,6 +99,7 @@ void Application::PrepareUpdate()
 		Game_dt = 0.0f;
 	else
 		Game_dt = dt;
+	Game_dt *= GameSpeed;
 }
 
 // ---------------------------------------------
