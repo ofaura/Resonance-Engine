@@ -1,104 +1,334 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="About.cpp" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Assets.cpp" />
-    <ClCompile Include="Color.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Configuration.cpp" />
-    <ClCompile Include="Console.cpp" />
-    <ClCompile Include="C_Camera.cpp" />
-    <ClCompile Include="C_Mesh.cpp" />
-    <ClCompile Include="C_Texture.cpp" />
-    <ClCompile Include="C_Transform.cpp" />
-    <ClCompile Include="EditorManager.cpp" />
-    <ClCompile Include="FBO.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="glew\src\glew.c" />
-    <ClCompile Include="glmath.cpp" />
-    <ClCompile Include="Hierarchy.cpp" />
-    <ClCompile Include="imgui-1.72b\examples\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="imgui-1.72b\imgui.cpp" />
-    <ClCompile Include="imgui-1.72b\imgui_demo.cpp" />
-    <ClCompile Include="imgui-1.72b\imgui_draw.cpp" />
-    <ClCompile Include="imgui-1.72b\imgui_impl_opengl2.cpp" />
-    <ClCompile Include="imgui-1.72b\imgui_impl_sdl.cpp" />
-    <ClCompile Include="imgui-1.72b\imgui_widgets.cpp" />
-    <ClCompile Include="Inspector.cpp" />
-    <ClCompile Include="JSONLoader.cpp" />
-    <ClCompile Include="Light.cpp" />
-    <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="mmgr\mmgr.cpp" />
-    <ClCompile Include="ModuleCamera3D.cpp" />
-    <ClCompile Include="ModuleFileSystem.cpp" />
-    <ClCompile Include="ModuleInput.cpp" />
-    <ClCompile Include="ModuleRenderer3D.cpp" />
-    <ClCompile Include="ModuleResourceManager.cpp" />
-    <ClCompile Include="ModuleSceneIntro.cpp" />
-    <ClCompile Include="ModuleSceneManager.cpp" />
-    <ClCompile Include="ModuleWindow.cpp" />
-    <ClCompile Include="Objects3D.cpp" />
-    <ClCompile Include="par_shapes.cpp" />
-    <ClCompile Include="PerfTimer.cpp" />
-    <ClCompile Include="Primitive.cpp" />
-    <ClCompile Include="Quadtree.cpp" />
-    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Color.cpp">
+      <Filter>Sources\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="glmath.cpp">
+      <Filter>Sources\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="About.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Assets.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorManager.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Hierarchy.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Inspector.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="glew\src\glew.c">
+      <Filter>Sources\External Libraries\glew</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui-1.72b\imgui.cpp">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui-1.72b\imgui_demo.cpp">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui-1.72b\imgui_draw.cpp">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui-1.72b\imgui_impl_opengl2.cpp">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui-1.72b\examples\imgui_impl_opengl3.cpp">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui-1.72b\imgui_impl_sdl.cpp">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui-1.72b\imgui_widgets.cpp">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="mmgr\mmgr.cpp">
+      <Filter>Sources\External Libraries\mmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="par_shapes.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleCamera3D.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFileSystem.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleInput.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleRenderer3D.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneManager.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleWindow.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneIntro.cpp">
+      <Filter>Sources\Modules\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleResourceManager.cpp">
+      <Filter>Sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Camera.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Mesh.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Texture.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Transform.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects3D.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="FBO.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="JSONLoader.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="log.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="PerfTimer.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="About.h" />
     <ClInclude Include="Application.h" />
-    <ClInclude Include="Assets.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Configuration.h" />
-    <ClInclude Include="Console.h" />
-    <ClInclude Include="C_Camera.h" />
-    <ClInclude Include="C_Mesh.h" />
-    <ClInclude Include="C_Texture.h" />
-    <ClInclude Include="C_Transform.h" />
-    <ClInclude Include="EditorManager.h" />
-    <ClInclude Include="FBO.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="glew\include\GL\glew.h" />
-    <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="Hierarchy.h" />
-    <ClInclude Include="imgui-1.72b\examples\imgui_impl_opengl3.h" />
-    <ClInclude Include="imgui-1.72b\imconfig.h" />
-    <ClInclude Include="imgui-1.72b\imgui.h" />
-    <ClInclude Include="imgui-1.72b\imgui_impl_opengl2.h" />
-    <ClInclude Include="imgui-1.72b\imgui_impl_sdl.h" />
-    <ClInclude Include="imgui-1.72b\imgui_internal.h" />
-    <ClInclude Include="imgui-1.72b\imstb_rectpack.h" />
-    <ClInclude Include="imgui-1.72b\imstb_textedit.h" />
-    <ClInclude Include="imgui-1.72b\imstb_truetype.h" />
-    <ClInclude Include="Inspector.h" />
-    <ClInclude Include="json.hpp" />
-    <ClInclude Include="JSONLoader.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="MathGeoLib\include\MathBuildConfig.h" />
-    <ClInclude Include="MathGeoLib\include\MathGeoLib.h" />
-    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h" />
-    <ClInclude Include="mmgr\mmgr.h" />
-    <ClInclude Include="mmgr\nommgr.h" />
-    <ClInclude Include="ModuleCamera3D.h" />
-    <ClInclude Include="ModuleFileSystem.h" />
-    <ClInclude Include="ModuleRenderer3D.h" />
-    <ClInclude Include="Module.h" />
-    <ClInclude Include="ModuleInput.h" />
-    <ClInclude Include="ModuleResourceManager.h" />
-    <ClInclude Include="ModuleSceneIntro.h" />
-    <ClInclude Include="ModuleSceneManager.h" />
-    <ClInclude Include="ModuleWindow.h" />
-    <ClInclude Include="Objects3D.h" />
-    <ClInclude Include="par_shapes.h" />
-    <ClInclude Include="PerfTimer.h" />
-    <ClInclude Include="Primitive.h" />
-    <ClInclude Include="Quadtree.h" />
-    <ClInclude Include="Timer.h" />
+    <ClInclude Include="Color.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="glmath.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="About.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorManager.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Hierarchy.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Inspector.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\GL\glew.h">
+      <Filter>Sources\External Libraries\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui-1.72b\imconfig.h">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui-1.72b\imgui.h">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui-1.72b\imgui_impl_opengl2.h">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui-1.72b\examples\imgui_impl_opengl3.h">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui-1.72b\imgui_impl_sdl.h">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui-1.72b\imgui_internal.h">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui-1.72b\imstb_rectpack.h">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui-1.72b\imstb_textedit.h">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui-1.72b\imstb_truetype.h">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathBuildConfig.h">
+      <Filter>Sources\External Libraries\MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathGeoLib.h">
+      <Filter>Sources\External Libraries\MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
+      <Filter>Sources\External Libraries\MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\mmgr.h">
+      <Filter>Sources\External Libraries\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\nommgr.h">
+      <Filter>Sources\External Libraries\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="par_shapes.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Module.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleCamera3D.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFileSystem.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleInput.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleRenderer3D.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneManager.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleWindow.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneIntro.h">
+      <Filter>Sources\Modules\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleResourceManager.h">
+      <Filter>Sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Camera.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Mesh.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Texture.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Transform.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects3D.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="FBO.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="JSONLoader.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="PerfTimer.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{458e501e-22d6-4d8e-9dd3-c7fc813a89b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Containers">
+      <UniqueIdentifier>{63ad73c1-e9be-4230-9cb3-77f7ba67333e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Editor">
+      <UniqueIdentifier>{f9e75754-481d-487a-8ff2-2d28cf437899}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External Libraries">
+      <UniqueIdentifier>{760525cd-1fdb-453e-b9be-8709b919f03c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External Libraries\glew">
+      <UniqueIdentifier>{72f7a2f9-7dd8-4a98-b95a-6a155b7857b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External Libraries\ImGui">
+      <UniqueIdentifier>{0dcbc10b-e451-498e-a213-2f86c3d22e0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External Libraries\MathGeoLib">
+      <UniqueIdentifier>{df223285-c787-4ada-b7b5-e1d36d405257}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External Libraries\mmgr">
+      <UniqueIdentifier>{3f173939-7d37-4225-a8f2-c6786f62053e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Helpers">
+      <UniqueIdentifier>{d509d4ca-354b-4c31-8eaa-d3d1a52fc8f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Modules">
+      <UniqueIdentifier>{2803d148-5401-4d69-8b43-e3948d482bd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Modules\Game">
+      <UniqueIdentifier>{dee01df2-becf-48ff-9bd1-32e26ff95624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Resources">
+      <UniqueIdentifier>{e59fcca8-22ef-42eb-a849-b082b54f3fb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Tools">
+      <UniqueIdentifier>{8ef6f3d6-25cd-42be-8346-c1778acfa2bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Tools\Game Objects">
+      <UniqueIdentifier>{53e5e7e7-2353-4f5b-ae82-bbb63d71d095}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

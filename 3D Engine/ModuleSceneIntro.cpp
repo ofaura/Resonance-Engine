@@ -28,8 +28,8 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 
 	root = new GameObject("root");
-	//MainCamera = new GameObject("Main Camera", root);
-	//MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
+	MainCamera = new GameObject("Main Camera", root);
+	MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
 
 	App->camera->LookAt(vec3(0, 0, 0));
 
