@@ -3,7 +3,6 @@
 #include "Application.h"
 #include "ModuleResourceManager.h"
 #include "GameObject.h"
-#include "mmgr/mmgr.h"
 #include "GameObject.h"
 #include "C_Transform.h"
 #include "C_Texture.h"
@@ -15,6 +14,9 @@
 #include "Quadtree.h"
 #include "ModuleCamera3D.h"
 
+#include "Brofiler/Brofiler.h"
+
+#include "mmgr/mmgr.h"
 
 void Data::CleanUp()
 {
@@ -44,25 +46,14 @@ void C_Mesh::Update()
 
 void C_Mesh::PostUpdate()
 {		
-	C_Camera* auxcam = nullptr;
+	BROFILER_CATEGORY("Mesh PostUpdate", Profiler::Color::Orchid)
+		
 	auxcam = (C_Camera*)App->scene_intro->MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
-	//if (auxcam == nullptr)
-	//{
-	//	auxcam = new C_Camera(COMPONENT_TYPE::CAMERA, nullptr, true);
-	//	auxcam->SetFOV(FOV);
-	//	auxcam->SetPlanes(nearPlane, farPlane);
-	//	auxcam->SetPos(pos);
-	//}
 
-	std::vector<GameObject*> treeObjects = App->scene_intro->objectTree->base->ObjectsInside(auxcam->frustum);
-	
 	static Frustum* frust = &auxcam->frustum;
-	for (int i = 0; i < treeObjects.size(); ++i)
+	if (Intersect(*frust, parent->Globalbbox))
 	{
-		if (Intersect(*frust, parent->Globalbbox))
-		{
-			Render();
-		}
+		Render();
 	}
 }
 
@@ -235,6 +226,8 @@ void C_Mesh::DrawBox(AABB& bbox, OBB& obb)
 
 void C_Mesh::Render()
 {
+	BROFILER_CATEGORY("Mesh Render", Profiler::Color::Orchid)
+
 	glPushMatrix();
 	glMultMatrixf(parent->component_transform->globalMatrix.M);
 	
@@ -266,7 +259,6 @@ void C_Mesh::Render()
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
-
 
 	glPopMatrix();
 }

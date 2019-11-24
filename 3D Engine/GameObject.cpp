@@ -87,6 +87,8 @@ void GameObject::PostUpdate()
 			children[i]->PostUpdate();
 		}
 	}
+
+
 }
 
 void GameObject::CleanUp()
@@ -278,6 +280,18 @@ void GameObject::Updatebbox()
 
 }
 
+void GameObject::UpdateChilds()
+{
+	if (enable)
+	{
+		for (int i = 0; i < children.size(); ++i)
+		{
+			children[i]->component_transform->UpdateMatrix();
+			children[i]->UpdateChilds();
+		}
+	}
+}
+
 float4x4 GameObject::mat2float4(mat4x4 mat)
 {
 	float4x4 f_mat;
@@ -297,3 +311,5 @@ void GameObject::SetLocalAABB(AABB aabb)
 	else
 		Localbbox.Enclose(aabb);
 }
+
+

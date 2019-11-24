@@ -51,7 +51,7 @@ public:
 
 	C_Mesh* mesh;
 	GameObject* MainCamera;
-	Quadtree* objectTree;
+	//Quadtree* objectTree;
 
 	bool ShowBoundingBoxes = false;
 

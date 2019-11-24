@@ -10,6 +10,8 @@
 #include <fstream>
 #include <iomanip>
 
+#include "Brofiler/Brofiler.h"
+
 #include "mmgr/mmgr.h"
 
 ModuleSceneManager::ModuleSceneManager(bool start_enabled) : Module("Scene Manager", start_enabled)
@@ -23,6 +25,8 @@ ModuleSceneManager::~ModuleSceneManager()
 
 update_status ModuleSceneManager::Update(float dt)
 {
+	BROFILER_CATEGORY("SceneManager - Update", Profiler::Color::MediumVioletRed)
+
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || saveScene)
 	{
 		ImGui::OpenPopup("Save scene");
@@ -42,6 +46,8 @@ bool ModuleSceneManager::Start()
 
 void ModuleSceneManager::LoadScene(const string scene)
 {
+	BROFILER_CATEGORY("SceneManager - LoadScene", Profiler::Color::MediumVioletRed)
+
 	sceneName = scene;
 
 	CleanUp();
@@ -92,6 +98,8 @@ string ModuleSceneManager::GetSceneName()
 
 void ModuleSceneManager::LoadAllGO(GameObject * root, const json & file)
 {
+	BROFILER_CATEGORY("SceneManager - LoadAllGO", Profiler::Color::MediumVioletRed)
+
 	goLoaded++;
 	char name[50];
 	sprintf_s(name, 50, "GameObject %d", goLoaded);
@@ -153,6 +161,8 @@ void ModuleSceneManager::SetSceneName(string name)
 
 void ModuleSceneManager::SaveScenePopUp()
 {
+	BROFILER_CATEGORY("SceneManager - SaveScenePopUp", Profiler::Color::MediumVioletRed)
+
 	if (ImGui::BeginPopupModal("Save scene", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		static char name[100] = "";
@@ -185,6 +195,8 @@ void ModuleSceneManager::SaveScenePopUp()
 
 void ModuleSceneManager::LoadScenePopUp()
 {
+	BROFILER_CATEGORY("SceneManager - LoadScenePopUp", Profiler::Color::MediumVioletRed)
+
 	sceneList.clear();
 	App->fileSystem->GetAllFilesWithExtension(ASSETS_SCENE_FOLDER, "scene", sceneList);
 

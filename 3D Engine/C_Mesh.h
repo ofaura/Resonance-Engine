@@ -52,17 +52,19 @@ public:
 	void Load(const char* gameObject, const json &file);
 	void Save(const char* gameObject, json &file);
 
-	bool Intersect(Frustum frustum, AABB aabb);
 	
 	void SetTexture(C_Texture* texture);
-
-private:
 	void Render();
+
+	bool Intersect(Frustum frustum, AABB aabb);
 
 private:
 	bool drawFaceNormals = false;
 	bool drawVerticesNormals = false;
 	bool boundary_box = false;
+
+	C_Camera* auxcam = nullptr;
+
 
 public:
 	Data meshData;

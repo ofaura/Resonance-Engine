@@ -2,11 +2,12 @@
 #include "EditorManager.h"
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
-#include "Brofiler/Brofiler.h"
 #include "ModuleSceneIntro.h"
 #include "Application.h"
 #include "GameObject.h"
 #include "C_Camera.h"
+
+#include "Brofiler/Brofiler.h"
 
 #include "mmgr/mmgr.h"
 
@@ -27,7 +28,9 @@ ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module("Camera", start_enab
 }
 
 ModuleCamera3D::~ModuleCamera3D()
-{}
+{
+	delete editorcamera;
+}
 
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()

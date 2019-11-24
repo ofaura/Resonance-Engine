@@ -33,9 +33,9 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	objectTree = new Quadtree( AABB({ -1000,-50,-1000 }, { 1000,50,1000 }), 1);
+	//objectTree = new Quadtree( AABB({ -1000,-50,-1000 }, { 1000,50,1000 }), 1);
 
-	UpdateQuadtree();
+	//UpdateQuadtree();
 
 	return ret;
 }
@@ -49,7 +49,7 @@ bool ModuleSceneIntro::CleanUp()
 
 	root->CleanUp();
 
-	objectTree->base->Clear();
+	//objectTree->base->Clear();
 
 	return true;
 }
@@ -197,14 +197,16 @@ update_status ModuleSceneIntro::Update(float dt)
 		}
 	}
 
-	if(ShowQuadtree)
-		objectTree->base->Draw();
+	/*if(ShowQuadtree)
+		objectTree->base->Draw();*/
 
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleSceneIntro::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("Scene PostUpdate", Profiler::Color::Beige)
+
 	root->PostUpdate();
 
 	return UPDATE_CONTINUE;
@@ -213,8 +215,8 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 void ModuleSceneIntro::UpdateQuadtree()
 {
 
-	for (int i = 0; i < root->children.size(); ++i)
-	{	
-		objectTree->base->Insert(root->children[i]);
-	}
+	//for (int i = 0; i < root->children.size(); ++i)
+	//{	
+	//	objectTree->base->Insert(root->children[i]);
+	//}
 }

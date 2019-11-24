@@ -24,6 +24,8 @@
 
 #include "MathGeoLib/include/MathGeoLib.h"
 
+#include "Brofiler/Brofiler.h"
+
 #include "mmgr/mmgr.h"
 
 #ifdef _DEBUG
@@ -92,6 +94,7 @@ bool ModuleResourceManager::FileReceived(string path)
 
 GameObject* ModuleResourceManager::LoadFilesFBX(aiNode* node, const aiScene* scene, string* path, GameObject* parent)
 {
+	BROFILER_CATEGORY("Resources - LoadFilesFBX", Profiler::Color::MediumVioletRed)
 	GameObject* fbxMesh = nullptr;
 
 	if (scene != nullptr && scene->HasMeshes())
@@ -189,6 +192,8 @@ GameObject* ModuleResourceManager::LoadFilesFBX(aiNode* node, const aiScene* sce
 
 void ModuleResourceManager::ImportFile(string * path)
 {
+	BROFILER_CATEGORY("Resources - ImportFile", Profiler::Color::MediumVioletRed)
+
 	string finalPath;
 	string extension;
 
@@ -224,6 +229,8 @@ void ModuleResourceManager::ImportFile(string * path)
 
 bool ModuleResourceManager::ImportTexture(const char * path, string & outputFile, C_Texture* texture)
 {
+	BROFILER_CATEGORY("Resources - ImportTexture", Profiler::Color::MediumVioletRed)
+
 	bool ret = false;
 
 	ILuint size;
@@ -256,6 +263,8 @@ bool ModuleResourceManager::ImportTexture(const char * path, string & outputFile
 
 bool ModuleResourceManager::ImportMesh(const char* path, C_Mesh* mesh)
 {
+	BROFILER_CATEGORY("Resources - ImportMesh", Profiler::Color::MediumVioletRed)
+
 	LOG("Importing mesh")
 		bool ret = false;
 
@@ -318,6 +327,8 @@ bool ModuleResourceManager::ImportMesh(const char* path, C_Mesh* mesh)
 
 void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 {
+	BROFILER_CATEGORY("Resources - LoadMesh", Profiler::Color::MediumVioletRed)
+
 	Data data;
 
 	// Copy vertices
@@ -413,6 +424,8 @@ void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 
 void ModuleResourceManager::LoadMesh(const char * path, C_Mesh * mesh)
 {
+	BROFILER_CATEGORY("Resources - LoadMesh path", Profiler::Color::MediumVioletRed)
+
 	char* buffer = nullptr;
 	App->fileSystem->Load(path, &buffer);
 
@@ -479,6 +492,7 @@ void ModuleResourceManager::LoadMesh(const char * path, C_Mesh * mesh)
 		mesh->parent->Localbbox.SetNegativeInfinity();
 		mesh->parent->Localbbox.Enclose((float3*)mesh->meshData.vertices, mesh->meshData.n_vertices);
 
+		mesh->CleanUp();
 		RELEASE_ARRAY(buffer);
 		cursor = nullptr;
 	}
@@ -526,6 +540,8 @@ bool ModuleResourceManager::CheckMeshExtension(const char * extension)
 
 void ModuleResourceManager::GenerateTexture(const char* path, C_Texture* texture)
 {
+	BROFILER_CATEGORY("Resources - GenerateTexture", Profiler::Color::MediumVioletRed)
+
 	ilInit();
 	iluInit();
 

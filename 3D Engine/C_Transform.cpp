@@ -54,13 +54,18 @@ void C_Transform::UpdateMatrix()
 	else
 		localMatrix = translation * AuxRotation * scalate;
 
-	globalMatrix = localMatrix;
+	if (parent->parent != nullptr)
+		globalMatrix = parent->parent->component_transform->globalMatrix * localMatrix;
+
+	else
+		globalMatrix = localMatrix;
 
 	if (cam != nullptr) {
 		cam->UpdateTransform(mat2float4(globalMatrix));
 	}
 
 	parent->Updatebbox();
+	parent->UpdateChilds();
 
 	App->scene_intro->UpdateQuadtree();
 

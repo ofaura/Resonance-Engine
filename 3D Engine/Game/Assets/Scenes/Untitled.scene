@@ -1,0 +1,33 @@
+{
+    "Game Objects": {
+        "Count": 1,
+        "GameObject 1": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UUID": 0,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UUID": 263490567
+                }
+            },
+            "Name": "root",
+            "Parent UUID": 0,
+            "UUID": 0
+        }
+    }
+}
