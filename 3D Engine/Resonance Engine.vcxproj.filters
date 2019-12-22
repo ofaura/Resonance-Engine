@@ -132,6 +132,21 @@
     <ClCompile Include="ModuleAudio.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="wwise.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\SDK\include\AkDefaultIOHookBlocking.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Common\AkFileLocationBase.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Common\AkFilePackage.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Common\AkFilePackageLUT.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -286,6 +301,9 @@
     <ClInclude Include="ModuleAudio.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="wwise.h">
+      <Filter>Sources\Wwise</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -329,6 +347,9 @@
     </Filter>
     <Filter Include="Sources\Tools\Game Objects">
       <UniqueIdentifier>{1776b3b8-7e9e-4f11-8541-d89ecdcfe04f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Wwise">
+      <UniqueIdentifier>{243eceed-4c20-40a8-91cf-153107ed5b64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

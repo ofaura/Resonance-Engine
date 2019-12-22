@@ -13,8 +13,7 @@ private:
 	
 	void InitWwise();
 
-private:
-	CAkDefaultIOHookBlocking g_lowLevelIO;
+
 
 };
 

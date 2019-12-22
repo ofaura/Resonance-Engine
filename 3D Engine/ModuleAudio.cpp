@@ -1,18 +1,13 @@
 #include "ModuleAudio.h"
 
-#include "Wwise/AK/SoundEngine/Common/AkSoundEngine.h"
-#include "Wwise/AK/SoundEngine/Common/AkModule.h"
-#include "Wwise/AK/MusicEngine/Common/AkMusicEngine.h"
-#include "Wwise/AK/Tools/Common/AkLock.h"
-#include "Wwise/AK/Tools/Common/AkMonitorError.h"
-#include "Wwise/AK/Tools/Common/AkPlatformFuncs.h"
-#include "Wwise/AkDefaultIOHookBlocking.h"
-#include "Wwise/AK/SoundEngine/Common/AkStreamMgrModule.h"
-#include "Wwise//AK/Comm/AkCommunication.h"
+#include "wwise.h"
+#include "Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
 
 #define BANKNAME_INIT "Init.bnk"
 
 using namespace AK;
+
+CAkDefaultIOHookBlocking g_lowLevelIO;
 
 ModuleAudio::ModuleAudio(bool start_enabled) : Module("Audio", start_enabled) {}
 
@@ -28,11 +23,11 @@ void ModuleAudio::InitWwise()
 
 	// Streaming.
 	AkStreamMgrSettings stmSettings;
-	StreamMgr::GetDefaultSettings(stmSettings);
+	StreamMgr::GetDefaultSettings(stmSettings); 
 
 	// Device Settings
 	AkDeviceSettings deviceSettings;
-	StreamMgr::GetDefaultDeviceSettings(deviceSettings);
+	StreamMgr::GetDefaultDeviceSettings(deviceSettings);  
 
 	// Sound Engine
 	AkInitSettings l_InitSettings;

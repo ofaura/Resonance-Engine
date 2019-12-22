@@ -20,7 +20,7 @@ class ModuleCamera3D;
 class EditorManager;
 class ModuleResourceManager;
 class ModuleSceneManager;
-
+class ModuleAudio;
 
 class Application
 {
@@ -34,6 +34,7 @@ public:
 	ModuleResourceManager*  rscr = nullptr;
 	ModuleFileSystem*		fileSystem = nullptr;
 	ModuleSceneManager*		scene = nullptr;
+	ModuleAudio*			audio = nullptr;
 
 private:
 
