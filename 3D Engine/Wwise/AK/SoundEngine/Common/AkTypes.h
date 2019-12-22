@@ -35,12 +35,11 @@ the specific language governing permissions and limitations under the License.
 
 // Platform-specific section.
 //----------------------------------------------------------------------------------------------------
-#include <AK/AkPlatforms.h>
-
+#include "../../AkPlatforms.h"
 
 //----------------------------------------------------------------------------------------------------
 
-#include <AK/SoundEngine/Common/AkSoundEngineExport.h>
+#include "AkSoundEngineExport.h"
 
 #ifndef NULL
 	#ifdef __cplusplus
@@ -78,7 +77,8 @@ typedef AkInt8			AkPriority;			 		///< Priority
 typedef AkUInt16        AkDataCompID;		 		///< Data compression format ID
 typedef AkUInt16        AkDataTypeID;		 		///< Data sample type ID
 typedef AkUInt8			AkDataInterleaveID;	 		///< Data interleaved state ID
-typedef AkUInt32        AkSwitchGroupID;	 		///< Switch group ID
+typedef
+AkUInt32        AkSwitchGroupID;	 		///< Switch group ID
 typedef AkUInt32        AkSwitchStateID;	 		///< Switch ID
 typedef AkUInt32        AkRtpcID;			 		///< Real time parameter control ID
 typedef AkReal32        AkRtpcValue;		 		///< Real time parameter control value

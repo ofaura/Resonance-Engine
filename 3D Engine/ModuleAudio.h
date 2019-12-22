@@ -11,7 +11,11 @@ public:
 
 private:
 	
-	bool InitWwise();
+	void InitWwise();
+
+private:
+	CAkDefaultIOHookBlocking g_lowLevelIO;
+
 };
 
 #endif __ModuleAudio__H__
