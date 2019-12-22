@@ -129,6 +129,9 @@
     <ClCompile Include="Assets.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleAudio.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -279,6 +282,9 @@
     </ClInclude>
     <ClInclude Include="Assets.h">
       <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleAudio.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
