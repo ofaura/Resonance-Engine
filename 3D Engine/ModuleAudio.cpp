@@ -90,3 +90,27 @@ void ModuleAudio::InitWwise()
 	retValue = SoundEngine::LoadBank(BANKNAME_INIT, AK_DEFAULT_POOL_ID, bankID);
 	assert(retValue == AK_Success);
 }
+
+void ModuleAudio::TerminateWwise()
+{
+	// Terminate audio engine
+
+#ifndef AK_OPTIMIZED
+	// Terminate Communication Services
+	Comm::Term();
+#endif // AK_OPTIMIZED
+
+	// Terminate Music Engine
+	MusicEngine::Term();
+
+	// Terminate Sound Engine
+	SoundEngine::Term();
+
+	// Terminate Streaming Manager
+	g_lowLevelIO.Term();
+	if (IAkStreamMgr::Get())
+		IAkStreamMgr::Get()->Destroy();
+
+	// Terminate Memory Manager
+	MemoryMgr::Term();
+}

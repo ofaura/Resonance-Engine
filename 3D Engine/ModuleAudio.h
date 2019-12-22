@@ -12,7 +12,7 @@ public:
 private:
 	
 	void InitWwise();
-
+	void TerminateWwise();
 
 
 };
