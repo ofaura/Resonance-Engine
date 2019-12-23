@@ -13,6 +13,13 @@ ModuleAudio::ModuleAudio(bool start_enabled) : Module("Audio", start_enabled) {}
 
 ModuleAudio::~ModuleAudio() {}
 
+update_status ModuleAudio::PostUpdate(float dt)
+{
+	SoundEngine::RenderAudio();
+
+	return UPDATE_CONTINUE;
+}
+
 void ModuleAudio::InitWwise()
 {
 	// Initialize audio engine
@@ -113,4 +120,55 @@ void ModuleAudio::TerminateWwise()
 
 	// Terminate Memory Manager
 	MemoryMgr::Term();
+}
+
+WwiseGameObject::WwiseGameObject(unsigned __int64 id, const char* name)
+{
+	this->id = id;
+	this->name = name;
+
+	SoundEngine::RegisterGameObj(this->id, this->name);
+}
+
+WwiseGameObject::~WwiseGameObject()
+{
+	SoundEngine::UnregisterGameObj(id);
+}
+
+void WwiseGameObject::SetPosition(vec3 pos, vec3 front, vec3 top)
+{
+	position.X = pos.x;
+	position.Y = pos.y;
+	position.Z = pos.z;
+
+	orientationFront.X = front.x;
+	orientationFront.Y = front.y;
+	orientationFront.Z = front.z;
+	
+	orientationTop.X = top.x;
+	orientationTop.Y = top.y;
+	orientationTop.Z = top.z;
+
+	AkSoundPosition soundPosition;
+	SoundEngine::SetPosition(id, soundPosition);
+}
+
+void WwiseGameObject::PlayEvent(uint id)
+{
+	SoundEngine::PostEvent(id, this->id);
+}
+
+void WwiseGameObject::PauseEvent(uint id)
+{
+	SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Pause, this->id);
+}
+
+void WwiseGameObject::ResumeEvent(uint id)
+{
+	SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Resume, this->id);
+}
+
+void WwiseGameObject::StopEvent(uint id)
+{
+	SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Stop, this->id);
 }
