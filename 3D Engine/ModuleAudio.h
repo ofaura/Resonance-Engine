@@ -33,7 +33,9 @@ public:
 	ModuleAudio(bool start_enabled = true);
 	virtual ~ModuleAudio();
 
+	bool Start();
 	update_status PostUpdate(float dt);
+	bool CleanUp();
 
 private:
 	

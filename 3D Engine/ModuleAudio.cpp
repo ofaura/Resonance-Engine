@@ -13,11 +13,23 @@ ModuleAudio::ModuleAudio(bool start_enabled) : Module("Audio", start_enabled) {}
 
 ModuleAudio::~ModuleAudio() {}
 
+bool ModuleAudio::Start()
+{
+	InitWwise();
+	return true;
+}
+
 update_status ModuleAudio::PostUpdate(float dt)
 {
 	SoundEngine::RenderAudio();
 
 	return UPDATE_CONTINUE;
+}
+
+bool ModuleAudio::CleanUp()
+{
+	TerminateWwise();
+	return true;
 }
 
 void ModuleAudio::InitWwise()
