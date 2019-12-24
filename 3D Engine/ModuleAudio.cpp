@@ -147,19 +147,19 @@ WwiseGameObject::~WwiseGameObject()
 	SoundEngine::UnregisterGameObj(id);
 }
 
-void WwiseGameObject::SetPosition(vec3 pos, vec3 front, vec3 top)
+void WwiseGameObject::SetPosition(float posX, float posY, float posZ, float frontX, float frontY, float frontZ, float topX, float topY, float topZ)
 {
-	position.X = pos.x;
-	position.Y = pos.y;
-	position.Z = pos.z;
+	position.X = posX;
+	position.Y = posY;
+	position.Z = posZ;
 
-	orientationFront.X = front.x;
-	orientationFront.Y = front.y;
-	orientationFront.Z = front.z;
+	orientationFront.X = frontX;
+	orientationFront.Y = frontY;
+	orientationFront.Z = frontZ;
 	
-	orientationTop.X = top.x;
-	orientationTop.Y = top.y;
-	orientationTop.Z = top.z;
+	orientationTop.X = topX;
+	orientationTop.Y = topY;
+	orientationTop.Z = topZ;
 
 	AkSoundPosition soundPosition;
 	SoundEngine::SetPosition(id, soundPosition);
@@ -184,3 +184,28 @@ void WwiseGameObject::StopEvent(uint id)
 {
 	SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Stop, this->id);
 }
+
+WwiseGameObject* WwiseGameObject::CreateAudioSource(uint id, const char * name, vec3 position)
+{
+	WwiseGameObject* go = new WwiseGameObject(id, name);
+	go->SetPosition(position.x, position.y, position.z);
+
+	return go;
+}
+
+WwiseGameObject* WwiseGameObject::CreateAudioListener(uint id, const char * name, vec3 position)
+{
+	WwiseGameObject* go = new WwiseGameObject(id, name);
+
+	AkGameObjectID listenerID = go->GetID();
+	SoundEngine::SetDefaultListeners(&listenerID, 1);
+	go->SetPosition(position.x, position.y, position.z);
+
+	return go;
+}
+
+uint WwiseGameObject::GetID()
+{
+	return id;
+}
+

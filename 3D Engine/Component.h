@@ -14,7 +14,8 @@ enum class COMPONENT_TYPE
 	TRANSFORM,
 	MESH,
 	TEXTURE,
-	CAMERA
+	CAMERA,
+	AUDIO_SOURCE
 };
 
 class Component

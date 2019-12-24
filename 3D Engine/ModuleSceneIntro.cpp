@@ -31,13 +31,14 @@ bool ModuleSceneIntro::Start()
 	root = new GameObject("root");
 	MainCamera = new GameObject("Main Camera", root);
 	MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
+
 	MainCamera->component_transform->position.z = 100;
 	MainCamera->component_transform->rotation.y = 180;
 	MainCamera->component_transform->UpdateMatrix();
 
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	App->rscr->FileReceived("Assets\\FBX\\Street environment_V01.FBX");
+	//App->rscr->FileReceived("Assets\\FBX\\Street environment_V01.FBX");
 
 	//objectTree = new Quadtree( AABB({ -1000,-50,-1000 }, { 1000,50,1000 }), 1);
 
