@@ -3,7 +3,7 @@
 #include "wwise.h"
 #include "Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
 
-#define BANKNAME_INIT "Init.bnk"
+#define BANKNAME_INIT "Assets/Sounds/Init.bnk"
 
 using namespace AK;
 

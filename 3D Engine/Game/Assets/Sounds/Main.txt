@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	3775790018	got_intro			\Default Work Unit\got_intro	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	1006431668	got_intro	D:\WWISE_Projects\ResonanceEngine\.cache\Windows\SFX\got_intro_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\got_intro		15349500
+

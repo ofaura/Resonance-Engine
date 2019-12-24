@@ -1,0 +1,49 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "11",
+  "SoundbankVersion": "134",
+  "RootPaths": {
+   "ProjectRoot": "D:\\WWISE_Projects\\ResonanceEngine\\",
+   "SourceFilesRoot": "D:\\WWISE_Projects\\ResonanceEngine\\.cache\\Windows\\",
+   "SoundBanksRoot": "D:\\Github\\Resonance-Engine\\3D Engine\\Game\\Assets\\Sounds\\",
+   "ExternalSourcesInputFile": "",
+   "ExternalSourcesOutputRoot": "D:\\WWISE_Projects\\ResonanceEngine\\GeneratedSoundBanks\\Windows"
+  },
+  "DialogueEvents": [],
+  "StreamedFiles": [],
+  "MediaFilesNotInAnyBank": [],
+  "SoundBanks": [
+   {
+    "Id": "1355168291",
+    "Language": "SFX",
+    "ObjectPath": "Init",
+    "ShortName": "Init",
+    "Path": "Init.bnk"
+   },
+   {
+    "Id": "3161908922",
+    "Language": "SFX",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\Main",
+    "ShortName": "Main",
+    "Path": "Main.bnk",
+    "IncludedEvents": [
+     {
+      "Id": "3775790018",
+      "Name": "got_intro",
+      "ObjectPath": "\\Events\\Default Work Unit\\got_intro"
+     }
+    ],
+    "IncludedMemoryFiles": [
+     {
+      "Id": "1006431668",
+      "Language": "SFX",
+      "ShortName": "got_intro.wav",
+      "Path": "SFX\\got_intro_10C4C929.wem"
+     }
+    ]
+   }
+  ]
+ }
+}
