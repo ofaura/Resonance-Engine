@@ -12,7 +12,7 @@
 class C_Mesh;
 class C_Texture;
 class C_Transform;
-//class AABB;
+class C_Camera;
 
 class GameObject
 {
@@ -25,6 +25,7 @@ public:
 	virtual ~GameObject();
 
 	void Update();
+	void PostUpdate();
 	void CleanUp();
 
 	void EnableGO();
@@ -47,6 +48,7 @@ public:
 	void DrawInspector();
 	void MakeChild(GameObject* parent);
 	void Updatebbox();
+	void UpdateChilds();
 
 	float4x4 mat2float4(mat4x4 mat);
 
@@ -55,16 +57,18 @@ public:
 	void Load(const char* gameObject, const json &file);
 	void Save(const char* gameObject, json &file);
 
+
 public:
 
 	uint UUID = 0;
 	uint parentUUID = 0;
 
-
+	bool toRender = false;
 	bool enable = true;
 
 	C_Transform* component_transform = nullptr;
-
+	C_Camera* c_camera = nullptr;
+	C_Mesh* c_mesh = nullptr;
 	string name;
 	GameObject* parent;
 	vector<Component*> components;

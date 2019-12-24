@@ -5,9 +5,14 @@
 #include "ModuleInput.h"
 #include "ModuleFileSystem.h"
 #include "ModuleWindow.h"
-
+#include "C_Camera.h"
+#include "C_Transform.h"
 #include <fstream>
 #include <iomanip>
+
+#include "Brofiler/Brofiler.h"
+
+#include "mmgr/mmgr.h"
 
 ModuleSceneManager::ModuleSceneManager(bool start_enabled) : Module("Scene Manager", start_enabled)
 {
@@ -20,6 +25,8 @@ ModuleSceneManager::~ModuleSceneManager()
 
 update_status ModuleSceneManager::Update(float dt)
 {
+	BROFILER_CATEGORY("SceneManager - Update", Profiler::Color::MediumVioletRed)
+
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || saveScene)
 	{
 		ImGui::OpenPopup("Save scene");
@@ -39,10 +46,11 @@ bool ModuleSceneManager::Start()
 
 void ModuleSceneManager::LoadScene(const string scene)
 {
+	BROFILER_CATEGORY("SceneManager - LoadScene", Profiler::Color::MediumVioletRed)
+
 	sceneName = scene;
 
 	CleanUp();
-
 
 	json file;
 	string path = ASSETS_SCENE_FOLDER + scene + sceneExtension;
@@ -53,8 +61,15 @@ void ModuleSceneManager::LoadScene(const string scene)
 	stream.close();
 
 	App->scene_intro->root = new GameObject("root", nullptr);
+
 	numGO = file["Game Objects"]["Count"];
 	LoadAllGO(App->scene_intro->root, file);
+	
+	App->scene_intro->MainCamera = new GameObject("Main Camera", App->scene_intro->root);
+	App->scene_intro->MainCamera->AddComponent(COMPONENT_TYPE::CAMERA);
+	App->scene_intro->MainCamera->component_transform->position.z = 100;
+	App->scene_intro->MainCamera->component_transform->rotation.y = 180;
+	App->scene_intro->MainCamera->component_transform->UpdateMatrix();
 	App->scene_intro->goSelected = nullptr;
 	goLoaded = 0;
 
@@ -85,6 +100,8 @@ string ModuleSceneManager::GetSceneName()
 
 void ModuleSceneManager::LoadAllGO(GameObject * root, const json & file)
 {
+	BROFILER_CATEGORY("SceneManager - LoadAllGO", Profiler::Color::MediumVioletRed)
+
 	goLoaded++;
 	char name[50];
 	sprintf_s(name, 50, "GameObject %d", goLoaded);
@@ -117,14 +134,18 @@ void ModuleSceneManager::SaveAllGO(GameObject * root, json & file)
 	root->Save(name, file);
 
 	for (int i = 0; i < root->children.size(); ++i)
-		SaveAllGO(root->children[i], file);
+	{
+		if (root->children[i]->name != "Main Camera")
+			SaveAllGO(root->children[i], file);
+	}
 }
 
 void ModuleSceneManager::DeleteSceneGO(GameObject * root)
 {
 	for (int i = 0; i < root->children.size(); ++i)
 	{
-		DeleteSceneGO(root->children[i]);
+		root->children[i]->CleanUp();
+		DeleteSceneGO(root->children[i]);		
 	}
 
 	RELEASE(root);
@@ -142,6 +163,8 @@ void ModuleSceneManager::SetSceneName(string name)
 
 void ModuleSceneManager::SaveScenePopUp()
 {
+	BROFILER_CATEGORY("SceneManager - SaveScenePopUp", Profiler::Color::MediumVioletRed)
+
 	if (ImGui::BeginPopupModal("Save scene", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		static char name[100] = "";
@@ -174,6 +197,8 @@ void ModuleSceneManager::SaveScenePopUp()
 
 void ModuleSceneManager::LoadScenePopUp()
 {
+	BROFILER_CATEGORY("SceneManager - LoadScenePopUp", Profiler::Color::MediumVioletRed)
+
 	sceneList.clear();
 	App->fileSystem->GetAllFilesWithExtension(ASSETS_SCENE_FOLDER, "scene", sceneList);
 

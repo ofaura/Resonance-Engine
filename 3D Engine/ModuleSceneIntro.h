@@ -10,6 +10,7 @@
 #include "MathGeoLib/include/MathGeoLib.h"
 #include "glmath.h"
 #include "C_Mesh.h"
+#include "Quadtree.h"
 
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -24,6 +25,7 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
+	update_status PostUpdate(float dt);
 	bool CleanUp();
 	
 	Objects3D* CreateObject3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float color[4]);
@@ -33,6 +35,7 @@ public:
 
 	string& SetAvailableName(string name);
 
+	void UpdateQuadtree();
 
 public:
 
@@ -47,8 +50,13 @@ public:
 	vector<OBB*> OBBInScene;
 
 	C_Mesh* mesh;
+	GameObject* MainCamera;
+	//Quadtree* objectTree;
 
 	bool ShowBoundingBoxes = false;
+
+	bool ShowQuadtree = true;
+
 };
 
 	

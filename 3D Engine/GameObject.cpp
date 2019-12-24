@@ -3,6 +3,7 @@
 #include "C_Transform.h"
 #include "C_Mesh.h"
 #include "C_Texture.h"
+#include "C_Camera.h"
 #include "ModuleResourceManager.h"
 #include "ModuleSceneIntro.h"
 #include "MathGeoLib/include/MathGeoLib.h"
@@ -51,8 +52,6 @@ GameObject::GameObject(GameObject * parent, const char * name, const float3 & tr
 
 GameObject::~GameObject() {}
 
-
-
 void GameObject::Update()
 {
 	
@@ -71,10 +70,31 @@ void GameObject::Update()
 	}
 
 	Updatebbox();
+	App->scene_intro->UpdateQuadtree();
+}
+
+void GameObject::PostUpdate()
+{
+	for (int i = 0; i < components.size(); ++i)
+	{
+		if (components[i]->active)
+			components[i]->PostUpdate();
+	}
+	for (int i = 0; i < children.size(); ++i)
+	{
+		if (children[i]->enable)
+		{
+			children[i]->PostUpdate();
+		}
+	}
+
+
 }
 
 void GameObject::CleanUp()
 {
+	for (int i = 0; i < components.size(); i++)
+		delete(components[i]);
 }
 
 void GameObject::EnableGO()
@@ -125,6 +145,9 @@ Component* GameObject::AddComponent(COMPONENT_TYPE type, bool active)
 			break;
 		case COMPONENT_TYPE::TEXTURE:
 			component = new C_Texture(type, this, active);
+			break;
+		case COMPONENT_TYPE::CAMERA:
+			component = new C_Camera(type, this, active);
 			break;
 	}
 
@@ -215,13 +238,19 @@ void GameObject::Load(const char * gameObject, const json & file)
 	if (HasComponent(COMPONENT_TYPE::TRANSFORM) == false)
 		component_transform = (C_Transform*)AddComponent(COMPONENT_TYPE::TRANSFORM);
 
-	int numComponents = file["Game Objects"][gameObject]["Components"].size();
-
-	if (numComponents > 1)
-		AddComponent(COMPONENT_TYPE::MESH);
+	if (name == "Main Camera")
+		AddComponent(COMPONENT_TYPE::CAMERA);
 	
-	if (numComponents > 2)
-		AddComponent(COMPONENT_TYPE::TEXTURE);
+	else 
+	{
+		int numComponents = file["Game Objects"][gameObject]["Components"].size();
+
+		if (numComponents > 1)
+			AddComponent(COMPONENT_TYPE::MESH);
+	
+		if (numComponents > 2)
+			AddComponent(COMPONENT_TYPE::TEXTURE);
+	}
 
 	for (uint i = 0; i < components.size(); ++i)
 		components[i]->Load(gameObject, file);
@@ -251,6 +280,18 @@ void GameObject::Updatebbox()
 
 }
 
+void GameObject::UpdateChilds()
+{
+	if (enable)
+	{
+		for (int i = 0; i < children.size(); ++i)
+		{
+			children[i]->component_transform->UpdateMatrix();
+			children[i]->UpdateChilds();
+		}
+	}
+}
+
 float4x4 GameObject::mat2float4(mat4x4 mat)
 {
 	float4x4 f_mat;
@@ -270,3 +311,5 @@ void GameObject::SetLocalAABB(AABB aabb)
 	else
 		Localbbox.Enclose(aabb);
 }
+
+

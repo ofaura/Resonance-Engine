@@ -12,16 +12,19 @@
     <ClCompile Include="About.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="Assets.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
     <ClCompile Include="Configuration.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Console.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="EditorManager.cpp">
+    <ClCompile Include="Game.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="EditorManager.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Hierarchy.cpp">
@@ -58,16 +61,13 @@
       <Filter>Sources\External Libraries\mmgr</Filter>
     </ClCompile>
     <ClCompile Include="Light.cpp">
-      <Filter>Sources\External Libraries\Helpers</Filter>
+      <Filter>Sources\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="par_shapes.cpp">
-      <Filter>Sources\External Libraries\Helpers</Filter>
+      <Filter>Sources\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Primitive.cpp">
-      <Filter>Sources\External Libraries\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleSceneIntro.cpp">
-      <Filter>Sources\Modules\Game</Filter>
+      <Filter>Sources\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="ModuleCamera3D.cpp">
       <Filter>Sources\Modules</Filter>
@@ -81,11 +81,20 @@
     <ClCompile Include="ModuleRenderer3D.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleSceneManager.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleSceneIntro.cpp">
+      <Filter>Sources\Modules\Game</Filter>
+    </ClCompile>
     <ClCompile Include="ModuleResourceManager.cpp">
       <Filter>Sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Camera.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="C_Mesh.cpp">
       <Filter>Sources\Tools\Game Objects</Filter>
@@ -96,13 +105,13 @@
     <ClCompile Include="C_Transform.cpp">
       <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Objects3D.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Sources\Tools\Game Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects3D.cpp">
       <Filter>Sources\Tools\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="FBO.cpp">
@@ -120,14 +129,8 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleSceneManager.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="C_Camera.cpp">
-      <Filter>Sources\Tools\Game Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Assets.cpp">
-      <Filter>Sources\Editor</Filter>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
     <ClCompile Include="ModuleAudio.cpp">
       <Filter>Sources\Modules</Filter>
@@ -160,16 +163,19 @@
     <ClInclude Include="About.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
     <ClInclude Include="Configuration.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
     <ClInclude Include="Console.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="EditorManager.h">
+    <ClInclude Include="Game.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="EditorManager.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
     <ClInclude Include="Hierarchy.h">
@@ -224,19 +230,13 @@
       <Filter>Sources\External Libraries\mmgr</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
-      <Filter>Sources\External Libraries\Helpers</Filter>
+      <Filter>Sources\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="par_shapes.h">
-      <Filter>Sources\External Libraries\Helpers</Filter>
+      <Filter>Sources\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Primitive.h">
-      <Filter>Sources\External Libraries\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleSceneIntro.h">
-      <Filter>Sources\Modules\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleWindow.h">
-      <Filter>Sources\Modules</Filter>
+      <Filter>Sources\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Module.h">
       <Filter>Sources\Modules</Filter>
@@ -253,8 +253,20 @@
     <ClInclude Include="ModuleRenderer3D.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleSceneManager.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleWindow.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneIntro.h">
+      <Filter>Sources\Modules\Game</Filter>
+    </ClInclude>
     <ClInclude Include="ModuleResourceManager.h">
       <Filter>Sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Camera.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="C_Mesh.h">
       <Filter>Sources\Tools\Game Objects</Filter>
@@ -265,13 +277,13 @@
     <ClInclude Include="C_Transform.h">
       <Filter>Sources\Tools\Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Objects3D.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Sources\Tools\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Sources\Tools\Game Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects3D.h">
       <Filter>Sources\Tools\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="FBO.h">
@@ -289,14 +301,8 @@
     <ClInclude Include="Timer.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleSceneManager.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Camera.h">
-      <Filter>Sources\Tools\Game Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Assets.h">
-      <Filter>Sources\Editor</Filter>
+    <ClInclude Include="Quadtree.h">
+      <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="ModuleAudio.h">
       <Filter>Sources\Modules</Filter>
@@ -307,46 +313,46 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
-      <UniqueIdentifier>{33fbf4e8-de9c-44fa-b001-88cc1a1765c0}</UniqueIdentifier>
+      <UniqueIdentifier>{458e501e-22d6-4d8e-9dd3-c7fc813a89b8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Containers">
-      <UniqueIdentifier>{54bb2d79-3e61-4cf6-a5af-c7bb3d3fd724}</UniqueIdentifier>
+      <UniqueIdentifier>{63ad73c1-e9be-4230-9cb3-77f7ba67333e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Editor">
-      <UniqueIdentifier>{86d07695-13c6-429b-8e49-2132fee071ab}</UniqueIdentifier>
+      <UniqueIdentifier>{f9e75754-481d-487a-8ff2-2d28cf437899}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\External Libraries">
-      <UniqueIdentifier>{8221951a-9423-4c5c-ab19-a1a2306ecb05}</UniqueIdentifier>
+      <UniqueIdentifier>{760525cd-1fdb-453e-b9be-8709b919f03c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\External Libraries\glew">
-      <UniqueIdentifier>{adf1c59a-13f8-4fc1-b25b-a889755e8c36}</UniqueIdentifier>
+      <UniqueIdentifier>{72f7a2f9-7dd8-4a98-b95a-6a155b7857b4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\External Libraries\ImGui">
-      <UniqueIdentifier>{18cefc90-ef3d-43cd-8287-90bda9d901a6}</UniqueIdentifier>
+      <UniqueIdentifier>{0dcbc10b-e451-498e-a213-2f86c3d22e0f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\External Libraries\MathGeoLib">
-      <UniqueIdentifier>{39bca9ee-2c54-41e5-bbb4-07ce3286ef32}</UniqueIdentifier>
+      <UniqueIdentifier>{df223285-c787-4ada-b7b5-e1d36d405257}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\External Libraries\mmgr">
-      <UniqueIdentifier>{fa1846a7-b6d8-4936-a1c0-1195a1bef61b}</UniqueIdentifier>
+      <UniqueIdentifier>{3f173939-7d37-4225-a8f2-c6786f62053e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\External Libraries\Helpers">
-      <UniqueIdentifier>{edabe474-f8e7-433a-a516-10e51a302236}</UniqueIdentifier>
+    <Filter Include="Sources\Helpers">
+      <UniqueIdentifier>{d509d4ca-354b-4c31-8eaa-d3d1a52fc8f2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Modules">
-      <UniqueIdentifier>{f2767dba-f3ef-4b2e-8015-042d429ad307}</UniqueIdentifier>
+      <UniqueIdentifier>{2803d148-5401-4d69-8b43-e3948d482bd3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Modules\Game">
-      <UniqueIdentifier>{fc1bdd45-7ead-4d3d-9c49-fbdd045c813b}</UniqueIdentifier>
+      <UniqueIdentifier>{dee01df2-becf-48ff-9bd1-32e26ff95624}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Resources">
-      <UniqueIdentifier>{d018fad8-8d58-4101-8c82-c22f2bfdaae2}</UniqueIdentifier>
+      <UniqueIdentifier>{e59fcca8-22ef-42eb-a849-b082b54f3fb5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Tools">
-      <UniqueIdentifier>{6ecb63be-b064-45c0-a7fb-26cd188c9634}</UniqueIdentifier>
+      <UniqueIdentifier>{8ef6f3d6-25cd-42be-8346-c1778acfa2bb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Tools\Game Objects">
-      <UniqueIdentifier>{1776b3b8-7e9e-4f11-8541-d89ecdcfe04f}</UniqueIdentifier>
+      <UniqueIdentifier>{53e5e7e7-2353-4f5b-ae82-bbb63d71d095}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources\Wwise">
       <UniqueIdentifier>{243eceed-4c20-40a8-91cf-153107ed5b64}</UniqueIdentifier>

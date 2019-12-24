@@ -12,6 +12,7 @@ Game::Game(bool is_visible) : EditorElement(is_visible) {}
 
 Game::~Game() {}
 
+
 void Game::Start()
 {
 }
@@ -50,6 +51,93 @@ void Game::Draw()
 			else
 				App->scene_intro->ShowBoundingBoxes = false;
 		}
+		
+		/*ImGui::SameLine();
+
+		if (ImGui::Checkbox("Quad Tree", &quadtree))
+		{
+
+			if (!App->scene_intro->ShowQuadtree)
+				App->scene_intro->ShowQuadtree = true;
+			else
+				App->scene_intro->ShowQuadtree = false;
+
+		}
+*/
+		//
+		if (ImGui::ArrowButton("Play", ImGuiDir_Right))
+		{
+			GameTime = 0;
+			if (!App->GameMode)
+			{
+				//App->Save();
+				App->PlayGame();
+			}
+			else
+			{
+				//App->Load();
+				App->StopPlay();
+			}
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("||", { 23,19 }) && App->GameMode)
+		{
+			if (!App->GamePaused)
+			{
+				App->PauseGame();
+			}
+			else
+			{
+				App->ResumeGame();
+			}
+		}
+
+		ImGui::SameLine();
+
+		if (App->GameMode && !App->GamePaused && step == true)
+		{
+			App->GamePaused = true;
+			step = false;
+		}
+
+		if (ImGui::Button("->", { 23,19 }) && App->GameMode && App->GamePaused)
+		{
+			App->GamePaused = false;
+			step = true;
+		}
+		ImGui::SameLine();
+
+		if (App->GameMode && !App->GamePaused)
+			ImGui::Text("Game Timer: On");
+		else if (App->GameMode && App->GamePaused)
+			ImGui::Text("Game Timer: Paused");
+		else
+			ImGui::Text("Game Timer: Off");
+
+		ImGui::SameLine();
+
+		char sec[64], min[64];
+
+		float FrameRel = (float)App->maxFPS / (float)App->GameMaxFPS;
+
+		GameTime += App->Game_dt / (FrameRel * FrameRel);
+
+		int nsec = ((int)GameTime) % 60;
+
+		int nmin = ((int)GameTime / 60);
+
+		sprintf(sec, "%02d", nsec);
+		sprintf(min, "%02d", nmin);
+
+		std::string smin = min;
+		std::string ssec = sec;
+		std::string FinalTime = smin + ":" + ssec;
+
+		ImGui::Text(FinalTime.c_str());
+
+
+
+		//
 
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
 		size = ImVec2(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y);

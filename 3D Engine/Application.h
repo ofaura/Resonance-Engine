@@ -80,6 +80,20 @@ private:
 	void FinishUpdate();
 	void LoadAllConfig(json &file);
 	void SaveAllConfig();
+
+public:
+
+	float Game_dt = 0.0f;
+	float GameSpeed = 1.0f;
+	int GameMaxFPS = 60;
+	bool GameMode = false;
+	bool GamePaused = false;
+
+	void PlayGame();
+	void PauseGame();
+	void ResumeGame();
+	void StopPlay();
+
 };
 
 extern Application* App;

@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "Module.h"
 #include "glmath.h"
+#include "C_Camera.h"
 
 
 
@@ -19,12 +20,12 @@ public:
 
 	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const vec3 &Spot);
-	void Move(const vec3 &Movement);
-	float* GetViewMatrix();
+
+	float3 to_float3(vec3 vec);
+	vec3 to_vec3(float3 vec);
 
 private:
 
-	void CalculateViewMatrix();
 	bool MouseInsideWindow();
 
 public:
@@ -35,9 +36,12 @@ public:
 	float zoomSensitivity = 20.0f;
 	float MidButtonSensitivity = 0.02;
 
+	C_Camera* editorcamera = nullptr;
+
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
+
 };
 
 #endif __ModuleCamera3D__

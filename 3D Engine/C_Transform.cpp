@@ -1,5 +1,7 @@
 #include "C_Transform.h"
 #include "GameObject.h"
+#include "C_Camera.h"
+#include "ModuleSceneIntro.h"
 
 #include "mmgr/mmgr.h"
 
@@ -36,6 +38,8 @@ void C_Transform::DrawInspector()
 void C_Transform::UpdateMatrix() 
 {
 
+	C_Camera* cam = (C_Camera*)parent->GetComponent(COMPONENT_TYPE::CAMERA);
+
 	mat4x4 translation = translate(position.x, position.y, position.z);
 	mat4x4 AuxRotation;
 	mat4x4 auxiliar;
@@ -45,9 +49,25 @@ void C_Transform::UpdateMatrix()
 	AuxRotation = AuxRotation * auxiliar.rotate(rotation.y, { 0,1,0 });
 	AuxRotation = AuxRotation * auxiliar.rotate(rotation.z, { 0,0,1 });
 	
-	localMatrix = translation * AuxRotation * scalate;
-	globalMatrix = localMatrix;
+	if (cam != nullptr)
+		localMatrix = translation * AuxRotation;
+	else
+		localMatrix = translation * AuxRotation * scalate;
+
+	if (parent->parent != nullptr)
+		globalMatrix = parent->parent->component_transform->globalMatrix * localMatrix;
+
+	else
+		globalMatrix = localMatrix;
+
+	if (cam != nullptr) {
+		cam->UpdateTransform(mat2float4(globalMatrix));
+	}
+
 	parent->Updatebbox();
+	parent->UpdateChilds();
+
+	App->scene_intro->UpdateQuadtree();
 
 }
 
@@ -96,6 +116,14 @@ void C_Transform::Save(const char * gameObject, json & file)
 	file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"] = { scales.x, scales.y, scales.y };
 }
 
+
+float4x4 C_Transform::mat2float4(mat4x4 mat)
+{
+	float4x4 f_mat;
+	f_mat.Set(mat.M);
+	return f_mat.Transposed();
+}
+
 void C_Transform::SetLocalFromMatrix(mat4x4 matrix)
 {
 	localMatrix = matrix;
@@ -123,3 +151,4 @@ mat4x4 C_Transform::SetLocalMatrix(float3 pos, Quat rot, float3 _scale)
 
 	return ret;
 }
+

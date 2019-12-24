@@ -3,15 +3,29 @@
 #include "Application.h"
 #include "ModuleResourceManager.h"
 #include "GameObject.h"
-//#include "mmgr/mmgr.h"
-
-//#include "mmgr/mmgr.h"
 #include "GameObject.h"
 #include "C_Transform.h"
 #include "C_Texture.h"
 #include "Application.h"
 #include "ModuleResourceManager.h"
+#include "ModuleSceneIntro.h"
+#include "C_Camera.h"
+#include "Component.h"
+#include "Quadtree.h"
+#include "ModuleCamera3D.h"
 
+#include "Brofiler/Brofiler.h"
+
+#include "mmgr/mmgr.h"
+
+void Data::CleanUp()
+{
+	RELEASE_ARRAY(indices);
+	RELEASE_ARRAY(vertices);
+	RELEASE_ARRAY(normals);
+	RELEASE_ARRAY(colors);
+	RELEASE_ARRAY(textures);
+}
 
 C_Mesh::C_Mesh(COMPONENT_TYPE type, GameObject * parent, bool active) : Component(type, parent, active) {}
 
@@ -19,9 +33,6 @@ C_Mesh::~C_Mesh() {}
 
 void C_Mesh::Update()
 {
-
-	Render();
-
 	if (drawFaceNormals)
 		DrawFaceNormals();
 	if (drawVerticesNormals)
@@ -31,6 +42,24 @@ void C_Mesh::Update()
 		DrawBox(parent->Globalbbox,parent->obb);
 	}
 		
+}
+
+void C_Mesh::PostUpdate()
+{		
+	BROFILER_CATEGORY("Mesh PostUpdate", Profiler::Color::Orchid)
+		
+	auxcam = (C_Camera*)App->scene_intro->MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
+
+	static Frustum* frust = &auxcam->frustum;
+	if (Intersect(*frust, parent->Globalbbox))
+	{
+		Render();
+	}
+}
+
+void C_Mesh::CleanUp()
+{
+	meshData.CleanUp();
 }
 
 void C_Mesh::DrawInspector()
@@ -197,6 +226,8 @@ void C_Mesh::DrawBox(AABB& bbox, OBB& obb)
 
 void C_Mesh::Render()
 {
+	BROFILER_CATEGORY("Mesh Render", Profiler::Color::Orchid)
+
 	glPushMatrix();
 	glMultMatrixf(parent->component_transform->globalMatrix.M);
 	
@@ -229,7 +260,29 @@ void C_Mesh::Render()
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-
 	glPopMatrix();
 }
 
+bool C_Mesh::Intersect(Frustum frustum, AABB aabb)
+{
+	Plane planes[6];
+	float3 corners[8];
+
+	frustum.GetPlanes(planes);
+	aabb.GetCornerPoints(corners);
+
+	for (int p = 0; p < 6; ++p)
+	{
+		int inCount = 8;
+
+		for (int c = 0; c < 8; ++c)
+		{
+			if (planes[p].IsOnPositiveSide(corners[c]))
+				inCount--;
+		}
+		if (inCount == 0)
+			return false;
+	}
+	return true;
+
+}

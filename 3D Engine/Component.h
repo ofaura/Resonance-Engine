@@ -13,7 +13,8 @@ enum class COMPONENT_TYPE
 {
 	TRANSFORM,
 	MESH,
-	TEXTURE
+	TEXTURE,
+	CAMERA
 };
 
 class Component
@@ -24,6 +25,8 @@ public:
 
 	virtual void Update() {};
 	virtual void DrawInspector() {};
+	virtual void PostUpdate() {};
+	virtual void CleanUp() {};
 
 	void Enable();
 	void Disable();

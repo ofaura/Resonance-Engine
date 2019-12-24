@@ -5,10 +5,12 @@
 #include "EditorManager.h"
 #include "GameObject.h"
 #include "ModuleResourceManager.h"
+#include "ModuleInput.h"
 #include "ModuleFileSystem.h"
 #include "C_Transform.h"
 #include "C_Mesh.h"
 #include "C_Texture.h"
+#include "ModuleSceneManager.h"
 
 #include "mmgr/mmgr.h"
 
@@ -27,16 +29,19 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 
 	root = new GameObject("root");
+	MainCamera = new GameObject("Main Camera", root);
+	MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
+	MainCamera->component_transform->position.z = 100;
+	MainCamera->component_transform->rotation.y = 180;
+	MainCamera->component_transform->UpdateMatrix();
 
-	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	//App->rscr->LoadFilesFBX("Assets/FBX/BakerHouse.fbx");
-	/*int Size = gameObjects.size();
-	if(Size != 0)
-		goSelected = gameObjects.front();*/
+	App->rscr->FileReceived("Assets\\FBX\\Street environment_V01.FBX");
 
+	//objectTree = new Quadtree( AABB({ -1000,-50,-1000 }, { 1000,50,1000 }), 1);
 
+	//UpdateQuadtree();
 
 	return ret;
 }
@@ -47,6 +52,10 @@ bool ModuleSceneIntro::CleanUp()
 	LOG("Unloading Intro scene");
 
 	objects_list.clear();
+
+	root->CleanUp();
+
+	//objectTree->base->Clear();
 
 	return true;
 }
@@ -193,6 +202,27 @@ update_status ModuleSceneIntro::Update(float dt)
 			mesh->DrawBox(*AABBInScene[i],*OBBInScene[i]);
 		}
 	}
-	
+
+	/*if(ShowQuadtree)
+		objectTree->base->Draw();*/
+
 	return UPDATE_CONTINUE;
+}
+
+update_status ModuleSceneIntro::PostUpdate(float dt)
+{
+	BROFILER_CATEGORY("Scene PostUpdate", Profiler::Color::Beige)
+
+	root->PostUpdate();
+
+	return UPDATE_CONTINUE;
+}
+
+void ModuleSceneIntro::UpdateQuadtree()
+{
+
+	//for (int i = 0; i < root->children.size(); ++i)
+	//{	
+	//	objectTree->base->Insert(root->children[i]);
+	//}
 }

@@ -22,7 +22,7 @@
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>SDLGame</RootNamespace>
     <ProjectName>Resonance Engine</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -201,6 +201,7 @@
     <ClInclude Include="par_shapes.h" />
     <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="wwise.h" />
   </ItemGroup>
@@ -249,6 +250,7 @@
     <ClCompile Include="par_shapes.cpp" />
     <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="wwise.cpp" />
     <ClCompile Include="Wwise\IO\Common\AkFileLocationBase.cpp" />

@@ -27,6 +27,8 @@ struct Data {
 	
 	uint n_colors = 0;
 	uint* colors = nullptr;
+
+	void CleanUp();
 };
 
 class C_Mesh : public Component
@@ -37,6 +39,8 @@ public:
 	~C_Mesh();
 
 	void Update() override;
+	void PostUpdate() override;
+	void CleanUp() override;
 	void DrawInspector();
 	void DrawFaceNormals();
 	void DrawVerticesNormals();
@@ -48,20 +52,26 @@ public:
 	void Load(const char* gameObject, const json &file);
 	void Save(const char* gameObject, json &file);
 
+	
 	void SetTexture(C_Texture* texture);
-
-private:
 	void Render();
+
+	bool Intersect(Frustum frustum, AABB aabb);
 
 private:
 	bool drawFaceNormals = false;
 	bool drawVerticesNormals = false;
 	bool boundary_box = false;
 
+	C_Camera* auxcam = nullptr;
+
+
 public:
 	Data meshData;
 	string name;
 
+	
+	float3 pos = { 0,0,0 };
 	AABB bbox;
 
 	C_Texture* texture = nullptr;

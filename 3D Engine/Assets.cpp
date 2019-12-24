@@ -6,6 +6,8 @@
 #include "GameObject.h"
 #include "ModuleSceneManager.h"
 
+#include "mmgr/mmgr.h"
+
 Assets::Assets(bool is_visible) : EditorElement(is_visible) 
 {
 	App->fileSystem->DiscoverFiles("Assets", &files, &directories);

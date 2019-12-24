@@ -179,6 +179,9 @@ update_status EditorManager::Update(float dt)
 				if (ImGui::MenuItem("Chair"))
 					App->rscr->FileReceived("Assets\\FBX\\Chair.fbx");
 
+				if(ImGui::MenuItem("House"))
+					App->rscr->FileReceived("Assets\\FBX\\BakerHouse.fbx");
+
 				ImGui::EndMenu();
 			}
 
@@ -267,6 +270,11 @@ update_status EditorManager::Update(float dt)
 					App->scene_intro->CreateObject3D(SHAPE_TYPE::TORUS, vec3(0, 0, 0), vec3(1, 1, 1), white);
 
 				ImGui::EndMenu();
+			}
+			if (ImGui::MenuItem("Camera"))
+			{
+				GameObject* Camera = new GameObject("Camera", App->scene_intro->root);
+				Camera->AddComponent(COMPONENT_TYPE::CAMERA, true);
 			}
 			ImGui::EndMenu();
 		}
