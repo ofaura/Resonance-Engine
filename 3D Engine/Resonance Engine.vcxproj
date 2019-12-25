@@ -157,6 +157,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="C_AudioListener.h" />
     <ClInclude Include="C_AudioSource.h" />
     <ClInclude Include="C_Camera.h" />
     <ClInclude Include="C_Mesh.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="Console.cpp" />
+    <ClCompile Include="C_AudioListener.cpp" />
     <ClCompile Include="C_AudioSource.cpp" />
     <ClCompile Include="C_Camera.cpp" />
     <ClCompile Include="C_Mesh.cpp" />

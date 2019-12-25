@@ -31,6 +31,7 @@ bool ModuleSceneIntro::Start()
 	root = new GameObject("root");
 	MainCamera = new GameObject("Main Camera", root);
 	MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
+	MainCamera->AddComponent(COMPONENT_TYPE::AUDIO_LISTENER, true);
 
 	MainCamera->component_transform->position.z = 100;
 	MainCamera->component_transform->rotation.y = 180;

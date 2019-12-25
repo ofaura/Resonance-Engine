@@ -139,6 +139,10 @@ WwiseGameObject::WwiseGameObject(unsigned __int64 id, const char* name)
 	this->id = id;
 	this->name = name;
 
+	position = { 0, 0, 0 };
+	orientationFront = { 0, 0, 0 };
+	orientationTop = { 0, 0, 0 };
+
 	SoundEngine::RegisterGameObj(this->id, this->name);
 }
 
@@ -162,7 +166,8 @@ void WwiseGameObject::SetPosition(float posX, float posY, float posZ, float fron
 	orientationTop.Z = topZ;
 
 	AkSoundPosition soundPosition;
-	SoundEngine::SetPosition(id, soundPosition);
+	soundPosition.Set(position, orientationFront, orientationTop);
+	SoundEngine::SetPosition(id, soundPosition); 
 }
 
 void WwiseGameObject::PlayEvent(uint id)

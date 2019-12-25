@@ -5,6 +5,7 @@
 #include "C_Texture.h"
 #include "C_Camera.h"
 #include "C_AudioSource.h"
+#include "C_AudioListener.h"
 #include "ModuleResourceManager.h"
 #include "ModuleSceneIntro.h"
 #include "MathGeoLib/include/MathGeoLib.h"
@@ -152,6 +153,9 @@ Component* GameObject::AddComponent(COMPONENT_TYPE type, bool active)
 			break;
 		case COMPONENT_TYPE::AUDIO_SOURCE:
 			component = new C_AudioSource(type, this, active);
+			break;
+		case COMPONENT_TYPE::AUDIO_LISTENER:
+			component = new C_AudioListener(type, this, active);
 			break;
 	}
 

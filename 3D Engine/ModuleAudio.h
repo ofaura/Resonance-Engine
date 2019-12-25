@@ -26,9 +26,9 @@ private:
 	const char* name = nullptr;
 	AkGameObjectID id;
 
-	AkVector position;
-	AkVector orientationFront;
-	AkVector orientationTop;
+	AkVector position = { 0,0,0 };
+	AkVector orientationFront = { 0,0,0 };
+	AkVector orientationTop = { 0,0,0 };
 };
 
 class ModuleAudio : public Module

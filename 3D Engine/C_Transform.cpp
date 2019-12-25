@@ -77,6 +77,7 @@ void C_Transform::Reset()
 	position = float3::zero;
 	rotation = Quat::identity;
 
+	UpdateMatrix();
 
 	for (int i = 0; i < parent->children.size(); ++i) {
 		parent->children[i]->component_transform->UpdateMatrix();

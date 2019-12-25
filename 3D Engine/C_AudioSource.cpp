@@ -12,7 +12,7 @@ C_AudioSource::C_AudioSource(COMPONENT_TYPE type, GameObject * parent, bool acti
 	position.y = parent->component_transform->position.y;
 	position.z = parent->component_transform->position.z;
 
-	wwiseGO->CreateAudioSource(parent->UUID, parent->name.c_str(), position);
+	wwiseGO = wwiseGO->CreateAudioSource(parent->UUID, parent->name.c_str(), position);
 }
 
 C_AudioSource::~C_AudioSource() {}
