@@ -30,7 +30,7 @@ public:
 	bool Start();
 	bool CleanUp();
 
-	bool FileReceived(string path);
+	GameObject* FileReceived(string path);
 	
 	GameObject* LoadFilesFBX(aiNode* node, const aiScene* scene, string* FileName, GameObject* parent);
 

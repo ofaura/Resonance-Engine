@@ -37,6 +37,7 @@ public:
 	ModuleAudio(bool start_enabled = true);
 	virtual ~ModuleAudio();
 
+	bool Init(json file);
 	bool Start();
 	update_status PostUpdate(float dt);
 	bool CleanUp();
@@ -45,7 +46,7 @@ private:
 
 	void InitWwise();
 	void TerminateWwise();
-
+	void LoadSoundBank(const char* path);
 
 };
 

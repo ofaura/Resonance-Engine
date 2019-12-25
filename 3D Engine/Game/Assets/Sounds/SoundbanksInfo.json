@@ -33,14 +33,25 @@
       "Id": "3775790018",
       "Name": "got_intro",
       "ObjectPath": "\\Events\\Default Work Unit\\got_intro"
+     },
+     {
+      "Id": "4147158486",
+      "Name": "valar_morghulis",
+      "ObjectPath": "\\Events\\Default Work Unit\\valar_morghulis"
      }
     ],
     "IncludedMemoryFiles": [
      {
-      "Id": "1006431668",
+      "Id": "71406986",
       "Language": "SFX",
       "ShortName": "got_intro.wav",
       "Path": "SFX\\got_intro_10C4C929.wem"
+     },
+     {
+      "Id": "897370027",
+      "Language": "SFX",
+      "ShortName": "valar_morghulis.wav",
+      "Path": "SFX\\valar_morghulis_10C4C929.wem"
      }
     ]
    }

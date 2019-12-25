@@ -20,7 +20,7 @@ public:
 
 	void SetID(AkGameObjectID id);
 
-private:
+public:
 
 	WwiseGameObject* wwiseGO = nullptr;
 	AkGameObjectID id = 0;

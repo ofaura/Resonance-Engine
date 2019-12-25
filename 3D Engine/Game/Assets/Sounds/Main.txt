@@ -1,6 +1,8 @@
 Event	ID	Name			Wwise Object Path	Notes
 	3775790018	got_intro			\Default Work Unit\got_intro	
+	4147158486	valar_morghulis			\Default Work Unit\valar_morghulis	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	1006431668	got_intro	D:\WWISE_Projects\ResonanceEngine\.cache\Windows\SFX\got_intro_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\got_intro		15349500
+	71406986	got_intro	D:\WWISE_Projects\ResonanceEngine\.cache\Windows\SFX\got_intro_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\got_intro		15349500
+	897370027	valar_morghulis	D:\WWISE_Projects\ResonanceEngine\.cache\Windows\SFX\valar_morghulis_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\valar_morghulis		980484
 

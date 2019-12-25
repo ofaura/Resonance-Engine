@@ -38,6 +38,7 @@ void C_AudioSource::DrawInspector()
 void C_AudioSource::Update()
 {
 	vec3 position;
+
 	position.x = parent->component_transform->position.x;
 	position.y = parent->component_transform->position.y;
 	position.z = parent->component_transform->position.z;

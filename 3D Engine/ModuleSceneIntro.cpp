@@ -10,7 +10,10 @@
 #include "C_Transform.h"
 #include "C_Mesh.h"
 #include "C_Texture.h"
+#include "C_AudioSource.h"
+#include "Game\Assets\Sounds\Wwise_IDs.h"
 #include "ModuleSceneManager.h"
+#include "ModuleAudio.h"
 
 #include "mmgr/mmgr.h"
 
@@ -38,6 +41,18 @@ bool ModuleSceneIntro::Start()
 	MainCamera->component_transform->UpdateMatrix();
 
 	App->camera->LookAt(vec3(0, 0, 0));
+
+	music = CreateGameObject("music");
+	music->AddComponent(COMPONENT_TYPE::AUDIO_SOURCE);
+	C_AudioSource* musicSource = (C_AudioSource*)music->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
+	musicSource->SetID(AK::EVENTS::GOT_INTRO);
+	musicSource->wwiseGO->PlayEvent(AK::EVENTS::GOT_INTRO);
+
+	cat = App->rscr->FileReceived("Assets/FBX/cat.fbx");
+	cat->name = "cat";
+	cat->AddComponent(COMPONENT_TYPE::AUDIO_SOURCE);
+	C_AudioSource* catSource = (C_AudioSource*)cat->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
+	catSource->SetID(AK::EVENTS::VALAR_MORGHULIS);
 
 	//App->rscr->FileReceived("Assets\\FBX\\Street environment_V01.FBX");
 
@@ -107,7 +122,7 @@ Objects3D* ModuleSceneIntro::CreateObject3D(SHAPE_TYPE type, vec3 &position, vec
 }
 
 
-GameObject * ModuleSceneIntro::AddGameObject(const char * name)
+GameObject * ModuleSceneIntro::CreateGameObject(const char * name)
 {
 	GameObject* ret = new GameObject(name);
 

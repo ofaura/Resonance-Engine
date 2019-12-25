@@ -13,9 +13,17 @@ ModuleAudio::ModuleAudio(bool start_enabled) : Module("Audio", start_enabled) {}
 
 ModuleAudio::~ModuleAudio() {}
 
-bool ModuleAudio::Start()
+bool ModuleAudio::Init(json file)
 {
 	InitWwise();
+
+	LoadSoundBank("Main");
+
+	return true;
+}
+
+bool ModuleAudio::Start()
+{
 	return true;
 }
 
@@ -134,14 +142,20 @@ void ModuleAudio::TerminateWwise()
 	MemoryMgr::Term();
 }
 
+void ModuleAudio::LoadSoundBank(const char * path)
+{
+	string fullPath = "Assets/Sounds/";
+	fullPath += path;
+	fullPath += ".bnk";
+
+	AkBankID bankID;
+	SoundEngine::LoadBank(fullPath.c_str(), AK_DEFAULT_POOL_ID, bankID);
+}
+
 WwiseGameObject::WwiseGameObject(unsigned __int64 id, const char* name)
 {
 	this->id = id;
 	this->name = name;
-
-	position = { 0, 0, 0 };
-	orientationFront = { 0, 0, 0 };
-	orientationTop = { 0, 0, 0 };
 
 	SoundEngine::RegisterGameObj(this->id, this->name);
 }
@@ -153,9 +167,9 @@ WwiseGameObject::~WwiseGameObject()
 
 void WwiseGameObject::SetPosition(float posX, float posY, float posZ, float frontX, float frontY, float frontZ, float topX, float topY, float topZ)
 {
-	position.X = posX;
+	position.X = -posX;
 	position.Y = posY;
-	position.Z = posZ;
+	position.Z = -posZ;
 
 	orientationFront.X = frontX;
 	orientationFront.Y = frontY;
@@ -167,7 +181,7 @@ void WwiseGameObject::SetPosition(float posX, float posY, float posZ, float fron
 
 	AkSoundPosition soundPosition;
 	soundPosition.Set(position, orientationFront, orientationTop);
-	SoundEngine::SetPosition(id, soundPosition); 
+	SoundEngine::SetPosition(id, soundPosition);
 }
 
 void WwiseGameObject::PlayEvent(uint id)

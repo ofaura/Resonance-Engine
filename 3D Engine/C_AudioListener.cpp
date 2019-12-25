@@ -31,7 +31,7 @@ void C_AudioListener::DrawInspector()
 
 void C_AudioListener::Update()
 {
-	C_Camera* cam = (C_Camera*)App->scene_intro->MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
+	C_Camera* cam = App->camera->editorcamera;
 	float3 pos = cam->frustum.pos;
 	float3 front = cam->frustum.front;
 	float3 top = cam->frustum.up;
