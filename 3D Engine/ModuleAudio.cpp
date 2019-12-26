@@ -152,6 +152,15 @@ void ModuleAudio::LoadSoundBank(const char * path)
 	SoundEngine::LoadBank(fullPath.c_str(), AK_DEFAULT_POOL_ID, bankID);
 }
 
+void ModuleAudio::Tests()
+{
+	//SoundEngine::SetPanningRule(AkPanningRule_Speakers);
+	//SoundEngine::SetVolumeThreshold();
+	//SoundEngine::SetOutputVolume();
+	//SoundEngine::SetRTPCValue();
+
+}
+
 WwiseGameObject::WwiseGameObject(unsigned __int64 id, const char* name)
 {
 	this->id = id;

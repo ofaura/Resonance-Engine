@@ -5,11 +5,11 @@
   "SchemaVersion": "11",
   "SoundbankVersion": "134",
   "RootPaths": {
-   "ProjectRoot": "D:\\WWISE_Projects\\ResonanceEngine\\",
-   "SourceFilesRoot": "D:\\WWISE_Projects\\ResonanceEngine\\.cache\\Windows\\",
+   "ProjectRoot": "D:\\WWISE_Projects\\Music\\",
+   "SourceFilesRoot": "D:\\WWISE_Projects\\Music\\.cache\\Windows\\",
    "SoundBanksRoot": "D:\\Github\\Resonance-Engine\\3D Engine\\Game\\Assets\\Sounds\\",
    "ExternalSourcesInputFile": "",
-   "ExternalSourcesOutputRoot": "D:\\WWISE_Projects\\ResonanceEngine\\GeneratedSoundBanks\\Windows"
+   "ExternalSourcesOutputRoot": "D:\\WWISE_Projects\\Music\\GeneratedSoundBanks\\Windows"
   },
   "DialogueEvents": [],
   "StreamedFiles": [],
@@ -30,28 +30,45 @@
     "Path": "Main.bnk",
     "IncludedEvents": [
      {
-      "Id": "3775790018",
-      "Name": "got_intro",
-      "ObjectPath": "\\Events\\Default Work Unit\\got_intro"
+      "Id": "626769978",
+      "Name": "backgroundMusic",
+      "ObjectPath": "\\Events\\Default Work Unit\\backgroundMusic"
      },
      {
-      "Id": "4147158486",
-      "Name": "valar_morghulis",
-      "ObjectPath": "\\Events\\Default Work Unit\\valar_morghulis"
+      "Id": "1153084749",
+      "Name": "francesco",
+      "ObjectPath": "\\Events\\Default Work Unit\\francesco"
+     },
+     {
+      "Id": "2167849898",
+      "Name": "helicopter",
+      "ObjectPath": "\\Events\\Default Work Unit\\helicopter"
      }
     ],
     "IncludedMemoryFiles": [
      {
-      "Id": "71406986",
+      "Id": "159884132",
       "Language": "SFX",
-      "ShortName": "got_intro.wav",
-      "Path": "SFX\\got_intro_10C4C929.wem"
+      "ShortName": "friends.wav",
+      "Path": "SFX\\friends_10C4C929.wem"
      },
      {
-      "Id": "897370027",
+      "Id": "672809502",
       "Language": "SFX",
-      "ShortName": "valar_morghulis.wav",
-      "Path": "SFX\\valar_morghulis_10C4C929.wem"
+      "ShortName": "helicopter.wav",
+      "Path": "SFX\\helicopter_10C4C929.wem"
+     },
+     {
+      "Id": "757740205",
+      "Language": "SFX",
+      "ShortName": "tbbt.wav",
+      "Path": "SFX\\tbbt_10C4C929.wem"
+     },
+     {
+      "Id": "857677296",
+      "Language": "SFX",
+      "ShortName": "francesco.wav",
+      "Path": "SFX\\francesco_10C4C929.wem"
      }
     ]
    }

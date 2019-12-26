@@ -14,6 +14,7 @@
 #include "Game\Assets\Sounds\Wwise_IDs.h"
 #include "ModuleSceneManager.h"
 #include "ModuleAudio.h"
+#include "ModuleResourceManager.h"
 
 #include "mmgr/mmgr.h"
 
@@ -45,16 +46,29 @@ bool ModuleSceneIntro::Start()
 	music = CreateGameObject("music");
 	music->AddComponent(COMPONENT_TYPE::AUDIO_SOURCE);
 	C_AudioSource* musicSource = (C_AudioSource*)music->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
-	musicSource->SetID(AK::EVENTS::GOT_INTRO);
-	musicSource->wwiseGO->PlayEvent(AK::EVENTS::GOT_INTRO);
+	musicSource->SetID(AK::EVENTS::BACKGROUNDMUSIC);
+	musicSource->wwiseGO->PlayEvent(AK::EVENTS::BACKGROUNDMUSIC);
 
-	cat = App->rscr->FileReceived("Assets/FBX/cat.fbx");
-	cat->name = "cat";
-	cat->AddComponent(COMPONENT_TYPE::AUDIO_SOURCE);
-	C_AudioSource* catSource = (C_AudioSource*)cat->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
-	catSource->SetID(AK::EVENTS::VALAR_MORGHULIS);
+	helicopter = App->rscr->FileReceived("Assets/FBX/Mi28.fbx");
+	helicopter->name = "helicopter";
+	helicopter->AddComponent(COMPONENT_TYPE::AUDIO_SOURCE);
+	C_AudioSource* helicopterSource = (C_AudioSource*)helicopter->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
+	helicopter->component_transform->rotation.x = -90;
+	helicopter->component_transform->position.y = 20;
+	helicopter->component_transform->UpdateMatrix();
+	helicopterSource->SetID(AK::EVENTS::HELICOPTER);
 
-	//App->rscr->FileReceived("Assets\\FBX\\Street environment_V01.FBX");
+	car = App->rscr->FileReceived("Assets/FBX/FordFiestaR2.fbx");
+	car->name = "car";
+	car->AddComponent(COMPONENT_TYPE::AUDIO_SOURCE);
+	C_AudioSource* carSource = (C_AudioSource*)car->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
+	car->component_transform->rotation.x = -172;
+	car->component_transform->position.y = 3.5;
+	car->component_transform->position.x = -2.2;
+
+	car->component_transform->scales = float3(0.01, 0.01, 0.01);
+	car->component_transform->UpdateMatrix();
+	carSource->SetID(AK::EVENTS::FRANCESCO);
 
 	//objectTree = new Quadtree( AABB({ -1000,-50,-1000 }, { 1000,50,1000 }), 1);
 

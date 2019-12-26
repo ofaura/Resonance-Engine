@@ -13,8 +13,9 @@ namespace AK
 {
     namespace EVENTS
     {
-        static const AkUniqueID GOT_INTRO = 3775790018U;
-        static const AkUniqueID VALAR_MORGHULIS = 4147158486U;
+        static const AkUniqueID BACKGROUNDMUSIC = 626769978U;
+        static const AkUniqueID FRANCESCO = 1153084749U;
+        static const AkUniqueID HELICOPTER = 2167849898U;
     } // namespace EVENTS
 
     namespace BANKS
@@ -27,6 +28,11 @@ namespace AK
     {
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
     } // namespace BUSSES
+
+    namespace AUX_BUSSES
+    {
+        static const AkUniqueID REVERB = 348963605U;
+    } // namespace AUX_BUSSES
 
     namespace AUDIO_DEVICES
     {

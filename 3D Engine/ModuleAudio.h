@@ -48,6 +48,8 @@ private:
 	void TerminateWwise();
 	void LoadSoundBank(const char* path);
 
+	void Tests();
+
 };
 
 #endif __ModuleAudio__H__

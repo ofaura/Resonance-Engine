@@ -60,7 +60,8 @@ public:
 public:
 
 	GameObject* music = nullptr;
-	GameObject* cat = nullptr;
+	GameObject* car = nullptr;
+	GameObject* helicopter = nullptr;
 };
 
 	
