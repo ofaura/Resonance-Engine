@@ -11,6 +11,8 @@
 #include "glmath.h"
 #include "C_Mesh.h"
 
+#include "ImGuizmo/ImGuizmo.h"
+
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
@@ -43,6 +45,7 @@ public:
 	void MousePicking();
 	void DebugDrawLine(const LineSegment line, const float4x4 & transform = float4x4::identity, Color color = White, float lineWidth = 1.5f);
 
+	void DrawGuizmo(ImGuizmo::OPERATION operation);
 
 public:
 
@@ -70,6 +73,8 @@ public:
 	bool TreeNeedsUpdate = false;
 
 	LineSegment line;
+
+	ImGuizmo::OPERATION guizmoOperation = ImGuizmo::NO_OPERATION;
 };
 
 	

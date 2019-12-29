@@ -142,7 +142,10 @@ void Game::Draw()
 
 		ImGui::Text(FinalTime.c_str());
 
+		//
 
+		MousePos.x = ImGui::GetCursorPosX() + ImGui::GetWindowPos().x;
+		MousePos.y = ImGui::GetCursorPosY() + ImGui::GetWindowPos().y;
 
 		//
 

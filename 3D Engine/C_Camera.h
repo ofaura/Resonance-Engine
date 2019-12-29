@@ -21,6 +21,9 @@ public:
 	void GetPlanes() { frustum.GetPlanes(planes); };
 	float GetFOV() { return frustum.verticalFov * RADTODEG; };
 	float GetAspectRatio() { return frustum.AspectRatio(); };
+
+	float* getViewMatrix();
+	float* getProjectionMatrix();
 	
 	//Setters
 	void SetPlanes(float neardistance, float fardistance);

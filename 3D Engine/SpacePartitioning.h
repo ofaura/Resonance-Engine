@@ -8,7 +8,6 @@
 #include "glmath.h"
 
 #include <map>
-#include <list>
 #include <vector>
 
 constexpr auto MAX_ELEMS = 1;

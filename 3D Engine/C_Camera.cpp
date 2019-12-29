@@ -72,7 +72,25 @@ void C_Camera::UpdateTransform(float4x4 global)
 }
 
 
-void C_Camera::SetPlanes(float neardistance, float fardistance) 
+float * C_Camera::getViewMatrix()
+{
+	static float4x4 matrix;
+	matrix = frustum.ViewMatrix();
+	matrix.Transpose();
+
+	return (float*)matrix.v;
+}
+
+float * C_Camera::getProjectionMatrix()
+{
+	static float4x4 matrix;
+	matrix = frustum.ProjectionMatrix();
+	matrix.Transpose();
+
+	return (float*)matrix.v;
+}
+
+void C_Camera::SetPlanes(float neardistance, float fardistance)
 {
 
 	if (fardistance > 0 && fardistance > frustum.nearPlaneDistance)

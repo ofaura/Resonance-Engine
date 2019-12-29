@@ -23,7 +23,7 @@ public:
 
 
 	float4x4 mat2float4(mat4x4 mat);
-
+	mat4x4 float2mat4(float4x4 flo);
 
 	void SetLocalFromMatrix(mat4x4 matrix);
 	mat4x4 GetLocalTransformMatrix();

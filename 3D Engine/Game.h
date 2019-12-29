@@ -37,6 +37,7 @@ private:
 public:
 	FBO* fbo = nullptr;	
 	ImVec2 size;
+	ImVec2 MousePos;
 	ImVec2 new_size = { 0,0 };
 	ImVec2 position;
 public:

@@ -125,6 +125,23 @@ float4x4 C_Transform::mat2float4(mat4x4 mat)
 	return f_mat.Transposed();
 }
 
+mat4x4 C_Transform::float2mat4(float4x4 flo)
+{
+	mat4x4 f_mat;
+	int counter = 0;
+	for (int i = 0; i < 4; ++i) 
+	{
+		for (int j = 0; j < 4; ++j) {
+			f_mat[counter] = flo.At(i, j);
+			++counter;
+		}
+	}
+
+	return f_mat;
+}
+
+
+
 void C_Transform::SetLocalFromMatrix(mat4x4 matrix)
 {
 	localMatrix = matrix;

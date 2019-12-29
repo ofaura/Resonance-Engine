@@ -132,6 +132,9 @@
     <ClCompile Include="SpacePartitioning.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="ImGuizmo\ImGuizmo.cpp">
+      <Filter>Sources\External Libraries\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -285,6 +288,9 @@
     </ClInclude>
     <ClInclude Include="SpacePartitioning.h">
       <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuizmo\ImGuizmo.h">
+      <Filter>Sources\External Libraries\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

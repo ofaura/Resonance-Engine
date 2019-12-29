@@ -15,6 +15,7 @@
 #include "ModuleCamera3D.h"
 #include "Game.h"
 
+
 #include "mmgr/mmgr.h"
 
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module("SceneIntro", start_enabled) 
@@ -47,6 +48,9 @@ bool ModuleSceneIntro::Start()
 	AABB rootAABB;
 	rootAABB.SetNegativeInfinity();
 	rootTree = new SpacePartitioning(rootAABB, 0);
+
+
+	ImGuizmo::Enable(true);
 
 	return ret;
 }
@@ -228,6 +232,31 @@ update_status ModuleSceneIntro::Update(float dt)
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && App->editor->game->isMouseOnScene())
 		MousePicking();
 
+	if (goSelected != nullptr)
+	{
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_IDLE)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT)
+			{
+				guizmoOperation = ImGuizmo::NO_OPERATION;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			{
+				guizmoOperation = ImGuizmo::TRANSLATE;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT)
+			{
+				guizmoOperation = ImGuizmo::ROTATE;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
+			{
+				guizmoOperation = ImGuizmo::SCALE;
+			}
+		}
+	}
+
+	DrawGuizmo(guizmoOperation);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -389,3 +418,68 @@ void ModuleSceneIntro::DebugDrawLine(const LineSegment line, const float4x4 & tr
 
 	glPopMatrix();
 }
+
+void ModuleSceneIntro::DrawGuizmo(ImGuizmo::OPERATION operation)
+{
+	C_Transform* transform = (C_Transform*)goSelected->GetComponent(COMPONENT_TYPE::TRANSFORM);
+
+	if (transform != nullptr)
+	{
+
+		if (operation == ImGuizmo::NO_OPERATION)
+		{
+			ImGuizmo::Enable(false);
+		}
+
+		ImVec2 cursorPos = { App->editor->game->MousePos.x , App->editor->game->MousePos.y };
+		ImVec2 windowSize = { App->editor->game->size.x,App->editor->game->size.y };
+		ImGuizmo::SetRect(cursorPos.x, cursorPos.y, windowSize.x, windowSize.y);
+
+		float4x4* ViewMatrix = (float4x4*)App->camera->editorcamera->getViewMatrix();
+		float4x4*ProjectionMatrix = (float4x4*)App->camera->editorcamera->getProjectionMatrix();
+
+		ImGuizmo::MODE mode;
+
+		float4x4 * GlobalMat = &transform->mat2float4(transform->globalMatrix);
+	
+		float3 scale = float3::one;
+		float3 pos;
+		Quat rot;
+		if (operation != ImGuizmo::OPERATION::SCALE)
+		{
+			GlobalMat->Decompose(pos, rot, scale);
+			GlobalMat->Set(float4x4::FromTRS(pos, rot, float3::one));
+		}
+		GlobalMat->Transpose();
+
+		ImGuizmo::SetOrthographic(false);
+
+		ImGuizmo::Manipulate((float*)ViewMatrix, (float*)ProjectionMatrix, operation, ImGuizmo::LOCAL, (float*)GlobalMat, NULL, NULL);
+		GlobalMat->Transpose();
+
+		if (operation != ImGuizmo::OPERATION::SCALE)
+		{
+			float3 oneScale;
+			GlobalMat->Decompose(pos, rot, oneScale);
+			GlobalMat->Set(float4x4::FromTRS(pos, rot, scale));
+		}
+
+		if (ImGuizmo::IsUsing())
+		{
+			if (App->scene_intro->goSelected->parent != nullptr)
+			{
+				transform->localMatrix = ((C_Transform*)goSelected->parent->GetComponent(COMPONENT_TYPE::TRANSFORM))->globalMatrix.inverse()*transform->globalMatrix;
+			}
+
+			float4x4 aux = transform->mat2float4(transform->localMatrix);
+
+			aux.Decompose(transform->position, transform->rotation, transform->scales);
+
+			//goSelected->RecalculateBB(); //To avoid that the BB laggs to follow object position
+			//transform->changed = true;
+
+		}
+	}
+
+}
+
