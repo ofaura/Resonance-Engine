@@ -23,14 +23,47 @@ void C_AudioSource::DrawInspector()
 	{
 		if (id != 0)
 		{
-			if (ImGui::ArrowButton("Play", ImGuiDir_Right))
-				wwiseGO->PlayEvent(id);
+			string state = "Pause";
 
-			if (ImGui::Button("||"))
-				wwiseGO->PauseEvent(id);
+			if (ImGui::ArrowButton("Play", ImGuiDir_Right))
+			{
+				wwiseGO->PlayEvent(id);
+				isPlaying = true;
+			}
+			
+			ImGui::SameLine();
+
+			if (isPlaying)
+				state = "Pause";	
+			
+			if (isPaused)
+				state = "Resume";
+			
+			if (ImGui::Button(state.c_str()))
+			{
+				if (isPlaying)
+				{
+					isPlaying = false;
+					isPaused = true;
+					wwiseGO->PauseEvent(id);
+				}
+				else if (isPaused)
+				{
+					isPlaying = true;
+					isPaused = false;
+					wwiseGO->ResumeEvent(id);
+				} 
+			}
+
+			ImGui::SameLine();
 
 			if (ImGui::Button("STOP"))
 				wwiseGO->StopEvent(id);
+
+			if (ImGui::SliderFloat("Volume", &wwiseGO->volume, 0, 10))
+			{
+				wwiseGO->SetVolume(id, wwiseGO->volume);
+			}
 		}
 	}
 }

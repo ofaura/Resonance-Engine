@@ -2,6 +2,8 @@
 
 #include "wwise.h"
 #include "Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
+#include "Game\Assets\Sounds\Wwise_IDs.h"
+#include "Application.h"
 
 #define BANKNAME_INIT "Assets/Sounds/Init.bnk"
 
@@ -152,13 +154,19 @@ void ModuleAudio::LoadSoundBank(const char * path)
 	SoundEngine::LoadBank(fullPath.c_str(), AK_DEFAULT_POOL_ID, bankID);
 }
 
-void ModuleAudio::Tests()
+void ModuleAudio::Tests(AkGameObjectID id)
 {
 	//SoundEngine::SetPanningRule(AkPanningRule_Speakers);
 	//SoundEngine::SetVolumeThreshold();
 	//SoundEngine::SetOutputVolume();
 	//SoundEngine::SetRTPCValue();
 
+	AkAuxSendValue reverb;
+	reverb.listenerID = AK_INVALID_GAME_OBJECT;
+	reverb.auxBusID = AK::AUX_BUSSES::REVERB;
+	reverb.fControlValue = 1.0f;
+
+	SoundEngine::SetGameObjectAuxSendValues(id, NULL, 0);
 }
 
 WwiseGameObject::WwiseGameObject(unsigned __int64 id, const char* name)
@@ -213,6 +221,12 @@ void WwiseGameObject::StopEvent(uint id)
 	SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Stop, this->id);
 }
 
+void WwiseGameObject::SetVolume(uint id, float volume)
+{
+	SoundEngine::SetGameObjectOutputBusVolume(this->id, AK_INVALID_GAME_OBJECT, volume);
+	this->volume = volume;
+}
+
 WwiseGameObject* WwiseGameObject::CreateAudioSource(uint id, const char * name, vec3 position)
 {
 	WwiseGameObject* go = new WwiseGameObject(id, name);
@@ -228,8 +242,18 @@ WwiseGameObject* WwiseGameObject::CreateAudioListener(uint id, const char * name
 	AkGameObjectID listenerID = go->GetID();
 	SoundEngine::SetDefaultListeners(&listenerID, 1);
 	go->SetPosition(position.x, position.y, position.z);
-
+	App->audio->currentListenerID = listenerID;
 	return go;
+}
+
+void WwiseGameObject::SetAuxSends()
+{
+	AkAuxSendValue reverb;
+	reverb.listenerID = App->audio->currentListenerID;
+	reverb.auxBusID = AUX_BUSSES::ECO;
+	reverb.fControlValue = 1.0f;
+
+	SoundEngine::SetGameObjectAuxSendValues(this->id, &reverb, 1);
 }
 
 uint WwiseGameObject::GetID()

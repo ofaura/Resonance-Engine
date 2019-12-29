@@ -24,6 +24,8 @@ public:
 
 	WwiseGameObject* wwiseGO = nullptr;
 	AkGameObjectID id = 0;
+	bool isPaused = false;
+	bool isPlaying = false;
 };
 
 #endif __C_AudioSource__H__

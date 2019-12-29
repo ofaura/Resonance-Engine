@@ -18,7 +18,7 @@ void C_Transform::DrawInspector()
 		Reset();
 
 	float3 last_position = position;
-	ImGui::DragFloat3("Translation", &position.x, 0.001f);
+	ImGui::DragFloat3("Translation", &position.x, 0.1f);
 
 	float3 last_scale = scales;
 	ImGui::DragFloat3("Scale", &scales.x, 0.001f);

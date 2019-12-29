@@ -35,6 +35,8 @@ bool ModuleSceneIntro::Start()
 	root = new GameObject("root");
 	MainCamera = new GameObject("Main Camera", root);
 	MainCamera->AddComponent(COMPONENT_TYPE::CAMERA, true);
+	C_Camera* cam = (C_Camera*)MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
+	cam->SetPlanes(1,300);
 	MainCamera->AddComponent(COMPONENT_TYPE::AUDIO_LISTENER, true);
 
 	MainCamera->component_transform->position.z = 100;
@@ -48,15 +50,18 @@ bool ModuleSceneIntro::Start()
 	C_AudioSource* musicSource = (C_AudioSource*)music->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
 	musicSource->SetID(AK::EVENTS::BACKGROUNDMUSIC);
 	musicSource->wwiseGO->PlayEvent(AK::EVENTS::BACKGROUNDMUSIC);
+	musicSource->isPlaying = true;
 
 	helicopter = App->rscr->FileReceived("Assets/FBX/Mi28.fbx");
 	helicopter->name = "helicopter";
 	helicopter->AddComponent(COMPONENT_TYPE::AUDIO_SOURCE);
 	C_AudioSource* helicopterSource = (C_AudioSource*)helicopter->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
 	helicopter->component_transform->rotation.x = -90;
-	helicopter->component_transform->position.y = 20;
+	helicopter->component_transform->rotation.z = 180;
+	helicopter->component_transform->position.y = 5;
 	helicopter->component_transform->UpdateMatrix();
 	helicopterSource->SetID(AK::EVENTS::HELICOPTER);
+	App->audio->Tests(helicopterSource->wwiseGO->GetID());
 
 	car = App->rscr->FileReceived("Assets/FBX/FordFiestaR2.fbx");
 	car->name = "car";
@@ -212,6 +217,19 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::Beige)
 	
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		helicopter->component_transform->position.z -= 1;
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		helicopter->component_transform->position.z += 1;
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		helicopter->component_transform->position.x -= 1;
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		helicopter->component_transform->position.x += 1;
+
+	helicopter->component_transform->UpdateMatrix();
+
+	C_AudioSource* musicSource = (C_AudioSource*)car->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
+	musicSource->wwiseGO->SetAuxSends();
 	//grid
 	Planes p(0, 1, 0, 0);
 	

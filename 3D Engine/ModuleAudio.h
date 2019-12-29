@@ -16,11 +16,16 @@ public:
 	void PauseEvent(uint id);
 	void ResumeEvent(uint id);
 	void StopEvent(uint id);
+	void SetVolume(uint id, float volume);
 	WwiseGameObject* CreateAudioSource(uint id, const char* name, vec3 position);
 	WwiseGameObject* CreateAudioListener(uint id, const char* name, vec3 position);
+	void SetAuxSends();
 
-private:
+public:
 	uint GetID();
+
+public:
+	float volume = 5.0f;
 
 private:
 	const char* name = nullptr;
@@ -41,6 +46,7 @@ public:
 	bool Start();
 	update_status PostUpdate(float dt);
 	bool CleanUp();
+	void Tests(AkGameObjectID id);
 
 private:
 
@@ -48,8 +54,8 @@ private:
 	void TerminateWwise();
 	void LoadSoundBank(const char* path);
 
-	void Tests();
-
+public:
+	AkGameObjectID currentListenerID;
 };
 
 #endif __ModuleAudio__H__

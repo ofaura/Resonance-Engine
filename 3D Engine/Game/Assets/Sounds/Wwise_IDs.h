@@ -31,6 +31,7 @@ namespace AK
 
     namespace AUX_BUSSES
     {
+        static const AkUniqueID ECO = 747835640U;
         static const AkUniqueID REVERB = 348963605U;
     } // namespace AUX_BUSSES
 
