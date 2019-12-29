@@ -248,12 +248,14 @@ WwiseGameObject* WwiseGameObject::CreateAudioListener(uint id, const char * name
 
 void WwiseGameObject::SetAuxSends()
 {
-	AkAuxSendValue reverb;
-	reverb.listenerID = App->audio->currentListenerID;
-	reverb.auxBusID = AUX_BUSSES::ECO;
-	reverb.fControlValue = 1.0f;
+	AkAuxSendValue reverb[1];
+	reverb[0].listenerID = AK_INVALID_GAME_OBJECT;
+	reverb[0].auxBusID = AUX_BUSSES::REVERB;
+	reverb[0].fControlValue = 1.0f;
 
-	SoundEngine::SetGameObjectAuxSendValues(this->id, &reverb, 1);
+	AKRESULT ret;
+	ret = SoundEngine::SetGameObjectAuxSendValues(id, reverb, 1);
+	assert(ret == AK_Success);
 }
 
 uint WwiseGameObject::GetID()

@@ -27,18 +27,23 @@ void C_AudioSource::DrawInspector()
 
 			if (ImGui::ArrowButton("Play", ImGuiDir_Right))
 			{
-				wwiseGO->PlayEvent(id);
-				isPlaying = true;
+				if (!isPlaying)
+				{
+					wwiseGO->PlayEvent(id);
+					isPlaying = true;
+				}
+				isPaused = false;
 			}
 			
 			ImGui::SameLine();
-
-			if (isPlaying)
-				state = "Pause";	
+	
 			
 			if (isPaused)
 				state = "Resume";
-			
+
+			else
+				state = "Pause";
+
 			if (ImGui::Button(state.c_str()))
 			{
 				if (isPlaying)
@@ -58,7 +63,11 @@ void C_AudioSource::DrawInspector()
 			ImGui::SameLine();
 
 			if (ImGui::Button("STOP"))
+			{
+				isPlaying = false;
+				isPaused = false;
 				wwiseGO->StopEvent(id);
+			}
 
 			if (ImGui::SliderFloat("Volume", &wwiseGO->volume, 0, 10))
 			{

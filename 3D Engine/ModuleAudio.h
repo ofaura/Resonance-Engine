@@ -25,7 +25,7 @@ public:
 	uint GetID();
 
 public:
-	float volume = 5.0f;
+	float volume = 1.0f;
 
 private:
 	const char* name = nullptr;
@@ -56,6 +56,8 @@ private:
 
 public:
 	AkGameObjectID currentListenerID;
+	unsigned long g_envMAP[255];
+
 };
 
 #endif __ModuleAudio__H__

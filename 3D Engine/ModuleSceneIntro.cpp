@@ -228,8 +228,8 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	helicopter->component_transform->UpdateMatrix();
 
-	C_AudioSource* musicSource = (C_AudioSource*)car->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
-	musicSource->wwiseGO->SetAuxSends();
+	//C_AudioSource* musicSource = (C_AudioSource*)music->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
+	//musicSource->wwiseGO->SetAuxSends();
 	//grid
 	Planes p(0, 1, 0, 0);
 	
