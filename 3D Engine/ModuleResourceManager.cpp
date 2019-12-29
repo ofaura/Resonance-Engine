@@ -419,7 +419,7 @@ void ModuleResourceManager::LoadMesh(C_Mesh * mesh, aiMesh* currentMesh)
 	string path = LIBRARY_MESH_FOLDER + newName + ".mesh";;
 	ImportMesh(path.c_str(), mesh);
 
-	data.CleanUp();
+	//data.CleanUp();
 }
 
 void ModuleResourceManager::LoadMesh(const char * path, C_Mesh * mesh)

@@ -25,6 +25,11 @@ void Game::Draw()
 	{
 		pos = float2(ImGui::GetCursorPosX() + ImGui::GetWindowPos().x, ImGui::GetCursorPosY() + ImGui::GetWindowPos().y);
 
+		posmin.x = ImGui::GetWindowPos().x;
+		posmin.y = ImGui::GetWindowPos().y;
+		posmax.x = ImGui::GetWindowWidth();
+		posmax.y = ImGui::GetWindowHeight();
+
 		if (ImGui::Checkbox("Wireframe", &wireframe))
 			App->renderer3D->EnableWireframeMode(wireframe);
 		ImGui::SameLine();
@@ -182,12 +187,7 @@ const ImVec2 Game::GetMouse() const
 }
 
 bool Game::isMouseOnScene() const {
-	ImVec2 posmin;
-	posmin.x = ImGui::GetWindowPos().x;
-	posmin.y = ImGui::GetWindowPos().y;
-	ImVec2 posmax;
-	posmax.x = ImGui::GetWindowWidth();
-	posmax.y = ImGui::GetWindowHeight();
+
 	bool ret = ImGui::IsMouseHoveringRect(posmin,posmax);
-	return ret;
+	return true;
 }

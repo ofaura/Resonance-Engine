@@ -214,8 +214,7 @@ update_status ModuleSceneIntro::Update(float dt)
 		std::vector<GameObject*> objects;
 
 		rootTree->Intersect(objects, App->camera->editorcamera->frustum);
-		/*uuidList.sort();
-		uuidList.unique();*/
+
 
 		for (auto it : objects) {
 			
@@ -226,7 +225,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	}
 
 
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && App->editor->game->isMouseOnScene() /*&& !ImGuizmo::IsOver()*/)
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && App->editor->game->isMouseOnScene())
 		MousePicking();
 
 	return UPDATE_CONTINUE;

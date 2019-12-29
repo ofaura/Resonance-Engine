@@ -318,8 +318,11 @@ void GameObject::RayHits(const LineSegment & segment, bool & hit, float & dist) 
 
 	if (Globalbbox.IsFinite()) {
 		if (segment.Intersects(Globalbbox)) {
-			if (c_mesh != nullptr) {
-				if (c_mesh->meshData.vertices == nullptr)
+			C_Mesh* auxmesh = (C_Mesh*)GetComponent(COMPONENT_TYPE::MESH);
+			if (auxmesh != nullptr) {
+				if (auxmesh->meshData.vertices == nullptr)
+					return;
+				if (auxmesh->meshData.indices == nullptr)
 					return;
 				//Segment for the mesh
 				LineSegment localRay(segment);
@@ -328,11 +331,11 @@ void GameObject::RayHits(const LineSegment & segment, bool & hit, float & dist) 
 				auxGlobMat.Inverse();
 				localRay.Transform(auxGlobMat);
 
-				uint* indices = c_mesh->meshData.indices;
-				float3* vertices = c_mesh->meshData.vertices;
+				uint* indices = auxmesh->meshData.indices;
+				float3* vertices = auxmesh->meshData.vertices;
 				Triangle triangle;
 
-				for (int i = 0; i < c_mesh->meshData.n_indices;) {
+				for (int i = 0; i < auxmesh->meshData.n_indices;) {
 					triangle.a = vertices[indices[i]]; ++i;
 					triangle.b = vertices[indices[i]]; ++i;
 					triangle.c = vertices[indices[i]]; ++i;
@@ -353,10 +356,3 @@ void GameObject::RayHits(const LineSegment & segment, bool & hit, float & dist) 
 		}
 	}
 }
-
-//float4x4 GameObject::mat2float4(mat4x4 mat)
-//{
-//	float4x4 f_mat;
-//	f_mat.Set(mat.M);
-//	return f_mat.Transposed();
-//}

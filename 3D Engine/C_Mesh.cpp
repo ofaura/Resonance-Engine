@@ -52,7 +52,7 @@ void C_Mesh::PostUpdate()
 	static Frustum* frust = &auxcam->frustum;
 	if (Intersect(*frust, parent->Globalbbox))
 	{*/
-		/*if(parent->HasToRender)*/
+		if(parent->HasToRender)
 			Render();
 	/*}*/
 }

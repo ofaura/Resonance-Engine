@@ -82,7 +82,7 @@ public:
 	AABB Globalbbox;
 	OBB obb;
 
-	bool HasToRender = false;
+	bool HasToRender = true;
 
 };
 

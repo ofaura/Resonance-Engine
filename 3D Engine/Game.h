@@ -43,6 +43,7 @@ public:
 	float GameTime = 0.0f;
 	bool step = false;
 	float2 pos;
+	ImVec2 posmin, posmax;
 };
 
 #endif __Game__H__
