@@ -47,14 +47,12 @@ void C_Mesh::PostUpdate()
 {		
 	BROFILER_CATEGORY("Mesh PostUpdate", Profiler::Color::Orchid)
 		
-	/*auxcam = (C_Camera*)App->scene_intro->MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
+	auxcam = (C_Camera*)App->scene_intro->MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
 
 	static Frustum* frust = &auxcam->frustum;
 	if (Intersect(*frust, parent->Globalbbox))
-	{*/
-		if(parent->HasToRender)
 			Render();
-	/*}*/
+	
 }
 
 void C_Mesh::CleanUp()

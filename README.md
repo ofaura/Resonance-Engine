@@ -6,6 +6,8 @@ The engine helps it's users create games in a simple way-
 
 - [GitHub repository]( https://github.com/ofaura/Resonance-Engine )
 
+- [Web]( https://rafelbrau03.wixsite.com/resonancengine )
+
 # Devoloped by:
 
 [@Oscar Faura]( https://github.com/ofaura )
@@ -16,6 +18,9 @@ The engine helps it's users create games in a simple way-
 
 # Game engine instructions:
 
+## Audio
+  - The game object "helicopter" is dynamic and can be moved with the arrows.
+  - In all audio sources you can control the volume. And there are buttons for Playing, Pausing/Resuming and Stopping the audio.
 ## File:
   - Quit: to quit the application
   - Open FBX : To Open any of the 3 fbx we have as samples.
