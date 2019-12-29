@@ -9,6 +9,7 @@
 #include "ModuleResourceManager.h"
 #include "ModuleFileSystem.h"
 #include "ModuleSceneManager.h"
+#include "ModuleAudio.h"
 
 #include "mmgr/mmgr.h"
 
@@ -26,6 +27,7 @@ Application::Application()
 	rscr = new ModuleResourceManager();
 	fileSystem = new ModuleFileSystem();
 	scene = new ModuleSceneManager();
+	audio = new ModuleAudio();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -37,6 +39,7 @@ Application::Application()
 	AddModule(input);	
 	AddModule(editor);
 	AddModule(fileSystem);
+	AddModule(audio);
 	AddModule(scene);
 	AddModule(rscr);
 

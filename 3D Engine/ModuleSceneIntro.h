@@ -30,7 +30,7 @@ public:
 	
 	Objects3D* CreateObject3D(SHAPE_TYPE type, vec3 &position, vec3 &size, float color[4]);
 	
-	GameObject*  AddGameObject(const char* name);
+	GameObject*  CreateGameObject(const char* name);
 	void SetParent(GameObject* newParent, GameObject* Child);
 
 	string& SetAvailableName(string name);
@@ -64,12 +64,17 @@ public:
 
 	bool ShowQuadtree = true;
 
-
 	std::vector<GameObject*> allGO;
 
 	bool TreeNeedsUpdate = false;
 
 	LineSegment line;
+
+public:
+
+	GameObject* music = nullptr;
+	GameObject* car = nullptr;
+	GameObject* helicopter = nullptr;
 };
 
 	

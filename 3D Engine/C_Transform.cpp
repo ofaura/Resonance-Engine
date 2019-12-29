@@ -19,7 +19,7 @@ void C_Transform::DrawInspector()
 		Reset();
 
 	float3 last_position = position;
-	ImGui::DragFloat3("Translation", &position.x, 0.001f);
+	ImGui::DragFloat3("Translation", &position.x, 0.1f);
 
 	float3 last_scale = scales;
 	ImGui::DragFloat3("Scale", &scales.x, 0.001f);
@@ -78,6 +78,7 @@ void C_Transform::Reset()
 	position = float3::zero;
 	rotation = Quat::identity;
 
+	UpdateMatrix();
 
 	for (int i = 0; i < parent->children.size(); ++i) {
 		parent->children[i]->component_transform->UpdateMatrix();

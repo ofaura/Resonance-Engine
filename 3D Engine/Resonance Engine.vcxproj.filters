@@ -132,6 +132,30 @@
     <ClCompile Include="SpacePartitioning.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleAudio.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="wwise.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\SDK\include\AkDefaultIOHookBlocking.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Common\AkFileLocationBase.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Common\AkFilePackage.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\IO\Common\AkFilePackageLUT.cpp">
+      <Filter>Sources\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="C_AudioSource.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="C_AudioListener.cpp">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -286,6 +310,18 @@
     <ClInclude Include="SpacePartitioning.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleAudio.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="wwise.h">
+      <Filter>Sources\Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="C_AudioSource.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="C_AudioListener.h">
+      <Filter>Sources\Tools\Game Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -329,6 +365,9 @@
     </Filter>
     <Filter Include="Sources\Tools\Game Objects">
       <UniqueIdentifier>{53e5e7e7-2353-4f5b-ae82-bbb63d71d095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Wwise">
+      <UniqueIdentifier>{243eceed-4c20-40a8-91cf-153107ed5b64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -76,8 +76,9 @@ bool ModuleResourceManager::CleanUp()
 	return true;
 }
 
-bool ModuleResourceManager::FileReceived(string path)
+GameObject* ModuleResourceManager::FileReceived(string path)
 {
+	GameObject* ret = nullptr;
 	string extension;
 	string name;
 	App->fileSystem->SplitFilePath(path.c_str(), nullptr, &name, &extension);
@@ -85,11 +86,11 @@ bool ModuleResourceManager::FileReceived(string path)
 	const aiScene* scene = aiImportFile(path.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (CheckMeshExtension(extension.c_str()))
-		App->scene_intro->root->children.push_back(LoadFilesFBX(scene->mRootNode, scene, &path, App->scene_intro->root));
+		App->scene_intro->root->children.push_back(ret = LoadFilesFBX(scene->mRootNode, scene, &path, App->scene_intro->root));
 
 	aiReleaseImport(scene);
 
-	return true;
+	return ret;
 }
 
 GameObject* ModuleResourceManager::LoadFilesFBX(aiNode* node, const aiScene* scene, string* path, GameObject* parent)
