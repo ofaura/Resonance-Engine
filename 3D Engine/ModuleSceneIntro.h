@@ -10,11 +10,11 @@
 #include "MathGeoLib/include/MathGeoLib.h"
 #include "glmath.h"
 #include "C_Mesh.h"
-#include "Quadtree.h"
 
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+class SpacePartitioning;
 class Objects3D;
 class GameObject;
 class ModuleSceneIntro : public Module
@@ -35,7 +35,14 @@ public:
 
 	string& SetAvailableName(string name);
 
-	void UpdateQuadtree();
+	void GetAllGO(GameObject * go);
+	void AddGOToTree(GameObject * go);
+	void SetTreeSize(GameObject* go);
+	void SetQuadTree();
+	bool ContainsBox(const AABB& refBox) const;
+	void MousePicking();
+	void DebugDrawLine(const LineSegment line, const float4x4 & transform = float4x4::identity, Color color = White, float lineWidth = 1.5f);
+
 
 public:
 
@@ -51,12 +58,18 @@ public:
 
 	C_Mesh* mesh;
 	GameObject* MainCamera;
-	//Quadtree* objectTree;
+	SpacePartitioning* rootTree = nullptr;
 
 	bool ShowBoundingBoxes = false;
 
 	bool ShowQuadtree = true;
 
+
+	std::vector<GameObject*> allGO;
+
+	bool TreeNeedsUpdate = false;
+
+	LineSegment line;
 };
 
 	

@@ -23,6 +23,13 @@ void Game::Draw()
 	
 	if (ImGui::Begin("Game", &active))
 	{
+		pos = float2(ImGui::GetCursorPosX() + ImGui::GetWindowPos().x, ImGui::GetCursorPosY() + ImGui::GetWindowPos().y);
+
+		posmin.x = ImGui::GetWindowPos().x;
+		posmin.y = ImGui::GetWindowPos().y;
+		posmax.x = ImGui::GetWindowWidth();
+		posmax.y = ImGui::GetWindowHeight();
+
 		if (ImGui::Checkbox("Wireframe", &wireframe))
 			App->renderer3D->EnableWireframeMode(wireframe);
 		ImGui::SameLine();
@@ -161,4 +168,26 @@ void Game::CleanUp()
 const ImVec4 Game::GetWindowRect()
 {
 	return ImVec4(position.x, position.y, size.y, size.x);
+}
+
+const ImVec2 Game::GetMouse() const
+{
+	ImVec2 mousePos = ImGui::GetMousePos();
+
+	ImVec2 realMousePos = ImVec2(mousePos.x - pos.x, mousePos.y - pos.y);
+	ImVec2 mouseNormalized;
+
+	mouseNormalized.x = realMousePos.x / size.x;
+	mouseNormalized.y = realMousePos.y / size.y;
+
+	mouseNormalized.x = (mouseNormalized.x - 0.5) * 2;
+	mouseNormalized.y = (mouseNormalized.y - 0.5) * -2;
+
+	return mouseNormalized;
+}
+
+bool Game::isMouseOnScene() const {
+
+	bool ret = ImGui::IsMouseHoveringRect(posmin,posmax);
+	return true;
 }

@@ -1,6 +1,7 @@
 #include "C_Transform.h"
 #include "GameObject.h"
 #include "C_Camera.h"
+#include "Application.h"
 #include "ModuleSceneIntro.h"
 
 #include "mmgr/mmgr.h"
@@ -66,8 +67,8 @@ void C_Transform::UpdateMatrix()
 
 	parent->Updatebbox();
 	parent->UpdateChilds();
+	App->scene_intro->TreeNeedsUpdate = true;
 
-	App->scene_intro->UpdateQuadtree();
 
 }
 

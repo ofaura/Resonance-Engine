@@ -3,6 +3,8 @@
 
 #include "EditorManager.h"
 #include <float.h>
+#include "MathGeoLib/include/MathGeoLib.h"
+#include <math.h>
 
 class FBO;
 
@@ -18,6 +20,8 @@ public:
 	void Draw();
 	void CleanUp();
 	const ImVec4 GetWindowRect();
+	const ImVec2 GetMouse() const;
+	bool Game::isMouseOnScene() const;
 
 private:
 	bool	wireframe = false;
@@ -38,6 +42,8 @@ public:
 public:
 	float GameTime = 0.0f;
 	bool step = false;
+	float2 pos;
+	ImVec2 posmin, posmax;
 };
 
 #endif __Game__H__
