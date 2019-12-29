@@ -11,7 +11,7 @@
 #include <list>
 #include <vector>
 
-constexpr auto MAX_ELEMS = 1;
+constexpr auto MAX_ELEMS = 5;
 constexpr auto MAX_SUBDIVISIONS = 10;
 
 class GameObject;

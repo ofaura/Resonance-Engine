@@ -31,7 +31,8 @@ void C_Transform::DrawInspector()
 			last_rotation.x != rotation.x || last_rotation.y != rotation.y || last_rotation.z != rotation.z || 
 			last_scale.x != scales.x || last_scale.y != scales.y || last_scale.z != scales.z)
 		{ 
-			UpdateMatrix(); 
+			UpdateMatrix();
+			App->scene_intro->TreeNeedsUpdate = true;
 		}
 
 }
@@ -67,7 +68,6 @@ void C_Transform::UpdateMatrix()
 
 	parent->Updatebbox();
 	parent->UpdateChilds();
-	App->scene_intro->TreeNeedsUpdate = true;
 
 
 }

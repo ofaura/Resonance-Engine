@@ -294,7 +294,7 @@ void ModuleSceneIntro::SetQuadTree()
 		SetTreeSize(it);
 	}
 	for (auto j : allGO) {
-		//AddGOToTree(j);
+		AddGOToTree(j);
 	}
 }
 
@@ -363,8 +363,6 @@ void ModuleSceneIntro::MousePicking()
 
 			if (closest != nullptr)
 			{
-				/*DeselectAll();
-				ShowGameObjectInspector(closest);*/
 				goSelected = closest;
 			}
 		}

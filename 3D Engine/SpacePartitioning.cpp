@@ -60,10 +60,13 @@ void SpacePartitioning::Insert(GameObject * gameobject) {
 				if (TreeChilds.empty())
 					Subdivide();
 
-				for (auto gobjsIt : gameobjects)
+				for (auto childsIt : TreeChilds)
 				{
-					for (auto childsIt : TreeChilds)
+
+					for (auto gobjsIt : gameobjects)
+					{
 						childsIt->Insert(gobjsIt);
+					}
 				}
 
 				gameobjects.clear();
