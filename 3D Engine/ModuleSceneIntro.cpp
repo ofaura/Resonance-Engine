@@ -54,7 +54,7 @@ bool ModuleSceneIntro::Start()
 	musicSource->isPlaying = true;
 
 	helicopter = App->rscr->FileReceived("Assets/FBX/Mi28.fbx");
-	helicopter->name = "helicopter";
+	helicopter->name = "helicopter (dynamic)";
 	helicopter->AddComponent(COMPONENT_TYPE::AUDIO_SOURCE);
 	C_AudioSource* helicopterSource = (C_AudioSource*)helicopter->GetComponent(COMPONENT_TYPE::AUDIO_SOURCE);
 	helicopter->component_transform->rotation.x = -90;
