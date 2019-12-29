@@ -54,6 +54,8 @@ public:
 
 	void SetLocalAABB(AABB aabb);
 
+	void RayHits(const LineSegment& segment, bool& hit, float& dist);
+
 	void Load(const char* gameObject, const json &file);
 	void Save(const char* gameObject, json &file);
 
@@ -79,6 +81,8 @@ public:
 	AABB Localbbox;
 	AABB Globalbbox;
 	OBB obb;
+
+	bool HasToRender = false;
 
 };
 

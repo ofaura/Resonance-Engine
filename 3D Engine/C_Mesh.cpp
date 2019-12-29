@@ -11,7 +11,6 @@
 #include "ModuleSceneIntro.h"
 #include "C_Camera.h"
 #include "Component.h"
-#include "Quadtree.h"
 #include "ModuleCamera3D.h"
 
 #include "Brofiler/Brofiler.h"
@@ -48,13 +47,14 @@ void C_Mesh::PostUpdate()
 {		
 	BROFILER_CATEGORY("Mesh PostUpdate", Profiler::Color::Orchid)
 		
-	auxcam = (C_Camera*)App->scene_intro->MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
+	/*auxcam = (C_Camera*)App->scene_intro->MainCamera->GetComponent(COMPONENT_TYPE::CAMERA);
 
 	static Frustum* frust = &auxcam->frustum;
 	if (Intersect(*frust, parent->Globalbbox))
-	{
-		Render();
-	}
+	{*/
+		/*if(parent->HasToRender)*/
+			Render();
+	/*}*/
 }
 
 void C_Mesh::CleanUp()

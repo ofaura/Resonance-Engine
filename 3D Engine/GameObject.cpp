@@ -70,7 +70,6 @@ void GameObject::Update()
 	}
 
 	Updatebbox();
-	App->scene_intro->UpdateQuadtree();
 }
 
 void GameObject::PostUpdate()
@@ -313,3 +312,51 @@ void GameObject::SetLocalAABB(AABB aabb)
 }
 
 
+void GameObject::RayHits(const LineSegment & segment, bool & hit, float & dist) {
+	hit = false;
+	dist = 99999999999.f;
+
+	if (Globalbbox.IsFinite()) {
+		if (segment.Intersects(Globalbbox)) {
+			if (c_mesh != nullptr) {
+				if (c_mesh->meshData.vertices == nullptr)
+					return;
+				//Segment for the mesh
+				LineSegment localRay(segment);
+				float4x4 auxGlobMat;
+				auxGlobMat = mat2float4(component_transform->globalMatrix);
+				auxGlobMat.Inverse();
+				localRay.Transform(auxGlobMat);
+
+				uint* indices = c_mesh->meshData.indices;
+				float3* vertices = c_mesh->meshData.vertices;
+				Triangle triangle;
+
+				for (int i = 0; i < c_mesh->meshData.n_indices;) {
+					triangle.a = vertices[indices[i]]; ++i;
+					triangle.b = vertices[indices[i]]; ++i;
+					triangle.c = vertices[indices[i]]; ++i;
+
+					float distance;
+					float3 hitPoint;
+
+					if (localRay.Intersects(triangle, &distance, &hitPoint))
+					{
+						if (distance < dist)
+						{
+							dist = distance;
+							hit = true;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+//float4x4 GameObject::mat2float4(mat4x4 mat)
+//{
+//	float4x4 f_mat;
+//	f_mat.Set(mat.M);
+//	return f_mat.Transposed();
+//}

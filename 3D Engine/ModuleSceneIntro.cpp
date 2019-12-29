@@ -11,6 +11,9 @@
 #include "C_Mesh.h"
 #include "C_Texture.h"
 #include "ModuleSceneManager.h"
+#include "SpacePartitioning.h"
+#include "ModuleCamera3D.h"
+#include "Game.h"
 
 #include "mmgr/mmgr.h"
 
@@ -39,9 +42,11 @@ bool ModuleSceneIntro::Start()
 
 	App->rscr->FileReceived("Assets\\FBX\\Street environment_V01.FBX");
 
-	//objectTree = new Quadtree( AABB({ -1000,-50,-1000 }, { 1000,50,1000 }), 1);
 
-	//UpdateQuadtree();
+	//initialize The space partition from root tree
+	AABB rootAABB;
+	rootAABB.SetNegativeInfinity();
+	rootTree = new SpacePartitioning(rootAABB, 0);
 
 	return ret;
 }
@@ -55,7 +60,8 @@ bool ModuleSceneIntro::CleanUp()
 
 	root->CleanUp();
 
-	//objectTree->base->Clear();
+	rootTree->Clear();
+	RELEASE(rootTree);
 
 	return true;
 }
@@ -203,8 +209,25 @@ update_status ModuleSceneIntro::Update(float dt)
 		}
 	}
 
-	/*if(ShowQuadtree)
-		objectTree->base->Draw();*/
+
+	if (rootTree->TreeBox.IsFinite()) {
+		std::vector<GameObject*> objects;
+
+		rootTree->Intersect(objects, App->camera->editorcamera->frustum);
+		/*uuidList.sort();
+		uuidList.unique();*/
+
+		for (auto it : objects) {
+			
+			if (it->GetComponent(COMPONENT_TYPE::MESH) != nullptr) {
+				it->HasToRender = ContainsBox(it->Globalbbox);
+			}
+		}
+	}
+
+
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && App->editor->game->isMouseOnScene() /*&& !ImGuizmo::IsOver()*/)
+		MousePicking();
 
 	return UPDATE_CONTINUE;
 }
@@ -215,14 +238,155 @@ update_status ModuleSceneIntro::PostUpdate(float dt)
 
 	root->PostUpdate();
 
+	if (TreeNeedsUpdate) {
+		SetQuadTree();
+		TreeNeedsUpdate = false;
+	}
+
+	DebugDrawLine(line);
+
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::UpdateQuadtree()
-{
 
-	//for (int i = 0; i < root->children.size(); ++i)
-	//{	
-	//	objectTree->base->Insert(root->children[i]);
-	//}
+void ModuleSceneIntro::GetAllGO(GameObject * go)
+{
+	if (go != root)
+		allGO.push_back(go);
+	else if (go == root)
+		allGO.clear();
+	for (auto it : go->children) {
+		GetAllGO(it);
+	}
+}
+
+void ModuleSceneIntro::AddGOToTree(GameObject * go)
+{
+	if (go == nullptr)
+		return;
+
+	if (go->GetComponent(COMPONENT_TYPE::MESH) != nullptr) {
+		rootTree->Insert(go);
+	}
+	for (auto it : go->children)
+		AddGOToTree(it);
+}
+
+void ModuleSceneIntro::SetTreeSize(GameObject* go) {
+	if (go == nullptr)
+		return;
+	if (go->GetComponent(COMPONENT_TYPE::MESH) != nullptr)
+	{
+		rootTree->TreeBox.Enclose(go->Globalbbox);
+		for (auto it : go->children)
+		{
+			SetTreeSize(it);
+		}
+	}
+}
+
+void ModuleSceneIntro::SetQuadTree()
+{
+	allGO.clear();
+	rootTree->Clear();
+	GetAllGO(root);
+
+	for (auto it : allGO) {
+		SetTreeSize(it);
+	}
+	for (auto j : allGO) {
+		//AddGOToTree(j);
+	}
+}
+
+bool ModuleSceneIntro::ContainsBox(const AABB& refBox) const
+{
+	float3 vCorner[8];
+	int iTotalIn = 0;
+	refBox.GetCornerPoints(vCorner); // get the corners of the box into the vCorner array
+
+	// test all 8 corners against the 6 sides
+	// if all points are behind 1 specific plane, we are out
+	// if we are in with all points, then we are fully in
+	for (int p = 0; p < 6; ++p) {
+		int iInCount = 8;
+		int iPtIn = 1;
+		for (int i = 0; i < 8; ++i) {
+			// test this point against the planes
+
+			if (App->camera->editorcamera->frustum.GetPlane(p).IsOnPositiveSide(vCorner[i]))
+			{
+				iPtIn = 0;
+				--iInCount;
+			}
+		}
+		if (iInCount == 0)
+			return false;
+		// check if they were all on the right side of the plane
+		iTotalIn += iPtIn;
+	}
+
+	return true;
+}
+
+void ModuleSceneIntro::MousePicking()
+{
+	ImVec2 normalized = App->editor->game->GetMouse();
+
+	if (normalized.x > -1 && normalized.x < 1) {
+		if (normalized.y > -1 && normalized.y < 1) {
+
+
+			LineSegment ray;
+
+				ray = App->camera->editorcamera->frustum.UnProjectLineSegment(normalized.x, normalized.y);
+
+			GetAllGO(root);
+			float distance = 9 * 10 ^ 10;
+			GameObject* closest = nullptr;
+			//drawRay = true;
+			line = ray;
+			for (auto it : allGO)
+			{
+				bool hit;
+				float dist;
+				it->RayHits(ray, hit, dist);
+
+				if (hit)
+				{
+					if (dist < distance)
+					{
+						distance = dist;
+						closest = it;
+					}
+				}
+			}
+
+			if (closest != nullptr)
+			{
+				/*DeselectAll();
+				ShowGameObjectInspector(closest);*/
+				goSelected = closest;
+			}
+		}
+	}
+}
+
+void ModuleSceneIntro::DebugDrawLine(const LineSegment line, const float4x4 & transform, Color color, float lineWidth) {
+	glColor3f(color.r, color.g, color.b);
+	glLineWidth(lineWidth);
+
+	glPushMatrix();
+	glMultMatrixf((GLfloat*)transform.Transposed().ptr());
+
+	glBegin(GL_LINES);
+
+	glVertex3fv((GLfloat*)&line.a);
+	glVertex3fv((GLfloat*)&line.b);
+
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glLineWidth(1.0f);
+	glEnd();
+
+	glPopMatrix();
 }
